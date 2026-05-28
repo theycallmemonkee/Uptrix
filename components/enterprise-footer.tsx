@@ -170,7 +170,7 @@ export function EnterpriseFooter() {
             <motion.div variants={child} className="max-w-md" style={mounted ? { x: leftX } : undefined}>
               <Link href="/" className="inline-flex items-center">
                 <Image
-                  src="/uptrix.png"
+                  src="/Uptrix.png"
                   alt="Uptrix Technologies"
                   width={180}
                   height={50}

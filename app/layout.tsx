@@ -35,6 +35,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  icons: {
+    icon: "/Uptrix.png",
+    shortcut: "/Uptrix.png",
+    apple: "/Uptrix.png",
+  },
 };
 
 export default function RootLayout({

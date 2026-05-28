@@ -50,7 +50,7 @@ export function LoadingScreen() {
             transition={{ duration: 0.7, ease: EASE }}
           >
             <Image
-              src="/uptrix.png"
+              src="/Uptrix.png"
               alt="Uptrix Technologies"
               width={200}
               height={55}

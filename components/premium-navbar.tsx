@@ -92,7 +92,7 @@ export function PremiumNavbar() {
 
           <Link href="/" className="group relative inline-flex items-center pr-2">
             <Image
-              src="/uptrix.png"
+              src="/Uptrix.png"
               alt="Uptrix Technologies"
               width={176}
               height={48}
