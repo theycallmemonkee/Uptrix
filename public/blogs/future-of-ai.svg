@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1F3A" />
+      <stop offset="1" stop-color="#061226" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 180) rotate(35) scale(520 340)">
+      <stop stop-color="#0066FF" stop-opacity=".42" />
+      <stop offset="1" stop-color="#0066FF" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1200 250) rotate(140) scale(460 300)">
+      <stop stop-color="#9FC5FF" stop-opacity=".24" />
+      <stop offset="1" stop-color="#9FC5FF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <rect width="1600" height="900" fill="url(#glow1)" />
+  <rect width="1600" height="900" fill="url(#glow2)" />
+  <rect x="170" y="150" width="1260" height="600" rx="32" fill="#0C2C57" fill-opacity=".5" stroke="#8BB8FF" stroke-opacity=".35" />
+  <path d="M230 250h420M230 310h320M230 360h360" stroke="#DDEBFF" stroke-opacity=".25" stroke-width="16" stroke-linecap="round" />
+  <path d="M840 560l110-120 86 78 150-170 130 122" stroke="#7FB2FF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="840" cy="560" r="12" fill="#DCEBFF" />
+  <circle cx="950" cy="440" r="12" fill="#DCEBFF" />
+  <circle cx="1036" cy="518" r="12" fill="#DCEBFF" />
+  <circle cx="1186" cy="348" r="12" fill="#DCEBFF" />
+  <circle cx="1316" cy="470" r="12" fill="#DCEBFF" />
+  <text x="230" y="530" fill="#E8F2FF" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="700">Future of AI</text>
+</svg>
