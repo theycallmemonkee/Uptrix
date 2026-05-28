@@ -14,6 +14,8 @@ import { ArrowUpRight, PhoneCall } from "lucide-react";
 import { useMemo, useRef, useSyncExternalStore } from "react";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 const FAQS: PremiumAccordionItem[] = [
   {
     id: "services",
@@ -160,7 +162,7 @@ export function PremiumFaqSection() {
               <motion.div
                 className="pointer-events-none absolute -inset-[1px] opacity-55"
                 animate={{ opacity: [0.35, 0.62, 0.35] }}
-                transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                 style={{
                   background:
                     "linear-gradient(120deg, rgba(0,102,255,0.22), rgba(255,255,255,0.05), rgba(0,102,255,0.2))",
@@ -232,7 +234,7 @@ export function PremiumFaqSection() {
             <motion.div
               className="pointer-events-none absolute -right-6 -bottom-8 h-40 w-40 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.35),transparent_62%)] blur-2xl"
               animate={{ opacity: [0.35, 0.75, 0.35], scale: [1, 1.1, 1] }}
-              transition={{ duration: 5.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{ duration: 5.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             />
           </motion.div>
         </div>

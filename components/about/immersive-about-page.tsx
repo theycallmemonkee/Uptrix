@@ -9,6 +9,8 @@ import { ScrollReveal, SplitTextReveal } from "@/components/ui/motion-components
 import { MarqueeLogos } from "@/components/ui/client-logo-strip";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE_LINEAR = [0, 0, 1, 1] as const;
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 const STATS = [
   { label: "Returning Clients",    value: 99,  suffix: "%", icon: Users },
@@ -41,7 +43,7 @@ function CountCard({ value, suffix, label, icon: Icon }: { value: number; suffix
     if (!inView) return;
     const controls = animate(0, value, {
       duration: 1.6,
-      ease: "easeOut",
+      ease: EASE_OUT,
       onUpdate: (latest) => setCount(Math.round(latest)),
     });
     return () => controls.stop();
@@ -103,7 +105,7 @@ function TimelineItem({ year, title, desc, index }: { year: string; title: strin
         <motion.div
           className="h-3 w-3 rounded-full bg-[#0066FF] shadow-[0_0_20px_rgba(0,102,255,0.6)]"
           animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: EASE, delay: index * 0.3 }}
         />
         <div className="absolute h-full w-px bg-gradient-to-b from-white/5 via-[#0066FF]/40 to-white/5" />
       </div>
@@ -168,7 +170,7 @@ export function ImmersiveAboutPage() {
                 <motion.span
                   className="inline-block bg-gradient-to-r from-[#E6F1FF] via-[#70A8FF] to-[#E6F1FF] bg-[length:200%_100%] bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 5, repeat: Infinity, ease: EASE_LINEAR }}
                 >
                   Us
                 </motion.span>
@@ -291,7 +293,7 @@ export function ImmersiveAboutPage() {
                 <motion.div
                   className="pointer-events-none absolute -inset-[1px] rounded-[2rem] opacity-40"
                   animate={{ opacity: [0.22, 0.44, 0.22] }}
-                  transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 4.8, repeat: Infinity, ease: EASE }}
                   style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.04), rgba(0,102,255,0.18))" }}
                 />
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 bg-[radial-gradient(circle_at_25%_15%,rgba(0,102,255,0.18),transparent_56%)]" />

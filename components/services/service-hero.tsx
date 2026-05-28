@@ -7,6 +7,8 @@ import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import type { ServiceConfig } from "@/data/services";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 type Props = {
   service: ServiceConfig;
 };
@@ -34,7 +36,7 @@ export function ServiceHero({ service }: Props) {
       <motion.div
         className="pointer-events-none absolute -top-24 right-[-10rem] -z-10 h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.32),transparent_68%)] blur-3xl"
         animate={{ y: [0, 20, 0], opacity: [0.45, 0.72, 0.45] }}
-        transition={{ duration: 7.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        transition={{ duration: 7.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
       />
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.045] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]">
         <div className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:70px_70px]" />
@@ -95,13 +97,13 @@ export function ServiceHero({ service }: Props) {
           <motion.div
             className="absolute -top-8 right-10 h-44 w-44 rounded-full bg-[radial-gradient(circle_at_center,rgba(130,178,255,0.45),transparent_65%)] blur-3xl"
             animate={{ y: [0, -10, 0], opacity: [0.42, 0.72, 0.42] }}
-            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           />
 
           <motion.div
             className="absolute top-8 right-0 w-[78%] overflow-hidden rounded-3xl border border-white/14 shadow-[0_24px_70px_rgba(3,11,28,0.52)]"
             animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 5.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             <div className="relative aspect-[16/10]">
               <Image
@@ -118,7 +120,7 @@ export function ServiceHero({ service }: Props) {
           <motion.div
             className="absolute bottom-8 left-0 w-[58%] overflow-hidden rounded-2xl border border-[#9DC6FF]/28 bg-[#0B2E5A]/72 shadow-[0_20px_56px_rgba(0,102,255,0.24)] backdrop-blur-md"
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             <div className="relative aspect-[4/3]">
               <Image
@@ -138,7 +140,7 @@ export function ServiceHero({ service }: Props) {
           <motion.div
             className="absolute -bottom-5 right-8 w-[44%] overflow-hidden rounded-2xl border border-white/12"
             animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 6.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 6.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             <div className="relative aspect-[1/1]">
               <Image

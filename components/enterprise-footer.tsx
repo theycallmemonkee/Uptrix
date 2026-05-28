@@ -13,6 +13,8 @@ import {
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
@@ -122,12 +124,12 @@ export function EnterpriseFooter() {
       <motion.div
         className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[26rem] w-[70rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.22),transparent_62%)] blur-3xl"
         animate={{ opacity: [0.12, 0.22, 0.12], scale: [1, 1.04, 1] }}
-        transition={{ duration: 7.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        transition={{ duration: 7.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
       />
       <motion.div
         className="pointer-events-none absolute -bottom-28 -left-24 -z-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.10),transparent_65%)] blur-3xl"
         animate={{ opacity: [0.05, 0.1, 0.05], x: [0, 24, 0], y: [0, -8, 0] }}
-        transition={{ duration: 10.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        transition={{ duration: 10.5, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
       />
 
       <div className="pointer-events-none absolute inset-0 -z-20 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_52%,transparent_90%)]">
@@ -154,7 +156,7 @@ export function EnterpriseFooter() {
           <motion.div
             className="pointer-events-none absolute -inset-[1px] opacity-40"
             animate={{ opacity: [0.26, 0.42, 0.26] }}
-            transition={{ duration: 5.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 5.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             style={{
               background:
                 "linear-gradient(120deg, rgba(0,102,255,0.18), rgba(255,255,255,0.04), rgba(0,102,255,0.16))",
@@ -251,14 +253,14 @@ export function EnterpriseFooter() {
                   <motion.span
                     className="pointer-events-none absolute -inset-10 -z-10 opacity-0"
                     animate={{ opacity: [0, 0.9, 0] }}
-                    transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                    transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                     style={mounted ? { background: ctaGlow } : undefined}
                   />
                   <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_15%,rgba(255,255,255,0.22),transparent_50%)]" />
                   <motion.span
                     className="pointer-events-none absolute -inset-[1px] opacity-55"
                     animate={{ opacity: [0.35, 0.7, 0.35] }}
-                    transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                    transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                     style={{
                       background:
                         "linear-gradient(120deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02), rgba(0,102,255,0.18))",
@@ -278,7 +280,7 @@ export function EnterpriseFooter() {
                     key={href}
                     className="relative"
                     animate={{ y: [0, -2, 0] }}
-                    transition={{ duration: 5.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                    transition={{ duration: 5.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                   >
                     <Link
                       href={href}

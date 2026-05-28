@@ -16,7 +16,7 @@ const item = (delay = 0) => ({
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.72, delay, ease: EASE as unknown as string },
+    transition: { duration: 0.72, delay, ease: EASE },
   },
 });
 

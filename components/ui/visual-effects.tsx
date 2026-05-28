@@ -3,6 +3,9 @@
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { useEffect } from "react";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE_LINEAR = [0, 0, 1, 1] as const;
+
 /**
  * SpotlightBackground
  * A radial spotlight that follows the cursor across the entire page.
@@ -90,7 +93,7 @@ export function FloatingOrbs({ orbs = DEFAULT_ORBS }: { orbs?: Orb[] }) {
             duration: orb.duration,
             delay: orb.delay ?? 0,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: EASE,
           }}
         />
       ))}
@@ -129,7 +132,7 @@ export function AnimatedGrid({
           backgroundSize: `${gridSize}px ${gridSize}px`,
         }}
         animate={{ backgroundPosition: ["0px 0px", `${gridSize}px ${gridSize}px`] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 20, repeat: Infinity, ease: EASE_LINEAR }}
       />
     </div>
   );
@@ -185,7 +188,7 @@ export function AIWaveOverlay({ className = "" }: { className?: string }) {
               duration: 6 + i * 1.5,
               delay,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: EASE,
             }}
           />
         ))}
@@ -236,7 +239,7 @@ export function FloatingParticles({
             duration: p.duration,
             delay: p.delay,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: EASE,
           }}
         />
       ))}

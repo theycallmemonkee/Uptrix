@@ -2,6 +2,8 @@
 
 import { motion, useScroll, useSpring } from "framer-motion";
 
+const EASE_LINEAR = [0, 0, 1, 1] as const;
+
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -28,7 +30,7 @@ export function ScrollProgress() {
         backgroundPosition: {
           duration: 3,
           repeat: Infinity,
-          ease: "linear",
+          ease: EASE_LINEAR,
         },
       }}
     />

@@ -27,6 +27,7 @@ import {
 } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE_LINEAR = [0, 0, 1, 1] as const;
 
 type FormState = { name: string; email: string; message: string; honey: string };
 type ToastState = { type: "success" | "error"; message: string } | null;
@@ -142,7 +143,7 @@ export default function ContactUsPage() {
               <motion.span
                 className="inline-block bg-gradient-to-r from-[#E6F1FF] via-[#70A8FF] to-[#E6F1FF] bg-[length:200%_100%] bg-clip-text text-transparent"
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 5, repeat: Infinity, ease: EASE_LINEAR }}
               >
                 Growth
               </motion.span>
@@ -194,12 +195,12 @@ export default function ContactUsPage() {
               <motion.div
                 className="relative mt-2 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-6 backdrop-blur-xl"
                 animate={{ boxShadow: ["0 0 0 0 rgba(0,102,255,0)", "0 0 40px 8px rgba(0,102,255,0.12)", "0 0 0 0 rgba(0,102,255,0)"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 4, repeat: Infinity, ease: EASE }}
               >
                 <motion.div
                   className="pointer-events-none absolute -inset-[1px] rounded-2xl opacity-40"
                   animate={{ opacity: [0.22, 0.5, 0.22] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 4, repeat: Infinity, ease: EASE }}
                   style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.22), rgba(255,255,255,0.04), rgba(0,102,255,0.18))" }}
                 />
                 <p className="relative text-sm font-medium text-[#A8C9FF]/80 uppercase tracking-[0.16em] mb-2">AI-Powered Response</p>
@@ -219,7 +220,7 @@ export default function ContactUsPage() {
               <motion.div
                 className="pointer-events-none absolute inset-0 rounded-[2rem]"
                 animate={{ opacity: [0.1, 0.28, 0.1] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: EASE }}
                 style={{ background: "radial-gradient(500px circle at 20% 10%, rgba(0,102,255,0.18), transparent 60%)" }}
               />
 

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 const LOGOS = [
   { src: "/logo1.png", alt: "Client Logo 1" },
   { src: "/logo2.png", alt: "Client Logo 2" },
@@ -70,13 +72,13 @@ export function MarqueeLogos({
           aria-hidden
           className="pointer-events-none absolute -left-14 top-1/3 h-16 w-16 rounded-full bg-[#6FA8FF]/22 blur-2xl"
           animate={{ x: [0, 54, 0], opacity: [0.3, 0.58, 0.3] }}
-          transition={{ duration: 7.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{ duration: 7.5, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
         />
         <motion.div
           aria-hidden
           className="pointer-events-none absolute right-8 top-2/3 h-12 w-12 rounded-full bg-[#A7CBFF]/18 blur-2xl"
           animate={{ x: [0, -40, 0], opacity: [0.25, 0.52, 0.25] }}
-          transition={{ duration: 8.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{ duration: 8.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
         />
 
         <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-20 bg-gradient-to-r from-[#091A33] via-[#091A33]/65 to-transparent" />

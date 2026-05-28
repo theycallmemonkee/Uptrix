@@ -7,6 +7,8 @@ import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useRef, useState } from "react";
 import type { ServiceConfig } from "@/data/services";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 type Props = {
   service: ServiceConfig;
 };
@@ -61,7 +63,7 @@ export function WhyChooseSection({ service }: Props) {
               <motion.div
                 className="absolute inset-0 bg-[radial-gradient(circle_at_35%_24%,rgba(255,255,255,0.18),transparent_46%)]"
                 animate={{ opacity: [0.45, 0.82, 0.45] }}
-                transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
               />
               <div className="absolute right-4 bottom-4 left-4 rounded-xl border border-white/18 bg-[#0D2F5E]/62 px-3 py-2 text-xs text-[#DCEBFF] backdrop-blur-md">
                 Premium execution stack with measurable growth loops.
@@ -71,7 +73,7 @@ export function WhyChooseSection({ service }: Props) {
             <motion.div
               className="absolute top-4 right-4 rounded-2xl border border-[#A8CBFF]/26 bg-[#0F3262]/84 px-4 py-2 text-xs text-[#E4F0FF] shadow-[0_12px_28px_rgba(0,102,255,0.26)] backdrop-blur-sm"
               animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{ duration: 3.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             >
               10+ Years Experience
             </motion.div>
@@ -79,7 +81,7 @@ export function WhyChooseSection({ service }: Props) {
             <motion.div
               className="absolute -right-3 bottom-18 w-44 overflow-hidden rounded-2xl border border-white/16 shadow-[0_18px_40px_rgba(2,12,30,0.52)]"
               animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             >
               <div className="relative aspect-[4/3]">
                 <Image src={service.whyVisuals.analyticsImage} alt={`${service.name} analytics overlay`} fill className="object-cover" />
@@ -90,7 +92,7 @@ export function WhyChooseSection({ service }: Props) {
             <motion.div
               className="absolute left-4 top-4 rounded-2xl border border-[#9CC3FF]/24 bg-[#0B2C57]/78 px-3 py-2 text-[11px] text-[#DDEBFF] shadow-[0_12px_24px_rgba(0,102,255,0.2)] backdrop-blur-sm"
               animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             >
               +187% qualified growth
             </motion.div>

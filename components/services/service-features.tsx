@@ -5,6 +5,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import type { ServiceFeature } from "@/data/services";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 type Props = {
   features: ServiceFeature[];
 };
@@ -30,7 +32,7 @@ export function ServiceFeatures({ features }: Props) {
               <motion.div
                 className="pointer-events-none absolute inset-[1px] rounded-[1.35rem] border border-white/8"
                 animate={{ opacity: [0.5, 0.9, 0.5] }}
-                transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
               />
               <div className="pointer-events-none absolute -inset-0.5 rounded-3xl bg-[linear-gradient(120deg,rgba(122,174,255,0.30),rgba(255,255,255,0.08),rgba(0,102,255,0.24))] opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-70" />
               <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10">
@@ -44,7 +46,7 @@ export function ServiceFeatures({ features }: Props) {
                 <motion.div
                   className="absolute inset-0 bg-[linear-gradient(170deg,rgba(5,18,39,0.14),rgba(5,18,39,0.8))]"
                   animate={{ opacity: [0.75, 0.9, 0.75] }}
-                  transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                 />
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.22),transparent_55%)]" />
               </div>

@@ -4,6 +4,8 @@ import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } fr
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 export function AiServicesSection() {
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -85,7 +87,7 @@ export function AiServicesSection() {
           <motion.article
             className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/[0.06] p-4 shadow-[0_28px_90px_rgba(2,9,22,0.56)] ring-1 ring-inset ring-white/10 backdrop-blur-2xl"
             animate={{ y: [0, -7, 0] }}
-            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             <div
               className="h-[21rem] w-full rounded-[1.35rem] bg-cover bg-center"

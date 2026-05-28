@@ -39,7 +39,7 @@ export function LoadingScreen() {
                   "radial-gradient(circle, rgba(0,102,255,0.18) 0%, transparent 68%)",
               }}
               animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.9, 0.5] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: EASE }}
             />
           </div>
 

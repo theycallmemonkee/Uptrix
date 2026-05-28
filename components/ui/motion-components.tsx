@@ -45,7 +45,7 @@ export function SplitTextReveal({
               visible: {
                 y: "0%",
                 opacity: 1,
-                transition: { duration: 0.65, ease: EASE as unknown as string },
+                transition: { duration: 0.65, ease: EASE },
               },
             }}
           >

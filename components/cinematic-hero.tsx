@@ -13,6 +13,7 @@ const AVATARS = [
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE_LINEAR = [0, 0, 1, 1] as const;
 
 export function CinematicHero() {
   const mouseX = useMotionValue(0.5);
@@ -36,7 +37,7 @@ export function CinematicHero() {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        transition: { duration: 0.78, delay, ease: EASE as unknown as string },
+        transition: { duration: 0.78, delay, ease: EASE },
       }),
     }),
     [],
@@ -59,7 +60,7 @@ export function CinematicHero() {
         <motion.div
           className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:70px_70px]"
           animate={{ backgroundPosition: ["0px 0px", "70px 70px"] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 24, repeat: Infinity, ease: EASE_LINEAR }}
         />
       </div>
 
@@ -67,17 +68,17 @@ export function CinematicHero() {
       <motion.div
         className="pointer-events-none absolute left-[8%] top-[22%] -z-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(0,102,255,0.28),transparent_68%)] blur-3xl"
         animate={{ y: [0, -24, 0], opacity: [0.4, 0.7, 0.4], scale: [1, 1.08, 1] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 7, repeat: Infinity, ease: EASE }}
       />
       <motion.div
         className="pointer-events-none absolute right-[10%] top-[30%] -z-20 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(120,168,255,0.22),transparent_65%)] blur-3xl"
         animate={{ y: [0, 18, 0], opacity: [0.3, 0.55, 0.3], scale: [1, 1.05, 1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        transition={{ duration: 9, repeat: Infinity, ease: EASE, delay: 1.5 }}
       />
       <motion.div
         className="pointer-events-none absolute bottom-[15%] left-[38%] -z-20 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(0,102,255,0.18),transparent_65%)] blur-2xl"
         animate={{ y: [0, -12, 0], x: [0, 10, 0], opacity: [0.2, 0.45, 0.2] }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        transition={{ duration: 11, repeat: Infinity, ease: EASE, delay: 3 }}
       />
 
       {/* UPTRIX watermark */}
@@ -111,7 +112,7 @@ export function CinematicHero() {
             <motion.span
               className="relative inline-flex items-center rounded-2xl border border-[#87B4FF]/35 bg-[#7CB0FF]/16 px-4 py-1.5 text-[#D8E8FF] shadow-[0_8px_30px_rgba(0,102,255,0.22)]"
               animate={{ boxShadow: ["0 8px 30px rgba(0,102,255,0.22)", "0 12px 44px rgba(0,102,255,0.38)", "0 8px 30px rgba(0,102,255,0.22)"] }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
             >
               Success
             </motion.span>
@@ -186,13 +187,13 @@ export function CinematicHero() {
             className="relative overflow-hidden rounded-[2rem] border border-white/18 bg-white/[0.07] p-4 shadow-[0_30px_90px_rgba(3,9,21,0.6)] backdrop-blur-xl"
             style={{ rotate: rotateCard }}
             animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 5.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             {/* Animated border overlay */}
             <motion.div
               className="pointer-events-none absolute -inset-[1px] rounded-[2rem] opacity-50"
               animate={{ opacity: [0.28, 0.52, 0.28] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 4, repeat: Infinity, ease: EASE }}
               style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.25), rgba(255,255,255,0.04), rgba(0,102,255,0.22))" }}
             />
             <div

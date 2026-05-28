@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 type Props = {
   title: string;
   description: string;
@@ -36,7 +38,7 @@ export function FinalCta({ title, description }: Props) {
                 top: `${10 + (index * 11) % 75}%`,
               }}
               animate={{ y: [0, -14, 0], opacity: [0.25, 0.8, 0.25] }}
-              transition={{ duration: 3.2 + (index % 4), repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{ duration: 3.2 + (index % 4), repeat: Number.POSITIVE_INFINITY, ease: EASE }}
             />
           ))}
         </div>

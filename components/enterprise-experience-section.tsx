@@ -217,7 +217,7 @@ export function EnterpriseExperienceSection() {
               <motion.div
                 className="mt-5 h-[2px] w-full bg-gradient-to-r from-[#3F87FF]/0 via-[#79ABFF] to-[#3F87FF]/0"
                 animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: index * 0.2 }}
+                transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: EASE, delay: index * 0.2 }}
               />
             </motion.article>
           ))}
@@ -274,7 +274,7 @@ export function EnterpriseExperienceSection() {
                 className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/35 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF]"
                 whileHover={{ scale: 1.03 }}
                 animate={{ boxShadow: ["0 6px 20px rgba(0,102,255,0.14)", "0 10px 32px rgba(0,102,255,0.28)", "0 6px 20px rgba(0,102,255,0.14)"] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
               >
                 Strategies
               </motion.span>{" "}
@@ -292,14 +292,14 @@ export function EnterpriseExperienceSection() {
               <motion.div
                 className="pointer-events-none absolute -inset-[1px] rounded-[1.7rem] opacity-55"
                 animate={{ opacity: [0.32, 0.62, 0.32] }}
-                transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                 style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.04), rgba(0,102,255,0.2))" }}
               />
               <div className="relative z-10">
                 <motion.span
                   className="inline-flex rounded-lg border border-[#90BAFF]/28 bg-white/[0.06] p-2 text-[#95BEFF]"
                   animate={{ scale: [1, 1.08, 1] }}
-                  transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
                 >
                   <Zap size={18} />
                 </motion.span>
