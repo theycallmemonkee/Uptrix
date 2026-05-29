@@ -77,34 +77,81 @@ export default function ContactUsPage() {
     setIsSubmitting(true);
 
     try {
+      console.info("[contact/form] Submitting", {
+        endpoint: "/api/contact",
+        name: parsed.data.name,
+        email: parsed.data.email,
+      });
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed.data),
       });
 
-      const payload = (await response.json()) as {
+      let payload: {
         ok?: boolean;
         error?: string;
+        code?: string;
         fieldErrors?: Record<string, string[]>;
-      };
+        missingEnv?: string[];
+        resend?: { name?: string; message?: string; statusCode?: number };
+        warning?: string;
+      } = {};
 
-      if (!response.ok) {
+      const raw = await response.text();
+      try {
+        payload = raw ? (JSON.parse(raw) as typeof payload) : {};
+      } catch {
+        console.error("[contact/form] Non-JSON API response", { status: response.status, raw });
+        setToast({
+          type: "error",
+          message: `Server error (${response.status}). Invalid response from API.`,
+        });
+        return;
+      }
+
+      console.info("[contact/form] API response", {
+        status: response.status,
+        ok: response.ok,
+        payload,
+      });
+
+      if (!response.ok || payload.ok === false) {
         setErrors({
           name: payload.fieldErrors?.name?.[0],
           email: payload.fieldErrors?.email?.[0],
           message: payload.fieldErrors?.message?.[0],
         });
-        setToast({ type: "error", message: payload.error ?? "Failed to send. Please try again." });
+        const detail =
+          payload.error ??
+          payload.resend?.message ??
+          (payload.missingEnv?.length
+            ? `Missing server config: ${payload.missingEnv.join(", ")}`
+            : undefined);
+        setToast({
+          type: "error",
+          message: detail ?? `Failed to send (${response.status}). Please try again.`,
+        });
         return;
       }
 
       setForm({ name: "", email: "", message: "", honey: "" });
-      setToast({ type: "success", message: "Message sent! We'll get back to you shortly." });
+      setToast({
+        type: "success",
+        message: payload.warning ?? "Message sent! We'll get back to you shortly.",
+      });
       setSuccessPulse(true);
       setTimeout(() => setSuccessPulse(false), 1800);
-    } catch {
-      setToast({ type: "error", message: "Network error. Please try again." });
+    } catch (submitError) {
+      console.error("[contact/form] Submit failed", submitError);
+      setToast({
+        type: "error",
+        message:
+          submitError instanceof Error
+            ? submitError.message
+            : "Network error. Please try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }

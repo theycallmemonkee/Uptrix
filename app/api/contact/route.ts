@@ -1,8 +1,9 @@
 import { contactSubmissionSchema } from "@/lib/contact/schema";
+import { sendContactNotificationEmail } from "@/lib/email/resend";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
+const API_ROUTE = "app/api/contact/route.ts";
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const CONTACT_TABLE = "contact_messages";
@@ -10,15 +11,17 @@ const requestTracker = new Map<string, number[]>();
 
 export async function POST(request: Request) {
   try {
-    console.info("Contact API request received");
+    console.info("[contact/api] Request received", { route: API_ROUTE });
 
     const missingEnv = getMissingEnvVars();
     if (missingEnv.length > 0) {
-      console.error("Contact API env misconfiguration", { missingEnv });
+      console.error("[contact/api] Missing configuration", { missingEnv, route: API_ROUTE });
       return NextResponse.json(
         {
+          ok: false,
           error: `Server configuration error: missing ${missingEnv.join(", ")}`,
           code: "ENV_MISSING",
+          missingEnv,
         },
         { status: 500 },
       );
@@ -26,15 +29,28 @@ export async function POST(request: Request) {
 
     const ip = getClientIp(request);
     if (!isRateLimitAllowed(ip)) {
-      return NextResponse.json({ error: "Too many requests. Please try again shortly." }, { status: 429 });
+      console.warn("[contact/api] Rate limited", { ip });
+      return NextResponse.json(
+        { ok: false, error: "Too many requests. Please try again shortly.", code: "RATE_LIMITED" },
+        { status: 429 },
+      );
     }
 
     const body = await request.json();
+    console.info("[contact/api] Body parsed", {
+      hasName: Boolean(body?.name),
+      hasEmail: Boolean(body?.email),
+      hasMessage: Boolean(body?.message),
+    });
+
     const parsed = contactSubmissionSchema.safeParse(body);
     if (!parsed.success) {
+      console.warn("[contact/api] Validation failed", parsed.error.flatten().fieldErrors);
       return NextResponse.json(
         {
+          ok: false,
           error: "Validation failed",
+          code: "VALIDATION_FAILED",
           fieldErrors: parsed.error.flatten().fieldErrors,
         },
         { status: 400 },
@@ -43,65 +59,96 @@ export async function POST(request: Request) {
 
     const input = parsed.data;
     if (input.honey.trim() !== "") {
-      // Honeypot caught a likely bot; reply success to avoid training attacks.
+      console.info("[contact/api] Honeypot triggered — silent success");
       return NextResponse.json({ ok: true }, { status: 200 });
     }
 
-    const supabase = createSupabaseAdminClient();
-    const timestampIso = new Date().toISOString();
-
-    const { error: dbError } = await supabase.from(CONTACT_TABLE).insert({
+    console.info("[contact/api] Incoming form data", {
       name: input.name,
       email: input.email,
       message: input.message,
-      created_at: timestampIso,
     });
 
-    if (dbError) {
-      console.error("Contact insert error", dbError);
+    const timestampIso = new Date().toISOString();
+
+    // Email first — do not block on Supabase (common production failure: table not migrated)
+    const emailResult = await sendContactNotificationEmail({
+      name: input.name,
+      email: input.email,
+      message: input.message,
+      timestampIso,
+    });
+
+    if (!emailResult.ok) {
+      const resendMessage = emailResult.error.message ?? "Email send failed";
+      const statusCode =
+        "statusCode" in emailResult.error && typeof emailResult.error.statusCode === "number"
+          ? emailResult.error.statusCode
+          : undefined;
+
+      console.error("[contact/api] Resend failed — returning error to client", {
+        message: resendMessage,
+        name: emailResult.error.name,
+        statusCode,
+      });
+
       return NextResponse.json(
         {
-          error: `Database insert failed: ${dbError.message}`,
-          code: dbError.code ?? "DB_INSERT_FAILED",
+          ok: false,
+          error: `Email send failed: ${resendMessage}`,
+          code: "EMAIL_SEND_FAILED",
+          resend: {
+            name: emailResult.error.name,
+            message: emailResult.error.message,
+            statusCode,
+          },
+        },
+        { status: statusCode === 401 || statusCode === 403 ? 502 : 502 },
+      );
+    }
+
+    console.info("[contact/api] Resend accepted", { emailId: emailResult.data?.id });
+
+    let dbWarning: string | undefined;
+    try {
+      const supabase = createSupabaseAdminClient();
+      const { error: dbError } = await supabase.from(CONTACT_TABLE).insert({
+        name: input.name,
+        email: input.email,
+        message: input.message,
+        created_at: timestampIso,
+      });
+
+      if (dbError) {
+        dbWarning = dbError.message;
+        console.error("[contact/api] Database insert failed (email already sent)", {
+          code: dbError.code,
+          message: dbError.message,
           details: dbError.details,
           hint: dbError.hint,
-        },
-        { status: 500 },
-      );
+          table: CONTACT_TABLE,
+        });
+      } else {
+        console.info("[contact/api] Database insert succeeded", { table: CONTACT_TABLE });
+      }
+    } catch (dbUnexpected) {
+      dbWarning = dbUnexpected instanceof Error ? dbUnexpected.message : "Database error";
+      console.error("[contact/api] Database unexpected error (email already sent)", dbUnexpected);
     }
-    console.info("Contact insert succeeded", { table: CONTACT_TABLE });
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error: emailError } = await resend.emails.send({
-      from: "Uptrix <onboarding@resend.dev>",
-      to: ["mehtay393@gmail.com"],
-      subject: "New Uptrix Contact Form Submission",
-      html: `
-        <h2>New Contact Submission</h2>
-        <p><strong>Name:</strong> ${escapeHtml(input.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(input.email)}</p>
-        <p><strong>Message:</strong> ${escapeHtml(input.message)}</p>
-        <p><strong>Timestamp:</strong> ${escapeHtml(timestampIso)}</p>
-      `,
-    });
-
-    if (emailError) {
-      console.error("Contact email error", emailError);
-      return NextResponse.json(
-        {
-          error: `Email send failed: ${emailError.message}`,
-          code: "EMAIL_SEND_FAILED",
-        },
-        { status: 502 },
-      );
-    }
-    console.info("Contact email sent successfully", { recipients: 1 });
-
-    return NextResponse.json({ ok: true }, { status: 200 });
-  } catch (error) {
-    console.error("Contact API unexpected error", error);
     return NextResponse.json(
       {
+        ok: true,
+        emailId: emailResult.data?.id ?? null,
+        ...(dbWarning ? { warning: `Message delivered but storage failed: ${dbWarning}` } : {}),
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("[contact/api] Unexpected error", { route: API_ROUTE, error });
+    return NextResponse.json(
+      {
+        ok: false,
         error: error instanceof Error ? error.message : "Unexpected server error. Please try again.",
         code: "UNEXPECTED_SERVER_ERROR",
       },
@@ -132,15 +179,11 @@ function isRateLimitAllowed(ip: string) {
 }
 
 function getMissingEnvVars() {
-  const required = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY", "RESEND_API_KEY"] as const;
+  const required = [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "RESEND_API_KEY",
+  ] as const;
   return required.filter((key) => !process.env[key]);
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
 }

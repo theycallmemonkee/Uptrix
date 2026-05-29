@@ -1,5 +1,9 @@
 import { Resend } from "resend";
 
+const CONTACT_FROM = "Uptrix <onboarding@resend.dev>";
+/** Temporary: all submissions go here until production domain is verified in Resend. */
+const CONTACT_TO = "mehtay393@gmail.com";
+
 let resendClient: Resend | null = null;
 
 function getResendClient() {
@@ -17,12 +21,15 @@ export async function sendContactNotificationEmail(params: {
   timestampIso: string;
 }) {
   const resend = getResendClient();
-  const to = ["meenakshimehta07303@gmail.com", "mehtay393@gmail.com", "connect@uptrixtechnologies.com"];
-  const from = process.env.CONTACT_FROM_EMAIL ?? "Uptrix Contact <onboarding@resend.dev>";
+  const from = CONTACT_FROM;
+  const to = [CONTACT_TO];
 
-  await resend.emails.send({
+  console.info("[contact/email] Resend send attempt", { from, to });
+
+  const result = await resend.emails.send({
     from,
     to,
+    replyTo: params.email,
     subject: "New Uptrix Contact Form Submission",
     text: [
       "New contact form submission",
@@ -47,6 +54,19 @@ export async function sendContactNotificationEmail(params: {
       </div>
     `,
   });
+
+  if (result.error) {
+    console.error("[contact/email] Resend error", {
+      name: result.error.name,
+      message: result.error.message,
+      statusCode: "statusCode" in result.error ? result.error.statusCode : undefined,
+      error: result.error,
+    });
+    return { ok: false as const, error: result.error };
+  }
+
+  console.info("[contact/email] Resend response", result.data);
+  return { ok: true as const, data: result.data };
 }
 
 function escapeHtml(value: string) {
