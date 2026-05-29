@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { AtSign, ChevronDown, Globe2, Send } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -21,6 +22,15 @@ export function BlogSidebar({ headings, shareUrl, shareTitle }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const ids = useMemo(() => headings.map((heading) => heading.id), [headings]);
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
+  const progressPercent = useTransform(progress, (v) => Math.round(v * 100));
+
+  const [displayPercent, setDisplayPercent] = useState(0);
+  useEffect(() => {
+    return progressPercent.on("change", (v) => setDisplayPercent(v));
+  }, [progressPercent]);
+
   useEffect(() => {
     if (!ids.length) return;
     const observer = new IntersectionObserver(
@@ -30,7 +40,7 @@ export function BlogSidebar({ headings, shareUrl, shareTitle }: Props) {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         if (visible[0]?.target?.id) setActiveId(visible[0].target.id);
       },
-      { rootMargin: "-14% 0px -64% 0px", threshold: [0.2, 0.45, 0.7] },
+      { rootMargin: "-12% 0px -62% 0px", threshold: [0.15, 0.4, 0.65] },
     );
 
     ids.forEach((id) => {
@@ -45,84 +55,108 @@ export function BlogSidebar({ headings, shareUrl, shareTitle }: Props) {
   const encodedTitle = encodeURIComponent(shareTitle);
 
   return (
-    <motion.aside
-      initial={{ opacity: 0, x: -12 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full lg:sticky lg:top-28 lg:h-fit"
-    >
-      <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-4 shadow-[0_20px_60px_rgba(2,9,22,0.45)] ring-1 ring-inset ring-white/8 backdrop-blur-lg">
-        <button
-          type="button"
-          className="flex w-full items-center justify-between lg:pointer-events-none"
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          <p className="text-[11px] tracking-[0.2em] text-[#B9D5FF]/74 uppercase">Table of content</p>
-          <ChevronDown
-            size={16}
-            className={`text-white/56 transition-transform duration-300 lg:hidden ${mobileOpen ? "rotate-180" : ""}`}
-          />
-        </button>
+    <aside className="w-full shrink-0 lg:w-[260px] lg:self-start">
+      <div className="lg:sticky lg:top-[120px] lg:h-fit">
+        <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-4 backdrop-blur-sm">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[10px] font-medium tracking-[0.18em] text-white/45 uppercase">Reading progress</p>
+            <span className="text-xs font-medium tabular-nums text-[#93C5FD]/90">{displayPercent}%</span>
+          </div>
+          <div className="mt-2.5 h-1 overflow-hidden rounded-full bg-white/8">
+            <motion.div
+              className="h-full rounded-full bg-[#3B82F6]"
+              style={{ scaleX: progress, transformOrigin: "left" }}
+            />
+          </div>
 
-        <ul
-          className={`mt-3 max-h-[26rem] space-y-1 overflow-auto pr-1 [scrollbar-color:rgba(139,184,255,0.35)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#8BB8FF]/40 [&::-webkit-scrollbar]:w-[4px] ${
-            mobileOpen ? "block" : "hidden lg:block"
-          }`}
-        >
-          {headings.map((heading, idx) => (
-            <li key={heading.id}>
-              <a
-                href={`#${heading.id}`}
-                className={[
-                  "block rounded-md py-1.5 text-[13px] leading-5 transition-all duration-200",
-                  heading.level === 3 ? "pl-4 pr-2" : "px-2",
-                  activeId === heading.id
-                    ? "bg-[#0E335F]/50 text-[#DDEBFF]"
-                    : "text-white/62 hover:bg-white/[0.03] hover:text-white/90",
-                ].join(" ")}
-                style={{ transitionDelay: `${idx * 6}ms` }}
+          {headings.length > 0 ? (
+            <div className="mt-5 border-t border-white/8 pt-4">
+              <button
+                type="button"
+                className="flex w-full items-center justify-between lg:pointer-events-none"
+                onClick={() => setMobileOpen((v) => !v)}
               >
-                {heading.text}
-              </a>
-            </li>
-          ))}
-        </ul>
+                <p className="text-[10px] font-medium tracking-[0.18em] text-white/45 uppercase">Table of contents</p>
+                <ChevronDown
+                  size={15}
+                  className={`text-white/45 transition-transform duration-300 lg:hidden ${mobileOpen ? "rotate-180" : ""}`}
+                />
+              </button>
 
-        <div className="mt-4 h-px bg-white/10" />
-        <div className="mt-4">
-          <p className="text-[11px] tracking-[0.2em] text-[#B9D5FF]/74 uppercase">Share this article</p>
-          <div className="mt-3 flex items-center gap-2">
-            <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Share on LinkedIn"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/[0.03] text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8BB8FF]/45 hover:text-white"
-            >
-              <AtSign size={14} />
-            </a>
-            <a
-              href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Share on X"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/[0.03] text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8BB8FF]/45 hover:text-white"
-            >
-              <Send size={14} />
-            </a>
-            <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Share on Facebook"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/[0.03] text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8BB8FF]/45 hover:text-white"
-            >
-              <Globe2 size={14} />
-            </a>
+              <ul
+                className={`mt-3 max-h-[min(42vh,22rem)] space-y-0.5 overflow-y-auto [scrollbar-width:thin] ${
+                  mobileOpen ? "block" : "hidden lg:block"
+                }`}
+              >
+                {headings.map((heading) => (
+                  <li key={heading.id}>
+                    <a
+                      href={`#${heading.id}`}
+                      className={[
+                        "block rounded-md py-1.5 text-[13px] leading-snug transition-colors duration-200",
+                        heading.level === 3 ? "pl-3 pr-1" : "px-1",
+                        activeId === heading.id
+                          ? "text-[#DDEBFF]"
+                          : "text-white/50 hover:text-white/80",
+                      ].join(" ")}
+                      style={
+                        activeId === heading.id
+                          ? { boxShadow: "inset 2px 0 0 #3B82F6" }
+                          : undefined
+                      }
+                    >
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          <div className={`${headings.length > 0 ? "mt-5 border-t border-white/8 pt-4" : "mt-5"}`}>
+            <p className="text-[10px] font-medium tracking-[0.18em] text-white/45 uppercase">Share article</p>
+            <div className="mt-3 flex items-center gap-2">
+              <ShareLink
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+                label="Share on LinkedIn"
+                icon={<AtSign size={14} />}
+              />
+              <ShareLink
+                href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+                label="Share on X"
+                icon={<Send size={14} />}
+              />
+              <ShareLink
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+                label="Share on Facebook"
+                icon={<Globe2 size={14} />}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </motion.aside>
+    </aside>
+  );
+}
+
+function ShareLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/12 text-white/60 transition-colors hover:border-white/25 hover:text-white"
+    >
+      {icon}
+    </a>
   );
 }

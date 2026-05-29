@@ -147,7 +147,7 @@ export function ImmersiveAboutPage() {
 
       <main className="relative z-10">
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="flex min-h-[90vh] items-center px-6 pb-16 pt-36 md:px-10">
+        <section className="flex min-h-[90vh] items-center px-6 pb-16 pt-[100px] md:px-10 md:pt-[120px] lg:pt-[160px]">
           <div className="mx-auto w-full max-w-7xl">
             <div className="mx-auto max-w-4xl text-center">
               <motion.div

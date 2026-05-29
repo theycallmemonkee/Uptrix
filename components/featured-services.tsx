@@ -60,7 +60,7 @@ function FeaturedServiceCard({ service, index }: { service: Service; index: numb
 
   return (
     <motion.article
-      className="group relative flex h-full flex-col overflow-hidden rounded-[1.65rem] border border-white/14 bg-[linear-gradient(160deg,rgba(14,34,64,0.72),rgba(7,18,37,0.62))] p-4 shadow-[0_22px_65px_rgba(2,9,22,0.45)] ring-1 ring-inset ring-white/9 backdrop-blur-2xl will-change-transform transition-colors duration-400 hover:border-[#85B5FF]/36 hover:shadow-[0_28px_80px_rgba(5,18,40,0.58)]"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[1.65rem] border border-white/14 bg-[linear-gradient(160deg,rgba(14,34,64,0.72),rgba(7,18,37,0.62))] shadow-[0_22px_65px_rgba(2,9,22,0.45)] ring-1 ring-inset ring-white/9 backdrop-blur-2xl will-change-transform transition-colors duration-400 hover:border-[#85B5FF]/36 hover:shadow-[0_28px_80px_rgba(5,18,40,0.58)]"
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
@@ -90,26 +90,27 @@ function FeaturedServiceCard({ service, index }: { service: Service; index: numb
         }}
       />
 
-      <div className="relative overflow-hidden rounded-2xl">
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
         <Image
           src={service.image}
-          alt={service.title}
-          width={720}
-          height={460}
-          className="h-48 w-full rounded-2xl object-cover object-center transition-transform duration-600 group-hover:scale-[1.07] xl:h-44"
+          alt={`${service.title} dashboard preview`}
+          width={1440}
+          height={900}
+          priority={index < 2}
+          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 24vw, (min-width: 768px) 45vw, 100vw"
         />
-        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-[#071023]/76 via-transparent to-transparent" />
-        {/* Image shine */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071023]/88 via-[#071023]/15 to-transparent" />
         <motion.div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
-            background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.07) 50%, transparent 70%)",
+            background:
+              "linear-gradient(105deg, transparent 28%, rgba(255,255,255,0.08) 48%, transparent 68%), radial-gradient(ellipse at 50% 0%, rgba(0,102,255,0.18), transparent 55%)",
           }}
         />
       </div>
 
-      <div className="relative mt-5 flex flex-1 flex-col">
+      <div className="relative flex flex-1 flex-col p-4 pt-5 md:p-5">
         <div className="mb-3 flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#83B3FF]/30 bg-[#6EA8FF]/14 px-3 py-1 text-xs font-medium tracking-wide text-[#DCEBFF]">
             <Zap size={10} className="text-[#79ABFF]" />

@@ -369,3 +369,86 @@ a, button, [role="button"], label, input, textarea, select {
 .blog-prose tr:last-child td {
   border-bottom: none;
 }
+
+/* ============================================================
+   BLOG ARTICLE — editorial typography
+   ============================================================ */
+.blog-article-prose {
+  width: 100%;
+  max-width: none;
+}
+
+.blog-article-lead,
+.blog-article-prose .blog-article-text {
+  width: 100%;
+  max-width: 90ch;
+}
+
+.blog-article-prose .blog-block-full {
+  max-width: none;
+  width: 100%;
+}
+
+.blog-article-prose > p:first-of-type::first-letter {
+  float: left;
+  margin: 0.06em 0.14em 0 0;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 3.65em;
+  line-height: 0.82;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.blog-article-prose > p:first-of-type {
+  margin-top: 2rem;
+}
+
+.blog-article-prose .blog-ul > .blog-li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.blog-article-prose .blog-ul > .blog-li::before {
+  content: "";
+  margin-top: 0.55rem;
+  height: 0.45rem;
+  width: 0.45rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #60a5fa, #0066ff);
+  box-shadow: 0 0 12px rgba(0, 102, 255, 0.55);
+}
+
+.blog-article-prose .blog-ol {
+  counter-reset: blog-step;
+  list-style: none;
+  padding-left: 0;
+}
+
+.blog-article-prose .blog-ol > .blog-li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  counter-increment: blog-step;
+}
+
+.blog-article-prose .blog-ol > .blog-li::before {
+  content: counter(blog-step);
+  margin-top: 0.1rem;
+  display: inline-flex;
+  height: 1.65rem;
+  width: 1.65rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  background: rgba(0, 102, 255, 0.16);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #93c5fd;
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.32);
+}

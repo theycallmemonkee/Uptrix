@@ -1,10 +1,24 @@
 "use client";
 
+import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
 import type { Components } from "react-markdown";
-import { Lightbulb, TrendingUp, Quote, Zap } from "lucide-react";
+import { Lightbulb, Target, Quote, Sparkles } from "lucide-react";
+import { useMemo } from "react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const FADE_UP = {
+  hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.65, ease: EASE },
+  },
+};
 
 function slugifyHeading(value: string) {
   return value
@@ -14,262 +28,301 @@ function slugifyHeading(value: string) {
     .replace(/\s+/g, "-");
 }
 
-// Detect special block types from paragraph content
-function isInsightCard(text: string) {
-  return text.startsWith("💡") || text.toLowerCase().startsWith("insight:");
-}
-function isStatCard(text: string) {
-  return text.startsWith("📊") || text.toLowerCase().startsWith("stat:");
-}
-function isTipCard(text: string) {
-  return text.startsWith("🚀") || text.toLowerCase().startsWith("tip:");
-}
-function isWarning(text: string) {
-  return text.startsWith("⚠️") || text.toLowerCase().startsWith("warning:");
+function plainText(children: ReactNode): string {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) return children.map((c) => plainText(c)).join("");
+  if (children && typeof children === "object" && "props" in children) {
+    return plainText((children as { props?: { children?: ReactNode } }).props?.children);
+  }
+  return String(children ?? "");
 }
 
-const FADE_UP = {
-  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)" },
-};
+function parseStatBlock(text: string) {
+  const body = text.replace(/^stat:\s*/i, "").trim();
+  const pipe = body.indexOf("|");
+  if (pipe > -1) {
+    return { value: body.slice(0, pipe).trim(), label: body.slice(pipe + 1).trim() };
+  }
+  const dash = body.indexOf("—");
+  if (dash > -1) {
+    return { value: body.slice(0, dash).trim(), label: body.slice(dash + 1).trim() };
+  }
+  const match = body.match(/^([\d.]+%?)\s+(.+)$/);
+  if (match) return { value: match[1], label: match[2] };
+  return { value: body, label: "" };
+}
+
+function parseFrameworkSteps(text: string) {
+  return text
+    .replace(/^framework:\s*/i, "")
+    .split("|")
+    .map((step) => step.trim())
+    .filter(Boolean);
+}
+
+function isInsideBlockquote(node: unknown) {
+  const parent = (node as { parent?: { tagName?: string } } | undefined)?.parent;
+  return parent?.tagName === "blockquote";
+}
 
 export function BlogContent({ content }: { content: string }) {
-  const components: Components = {
-    h1: ({ children }) => {
-      const text = String(children).replace(/,/g, "");
-      const id = slugifyHeading(text);
-      return (
-        <motion.h1
-          id={id}
-          variants={FADE_UP}
+  const components: Components = useMemo(() => {
+    return {
+      h2: ({ children }) => {
+        const text = plainText(children);
+        const id = slugifyHeading(text);
+        return (
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.45 }}
+            variants={FADE_UP}
+            className="blog-block-full mt-16 w-full scroll-mt-36 first:mt-4"
+          >
+            <h2
+              id={id}
+              className="w-full font-heading text-[clamp(2rem,3.5vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.02em] text-white"
+            >
+              <span className="relative inline-block pb-3">
+                {children}
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-0 h-[3px] w-full rounded-full bg-[linear-gradient(90deg,#0066FF,rgba(96,165,250,0.35),transparent)]"
+                />
+              </span>
+            </h2>
+          </motion.div>
+        );
+      },
+      h3: ({ children }) => {
+        const text = plainText(children);
+        const id = slugifyHeading(text);
+        return (
+          <motion.h3
+            id={id}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={FADE_UP}
+            className="blog-block-full mt-10 w-full scroll-mt-36 font-heading text-[clamp(1.35rem,2.4vw,1.75rem)] font-semibold tracking-tight text-[#9CC3FF]"
+          >
+            {children}
+          </motion.h3>
+        );
+      },
+      p: ({ children, node }) => {
+        const text = plainText(children).trim();
+        const inBlockquote = isInsideBlockquote(node);
+
+        if (inBlockquote) {
+          return (
+            <span className="block font-heading text-[clamp(1.35rem,2.5vw,1.75rem)] leading-[1.5] font-medium tracking-tight text-[#E8F2FF]">
+              {children}
+            </span>
+          );
+        }
+
+        if (/^insight:/i.test(text) || text.startsWith("💡")) {
+          const copy = text.replace(/^💡\s*|^insight:\s*/i, "");
+          return (
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              variants={FADE_UP}
+              className="blog-block-full relative my-10 w-full overflow-hidden rounded-2xl border border-[#3B82F6]/30 bg-[linear-gradient(135deg,rgba(0,102,255,0.16),rgba(6,20,45,0.55))] p-6 shadow-[0_0_60px_rgba(0,102,255,0.14),0_24px_60px_rgba(2,9,22,0.45)] backdrop-blur-md"
+            >
+              <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#0066FF]/25 blur-3xl" />
+              <div className="relative flex gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0066FF]/22 ring-1 ring-[#60A5FA]/35">
+                  <Lightbulb size={18} className="text-[#93C5FD]" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.22em] text-[#93C5FD] uppercase">Insight</p>
+                  <p className="mt-2 text-[20px] leading-[1.9] text-white/86">{copy}</p>
+                </div>
+              </div>
+            </motion.div>
+          );
+        }
+
+        if (/^takeaway:/i.test(text)) {
+          const copy = text.replace(/^takeaway:\s*/i, "");
+          return (
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              variants={FADE_UP}
+              className="blog-block-full my-10 w-full rounded-2xl border border-[#22C55E]/22 bg-[linear-gradient(135deg,rgba(34,197,94,0.1),rgba(6,24,16,0.45))] p-6 shadow-[0_20px_50px_rgba(2,9,22,0.4)] backdrop-blur-sm"
+            >
+              <div className="flex gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#22C55E]/16 ring-1 ring-[#4ADE80]/28">
+                  <Target size={18} className="text-[#86EFAC]" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.22em] text-[#86EFAC] uppercase">Key Takeaway</p>
+                  <p className="mt-2 text-[20px] leading-[1.9] text-white/86">{copy}</p>
+                </div>
+              </div>
+            </motion.div>
+          );
+        }
+
+        if (/^stat:/i.test(text)) {
+          const { value, label } = parseStatBlock(text);
+          return (
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              variants={FADE_UP}
+              className="blog-block-full my-12 w-full rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(12,30,60,0.75),rgba(5,12,24,0.85))] px-8 py-10 text-center shadow-[0_28px_80px_rgba(2,9,22,0.55)] ring-1 ring-inset ring-white/8"
+            >
+              <p className="font-heading text-[clamp(3rem,8vw,4.5rem)] font-bold leading-none tracking-tight text-transparent bg-clip-text bg-[linear-gradient(135deg,#FFFFFF,#60A5FA)]">
+                {value}
+              </p>
+              {label ? (
+                <p className="mt-4 w-full text-[20px] leading-[1.9] text-white/68">{label}</p>
+              ) : null}
+            </motion.div>
+          );
+        }
+
+        if (/^framework:/i.test(text)) {
+          const steps = parseFrameworkSteps(text);
+          return (
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={FADE_UP}
+              className="blog-block-full relative my-12 w-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-8 shadow-[0_24px_70px_rgba(2,9,22,0.5)] backdrop-blur-md"
+            >
+              <p className="mb-6 flex items-center gap-2 text-[11px] font-semibold tracking-[0.22em] text-[#93C5FD] uppercase">
+                <Sparkles size={13} />
+                Framework
+              </p>
+              <ol className="relative space-y-0">
+                {steps.map((step, index) => (
+                  <li key={step} className="relative flex gap-5 pb-10 last:pb-0">
+                    {index < steps.length - 1 ? (
+                      <span className="absolute left-[1.15rem] top-10 bottom-0 w-px bg-gradient-to-b from-[#3B82F6]/55 to-transparent" />
+                    ) : null}
+                    <span className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0066FF]/20 text-sm font-semibold text-[#93C5FD] ring-1 ring-[#3B82F6]/40">
+                      {index + 1}
+                    </span>
+                    <div className="pt-1">
+                      <p className="text-[11px] font-medium tracking-[0.16em] text-white/45 uppercase">Step {index + 1}</p>
+                      <p className="mt-1.5 text-[20px] leading-[1.9] text-white/84">{step}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </motion.div>
+          );
+        }
+
+        return (
+          <motion.p
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={FADE_UP}
+            className="blog-article-text mt-6 text-[20px] leading-[1.9] text-white/80"
+          >
+            {children}
+          </motion.p>
+        );
+      },
+      blockquote: ({ children }) => (
+        <motion.blockquote
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 scroll-mt-28 font-heading text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
+          viewport={{ once: true, amount: 0.35 }}
+          variants={FADE_UP}
+          className="blog-block-full relative my-10 w-full overflow-hidden rounded-2xl border border-[#3B82F6]/20 bg-[linear-gradient(135deg,rgba(14,40,90,0.35),rgba(6,14,28,0.4))] px-8 py-7 shadow-[0_20px_60px_rgba(2,9,22,0.35)]"
+        >
+          <Quote className="absolute right-6 top-5 h-12 w-12 text-[#0066FF]/15" />
+          <div className="relative">{children}</div>
+        </motion.blockquote>
+      ),
+      ul: ({ children }) => (
+        <motion.ul
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={FADE_UP}
+          className="blog-article-text blog-ul mt-8 w-full space-y-4"
         >
           {children}
-        </motion.h1>
-      );
-    },
-    h2: ({ children }) => {
-      const text = String(children).replace(/,/g, "");
-      const id = slugifyHeading(text);
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16 mb-0"
+        </motion.ul>
+      ),
+      ol: ({ children }) => (
+        <motion.ol
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={FADE_UP}
+          className="blog-article-text blog-ol mt-8 w-full space-y-4"
         >
-          <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-gradient-to-r from-[#0066FF]/40 to-transparent" />
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-[#0066FF]/60 uppercase">Section</span>
-          </div>
-          <h2
-            id={id}
-            className="scroll-mt-28 mt-4 font-heading text-2xl font-bold tracking-tight text-white md:text-3xl lg:text-[2rem]"
-          >
-            <span className="relative inline-block">
+          {children}
+        </motion.ol>
+      ),
+      li: ({ children }) => (
+        <li className="blog-li text-[20px] leading-[1.9] text-white/78">
+          <span>{children}</span>
+        </li>
+      ),
+      code: ({ children, className }) => {
+        const isBlock = Boolean(className?.includes("language-"));
+        if (!isBlock) {
+          return (
+            <code className="rounded-md border border-[#3B82F6]/22 bg-[#0066FF]/12 px-1.5 py-0.5 font-mono text-[0.9em] text-[#93C5FD]">
               {children}
-              <span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-[#0066FF]/60 to-transparent" />
-            </span>
-          </h2>
-        </motion.div>
-      );
-    },
-    h3: ({ children }) => {
-      const text = String(children).replace(/,/g, "");
-      const id = slugifyHeading(text);
-      return (
-        <motion.h3
-          id={id}
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 scroll-mt-28 font-heading text-xl font-semibold tracking-tight text-[#D4E8FF] md:text-2xl"
+            </code>
+          );
+        }
+        return <code className={className}>{children}</code>;
+      },
+      pre: ({ children }) => (
+        <motion.pre
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={FADE_UP}
+          className="blog-block-full mt-10 w-full overflow-x-auto rounded-2xl border border-white/10 bg-[#030A16]/92 p-6 text-sm leading-7 text-[#DDEBFF] shadow-[0_20px_60px_rgba(2,9,22,0.55)] ring-1 ring-inset ring-white/6"
         >
-          <span className="mr-2 text-[#3B82F6]/60">—</span>
           {children}
-        </motion.h3>
-      );
-    },
-    p: ({ children }) => {
-      const text = String(children);
-
-      if (isInsightCard(text)) {
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="my-8 flex gap-4 rounded-2xl border border-[#3B82F6]/25 bg-[linear-gradient(135deg,rgba(14,40,90,0.6),rgba(6,20,50,0.6))] p-5 shadow-[0_8px_32px_rgba(0,102,255,0.12)] backdrop-blur-sm"
-          >
-            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0066FF]/20 ring-1 ring-[#0066FF]/30">
-              <Lightbulb size={16} className="text-[#60A5FA]" />
-            </div>
-            <div>
-              <p className="mb-1 text-[11px] font-semibold tracking-[0.2em] text-[#60A5FA]/80 uppercase">Insight</p>
-              <p className="text-[0.95rem] leading-7 text-white/82">{text.replace(/^💡\s*|^insight:\s*/i, "")}</p>
-            </div>
-          </motion.div>
-        );
-      }
-
-      if (isStatCard(text)) {
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="my-8 flex gap-4 rounded-2xl border border-[#22C55E]/20 bg-[linear-gradient(135deg,rgba(14,50,30,0.55),rgba(6,20,14,0.6))] p-5 shadow-[0_8px_32px_rgba(34,197,94,0.08)] backdrop-blur-sm"
-          >
-            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#22C55E]/15 ring-1 ring-[#22C55E]/25">
-              <TrendingUp size={16} className="text-[#4ADE80]" />
-            </div>
-            <div>
-              <p className="mb-1 text-[11px] font-semibold tracking-[0.2em] text-[#4ADE80]/80 uppercase">Key Metric</p>
-              <p className="text-[0.95rem] leading-7 text-white/82">{text.replace(/^📊\s*|^stat:\s*/i, "")}</p>
-            </div>
-          </motion.div>
-        );
-      }
-
-      if (isTipCard(text)) {
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="my-8 flex gap-4 rounded-2xl border border-[#F59E0B]/20 bg-[linear-gradient(135deg,rgba(50,35,10,0.55),rgba(25,14,4,0.6))] p-5 shadow-[0_8px_32px_rgba(245,158,11,0.08)] backdrop-blur-sm"
-          >
-            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#F59E0B]/15 ring-1 ring-[#F59E0B]/25">
-              <Zap size={16} className="text-[#FBB040]" />
-            </div>
-            <div>
-              <p className="mb-1 text-[11px] font-semibold tracking-[0.2em] text-[#FBB040]/80 uppercase">Pro Tip</p>
-              <p className="text-[0.95rem] leading-7 text-white/82">{text.replace(/^🚀\s*|^tip:\s*/i, "")}</p>
-            </div>
-          </motion.div>
-        );
-      }
-
-      return (
-        <p className="mt-6 text-[1.02rem] leading-[1.92] text-white/76 tracking-[0.005em]">
-          {children}
-        </p>
-      );
-    },
-    blockquote: ({ children }) => (
-      <motion.blockquote
-        initial={{ opacity: 0, x: -16 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-10 overflow-hidden rounded-2xl border-l-[3px] border-[#3B82F6]/60 bg-[linear-gradient(135deg,rgba(14,40,90,0.45),rgba(6,14,28,0.5))] px-7 py-6 shadow-[0_12px_40px_rgba(0,102,255,0.1)] backdrop-blur-sm"
-      >
-        <Quote className="absolute top-4 right-5 h-16 w-16 text-[#0066FF]/10" />
-        <div className="relative text-lg leading-8 text-[#DDEBFF]/90 font-medium italic">
-          {children}
+        </motion.pre>
+      ),
+      hr: () => (
+        <div className="blog-block-full my-16 flex w-full items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#0066FF]/35 to-transparent" />
+          <div className="h-2 w-2 rounded-full bg-[#0066FF]/50 shadow-[0_0_12px_rgba(0,102,255,0.6)]" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#0066FF]/35 to-transparent" />
         </div>
-      </motion.blockquote>
-    ),
-    ul: ({ children }) => (
-      <motion.ul
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-6 space-y-2.5 text-white/78"
-      >
-        {children}
-      </motion.ul>
-    ),
-    ol: ({ children }) => (
-      <motion.ol
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-6 space-y-2.5 text-white/78 counter-reset-item"
-      >
-        {children}
-      </motion.ol>
-    ),
-    li: ({ children }) => (
-      <li className="flex items-start gap-3 leading-7 text-[0.97rem]">
-        <span className="mt-[6px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0066FF]/18 ring-1 ring-[#0066FF]/28">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#60A5FA]" />
-        </span>
-        <span>{children}</span>
-      </li>
-    ),
-    code: ({ children, className }) => {
-      const isBlock = Boolean(className?.includes("language-"));
-      if (!isBlock) {
-        return (
-          <code className="rounded-md border border-[#3B82F6]/20 bg-[#0066FF]/10 px-1.5 py-0.5 text-[0.88em] font-mono text-[#93C5FD]">
-            {children}
-          </code>
-        );
-      }
-      return <code className={className}>{children}</code>;
-    },
-    pre: ({ children }) => (
-      <motion.pre
-        initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-8 overflow-x-auto rounded-2xl border border-white/10 bg-[#030A16]/90 p-6 text-sm leading-7 text-[#DDEBFF] shadow-[0_16px_50px_rgba(2,9,22,0.55)] ring-1 ring-inset ring-white/6"
-      >
-        {children}
-      </motion.pre>
-    ),
-    hr: () => (
-      <div className="my-14 flex items-center gap-4">
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#0066FF]/30 to-transparent" />
-        <div className="flex gap-1.5">
-          <div className="h-1.5 w-1.5 rounded-full bg-[#0066FF]/40" />
-          <div className="h-1.5 w-1.5 rounded-full bg-[#0066FF]/25" />
-          <div className="h-1.5 w-1.5 rounded-full bg-[#0066FF]/12" />
-        </div>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#0066FF]/30 to-transparent" />
-      </div>
-    ),
-    a: ({ href, children }) => (
-      <a
-        href={href}
-        className="animated-underline relative inline-block text-[#93C5FD] transition-colors duration-200 hover:text-white"
-        target={href?.startsWith("http") ? "_blank" : undefined}
-        rel={href?.startsWith("http") ? "noreferrer" : undefined}
-      >
-        {children}
-      </a>
-    ),
-    strong: ({ children }) => (
-      <strong className="font-semibold text-white/95">{children}</strong>
-    ),
-    em: ({ children }) => (
-      <em className="text-[#DDEBFF]/85 not-italic font-medium">{children}</em>
-    ),
-  };
+      ),
+      a: ({ href, children }) => (
+        <a
+          href={href}
+          className="text-[#93C5FD] underline decoration-[#3B82F6]/40 underline-offset-4 transition-colors hover:text-white"
+          target={href?.startsWith("http") ? "_blank" : undefined}
+          rel={href?.startsWith("http") ? "noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      ),
+      strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+      em: ({ children }) => <em className="text-[#DDEBFF]/88">{children}</em>,
+    };
+  }, [content]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-      className="blog-prose max-w-none"
-    >
+    <div className="blog-article-prose mt-8 w-full lg:mt-10">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {content}
       </ReactMarkdown>
-    </motion.div>
+    </div>
   );
 }

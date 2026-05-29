@@ -75,21 +75,41 @@ export function ServicesDropdownDesktop({ className }: DesktopProps) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="absolute left-1/2 z-50 mt-5 w-[22rem] -translate-x-1/2"
-            initial={{ opacity: 0, y: 8, scale: 0.97 }}
+            className="absolute left-1/2 z-50 mt-5 w-[26rem] -translate-x-1/2"
+            initial={{ opacity: 0, y: -10, scale: 0.995 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.97 }}
-            transition={{ duration: 0.24, ease: EASE }}
+            exit={{ opacity: 0, y: -6, scale: 0.995 }}
+            transition={{ type: "spring", stiffness: 360, damping: 36, mass: 0.7 }}
             role="menu"
-          >
+              >
             {/* Arrow */}
             <div className="relative mx-auto mb-1 h-2 w-4 overflow-hidden">
               <div className="absolute inset-x-0 top-1 h-3 w-3 origin-bottom-left rotate-45 rounded-sm border border-[#8CB8FF]/22 bg-[#0C2749]" style={{ left: "50%", transform: "translateX(-50%) rotate(45deg)" }} />
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-[#8CB8FF]/22 bg-[rgba(10,34,64,0.82)] shadow-[0_28px_80px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,102,255,0.1)] backdrop-blur-2xl">
-              {/* Inner glow */}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_20%_10%,rgba(0,102,255,0.18),transparent_55%)]" />
+            <div
+              className="overflow-hidden rounded-2xl"
+              style={{
+                border: "1px solid rgba(120,170,255,0.15)",
+                background: "linear-gradient(180deg,#071426,#0B1D38)",
+                backgroundColor: "rgba(7,20,38,0.94)",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              {/* Large soft blue glow behind the panel */}
+              <div
+                className="pointer-events-none absolute -inset-12 -z-10 rounded-3xl"
+                style={{
+                  background:
+                    "radial-gradient(closest-side at 50% 10%, rgba(0,102,255,0.18), rgba(0,102,255,0.06) 18%, transparent 45%)",
+                  filter: "blur(40px)",
+                  opacity: 0.95,
+                }}
+              />
+
+              {/* Inner layered glass */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))" }} />
 
               <div className="relative p-2.5">
                 {SERVICES.map(({ name, href, icon: Icon, desc, color }, i) => (
@@ -98,29 +118,52 @@ export function ServicesDropdownDesktop({ className }: DesktopProps) {
                     initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.22, delay: i * 0.04, ease: EASE }}
+                    whileHover={{ scale: 1.02 }}
                   >
                     <Link
                       href={href}
-                      className="group/item flex items-center gap-3.5 rounded-xl border border-transparent px-3 py-3 transition-all duration-250 hover:border-[#8BB8FF]/25 hover:bg-[#112C5A]/50"
+                      className="group/item relative flex items-center gap-3.5 rounded-xl border px-3 py-3 transition-all duration-250"
                       role="menuitem"
+                      style={{
+                        borderColor: "transparent",
+                        background: "transparent",
+                      }}
                     >
                       <div
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 group-hover/item:scale-105"
-                        style={{ background: color, border: "1px solid rgba(255,255,255,0.1)" }}
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 bg-[rgba(255,255,255,0.02)] group-hover/item:scale-105 group-hover/item:shadow-[0_8px_28px_rgba(0,102,255,0.12)]"
+                        style={{
+                          background: color,
+                          border: "1px solid rgba(255,255,255,0.04)",
+                          transitionProperty: "transform, box-shadow, background",
+                        }}
                       >
                         <Icon size={16} className="text-[#A8C9FF]" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-heading text-sm font-medium text-white/88 transition-colors group-hover/item:text-white">
+                        <p className="font-heading text-sm font-medium text-white/92 transition-colors group-hover/item:text-white">
                           {name}
                         </p>
-                        <p className="mt-0.5 text-[11px] text-white/46 transition-colors group-hover/item:text-white/62">
+                        <p className="mt-0.5 text-[11px] text-white/52 transition-colors group-hover/item:text-white/70">
                           {desc}
                         </p>
                       </div>
-                      <ArrowUpRight
-                        size={14}
-                        className="shrink-0 text-white/30 transition-all duration-250 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 group-hover/item:text-[#A8C9FF]"
+                      <motion.div
+                        className="ml-2 flex items-center"
+                        initial={false}
+                        whileHover={{ x: 6 }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <ArrowUpRight size={14} className="shrink-0 text-white/40 transition-colors group-hover/item:text-[#A8C9FF]" />
+                      </motion.div>
+
+                      {/* Hover overlay */}
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-all duration-250"
+                        style={{
+                          boxShadow: "0 10px 40px rgba(3,82,255,0.12)",
+                          background: "linear-gradient(90deg, rgba(7,20,38,0.0), rgba(7,20,38,0.02))",
+                        }}
                       />
                     </Link>
                   </motion.div>

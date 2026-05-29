@@ -45,7 +45,7 @@ export function CinematicHero() {
 
   return (
     <section
-      className="relative flex w-full flex-col overflow-hidden pb-20 pt-44 md:pb-28 md:pt-48"
+      className="relative flex w-full flex-col overflow-hidden pb-20 pt-[100px] md:pb-28 md:pt-[120px] lg:pt-[160px]"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);

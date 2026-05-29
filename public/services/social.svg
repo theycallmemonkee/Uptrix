@@ -1,23 +1,108 @@
 <svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="30" y1="30" x2="1120" y2="770" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#102C55"/>
-      <stop offset="1" stop-color="#08142A"/>
+    <linearGradient id="social-bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#061428"/>
+      <stop offset="1" stop-color="#0A1A35"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(930 190) rotate(140) scale(370 250)">
-      <stop stop-color="#3C89FF" stop-opacity="0.48"/>
-      <stop offset="1" stop-color="#3C89FF" stop-opacity="0"/>
+    <radialGradient id="social-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(900 100) rotate(130) scale(400 320)">
+      <stop stop-color="#0066FF" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#0066FF" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="social-bar" x1="0" y1="1" x2="0" y2="0">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#60A5FA"/>
+    </linearGradient>
+    <pattern id="social-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" stroke="#1A3358" stroke-width="0.5" fill="none"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="800" fill="url(#bg)"/>
-  <rect width="1200" height="800" fill="url(#glow)"/>
-  <g opacity="0.78">
-    <rect x="148" y="150" width="904" height="500" rx="30" fill="#0C2040" stroke="#5C97FF" stroke-opacity="0.35"/>
-    <rect x="214" y="238" width="284" height="322" rx="20" fill="#143768"/>
-    <circle cx="356" cy="336" r="72" fill="#7EB0FF" fill-opacity="0.42"/>
-    <rect x="550" y="238" width="432" height="64" rx="14" fill="#1B4580"/>
-    <rect x="550" y="322" width="340" height="40" rx="10" fill="#7AAEFF" fill-opacity="0.45"/>
-    <rect x="550" y="380" width="260" height="28" rx="8" fill="#7AAEFF" fill-opacity="0.28"/>
-    <rect x="550" y="454" width="380" height="106" rx="18" fill="#143768"/>
-  </g>
+  <rect width="1200" height="800" fill="url(#social-bg)"/>
+  <rect width="1200" height="800" fill="url(#social-glow)"/>
+  <rect width="1200" height="800" fill="url(#social-grid)" opacity="0.3"/>
+
+  <rect x="64" y="48" width="1072" height="704" rx="28" fill="#071426" stroke="#2B5A9E" stroke-opacity="0.42"/>
+  <rect x="64" y="48" width="1072" height="48" rx="28" fill="#0A1D38"/>
+  <circle cx="100" cy="72" r="7" fill="#FF5F57"/>
+  <circle cx="124" cy="72" r="7" fill="#FFBD2E"/>
+  <circle cx="148" cy="72" r="7" fill="#28CA42"/>
+  <rect x="188" y="64" width="280" height="16" rx="8" fill="#1A3358"/>
+  <rect x="960" y="60" width="148" height="24" rx="12" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.45"/>
+  <text x="988" y="76" fill="#93C5FD" font-family="system-ui,sans-serif" font-size="11" font-weight="600">AI Workflow</text>
+
+  <!-- Content calendar -->
+  <rect x="88" y="116" width="640" height="400" rx="18" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.32"/>
+  <text x="112" y="148" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="14" font-weight="500">Content calendar · May 2026</text>
+  <rect x="112" y="164" width="592" height="28" rx="8" fill="#0C2248"/>
+  <text x="130" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Mon</text>
+  <text x="210" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Tue</text>
+  <text x="290" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Wed</text>
+  <text x="370" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Thu</text>
+  <text x="450" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Fri</text>
+  <text x="530" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Sat</text>
+  <text x="610" y="184" fill="#6B8FB8" font-family="system-ui,sans-serif" font-size="11">Sun</text>
+  <!-- Calendar cells -->
+  <rect x="112" y="204" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="200" y="204" width="76" height="72" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.5"/>
+  <rect x="208" y="216" width="60" height="8" rx="4" fill="#3B82F6"/>
+  <rect x="208" y="232" width="44" height="6" rx="3" fill="#60A5FA" opacity="0.6"/>
+  <rect x="288" y="204" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="376" y="204" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="464" y="204" width="76" height="72" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.4"/>
+  <rect x="552" y="204" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="640" y="204" width="64" height="72" rx="10" fill="#0C2248"/>
+  <rect x="112" y="288" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="200" y="288" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="288" y="288" width="76" height="72" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.45"/>
+  <rect x="376" y="288" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="464" y="288" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="552" y="288" width="76" height="72" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.35"/>
+  <rect x="640" y="288" width="64" height="72" rx="10" fill="#0C2248"/>
+  <rect x="112" y="372" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="200" y="372" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="288" y="372" width="76" height="72" rx="10" fill="#0C2248"/>
+  <rect x="376" y="372" width="76" height="72" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.5"/>
+  <rect x="384" y="384" width="52" height="8" rx="4" fill="#60A5FA"/>
+
+  <!-- Engagement analytics -->
+  <rect x="748" y="116" width="364" height="196" rx="18" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.32"/>
+  <text x="772" y="148" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="14" font-weight="500">Engagement</text>
+  <text x="772" y="188" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="32" font-weight="600">8.4%</text>
+  <text x="872" y="188" fill="#4ADE80" font-family="system-ui,sans-serif" font-size="13">+2.1%</text>
+  <rect x="772" y="208" width="24" height="72" rx="6" fill="url(#social-bar)" opacity="0.45"/>
+  <rect x="808" y="192" width="24" height="88" rx="6" fill="url(#social-bar)" opacity="0.6"/>
+  <rect x="844" y="176" width="24" height="104" rx="6" fill="url(#social-bar)" opacity="0.75"/>
+  <rect x="880" y="164" width="24" height="116" rx="6" fill="url(#social-bar)"/>
+  <rect x="916" y="180" width="24" height="100" rx="6" fill="url(#social-bar)" opacity="0.7"/>
+  <rect x="952" y="168" width="24" height="112" rx="6" fill="url(#social-bar)" opacity="0.85"/>
+  <rect x="988" y="156" width="24" height="124" rx="6" fill="#93C5FD"/>
+  <text x="772" y="296" fill="#7BA4D4" font-family="system-ui,sans-serif" font-size="11">Reach 2.1M · Saves 48k</text>
+
+  <!-- AI workflow -->
+  <rect x="748" y="328" width="364" height="188" rx="18" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.32"/>
+  <text x="772" y="360" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="14" font-weight="500">AI content pipeline</text>
+  <rect x="772" y="380" width="88" height="56" rx="12" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.4"/>
+  <text x="792" y="414" fill="#C8DCF5" font-family="system-ui,sans-serif" font-size="11">Generate</text>
+  <path d="M868 408 H900" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="908" y="380" width="88" height="56" rx="12" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.4"/>
+  <text x="930" y="414" fill="#C8DCF5" font-family="system-ui,sans-serif" font-size="11">Review</text>
+  <path d="M1004 408 H1036" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="1044" y="380" width="52" height="56" rx="12" fill="#1D4ED8" fill-opacity="0.5" stroke="#60A5FA" stroke-opacity="0.6"/>
+  <text x="1054" y="414" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="10">Publish</text>
+
+  <!-- Platform row -->
+  <rect x="88" y="532" width="1024" height="196" rx="18" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.28"/>
+  <rect x="112" y="560" width="140" height="140" rx="14" fill="#0C2248"/>
+  <text x="132" y="592" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="12">LinkedIn</text>
+  <text x="132" y="628" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="24" font-weight="600">124k</text>
+  <text x="132" y="656" fill="#4ADE80" font-family="system-ui,sans-serif" font-size="11">impressions</text>
+  <rect x="272" y="560" width="140" height="140" rx="14" fill="#0C2248"/>
+  <text x="292" y="592" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="12">Instagram</text>
+  <text x="292" y="628" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="24" font-weight="600">89k</text>
+  <rect x="432" y="560" width="140" height="140" rx="14" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.35"/>
+  <text x="452" y="592" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="12">X / Twitter</text>
+  <text x="452" y="628" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="24" font-weight="600">56k</text>
+  <rect x="592" y="560" width="500" height="140" rx="14" fill="#0C2248"/>
+  <path d="M620 640 Q720 580 820 620 T1020 600" stroke="#60A5FA" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M620 660 Q760 700 900 640 T1060 680" stroke="#3B82F6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <text x="620" y="592" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="12">Cross-platform engagement trend</text>
 </svg>

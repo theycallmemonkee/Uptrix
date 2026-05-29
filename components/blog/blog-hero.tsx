@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Blog } from "@/app/blog/data";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -66,23 +65,3 @@ export function BlogHero({
   );
 }
 
-export function BlogPostHero({ blog }: { blog: Blog }) {
-  return (
-    <motion.header
-      className="mt-6 max-w-4xl"
-      initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 0.72, ease: EASE }}
-    >
-      <h1 className="font-heading text-4xl font-semibold tracking-tight text-white md:text-6xl">{blog.title}</h1>
-      <motion.p
-        className="mt-6 text-base leading-8 text-white/72 md:text-lg"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
-      >
-        {blog.excerpt}
-      </motion.p>
-    </motion.header>
-  );
-}

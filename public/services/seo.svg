@@ -1,23 +1,92 @@
 <svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0F2F5D"/>
-      <stop offset="1" stop-color="#08162E"/>
+    <linearGradient id="seo-bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#061428"/>
+      <stop offset="1" stop-color="#0B1F3A"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(250 180) rotate(35) scale(420 280)">
-      <stop stop-color="#2D7DFF" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#2D7DFF" stop-opacity="0"/>
+    <radialGradient id="seo-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(280 120) rotate(40) scale(520 380)">
+      <stop stop-color="#0066FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0066FF" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="seo-chart" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="seo-line" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#0066FF"/>
+    </linearGradient>
+    <pattern id="seo-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#1E3A5F" stroke-width="0.5" fill="none"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="800" fill="url(#bg)"/>
-  <rect width="1200" height="800" fill="url(#glow)"/>
-  <g opacity="0.7">
-    <rect x="130" y="142" width="940" height="516" rx="28" fill="#0C2345" stroke="#4A8CFF" stroke-opacity="0.35"/>
-    <path d="M208 530L362 462L502 488L676 374L820 410L992 296" stroke="#8AB6FF" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="362" cy="462" r="10" fill="#E6F1FF"/>
-    <circle cx="676" cy="374" r="10" fill="#E6F1FF"/>
-    <circle cx="992" cy="296" r="10" fill="#E6F1FF"/>
-    <rect x="208" y="570" width="256" height="16" rx="8" fill="#9CC2FF" fill-opacity="0.65"/>
-    <rect x="208" y="602" width="180" height="12" rx="6" fill="#9CC2FF" fill-opacity="0.4"/>
-  </g>
+  <rect width="1200" height="800" fill="url(#seo-bg)"/>
+  <rect width="1200" height="800" fill="url(#seo-glow)"/>
+  <rect width="1200" height="800" fill="url(#seo-grid)" opacity="0.35"/>
+
+  <!-- App window -->
+  <rect x="72" y="56" width="1056" height="688" rx="28" fill="#071426" stroke="#2B5A9E" stroke-opacity="0.45"/>
+  <rect x="72" y="56" width="1056" height="52" rx="28" fill="#0A1D38"/>
+  <rect x="72" y="84" width="1056" height="24" fill="#0A1D38"/>
+  <circle cx="108" cy="82" r="7" fill="#FF5F57"/>
+  <circle cx="132" cy="82" r="7" fill="#FFBD2E"/>
+  <circle cx="156" cy="82" r="7" fill="#28CA42"/>
+  <rect x="200" y="74" width="220" height="16" rx="8" fill="#1A3358"/>
+  <rect x="920" y="72" width="140" height="20" rx="10" fill="#0E2A52" stroke="#3B82F6" stroke-opacity="0.4"/>
+
+  <!-- Sidebar -->
+  <rect x="88" y="124" width="200" height="604" rx="16" fill="#081A33"/>
+  <rect x="108" y="148" width="120" height="10" rx="5" fill="#2A4A75"/>
+  <rect x="108" y="178" width="160" height="36" rx="10" fill="#0F2D55" stroke="#3B82F6" stroke-opacity="0.5"/>
+  <rect x="120" y="190" width="14" height="14" rx="4" fill="#3B82F6"/>
+  <rect x="108" y="228" width="160" height="28" rx="8" fill="#0C2244"/>
+  <rect x="108" y="268" width="160" height="28" rx="8" fill="#0C2244"/>
+  <rect x="108" y="308" width="160" height="28" rx="8" fill="#0C2244"/>
+  <rect x="108" y="348" width="160" height="28" rx="8" fill="#0C2244"/>
+
+  <!-- KPI row -->
+  <rect x="312" y="132" width="248" height="108" rx="16" fill="#0C2248" stroke="#2E5A9A" stroke-opacity="0.35"/>
+  <text x="332" y="168" fill="#7BA4D4" font-family="system-ui,sans-serif" font-size="13" font-weight="500">Search Visibility</text>
+  <text x="332" y="212" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="36" font-weight="600">94.2%</text>
+  <path d="M420 200 L448 188 L476 192 L504 172" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="512" y="212" fill="#4ADE80" font-family="system-ui,sans-serif" font-size="14" font-weight="600">+18.4%</text>
+
+  <rect x="576" y="132" width="248" height="108" rx="16" fill="#0C2248" stroke="#2E5A9A" stroke-opacity="0.35"/>
+  <text x="596" y="168" fill="#7BA4D4" font-family="system-ui,sans-serif" font-size="13" font-weight="500">Keyword Growth</text>
+  <text x="596" y="212" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="36" font-weight="600">+127</text>
+  <rect x="720" y="188" width="8" height="24" rx="2" fill="#3B82F6" opacity="0.5"/>
+  <rect x="736" y="176" width="8" height="36" rx="2" fill="#3B82F6" opacity="0.65"/>
+  <rect x="752" y="164" width="8" height="48" rx="2" fill="#60A5FA"/>
+  <rect x="768" y="152" width="8" height="60" rx="2" fill="#93C5FD"/>
+
+  <rect x="840" y="132" width="264" height="108" rx="16" fill="#0C2248" stroke="#2E5A9A" stroke-opacity="0.35"/>
+  <text x="860" y="168" fill="#7BA4D4" font-family="system-ui,sans-serif" font-size="13" font-weight="500">Avg. Position</text>
+  <text x="860" y="212" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="36" font-weight="600">3.8</text>
+  <text x="1020" y="212" fill="#60A5FA" font-family="system-ui,sans-serif" font-size="14">AI Tracked</text>
+
+  <!-- Main chart -->
+  <rect x="312" y="260" width="792" height="300" rx="18" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.3"/>
+  <text x="336" y="296" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="14" font-weight="500">Organic traffic · 90 days</text>
+  <path d="M340 500 L400 468 L460 478 L520 420 L580 432 L640 380 L700 360 L760 328 L820 300 L880 278 L940 252 L1000 230 L1060 210" stroke="url(#seo-line)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 500 L400 468 L460 478 L520 420 L580 432 L640 380 L700 360 L760 328 L820 300 L880 278 L940 252 L1000 230 L1060 210 L1060 520 L340 520 Z" fill="url(#seo-chart)"/>
+  <line x1="340" y1="420" x2="1060" y2="420" stroke="#1E3A5F" stroke-width="1" stroke-dasharray="6 6"/>
+  <line x1="340" y1="340" x2="1060" y2="340" stroke="#1E3A5F" stroke-width="1" stroke-dasharray="6 6"/>
+  <circle cx="1060" cy="210" r="6" fill="#93C5FD" stroke="#0B1F3A" stroke-width="2"/>
+
+  <!-- Keyword table -->
+  <rect x="312" y="580" width="520" height="132" rx="16" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.28"/>
+  <text x="336" y="612" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="13" font-weight="500">Top keywords</text>
+  <rect x="336" y="628" width="460" height="1" fill="#1E3A5F"/>
+  <text x="336" y="656" fill="#C8DCF5" font-family="system-ui,sans-serif" font-size="12">ai marketing automation</text>
+  <text x="680" y="656" fill="#4ADE80" font-family="system-ui,sans-serif" font-size="12">#2</text>
+  <text x="336" y="684" fill="#C8DCF5" font-family="system-ui,sans-serif" font-size="12">enterprise seo platform</text>
+  <text x="680" y="684" fill="#60A5FA" font-family="system-ui,sans-serif" font-size="12">#4</text>
+
+  <!-- Visibility ring -->
+  <rect x="852" y="580" width="252" height="132" rx="16" fill="#081E3C" stroke="#2B5A9E" stroke-opacity="0.28"/>
+  <circle cx="928" cy="646" r="44" stroke="#1E3A5F" stroke-width="8" fill="none"/>
+  <circle cx="928" cy="646" r="44" stroke="#3B82F6" stroke-width="8" fill="none" stroke-dasharray="220 276" stroke-linecap="round" transform="rotate(-90 928 646)"/>
+  <text x="908" y="652" fill="#E8F2FF" font-family="system-ui,sans-serif" font-size="20" font-weight="600">94%</text>
+  <text x="1000" y="632" fill="#9CC3E8" font-family="system-ui,sans-serif" font-size="12">Index coverage</text>
+  <text x="1000" y="660" fill="#7BA4D4" font-family="system-ui,sans-serif" font-size="11">2.4k pages</text>
 </svg>

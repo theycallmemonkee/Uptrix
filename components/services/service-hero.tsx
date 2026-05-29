@@ -31,7 +31,7 @@ export function ServiceHero({ service }: Props) {
   const [magnet, setMagnet] = useState({ x: 0, y: 0 });
 
   return (
-    <section className="relative overflow-hidden px-6 pt-40 pb-18 md:px-10 md:pt-44 md:pb-24">
+    <section className="relative overflow-hidden px-6 pt-[100px] pb-18 md:px-10 md:pt-[120px] md:pb-24 lg:pt-[160px]">
       <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(900px_circle_at_20%_10%,rgba(0,102,255,0.22),transparent_58%),radial-gradient(760px_circle_at_86%_24%,rgba(138,184,255,0.12),transparent_62%)]" />
       <motion.div
         className="pointer-events-none absolute -top-24 right-[-10rem] -z-10 h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.32),transparent_68%)] blur-3xl"
