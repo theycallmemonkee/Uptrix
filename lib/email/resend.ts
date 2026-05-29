@@ -1,3 +1,4 @@
+import { isEnvSet, SERVER_ENV_KEYS } from "@/lib/env/server-env";
 import { Resend } from "resend";
 
 const CONTACT_FROM = "Uptrix <onboarding@resend.dev>";
@@ -8,9 +9,11 @@ let resendClient: Resend | null = null;
 
 function getResendClient() {
   if (resendClient) return resendClient;
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) throw new Error("Missing required environment variable: RESEND_API_KEY");
-  resendClient = new Resend(apiKey);
+  const keyName = SERVER_ENV_KEYS.RESEND_API_KEY;
+  if (!isEnvSet(keyName)) {
+    throw new Error(`Missing required environment variable: ${keyName}`);
+  }
+  resendClient = new Resend(process.env.RESEND_API_KEY!);
   return resendClient;
 }
 

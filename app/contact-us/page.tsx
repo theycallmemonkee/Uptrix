@@ -77,13 +77,18 @@ export default function ContactUsPage() {
     setIsSubmitting(true);
 
     try {
-      console.info("[contact/form] Submitting", {
-        endpoint: "/api/contact",
-        name: parsed.data.name,
-        email: parsed.data.email,
+      const apiUrl =
+        typeof window !== "undefined" ? `${window.location.origin}/api/contact` : "/api/contact";
+
+      console.info("[contact/form] Before fetch", {
+        apiUrl,
+        origin: typeof window !== "undefined" ? window.location.origin : "ssr",
+        pathname: typeof window !== "undefined" ? window.location.pathname : "ssr",
+        method: "POST",
+        body: parsed.data,
       });
 
-      const response = await fetch("/api/contact", {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed.data),
@@ -111,9 +116,12 @@ export default function ContactUsPage() {
         return;
       }
 
-      console.info("[contact/form] API response", {
+      console.info("[contact/form] After fetch", {
+        apiUrl,
         status: response.status,
+        statusText: response.statusText,
         ok: response.ok,
+        raw,
         payload,
       });
 

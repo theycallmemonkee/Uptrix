@@ -1,4 +1,5 @@
 import { contactSubmissionSchema } from "@/lib/contact/schema";
+import { getMissingRequiredForContact, getServerEnvAudit, hasSupabaseServerEnv } from "@/lib/env/server-env";
 import { sendContactNotificationEmail } from "@/lib/email/resend";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 import { NextResponse } from "next/server";
@@ -9,19 +10,57 @@ const RATE_LIMIT_WINDOW_MS = 60_000;
 const CONTACT_TABLE = "contact_messages";
 const requestTracker = new Map<string, number[]>();
 
-export async function POST(request: Request) {
-  try {
-    console.info("[contact/api] Request received", { route: API_ROUTE });
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-    const missingEnv = getMissingEnvVars();
+export async function GET() {
+  const audit = getServerEnvAudit();
+
+  return NextResponse.json({
+    route: API_ROUTE,
+    ok: audit.required.ready,
+    runtime: "nodejs",
+    ...audit,
+    hint:
+      audit.required.missing.length > 0
+        ? `Add ${audit.required.missing.join(", ")} in Vercel Project Settings → Environment Variables, then redeploy.`
+        : "Contact API is ready.",
+  });
+}
+
+export async function POST(request: Request) {
+  const requestId = crypto.randomUUID();
+  const url = request.url;
+  const host = request.headers.get("host");
+  const vercelEnv = process.env.VERCEL_ENV ?? "local";
+
+  try {
+    console.info("[contact/api] Request received", {
+      requestId,
+      route: API_ROUTE,
+      method: "POST",
+      url,
+      host,
+      vercelEnv,
+    });
+
+    const missingEnv = getMissingRequiredForContact();
     if (missingEnv.length > 0) {
-      console.error("[contact/api] Missing configuration", { missingEnv, route: API_ROUTE });
+      const audit = getServerEnvAudit();
+      console.error("[contact/api] Missing configuration", {
+        requestId,
+        missingEnv,
+        present: audit.present,
+        vercelEnv: audit.meta.vercelEnv,
+      });
       return NextResponse.json(
         {
           ok: false,
           error: `Server configuration error: missing ${missingEnv.join(", ")}`,
           code: "ENV_MISSING",
           missingEnv,
+          present: audit.present,
+          hint: audit.guidance.afterChange,
         },
         { status: 500 },
       );
@@ -29,7 +68,7 @@ export async function POST(request: Request) {
 
     const ip = getClientIp(request);
     if (!isRateLimitAllowed(ip)) {
-      console.warn("[contact/api] Rate limited", { ip });
+      console.warn("[contact/api] Rate limited", { requestId, ip });
       return NextResponse.json(
         { ok: false, error: "Too many requests. Please try again shortly.", code: "RATE_LIMITED" },
         { status: 429 },
@@ -37,15 +76,17 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    console.info("[contact/api] Body parsed", {
-      hasName: Boolean(body?.name),
-      hasEmail: Boolean(body?.email),
-      hasMessage: Boolean(body?.message),
+    console.info("[contact/api] Raw body received", {
+      requestId,
+      body,
     });
 
     const parsed = contactSubmissionSchema.safeParse(body);
     if (!parsed.success) {
-      console.warn("[contact/api] Validation failed", parsed.error.flatten().fieldErrors);
+      console.warn("[contact/api] Validation failed", {
+        requestId,
+        fieldErrors: parsed.error.flatten().fieldErrors,
+      });
       return NextResponse.json(
         {
           ok: false,
@@ -59,11 +100,12 @@ export async function POST(request: Request) {
 
     const input = parsed.data;
     if (input.honey.trim() !== "") {
-      console.info("[contact/api] Honeypot triggered — silent success");
+      console.info("[contact/api] Honeypot triggered — silent success", { requestId });
       return NextResponse.json({ ok: true }, { status: 200 });
     }
 
     console.info("[contact/api] Incoming form data", {
+      requestId,
       name: input.name,
       email: input.email,
       message: input.message,
@@ -71,7 +113,6 @@ export async function POST(request: Request) {
 
     const timestampIso = new Date().toISOString();
 
-    // Email first — do not block on Supabase (common production failure: table not migrated)
     const emailResult = await sendContactNotificationEmail({
       name: input.name,
       email: input.email,
@@ -86,10 +127,12 @@ export async function POST(request: Request) {
           ? emailResult.error.statusCode
           : undefined;
 
-      console.error("[contact/api] Resend failed — returning error to client", {
+      console.error("[contact/api] Resend failed", {
+        requestId,
         message: resendMessage,
         name: emailResult.error.name,
         statusCode,
+        error: emailResult.error,
       });
 
       return NextResponse.json(
@@ -103,49 +146,55 @@ export async function POST(request: Request) {
             statusCode,
           },
         },
-        { status: statusCode === 401 || statusCode === 403 ? 502 : 502 },
+        { status: 502 },
       );
     }
 
-    console.info("[contact/api] Resend accepted", { emailId: emailResult.data?.id });
+    console.info("[contact/api] Resend accepted", { requestId, emailId: emailResult.data?.id });
 
     let dbWarning: string | undefined;
-    try {
-      const supabase = createSupabaseAdminClient();
-      const { error: dbError } = await supabase.from(CONTACT_TABLE).insert({
-        name: input.name,
-        email: input.email,
-        message: input.message,
-        created_at: timestampIso,
-      });
-
-      if (dbError) {
-        dbWarning = dbError.message;
-        console.error("[contact/api] Database insert failed (email already sent)", {
-          code: dbError.code,
-          message: dbError.message,
-          details: dbError.details,
-          hint: dbError.hint,
-          table: CONTACT_TABLE,
+    if (hasSupabaseServerEnv()) {
+      try {
+        const supabase = createSupabaseAdminClient();
+        const { error: dbError } = await supabase.from(CONTACT_TABLE).insert({
+          name: input.name,
+          email: input.email,
+          message: input.message,
+          created_at: timestampIso,
         });
-      } else {
-        console.info("[contact/api] Database insert succeeded", { table: CONTACT_TABLE });
+
+        if (dbError) {
+          dbWarning = dbError.message;
+          console.error("[contact/api] Database insert failed (email already sent)", {
+            requestId,
+            code: dbError.code,
+            message: dbError.message,
+          });
+        } else {
+          console.info("[contact/api] Database insert succeeded", { requestId, table: CONTACT_TABLE });
+        }
+      } catch (dbUnexpected) {
+        dbWarning = dbUnexpected instanceof Error ? dbUnexpected.message : "Database error";
+        console.error("[contact/api] Database unexpected error (email already sent)", {
+          requestId,
+          error: dbUnexpected,
+        });
       }
-    } catch (dbUnexpected) {
-      dbWarning = dbUnexpected instanceof Error ? dbUnexpected.message : "Database error";
-      console.error("[contact/api] Database unexpected error (email already sent)", dbUnexpected);
+    } else {
+      console.warn("[contact/api] Supabase not configured — skipping database insert", { requestId });
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        emailId: emailResult.data?.id ?? null,
-        ...(dbWarning ? { warning: `Message delivered but storage failed: ${dbWarning}` } : {}),
-      },
-      { status: 200 },
-    );
+    const responseBody = {
+      ok: true,
+      emailId: emailResult.data?.id ?? null,
+      ...(dbWarning ? { warning: `Message delivered but storage failed: ${dbWarning}` } : {}),
+    };
+
+    console.info("[contact/api] Success response", { requestId, responseBody });
+
+    return NextResponse.json(responseBody, { status: 200 });
   } catch (error) {
-    console.error("[contact/api] Unexpected error", { route: API_ROUTE, error });
+    console.error("[contact/api] Unexpected error", { requestId, route: API_ROUTE, error });
     return NextResponse.json(
       {
         ok: false,
@@ -176,14 +225,4 @@ function isRateLimitAllowed(ip: string) {
   fresh.push(now);
   requestTracker.set(ip, fresh);
   return true;
-}
-
-function getMissingEnvVars() {
-  const required = [
-    "NEXT_PUBLIC_SUPABASE_URL",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "SUPABASE_SERVICE_ROLE_KEY",
-    "RESEND_API_KEY",
-  ] as const;
-  return required.filter((key) => !process.env[key]);
 }
