@@ -3,6 +3,7 @@ import { PremiumNavbar } from "@/components/premium-navbar";
 import { FinalCta } from "@/components/services/final-cta";
 import { ServiceFeatures } from "@/components/services/service-features";
 import { ServiceHero } from "@/components/services/service-hero";
+import { ServiceDetailSections } from "@/components/services/service-detail-sections";
 import { TrustBar } from "@/components/services/trust-bar";
 import { WhyChooseSection } from "@/components/services/why-choose-section";
 import type { ServiceConfig } from "@/data/services";
@@ -35,6 +36,7 @@ export function ServicePageTemplate({ service }: Props) {
         <ServiceHero service={service} />
         <TrustBar />
         <WhyChooseSection service={service} />
+        <ServiceDetailSections service={service} />
         <ServiceFeatures features={service.featureCards} />
         <FinalCta title={service.finalCtaTitle} description={service.finalCtaDescription} />
         <EnterpriseFooter />

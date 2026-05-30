@@ -44,6 +44,20 @@ const SERVICES: Service[] = [
     image: "/services/branding.svg",
     href: "/services/branding",
   },
+  {
+    title: "AI UGC Video Ads",
+    description: "Create high-converting UGC-style video ads with AI avatars, voice cloning, and platform-optimized workflows.",
+    category: "UGC Ads",
+    image: "/services/ai-ugc-video-ads.svg",
+    href: "/services/ai-ugc-video-ads",
+  },
+  {
+    title: "Business Automation Solutions",
+    description: "Automate lead workflows, CRM triggers, support routing, and reporting pipelines with AI systems.",
+    category: "Automation",
+    image: "/services/business-automation.svg",
+    href: "/services/business-automation",
+  },
 ];
 
 function FeaturedServiceCard({ service, index }: { service: Service; index: number }) {
@@ -165,7 +179,7 @@ export function FeaturedServices() {
           </p>
         </motion.div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {SERVICES.map((service, index) => (
             <FeaturedServiceCard key={service.title} service={service} index={index} />
           ))}

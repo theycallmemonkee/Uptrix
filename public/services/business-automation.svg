@@ -1,0 +1,38 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business automation dashboard">
+  <defs>
+    <linearGradient id="panelBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06152B" />
+      <stop offset="100%" stop-color="#0E2D55" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="25%" r="65%">
+      <stop offset="0%" stop-color="#3F8EFF" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#04172F" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="900" rx="44" fill="url(#panelBg)" />
+  <circle cx="280" cy="180" r="110" fill="url(#glow)" />
+  <rect x="108" y="120" width="984" height="660" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+  <rect x="150" y="180" width="420" height="180" rx="32" fill="#0B304E" />
+  <rect x="200" y="230" width="220" height="18" rx="9" fill="#76B7FF" />
+  <rect x="200" y="262" width="310" height="14" rx="7" fill="#4A8AFF" />
+  <rect x="200" y="294" width="180" height="14" rx="7" fill="#4C8DFF" opacity="0.8" />
+  <rect x="600" y="180" width="420" height="280" rx="32" fill="#0E3A6B" />
+  <rect x="640" y="230" width="300" height="20" rx="10" fill="#9AC8FF" />
+  <rect x="640" y="268" width="260" height="14" rx="7" fill="#72AEFF" />
+  <rect x="640" y="296" width="180" height="14" rx="7" fill="#4D8CFF" />
+  <rect x="640" y="332" width="180" height="100" rx="24" fill="#0A264A" />
+  <rect x="680" y="360" width="120" height="16" rx="8" fill="#5D97FF" />
+  <rect x="680" y="392" width="90" height="16" rx="8" fill="#0F4075" />
+  <rect x="680" y="424" width="130" height="16" rx="8" fill="#5B99FF" />
+  <rect x="150" y="410" width="220" height="300" rx="36" fill="#0B2E52" />
+  <rect x="190" y="460" width="160" height="16" rx="8" fill="#79B6FF" />
+  <rect x="190" y="498" width="180" height="16" rx="8" fill="#4F92FF" />
+  <rect x="190" y="536" width="140" height="16" rx="8" fill="#1F6BE3" />
+  <rect x="420" y="460" width="240" height="20" rx="10" fill="#0E4273" />
+  <rect x="450" y="520" width="190" height="16" rx="8" fill="#6CA8FF" />
+  <rect x="450" y="556" width="140" height="16" rx="8" fill="#3F87FF" />
+  <rect x="360" y="640" width="500" height="180" rx="36" fill="#0A2F58" />
+  <rect x="400" y="692" width="160" height="16" rx="8" fill="#7BB6FF" />
+  <rect x="400" y="726" width="220" height="16" rx="8" fill="#4A8EFF" />
+  <rect x="400" y="760" width="120" height="16" rx="8" fill="#1D62D7" />
+</svg>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, BarChart2, ChevronDown, Globe, Palette, Search } from "lucide-react";
+import { ArrowUpRight, BarChart2, ChevronDown, Cpu, Globe, Palette, Search, Video } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -36,6 +36,20 @@ const SERVICES = [
     icon: Palette,
     desc: "Identity & brand architecture",
     color: "rgba(120,170,255,0.2)",
+  },
+  {
+    name: "AI UGC Video Ads",
+    href: "/services/ai-ugc-video-ads",
+    icon: Video,
+    desc: "AI creative video ads",
+    color: "rgba(87,148,255,0.2)",
+  },
+  {
+    name: "Business Automation Solutions",
+    href: "/services/business-automation",
+    icon: Cpu,
+    desc: "Workflow automation & CRM systems",
+    color: "rgba(96,166,255,0.2)",
   },
 ] as const;
 

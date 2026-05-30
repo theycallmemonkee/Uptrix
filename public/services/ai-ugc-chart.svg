@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI UGC performance chart">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#081A36" />
+      <stop offset="100%" stop-color="#0C2E5A" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="44" fill="url(#background)" />
+  <rect x="80" y="80" width="1040" height="740" rx="38" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+  <rect x="120" y="120" width="650" height="160" rx="28" fill="rgba(255,255,255,0.07)" />
+  <rect x="140" y="150" width="120" height="14" rx="7" fill="#85C4FF" />
+  <rect x="140" y="180" width="180" height="10" rx="5" fill="#4C8DFF" opacity="0.9" />
+  <rect x="140" y="210" width="240" height="10" rx="5" fill="#2E73FF" opacity="0.75" />
+  <rect x="120" y="320" width="520" height="16" rx="8" fill="#0858B7" opacity="0.65" />
+  <rect x="120" y="360" width="420" height="16" rx="8" fill="#0B6FE1" opacity="0.65" />
+  <path d="M110 540 Q 240 480 360 520 T 610 450 T 820 470 T 980 420" fill="none" stroke="#7CC8FF" stroke-width="20" stroke-linecap="round" />
+  <path d="M110 620 Q 240 560 360 610 T 610 530 T 820 560 T 980 490" fill="none" stroke="#2D89FF" stroke-width="20" stroke-dasharray="40 24" stroke-linecap="round" />
+  <circle cx="820" cy="470" r="26" fill="#B9E4FF" opacity="0.95" />
+  <circle cx="980" cy="420" r="26" fill="#B9E4FF" opacity="0.95" />
+  <g opacity="0.75">
+    <rect x="120" y="520" width="140" height="210" rx="32" fill="#0D3B70" />
+    <rect x="280" y="560" width="140" height="170" rx="32" fill="#0A2C5B" />
+    <rect x="440" y="500" width="140" height="230" rx="32" fill="#0E446D" />
+    <rect x="600" y="440" width="140" height="290" rx="32" fill="#134D85" />
+  </g>
+  <rect x="760" y="360" width="320" height="320" rx="42" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" />
+  <path d="M830 430 L860 380 L910 410 L950 360 L1020 410" fill="none" stroke="#8DC8FF" stroke-width="18" stroke-linecap="round" />
+  <circle cx="1020" cy="410" r="22" fill="#D7EDFF" />
+  <rect x="760" y="700" width="280" height="40" rx="20" fill="#0E2F5C" />
+  <text x="900" y="730" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" fill="#C9E7FF">Performance</text>
+</svg>

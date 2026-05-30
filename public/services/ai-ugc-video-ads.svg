@@ -1,0 +1,51 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI UGC Video Ads Dashboard">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#081A36" />
+      <stop offset="100%" stop-color="#0C2E5A" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C82FF" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#2558FF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#bg)" />
+  <rect x="80" y="80" width="1040" height="740" rx="42" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+  <rect x="120" y="130" width="580" height="220" rx="28" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+  <circle cx="250" cy="230" r="14" fill="#6BC5FF" />
+  <rect x="295" y="207" width="210" height="18" rx="9" fill="#84C7FF" />
+  <rect x="120" y="180" width="540" height="10" rx="5" fill="#7BAEFF" opacity="0.4" />
+  <rect x="120" y="210" width="420" height="10" rx="5" fill="#7BAEFF" opacity="0.55" />
+  <rect x="120" y="240" width="340" height="10" rx="5" fill="#7BAEFF" opacity="0.7" />
+  <rect x="760" y="130" width="280" height="90" rx="24" fill="rgba(255,255,255,0.08)" />
+  <rect x="780" y="150" width="120" height="16" rx="8" fill="#A5CFFF" />
+  <rect x="780" y="180" width="180" height="10" rx="5" fill="#8BB6FF" />
+  <rect x="860" y="180" width="120" height="10" rx="5" fill="#548BFF" opacity="0.7" />
+  <rect x="760" y="240" width="280" height="60" rx="24" fill="#0E3D77" />
+  <rect x="780" y="260" width="200" height="12" rx="6" fill="#88C5FF" />
+  <rect x="780" y="285" width="120" height="12" rx="6" fill="#4A96FF" opacity="0.95" />
+  <rect x="840" y="285" width="80" height="12" rx="6" fill="#72B8FF" opacity="0.7" />
+  <path d="M160 380 C 240 340, 340 420, 420 390 S 620 430, 700 400" fill="none" stroke="#75C9FF" stroke-width="12" stroke-linecap="round" opacity="0.9" />
+  <path d="M160 440 C 220 420, 320 500, 420 470 S 580 530, 700 500" fill="none" stroke="#2F8CFF" stroke-width="12" stroke-linecap="round" opacity="0.75" />
+  <rect x="120" y="520" width="300" height="210" rx="32" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)" />
+  <rect x="145" y="550" width="110" height="18" rx="9" fill="#8FBEFF" />
+  <rect x="145" y="590" width="200" height="18" rx="9" fill="#6FA5FF" />
+  <rect x="145" y="630" width="220" height="18" rx="9" fill="#4B8EFF" />
+  <rect x="145" y="670" width="160" height="14" rx="7" fill="#4B8EFF" opacity="0.8" />
+  <rect x="760" y="520" width="280" height="210" rx="32" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.14)" />
+  <rect x="790" y="550" width="120" height="18" rx="9" fill="#88C5FF" />
+  <rect x="790" y="590" width="160" height="18" rx="9" fill="#5B9EFF" />
+  <circle cx="900" cy="660" r="34" fill="#4F8CFF" opacity="0.95" />
+  <circle cx="900" cy="660" r="18" fill="#C9E8FF" />
+  <rect x="968" y="540" width="60" height="80" rx="18" fill="#1C5EFF" opacity="0.9" />
+  <circle cx="920" cy="260" r="28" fill="#73BEFF" opacity="0.95" />
+  <path d="M900 122 L940 122 L940 162 L900 162 Z" fill="#77CCFF" opacity="0.95" />
+  <circle cx="930" cy="146" r="8" fill="#0E2E67" />
+  <rect x="108" y="80" width="28" height="28" rx="8" fill="#6CC0FF" />
+  <rect x="148" y="80" width="28" height="28" rx="8" fill="#2E79FF" />
+  <rect x="188" y="80" width="28" height="28" rx="8" fill="#5185FF" />
+  <path d="M720 460 L740 430 L770 433 L780 410 L810 438" fill="none" stroke="#84C6FF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="320" y="90" width="130" height="28" rx="14" fill="#134A7A" />
+  <text x="385" y="112" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#C7E0FF">CREATIVE</text>
+  <ellipse cx="630" cy="360" rx="160" ry="70" fill="url(#blueGlow)" opacity="0.45" />
+</svg>

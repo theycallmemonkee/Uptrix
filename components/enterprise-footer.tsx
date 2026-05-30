@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { SERVICES } from "@/data/services";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -202,24 +203,19 @@ export function EnterpriseFooter() {
               </div>
 
               <div>
-                <p className="text-[11px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">Contact</p>
-                <ul className="mt-4 space-y-3 text-sm text-white/76">
-                  <li className="flex items-center gap-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.04] text-[#B3D0FF]">
-                      <Mail size={16} />
-                    </span>
-                    <a className="transition-colors duration-300 hover:text-white" href="mailto:connect@uptrixtechnologies.com">
-                      connect@uptrixtechnologies.com
-                    </a>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.04] text-[#B3D0FF]">
-                      <Phone size={16} />
-                    </span>
-                    <a className="transition-colors duration-300 hover:text-white" href="tel:+918796160561">
-                      +91 87961 60561
-                    </a>
-                  </li>
+                <p className="text-[11px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">Services</p>
+                <ul className="mt-4 space-y-3">
+                  {SERVICES.map((service) => (
+                    <li key={service.href}>
+                      <Link
+                        href={service.href}
+                        className="group inline-flex items-center gap-2 font-heading text-sm font-medium text-white/82 transition-colors duration-300 hover:text-white"
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#79ABFF]/70 transition-transform duration-300 group-hover:scale-110" />
+                        {service.name}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </motion.div>
