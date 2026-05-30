@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
@@ -14,6 +15,20 @@ type Props = {
 };
 
 export function ServiceDetailSections({ service }: Props) {
+  const [caseStudySrc, setCaseStudySrc] = useState(service.caseStudy?.image ?? "");
+  const localCaseStudyFallback = "/images/service-placeholder.jpg";
+
+  useEffect(() => {
+    if (service.slug === "ai-ugc-video-ads" || service.slug === "business-automation") {
+      console.log("[service-detail] image sources", {
+        slug: service.slug,
+        caseStudySrc,
+        fallback: localCaseStudyFallback,
+        sectionVisuals: service.sectionVisuals,
+      });
+    }
+  }, [service.slug, service.sectionVisuals, caseStudySrc]);
+
   return (
     <>
       {(service.problems || service.solutions) && (
@@ -275,7 +290,18 @@ export function ServiceDetailSections({ service }: Props) {
               transition={{ duration: 0.72, delay: 0.08, ease: EASE }}
             >
               <div className="relative aspect-[4/3]">
-                <Image src={service.caseStudy.image} alt={`${service.name} case study visual`} fill className="object-cover" />
+                <Image
+                  src={caseStudySrc}
+                  alt={`${service.name} case study visual`}
+                  fill
+                  className="object-cover"
+                  onError={() => {
+                    console.warn("[service-detail] case study image failed to load", caseStudySrc);
+                    if (caseStudySrc !== localCaseStudyFallback) {
+                      setCaseStudySrc(localCaseStudyFallback);
+                    }
+                  }}
+                />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,22,48,0.18),rgba(5,12,28,0.88))]" />
               </div>
             </motion.div>

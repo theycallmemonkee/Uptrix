@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ServiceConfig } from "@/data/services";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -29,6 +29,27 @@ function highlightHeadline(headline: string, keyword: string) {
 
 export function ServiceHero({ service }: Props) {
   const [magnet, setMagnet] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (!service.heroVisuals) return;
+
+    if (service.slug === "ai-ugc-video-ads" || service.slug === "business-automation") {
+      console.log(
+        "[service-hero] hero images",
+        service.slug,
+        {
+          dashboardImage: service.heroVisuals.dashboardImage,
+          chartImage: service.heroVisuals.chartImage,
+          workspaceImage: service.heroVisuals.workspaceImage,
+        }
+      );
+    }
+  }, [
+    service.slug,
+    service.heroVisuals?.dashboardImage,
+    service.heroVisuals?.chartImage,
+    service.heroVisuals?.workspaceImage,
+  ]);
 
   return (
     <section className="relative overflow-hidden px-6 pt-[100px] pb-18 md:px-10 md:pt-[120px] md:pb-24 lg:pt-[160px]">

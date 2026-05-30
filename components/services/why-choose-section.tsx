@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ServiceConfig } from "@/data/services";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -17,6 +17,12 @@ export function WhyChooseSection({ service }: Props) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const inView = useInView(sectionRef, { amount: 0.2, once: true });
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+
+  useEffect(() => {
+    if (service.slug === "ai-ugc-video-ads" || service.slug === "business-automation") {
+      console.log("[why-choose] image sources", service.slug, service.whyVisuals);
+    }
+  }, [service.slug, service.whyVisuals.mainImage, service.whyVisuals.analyticsImage]);
 
   return (
     <section ref={sectionRef} className="px-6 py-14 md:px-10 md:py-20">

@@ -347,40 +347,40 @@ export const SERVICES: ServiceConfig[] = [
       "We turn product stories into scroll-stopping video creatives with AI avatars, voice cloning, and platform-specific systems that keep ads converting.",
     whyBullets: ["AI avatar videos", "Platform-optimized ad variations", "Creative systems for velocity"],
     heroVisuals: {
-      dashboardImage: "/services/ai-ugc-video-ads.svg",
-      chartImage: "/services/ai-ugc-chart.svg",
-      workspaceImage: "/services/ai-ugc-workspace.svg",
+      dashboardImage: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80",
+      chartImage: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=1200&q=80",
+      workspaceImage: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80",
     },
     whyVisuals: {
-      mainImage: "/services/ai-ugc-video-ads.svg",
-      analyticsImage: "/services/ai-ugc-chart.svg",
+      mainImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
+      analyticsImage: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=1200&q=80",
     },
     sectionVisuals: {
-      problemImage: "/services/ai-ugc-video-ads-flow.svg",
-      timelineImage: "/services/ai-ugc-video-ads-timeline.svg",
-      benefitsImage: "/services/ai-ugc-chart.svg",
-      faqImage: "/services/ai-ugc-video-ads-flow.svg",
+      problemImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=80",
+      timelineImage: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80",
+      benefitsImage: "https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=1400&q=80",
+      faqImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
     },
     featureCards: [
       {
         title: "AI avatar videos",
         description: "Create scalable, branded avatar creatives that speak like your best spokespeople.",
-        image: "/services/ai-ugc-video-ads.svg",
+        image: "https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "AI voice cloning",
         description: "Produce authentic voiceovers in brand-safe tones across multiple languages.",
-        image: "/services/ai-ugc-chart.svg",
+        image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "UGC style testimonials",
         description: "Launch social-first testimonial ads that feel native and credible in feeds.",
-        image: "/services/ai-ugc-workspace.svg",
+        image: "https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "Multi-platform delivery",
         description: "Deploy TikTok, Reels, Shorts and story formats from one AI production pipeline.",
-        image: "/services/ai-ugc-chart.svg",
+        image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80",
       },
     ],
     finalCtaTitle: "Start scaling creative production with AI.",
@@ -390,7 +390,7 @@ export const SERVICES: ServiceConfig[] = [
     cardCategory: "UGC Ads",
     cardDescription:
       "Create high-converting UGC-style video ads with AI avatars, voice cloning, scripted hooks, and platform-specific ad variations.",
-    cardImage: "/services/ai-ugc-video-ads.svg",
+    cardImage: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80",
     dropdownDescription: "AI creative video ads",
     dropdownColor: "rgba(87,148,255,0.2)",
     problems: [
@@ -462,7 +462,7 @@ export const SERVICES: ServiceConfig[] = [
       subtitle: "We built an AI creative engine that delivered more qualified traffic with faster creative testing.",
       overview:
         "From first ideation to campaign launch, the system produced fresh UGC ad sets for every weekly test budget.",
-      image: "/services/ai-ugc-chart.svg",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
       client: "Growth-driven D2C brand",
       quote:
         "Uptrix created high-performing UGC ads faster than our in-house team could iterate. The AI workflow keeps our campaigns fresh and consistent.",
@@ -514,40 +514,40 @@ export const SERVICES: ServiceConfig[] = [
       "We connect AI agents, CRM workflows, and reporting pipelines so teams move faster, reduce errors, and keep growth systems aligned.",
     whyBullets: ["CRM automation", "AI agent workflows", "Operational reporting dashboards"],
     heroVisuals: {
-      dashboardImage: "/services/business-automation.svg",
-      chartImage: "/services/business-automation-chart.svg",
-      workspaceImage: "/services/business-automation-workspace.svg",
+      dashboardImage: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80",
+      chartImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
+      workspaceImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1400&q=80",
     },
     whyVisuals: {
-      mainImage: "/services/business-automation.svg",
-      analyticsImage: "/services/business-automation-chart.svg",
+      mainImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=80",
+      analyticsImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
     },
     sectionVisuals: {
-      problemImage: "/services/business-automation-workflow.svg",
-      timelineImage: "/services/business-automation-agents.svg",
-      benefitsImage: "/services/business-automation-chart.svg",
-      faqImage: "/services/business-automation-agents.svg",
+      problemImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
+      timelineImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80",
+      benefitsImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80",
+      faqImage: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
     },
     featureCards: [
       {
         title: "CRM automation",
         description: "Connect lead capture, follow-up, and pipeline updates through smart workflow triggers.",
-        image: "/services/business-automation.svg",
+        image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "Lead nurturing",
         description: "Use AI agents to qualify leads, book meetings, and route high-intent prospects automatically.",
-        image: "/services/business-automation-chart.svg",
+        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "Reporting dashboards",
         description: "Build live operational visibility into conversion, response time, and campaign velocity.",
-        image: "/services/business-automation-workspace.svg",
+        image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80",
       },
       {
         title: "Process optimization",
         description: "Eliminate repetitive tasks with AI workflows that keep operations moving without manual handoffs.",
-        image: "/services/business-automation-chart.svg",
+        image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80",
       },
     ],
     finalCtaTitle: "Replace manual bottlenecks with intelligent workflows.",
@@ -556,7 +556,7 @@ export const SERVICES: ServiceConfig[] = [
     cardTitle: "Business Automation Solutions",
     cardCategory: "Automation",
     cardDescription: "Automate repetitive workflows with AI agents, CRM integration, support bots, reporting pipelines, and operational logic.",
-    cardImage: "/services/business-automation.svg",
+    cardImage: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
     dropdownDescription: "Workflow automation & AI systems",
     dropdownColor: "rgba(96,166,255,0.2)",
     problems: [
@@ -628,7 +628,7 @@ export const SERVICES: ServiceConfig[] = [
       subtitle: "We automated lead routing, support touchpoints, and reporting so the team could focus on closing.",
       overview:
         "The automation stack connected CRM signals with AI routing, reducing manual work and improving pipeline clarity.",
-      image: "/services/business-automation-chart.svg",
+      image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=1400&q=80",
       client: "Scale-focused B2B operator",
       quote:
         "The workflow automation system removed the friction that used to slow our sales and support teams. Everything now flows faster.",
