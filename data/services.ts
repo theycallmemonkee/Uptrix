@@ -64,6 +64,12 @@ export type ServiceConfig = {
     mainImage: string;
     analyticsImage: string;
   };
+  sectionVisuals?: {
+    problemImage?: string;
+    timelineImage?: string;
+    benefitsImage?: string;
+    faqImage?: string;
+  };
   featureCards: ServiceFeature[];
   finalCtaTitle: string;
   finalCtaDescription: string;
@@ -349,6 +355,12 @@ export const SERVICES: ServiceConfig[] = [
       mainImage: "/services/ai-ugc-video-ads.svg",
       analyticsImage: "/services/ai-ugc-chart.svg",
     },
+    sectionVisuals: {
+      problemImage: "/services/ai-ugc-video-ads-flow.svg",
+      timelineImage: "/services/ai-ugc-video-ads-timeline.svg",
+      benefitsImage: "/services/ai-ugc-chart.svg",
+      faqImage: "/services/ai-ugc-video-ads-flow.svg",
+    },
     featureCards: [
       {
         title: "AI avatar videos",
@@ -509,6 +521,12 @@ export const SERVICES: ServiceConfig[] = [
     whyVisuals: {
       mainImage: "/services/business-automation.svg",
       analyticsImage: "/services/business-automation-chart.svg",
+    },
+    sectionVisuals: {
+      problemImage: "/services/business-automation-workflow.svg",
+      timelineImage: "/services/business-automation-agents.svg",
+      benefitsImage: "/services/business-automation-chart.svg",
+      faqImage: "/services/business-automation-agents.svg",
     },
     featureCards: [
       {

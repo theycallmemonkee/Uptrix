@@ -1,0 +1,63 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business automation AI agent orchestration screen">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#061528" />
+      <stop offset="100%" stop-color="#0B2E54" />
+    </linearGradient>
+    <linearGradient id="agentGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#72D1FF" />
+      <stop offset="100%" stop-color="#1B5EFF" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="44" fill="url(#bg)" />
+  <rect x="100" y="100" width="1000" height="700" rx="40" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="3" />
+  <rect x="140" y="140" width="400" height="132" rx="28" fill="#0B2F56" />
+  <rect x="180" y="174" width="132" height="18" rx="9" fill="#81D5FF" />
+  <rect x="180" y="208" width="100" height="10" rx="5" fill="#2D71E4" />
+  <rect x="180" y="234" width="156" height="10" rx="5" fill="#4B8CFF" />
+  <rect x="140" y="292" width="420" height="380" rx="38" fill="#092146" />
+  <rect x="168" y="330" width="124" height="16" rx="8" fill="#7DDFFF" />
+  <rect x="168" y="364" width="224" height="12" rx="6" fill="#2F76ED" />
+  <rect x="168" y="392" width="174" height="10" rx="5" fill="#4F8CFF" />
+  <rect x="168" y="422" width="324" height="10" rx="5" fill="#255FDD" />
+  <rect x="168" y="454" width="214" height="10" rx="5" fill="#61B8FF" />
+  <rect x="168" y="486" width="154" height="10" rx="5" fill="#1C68D1" />
+  <rect x="168" y="520" width="218" height="10" rx="5" fill="#4D93FF" />
+  <rect x="168" y="558" width="76" height="76" rx="20" fill="#0D2E57" />
+  <circle cx="208" cy="596" r="16" fill="#A9E8FF" />
+  <rect x="620" y="138" width="440" height="264" rx="34" fill="#0A2C51" />
+  <rect x="658" y="174" width="148" height="18" rx="9" fill="#8AD8FF" />
+  <rect x="658" y="208" width="198" height="12" rx="6" fill="#2F7AEB" />
+  <rect x="658" y="236" width="160" height="10" rx="5" fill="#4D8AFE" />
+  <rect x="658" y="266" width="272" height="10" rx="5" fill="#1E60C8" />
+  <rect x="708" y="298" width="162" height="140" rx="28" fill="#0E315E" />
+  <rect x="756" y="338" width="78" height="78" rx="20" fill="#0C2D55" />
+  <circle cx="794" cy="382" r="18" fill="#91D9FF" />
+  <rect x="884" y="298" width="194" height="140" rx="28" fill="#0B2E57" />
+  <rect x="918" y="336" width="120" height="12" rx="6" fill="#7CD1FF" />
+  <rect x="918" y="364" width="106" height="10" rx="5" fill="#3F78ED" />
+  <rect x="918" y="388" width="136" height="10" rx="5" fill="#4B8FFF" />
+  <rect x="620" y="424" width="440" height="220" rx="34" fill="#09214A" />
+  <rect x="662" y="460" width="68" height="18" rx="9" fill="#7FD4FF" />
+  <rect x="662" y="494" width="158" height="10" rx="5" fill="#3A74E2" />
+  <rect x="662" y="520" width="128" height="10" rx="5" fill="#508BFF" />
+  <rect x="662" y="546" width="198" height="10" rx="5" fill="#275CC5" />
+  <circle cx="830" cy="520" r="18" fill="#83D6FF" />
+  <circle cx="908" cy="578" r="14" fill="#6DD0FF" />
+  <path d="M720 520 C 760 470, 820 522, 870 498 S 948 560, 990 528" fill="none" stroke="url(#agentGlow)" stroke-width="14" stroke-linecap="round" />
+  <circle cx="720" cy="520" r="20" fill="#B2ECFF" />
+  <circle cx="870" cy="498" r="20" fill="#A5E2FF" />
+  <rect x="152" y="694" width="832" height="188" rx="34" fill="#0C2B51" />
+  <rect x="190" y="724" width="220" height="14" rx="7" fill="#85DAFF" />
+  <rect x="190" y="756" width="180" height="10" rx="5" fill="#3176E8" />
+  <rect x="190" y="782" width="248" height="10" rx="5" fill="#4B90FF" />
+  <rect x="190" y="808" width="96" height="10" rx="5" fill="#5AA3FF" />
+  <rect x="420" y="724" width="144" height="14" rx="7" fill="#7BCEFF" />
+  <rect x="420" y="756" width="162" height="10" rx="5" fill="#2A74DD" />
+  <rect x="420" y="782" width="118" height="10" rx="5" fill="#4488FF" />
+  <rect x="420" y="808" width="96" height="10" rx="5" fill="#4A8EFF" />
+  <rect x="678" y="724" width="156" height="14" rx="7" fill="#92D9FF" />
+  <rect x="678" y="756" width="110" height="10" rx="5" fill="#3E77EA" />
+  <rect x="678" y="782" width="148" height="10" rx="5" fill="#4C8BFF" />
+  <rect x="678" y="808" width="120" height="10" rx="5" fill="#5B9FFF" />
+</svg>

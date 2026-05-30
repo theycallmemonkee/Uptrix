@@ -1,29 +1,68 @@
-<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business automation chart">
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business automation reporting dashboard">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#06162D" />
-      <stop offset="100%" stop-color="#0C3053" />
+      <stop offset="0%" stop-color="#06172E" />
+      <stop offset="100%" stop-color="#0C3055" />
+    </linearGradient>
+    <linearGradient id="highlight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7FC9FF" />
+      <stop offset="100%" stop-color="#1356E1" />
     </linearGradient>
   </defs>
   <rect width="1200" height="900" rx="44" fill="url(#bg)" />
-  <rect x="72" y="72" width="1056" height="756" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="4" />
-  <rect x="128" y="140" width="520" height="100" rx="30" fill="#0B305D" />
-  <rect x="128" y="260" width="760" height="380" rx="40" fill="#0A294E" />
-  <rect x="168" y="304" width="160" height="18" rx="9" fill="#79B6FF" />
-  <rect x="168" y="338" width="220" height="14" rx="7" fill="#4D92FF" />
-  <rect x="168" y="370" width="120" height="14" rx="7" fill="#3F7EFF" />
-  <path d="M180 460 L260 420 L360 450 L460 400 L560 430 L660 390 L760 415 L860 385 L960 420" fill="none" stroke="#81C5FF" stroke-width="20" stroke-linecap="round" />
-  <path d="M180 560 L260 520 L360 540 L460 500 L560 520 L660 485 L760 505 L860 470 L960 500" fill="none" stroke="#4D98FF" stroke-width="20" stroke-dasharray="36 20" stroke-linecap="round" />
-  <rect x="780" y="176" width="292" height="112" rx="28" fill="#0F3B67" />
-  <rect x="820" y="210" width="180" height="16" rx="8" fill="#99CBFF" />
-  <rect x="820" y="244" width="210" height="14" rx="7" fill="#5DA8FF" />
-  <rect x="820" y="276" width="132" height="14" rx="7" fill="#4D8DFF" />
-  <rect x="810" y="354" width="250" height="136" rx="32" fill="#0D2D54" />
-  <rect x="850" y="392" width="140" height="18" rx="9" fill="#79BFFF" />
-  <rect x="850" y="432" width="160" height="14" rx="7" fill="#5B9BFF" />
-  <path d="M900 486 a32 32 0 1 0 64 0 a32 32 0 1 0 -64 0" fill="#C8E8FF" />
-  <rect x="330" y="700" width="520" height="90" rx="32" fill="#0D2F5C" />
-  <rect x="380" y="730" width="240" height="16" rx="8" fill="#7EB5FF" />
-  <rect x="380" y="764" width="180" height="14" rx="7" fill="#4E8CFF" />
-  <rect x="380" y="796" width="120" height="14" rx="7" fill="#336FDA" />
+  <rect x="84" y="84" width="1032" height="732" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)" stroke-width="3" />
+  <rect x="126" y="132" width="436" height="110" rx="28" fill="#0E325F" />
+  <rect x="150" y="156" width="136" height="18" rx="9" fill="#90D9FF" />
+  <rect x="150" y="184" width="178" height="12" rx="6" fill="#3A72F4" />
+  <rect x="150" y="212" width="196" height="10" rx="5" fill="#2C60C4" />
+  <rect x="126" y="262" width="436" height="140" rx="32" fill="#0B2A53" />
+  <rect x="156" y="294" width="120" height="14" rx="7" fill="#75C7FF" />
+  <rect x="156" y="324" width="108" height="12" rx="6" fill="#266DD8" />
+  <rect x="156" y="348" width="180" height="12" rx="6" fill="#4F8CFF" />
+  <rect x="156" y="376" width="264" height="12" rx="6" fill="#1E5BC4" />
+  <rect x="126" y="430" width="436" height="264" rx="36" fill="#092848" />
+  <rect x="156" y="472" width="116" height="16" rx="8" fill="#7BC3FF" />
+  <rect x="156" y="502" width="218" height="12" rx="6" fill="#3F78DD" />
+  <rect x="156" y="528" width="208" height="12" rx="6" fill="#5194FF" />
+  <rect x="156" y="556" width="134" height="12" rx="6" fill="#4590FF" />
+  <rect x="156" y="584" width="198" height="12" rx="6" fill="#3690F0" />
+  <rect x="598" y="132" width="430" height="188" rx="32" fill="#0F335F" />
+  <rect x="632" y="164" width="134" height="18" rx="9" fill="#70CEFF" />
+  <rect x="632" y="198" width="198" height="12" rx="6" fill="#3A7BFF" />
+  <rect x="632" y="224" width="248" height="12" rx="6" fill="#2C63CE" />
+  <rect x="632" y="252" width="298" height="12" rx="6" fill="#5CB2FF" />
+  <path d="M646 312 C 708 274, 760 322, 810 298 S 900 360, 980 330" fill="none" stroke="url(#highlight)" stroke-width="22" stroke-linecap="round" />
+  <circle cx="706" cy="314" r="16" fill="#C3EEFF" />
+  <circle cx="842" cy="298" r="12" fill="#8EE5FF" />
+  <rect x="588" y="352" width="300" height="120" rx="28" fill="#0A2E58" />
+  <rect x="620" y="382" width="160" height="14" rx="7" fill="#91DDFF" />
+  <rect x="620" y="408" width="220" height="10" rx="5" fill="#3F80FF" />
+  <rect x="620" y="432" width="184" height="10" rx="5" fill="#2C69D4" />
+  <rect x="620" y="456" width="168" height="10" rx="5" fill="#66B9FF" />
+  <rect x="620" y="486" width="196" height="10" rx="5" fill="#3E76DE" />
+  <rect x="632" y="526" width="148" height="16" rx="8" fill="#092C57" />
+  <rect x="632" y="558" width="110" height="10" rx="5" fill="#8AD1FF" />
+  <rect x="632" y="578" width="120" height="10" rx="5" fill="#4D8EFF" />
+  <rect x="128" y="432" width="432" height="320" rx="36" fill="#091F47" />
+  <rect x="162" y="470" width="108" height="14" rx="7" fill="#7FD4FF" />
+  <rect x="162" y="502" width="148" height="10" rx="5" fill="#3B76D8" />
+  <rect x="162" y="528" width="118" height="10" rx="5" fill="#4D8EFF" />
+  <rect x="162" y="554" width="148" height="10" rx="5" fill="#2153B3" />
+  <rect x="192" y="594" width="120" height="12" rx="6" fill="#5B9BF7" />
+  <rect x="314" y="594" width="208" height="12" rx="6" fill="#91D3FF" />
+  <rect x="628" y="700" width="450" height="180" rx="34" fill="#0B2C51" />
+  <rect x="662" y="734" width="120" height="16" rx="8" fill="#99D9FF" />
+  <rect x="662" y="764" width="210" height="12" rx="6" fill="#3E7DE0" />
+  <rect x="662" y="790" width="176" height="12" rx="6" fill="#4D8EFF" />
+  <rect x="662" y="818" width="124" height="10" rx="5" fill="#5AB2FF" />
+  <rect x="774" y="700" width="248" height="180" rx="34" fill="#082648" />
+  <rect x="808" y="736" width="130" height="16" rx="8" fill="#73CBFF" />
+  <rect x="808" y="766" width="156" height="12" rx="6" fill="#2E77E1" />
+  <rect x="808" y="792" width="196" height="12" rx="6" fill="#5298FF" />
+  <rect x="808" y="820" width="118" height="10" rx="5" fill="#4A8EFF" />
+  <rect x="944" y="132" width="146" height="92" rx="24" fill="#0D2F58" />
+  <rect x="962" y="156" width="86" height="12" rx="6" fill="#8ADFEC" />
+  <rect x="962" y="180" width="98" height="10" rx="5" fill="#3EA7FF" />
+  <rect x="962" y="206" width="80" height="10" rx="5" fill="#2A67D3" />
+  <text x="1012" y="162" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#D9E8FF">Lead Velocity</text>
 </svg>

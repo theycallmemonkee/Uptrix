@@ -1,31 +1,55 @@
-<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI UGC performance chart">
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI UGC performance dashboard">
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#081A36" />
-      <stop offset="100%" stop-color="#0C2E5A" />
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#08172D" />
+      <stop offset="100%" stop-color="#0E2F57" />
+    </linearGradient>
+    <linearGradient id="spark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6FC9FF" />
+      <stop offset="100%" stop-color="#0D4DCC" />
     </linearGradient>
   </defs>
-  <rect width="1200" height="900" rx="44" fill="url(#background)" />
-  <rect x="80" y="80" width="1040" height="740" rx="38" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
-  <rect x="120" y="120" width="650" height="160" rx="28" fill="rgba(255,255,255,0.07)" />
-  <rect x="140" y="150" width="120" height="14" rx="7" fill="#85C4FF" />
-  <rect x="140" y="180" width="180" height="10" rx="5" fill="#4C8DFF" opacity="0.9" />
-  <rect x="140" y="210" width="240" height="10" rx="5" fill="#2E73FF" opacity="0.75" />
-  <rect x="120" y="320" width="520" height="16" rx="8" fill="#0858B7" opacity="0.65" />
-  <rect x="120" y="360" width="420" height="16" rx="8" fill="#0B6FE1" opacity="0.65" />
-  <path d="M110 540 Q 240 480 360 520 T 610 450 T 820 470 T 980 420" fill="none" stroke="#7CC8FF" stroke-width="20" stroke-linecap="round" />
-  <path d="M110 620 Q 240 560 360 610 T 610 530 T 820 560 T 980 490" fill="none" stroke="#2D89FF" stroke-width="20" stroke-dasharray="40 24" stroke-linecap="round" />
-  <circle cx="820" cy="470" r="26" fill="#B9E4FF" opacity="0.95" />
-  <circle cx="980" cy="420" r="26" fill="#B9E4FF" opacity="0.95" />
-  <g opacity="0.75">
-    <rect x="120" y="520" width="140" height="210" rx="32" fill="#0D3B70" />
-    <rect x="280" y="560" width="140" height="170" rx="32" fill="#0A2C5B" />
-    <rect x="440" y="500" width="140" height="230" rx="32" fill="#0E446D" />
-    <rect x="600" y="440" width="140" height="290" rx="32" fill="#134D85" />
-  </g>
-  <rect x="760" y="360" width="320" height="320" rx="42" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" />
-  <path d="M830 430 L860 380 L910 410 L950 360 L1020 410" fill="none" stroke="#8DC8FF" stroke-width="18" stroke-linecap="round" />
-  <circle cx="1020" cy="410" r="22" fill="#D7EDFF" />
-  <rect x="760" y="700" width="280" height="40" rx="20" fill="#0E2F5C" />
-  <text x="900" y="730" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" fill="#C9E7FF">Performance</text>
+  <rect width="1200" height="900" rx="44" fill="url(#bg)" />
+  <rect x="90" y="90" width="1020" height="720" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)" stroke-width="3" />
+  <rect x="120" y="130" width="440" height="96" rx="28" fill="#0C335C" />
+  <rect x="120" y="246" width="440" height="70" rx="24" fill="#0A2A4F" />
+  <rect x="136" y="266" width="180" height="14" rx="7" fill="#70BBFF" />
+  <rect x="136" y="292" width="100" height="12" rx="6" fill="#396FD1" />
+  <rect x="120" y="340" width="760" height="300" rx="34" fill="#0B2F58" />
+  <rect x="146" y="374" width="144" height="18" rx="9" fill="#8ED1FF" />
+  <rect x="146" y="402" width="172" height="12" rx="6" fill="#3785FF" />
+  <rect x="146" y="428" width="120" height="10" rx="5" fill="#325FAD" />
+  <rect x="146" y="468" width="480" height="16" rx="8" fill="#0E4A86" />
+  <rect x="146" y="500" width="540" height="16" rx="8" fill="#1A5FBA" />
+  <rect x="146" y="532" width="620" height="16" rx="8" fill="#2C79DE" />
+  <rect x="146" y="566" width="490" height="16" rx="8" fill="#4DA8FF" />
+  <circle cx="346" cy="626" r="12" fill="#87CBFF" />
+  <circle cx="422" cy="600" r="12" fill="#5FA6FF" />
+  <circle cx="500" cy="568" r="12" fill="#84C6FF" />
+  <rect x="680" y="340" width="320" height="260" rx="30" fill="#0F2E58" />
+  <rect x="702" y="372" width="118" height="16" rx="8" fill="#82C9FF" />
+  <rect x="702" y="400" width="180" height="12" rx="6" fill="#4F93FF" />
+  <rect x="702" y="428" width="238" height="12" rx="6" fill="#1C67CC" />
+  <rect x="702" y="466" width="280" height="18" rx="9" fill="#134F86" />
+  <rect x="760" y="500" width="220" height="10" rx="5" fill="#79C4FF" />
+  <rect x="760" y="522" width="84" height="10" rx="5" fill="#4C82FF" />
+  <rect x="760" y="544" width="132" height="10" rx="5" fill="#1580FF" />
+  <path d="M700 602 C 740 560, 780 620, 820 596 S 900 650, 980 620" fill="none" stroke="url(#spark)" stroke-width="18" stroke-linecap="round" />
+  <circle cx="978" cy="620" r="18" fill="#C9EFFF" />
+  <rect x="120" y="660" width="302" height="150" rx="28" fill="#0D2B52" />
+  <rect x="150" y="686" width="120" height="14" rx="7" fill="#83CCFF" />
+  <rect x="150" y="710" width="84" height="12" rx="6" fill="#2D70E0" />
+  <rect x="150" y="734" width="168" height="12" rx="6" fill="#5EA9FF" />
+  <rect x="446" y="660" width="302" height="150" rx="28" fill="#0B2E59" />
+  <rect x="476" y="692" width="102" height="14" rx="7" fill="#8AD6FF" />
+  <rect x="476" y="720" width="162" height="12" rx="6" fill="#3D76D7" />
+  <rect x="476" y="744" width="228" height="12" rx="6" fill="#4F8AFF" />
+  <rect x="786" y="660" width="264" height="150" rx="28" fill="#0B2C56" />
+  <rect x="816" y="692" width="128" height="14" rx="7" fill="#5BA8FF" />
+  <rect x="816" y="722" width="170" height="12" rx="6" fill="#336BC7" />
+  <rect x="816" y="746" width="216" height="12" rx="6" fill="#1C55B0" />
+  <rect x="114" y="208" width="146" height="40" rx="20" fill="#0E3160" />
+  <text x="187" y="235" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#D9E9FF" letter-spacing="0.08em">UGC Performance</text>
+  <rect x="764" y="130" width="202" height="44" rx="22" fill="#0B2F5B" />
+  <text x="865" y="160" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#B7DBFF" letter-spacing="0.08em">AI Creative Score</text>
 </svg>

@@ -36,47 +36,71 @@ export function ServiceDetailSections({ service }: Props) {
               </p>
             </motion.div>
 
-            <div className="space-y-5">
-              {service.problems?.map((problem, index) => (
-                <motion.article
-                  key={problem.title}
-                  className="group relative overflow-hidden rounded-[1.8rem] border border-white/12 bg-[#0B1F3D]/80 p-6 shadow-[0_24px_72px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+            <div className="flex flex-col gap-6">
+              {service.sectionVisuals?.problemImage && (
+                <motion.div
+                  className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#071B39]/85 shadow-[0_22px_68px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.65, delay: index * 0.06, ease: EASE }}
+                  transition={{ duration: 0.7, ease: EASE }}
                 >
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,102,255,0.16),transparent_62%),radial-gradient(circle_at_bottom_right,rgba(120,180,255,0.085),transparent_58%)]" />
-                  <div className="relative z-10">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/20 bg-[#18417B]/50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-[#DDEBFF]">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#84B2FF] shadow-[0_0_14px_rgba(132,178,255,0.35)]" />
-                      Problem
-                    </div>
-                    <h3 className="mt-4 font-heading text-xl font-semibold text-white">{problem.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-white/75">{problem.description}</p>
+                  <div className="relative aspect-[16/10]">
+                    <Image
+                      src={service.sectionVisuals.problemImage}
+                      alt={`${service.name} workflow preview`}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,17,38,0.15),rgba(2,17,38,0.8))]" />
                   </div>
-                </motion.article>
-              ))}
-              {service.solutions?.map((solution, index) => (
-                <motion.article
-                  key={solution.title}
-                  className="group relative overflow-hidden rounded-[1.8rem] border border-white/12 bg-[#0B1F3D]/80 p-6 shadow-[0_24px_72px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.65, delay: 0.12 + index * 0.06, ease: EASE }}
-                >
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(120,180,255,0.18),transparent_62%),radial-gradient(circle_at_bottom_left,rgba(0,102,255,0.08),transparent_58%)]" />
-                  <div className="relative z-10">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/20 bg-[#0E3C7F]/55 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-[#DDEBFF]">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#A3C7FF] shadow-[0_0_14px_rgba(163,199,255,0.28)]" />
-                      Solution
-                    </div>
-                    <h3 className="mt-4 font-heading text-xl font-semibold text-white">{solution.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-white/75">{solution.description}</p>
+                  <div className="absolute left-6 top-6 rounded-2xl border border-white/15 bg-[#0A2A56]/70 px-3 py-2 text-sm text-[#DCEBFF] shadow-[0_12px_28px_rgba(0,102,255,0.22)] backdrop-blur-sm">
+                    Creative workflow dashboard
                   </div>
-                </motion.article>
-              ))}
+                </motion.div>
+              )}
+              <div className="space-y-5">
+                {service.problems?.map((problem, index) => (
+                  <motion.article
+                    key={problem.title}
+                    className="group relative overflow-hidden rounded-[1.8rem] border border-white/12 bg-[#0B1F3D]/80 p-6 shadow-[0_24px_72px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.65, delay: index * 0.06, ease: EASE }}
+                  >
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,102,255,0.16),transparent_62%),radial-gradient(circle_at_bottom_right,rgba(120,180,255,0.085),transparent_58%)]" />
+                    <div className="relative z-10">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/20 bg-[#18417B]/50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-[#DDEBFF]">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#84B2FF] shadow-[0_0_14px_rgba(132,178,255,0.35)]" />
+                        Problem
+                      </div>
+                      <h3 className="mt-4 font-heading text-xl font-semibold text-white">{problem.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/75">{problem.description}</p>
+                    </div>
+                  </motion.article>
+                ))}
+                {service.solutions?.map((solution, index) => (
+                  <motion.article
+                    key={solution.title}
+                    className="group relative overflow-hidden rounded-[1.8rem] border border-white/12 bg-[#0B1F3D]/80 p-6 shadow-[0_24px_72px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.65, delay: 0.12 + index * 0.06, ease: EASE }}
+                  >
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(120,180,255,0.18),transparent_62%),radial-gradient(circle_at_bottom_left,rgba(0,102,255,0.08),transparent_58%)]" />
+                    <div className="relative z-10">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/20 bg-[#0E3C7F]/55 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-[#DDEBFF]">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#A3C7FF] shadow-[0_0_14px_rgba(163,199,255,0.28)]" />
+                        Solution
+                      </div>
+                      <h3 className="mt-4 font-heading text-xl font-semibold text-white">{solution.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/75">{solution.description}</p>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -95,25 +119,49 @@ export function ServiceDetailSections({ service }: Props) {
               </p>
             </div>
 
-            <div className="mt-12 space-y-6">
-              {service.processSteps.map((step, index) => (
+            <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="space-y-6">
+                {service.processSteps.map((step, index) => (
+                  <motion.div
+                    key={step.title}
+                    className="group relative overflow-hidden rounded-[1.7rem] border border-white/12 bg-[#081724]/80 p-6 shadow-[0_16px_40px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ duration: 0.65, delay: index * 0.06, ease: EASE }}
+                  >
+                    <div className="absolute left-6 top-6 h-10 w-10 rounded-2xl border border-[#5B8EFF]/30 bg-[#0B315F]/80 text-center text-sm font-semibold leading-10 text-[#D9E8FF] shadow-[0_10px_30px_rgba(0,102,255,0.15)]">
+                      {step.step}
+                    </div>
+                    <div className="ml-16 space-y-2">
+                      <h3 className="font-heading text-xl font-semibold text-white">{step.title}</h3>
+                      <p className="text-sm leading-7 text-white/73">{step.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              {service.sectionVisuals?.timelineImage && (
                 <motion.div
-                  key={step.title}
-                  className="group relative overflow-hidden rounded-[1.7rem] border border-white/12 bg-[#081724]/80 p-6 shadow-[0_16px_40px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
-                  initial={{ opacity: 0, y: 24 }}
+                  className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#091A33]/90 shadow-[0_26px_82px_rgba(0,0,0,0.26)] backdrop-blur-2xl"
+                  initial={{ opacity: 0, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.65, delay: index * 0.06, ease: EASE }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.72, delay: 0.08, ease: EASE }}
                 >
-                  <div className="absolute left-6 top-6 h-10 w-10 rounded-2xl border border-[#5B8EFF]/30 bg-[#0B315F]/80 text-center text-sm font-semibold leading-10 text-[#D9E8FF] shadow-[0_10px_30px_rgba(0,102,255,0.15)]">
-                    {step.step}
+                  <div className="relative aspect-[4/5]">
+                    <Image
+                      src={service.sectionVisuals.timelineImage}
+                      alt={`${service.name} timeline preview`}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,38,0.12),rgba(6,18,38,0.8))]" />
                   </div>
-                  <div className="ml-16 space-y-2">
-                    <h3 className="font-heading text-xl font-semibold text-white">{step.title}</h3>
-                    <p className="text-sm leading-7 text-white/73">{step.description}</p>
+                  <div className="absolute left-5 top-5 rounded-2xl border border-white/15 bg-[#08305B]/80 px-3 py-2 text-sm font-semibold text-[#DCEBFF] shadow-[0_12px_30px_rgba(0,102,255,0.2)] backdrop-blur-sm">
+                    Process & timeline preview
                   </div>
                 </motion.div>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -133,6 +181,7 @@ export function ServiceDetailSections({ service }: Props) {
                 </p>
               </div>
 
+              <div className="space-y-6">
               <div className="grid gap-6 sm:grid-cols-2">
                 {service.benefits.map((benefit, index) => (
                   <motion.article
@@ -154,6 +203,29 @@ export function ServiceDetailSections({ service }: Props) {
                   </motion.article>
                 ))}
               </div>
+              {service.sectionVisuals?.benefitsImage && (
+                <motion.div
+                  className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#071A33]/90 shadow-[0_24px_76px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.72, delay: 0.1, ease: EASE }}
+                >
+                  <div className="relative aspect-[16/9]">
+                    <Image
+                      src={service.sectionVisuals.benefitsImage}
+                      alt={`${service.name} benefits dashboard`}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,17,35,0.16),rgba(5,17,35,0.82))]" />
+                  </div>
+                  <div className="absolute left-5 top-5 rounded-2xl border border-white/15 bg-[#0B2D5B]/72 px-3 py-2 text-sm text-[#DCEBFF] shadow-[0_12px_30px_rgba(0,102,255,0.2)] backdrop-blur-sm">
+                    Automation & performance visuals
+                  </div>
+                </motion.div>
+              )}
+            </div>
             </div>
           </div>
         </section>
@@ -226,6 +298,28 @@ export function ServiceDetailSections({ service }: Props) {
               </div>
 
               <div className="space-y-6">
+                {service.sectionVisuals?.faqImage && (
+                  <motion.div
+                    className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#091B34]/90 shadow-[0_24px_76px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+                    initial={{ opacity: 0, y: 26 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: EASE }}
+                  >
+                    <div className="relative aspect-[16/9]">
+                      <Image
+                        src={service.sectionVisuals.faqImage}
+                        alt={`${service.name} AI dashboard visual`}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,18,41,0.16),rgba(2,18,41,0.82))]" />
+                    </div>
+                    <div className="absolute left-5 top-5 rounded-2xl border border-white/15 bg-[#0C2F5A]/70 px-3 py-2 text-sm text-[#DCEBFF] shadow-[0_12px_30px_rgba(0,102,255,0.2)] backdrop-blur-sm">
+                      AI automation orchestration
+                    </div>
+                  </motion.div>
+                )}
                 <PremiumAccordion items={service.faqItems as PremiumAccordionItem[]} />
                 <Link
                   href="/contact"

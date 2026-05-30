@@ -1,0 +1,66 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI UGC video workflow dashboard">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#081632" />
+      <stop offset="100%" stop-color="#0E2B56" />
+    </linearGradient>
+    <linearGradient id="highlight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60B8FF" />
+      <stop offset="100%" stop-color="#0E53DD" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="44" fill="url(#bg)" />
+  <rect x="92" y="92" width="1016" height="716" rx="36" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="3" />
+  <rect x="132" y="138" width="470" height="380" rx="32" fill="#0D2F59" />
+  <rect x="172" y="174" width="132" height="18" rx="9" fill="#80CEFF" />
+  <rect x="172" y="208" width="142" height="12" rx="6" fill="#2C6DE2" />
+  <rect x="172" y="234" width="190" height="12" rx="6" fill="#5092FF" />
+  <rect x="172" y="272" width="412" height="192" rx="28" fill="#0A2751" />
+  <rect x="214" y="312" width="142" height="16" rx="8" fill="#6BB9FF" />
+  <rect x="214" y="344" width="84" height="10" rx="5" fill="#3F74E8" />
+  <rect x="214" y="372" width="206" height="10" rx="5" fill="#4A88FF" />
+  <rect x="214" y="408" width="152" height="10" rx="5" fill="#3370DA" />
+  <rect x="214" y="452" width="336" height="88" rx="20" fill="#081D41" />
+  <rect x="240" y="476" width="96" height="10" rx="5" fill="#7BC7FF" />
+  <rect x="240" y="504" width="128" height="10" rx="5" fill="#4581FF" />
+  <rect x="240" y="532" width="72" height="10" rx="5" fill="#2D67DF" />
+  <rect x="240" y="568" width="164" height="10" rx="5" fill="#69BBFF" />
+  <rect x="240" y="598" width="214" height="10" rx="5" fill="#3F75E6" />
+  <rect x="244" y="636" width="88" height="24" rx="12" fill="#154F96" />
+  <text x="288" y="652" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" fill="#DDEBFF">Avatar Library</text>
+  <rect x="640" y="138" width="384" height="344" rx="38" fill="#0D2C5B" />
+  <rect x="680" y="174" width="258" height="18" rx="9" fill="#7BD2FF" />
+  <rect x="680" y="206" width="204" height="12" rx="6" fill="#4F8DFF" />
+  <rect x="680" y="232" width="206" height="12" rx="6" fill="#2362D2" />
+  <rect x="680" y="264" width="300" height="170" rx="26" fill="#081F42" />
+  <rect x="720" y="296" width="70" height="70" rx="18" fill="#0F335F" />
+  <rect x="820" y="296" width="70" height="70" rx="18" fill="#142E54" />
+  <rect x="920" y="296" width="70" height="70" rx="18" fill="#0C2D57" />
+  <rect x="720" y="386" width="274" height="14" rx="7" fill="#79CCFF" />
+  <rect x="720" y="412" width="208" height="12" rx="6" fill="#3C83F2" />
+  <rect x="720" y="438" width="182" height="12" rx="6" fill="#4F86FF" />
+  <path d="M720 466 H950" stroke="#306FD2" stroke-width="12" stroke-linecap="round" />
+  <rect x="132" y="546" width="888" height="314" rx="38" fill="#0A294F" />
+  <rect x="172" y="588" width="174" height="116" rx="24" fill="#0E2E5A" />
+  <rect x="218" y="628" width="112" height="14" rx="7" fill="#8BD6FF" />
+  <rect x="218" y="656" width="124" height="10" rx="5" fill="#3F7DEA" />
+  <rect x="218" y="682" width="96" height="10" rx="5" fill="#5E8DFF" />
+  <rect x="382" y="588" width="224" height="116" rx="24" fill="#0C2C54" />
+  <rect x="414" y="628" width="104" height="14" rx="7" fill="#77C3FF" />
+  <rect x="414" y="656" width="154" height="10" rx="5" fill="#2D72DF" />
+  <rect x="414" y="682" width="118" height="10" rx="5" fill="#4B8AFF" />
+  <rect x="660" y="588" width="276" height="116" rx="24" fill="#0B2A52" />
+  <rect x="690" y="628" width="120" height="14" rx="7" fill="#7BCBFF" />
+  <rect x="690" y="656" width="164" height="10" rx="5" fill="#2F74E4" />
+  <rect x="690" y="682" width="116" height="10" rx="5" fill="#4A8BFF" />
+  <rect x="960" y="588" width="52" height="112" rx="20" fill="#0D2F56" />
+  <rect x="976" y="610" width="18" height="18" rx="6" fill="#86D4FF" />
+  <rect x="976" y="642" width="18" height="18" rx="6" fill="#4E8EFF" />
+  <rect x="976" y="674" width="18" height="18" rx="6" fill="#2F68DA" />
+  <path d="M740 518 C 780 490, 830 542, 868 522 S 936 572, 982 544" fill="none" stroke="#60B7FF" stroke-width="12" stroke-linecap="round" />
+  <circle cx="982" cy="544" r="12" fill="#D6F1FF" />
+  <rect x="806" y="440" width="180" height="14" rx="7" fill="#7BC6FF" />
+  <rect x="806" y="466" width="120" height="12" rx="6" fill="#2E72E1" />
+  <rect x="806" y="490" width="90" height="12" rx="6" fill="#4D86F3" />
+  <text x="714" y="316" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#D2E8FF">Creator Flow</text>
+</svg>
