@@ -17,9 +17,9 @@ type Service = {
 
 const SERVICES: Service[] = [
   {
-    title: "Search Engine Optimization",
-    description: "Build sustainable organic growth through technical SEO, content architecture, and AI-led search insights.",
-    category: "SEO",
+    title: "AI-Powered Search Engine Optimization",
+    description: "Build sustainable organic growth through AI-powered technical SEO, content architecture, and AI-led search insights.",
+    category: "AI SEO",
     image: "/services/seo.svg",
     href: "/services/seo",
   },

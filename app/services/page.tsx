@@ -6,7 +6,7 @@ import { ServicesClient } from "@/components/services/ServicesClient";
 export const metadata: Metadata = {
   title: "Services | Uptrix Technologies",
   description:
-    "Explore Uptrix premium services in AI UGC video ads, business automation, SEO, social media, PPC, and branding for enterprise growth.",
+    "Explore Uptrix premium services in AI UGC video ads, business automation, AI SEO, social media, PPC, and branding for enterprise growth.",
 };
 
 export default function ServicesPage() {

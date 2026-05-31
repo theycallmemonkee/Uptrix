@@ -21,7 +21,7 @@ const FAQS: PremiumAccordionItem[] = [
     id: "services",
     question: "What Services Does The Best AI-Powered Digital Marketing Agency Offer?",
     answer:
-      "Uptrix Technologies delivers AI-accelerated SEO, paid media, conversion optimization, analytics, creative systems, and marketing automation—built to improve pipeline quality, CAC efficiency, and enterprise-ready reporting.",
+      "Uptrix Technologies delivers AI-accelerated AI SEO, paid media, conversion optimization, analytics, creative systems, and marketing automation—built to improve pipeline quality, CAC efficiency, and enterprise-ready reporting.",
   },
   {
     id: "custom",

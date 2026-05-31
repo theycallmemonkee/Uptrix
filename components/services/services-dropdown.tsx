@@ -10,10 +10,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SERVICES = [
   {
-    name: "SEO Services",
+    name: "AI SEO Services",
     href: "/services/seo",
     icon: Search,
-    desc: "Organic growth & technical SEO",
+    desc: "Organic growth & AI-powered technical SEO",
     color: "rgba(0,102,255,0.2)",
   },
   {

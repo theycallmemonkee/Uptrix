@@ -13,7 +13,7 @@ const stats = [
 ];
 
 const topics = [
-  "AI & SEO",
+  "AI & AI SEO",
   "PPC",
   "Branding",
   "Social Media",

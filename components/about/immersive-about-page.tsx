@@ -21,7 +21,7 @@ const STATS = [
 
 const TIMELINE = [
   { year: "2009", title: "Founded", desc: "Uptrix was born with a mission to bridge technology and marketing." },
-  { year: "2014", title: "Going Digital", desc: "Expanded into SEO & PPC as digital channels exploded globally." },
+  { year: "2014", title: "Going Digital", desc: "Expanded into AI SEO & PPC as digital channels exploded globally." },
   { year: "2018", title: "AI Integration", desc: "First-mover on AI-powered campaign optimization infrastructure." },
   { year: "2022", title: "Enterprise Scale", desc: "Serving 100+ enterprise brands across 12+ industries worldwide." },
   { year: "2024", title: "Growth OS", desc: "Launched full-stack AI Growth OS for ambitious brands." },

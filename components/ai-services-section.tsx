@@ -58,7 +58,7 @@ export function AiServicesSection() {
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           >
-            From SEO intelligence and PPC automation to full-funnel performance systems, we build precision
+              From AI SEO intelligence and PPC automation to full-funnel performance systems, we build precision
             marketing infrastructure designed for sustainable enterprise-scale growth.
           </motion.p>
 

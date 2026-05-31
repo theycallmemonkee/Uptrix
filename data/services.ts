@@ -88,7 +88,7 @@ export type ServiceConfig = {
 };
 
 export const SERVICE_MENU_ITEMS: Array<Pick<ServiceConfig, "name" | "shortLabel" | "href">> = [
-  { name: "SEO Services", shortLabel: "SEO", href: "/services/seo" },
+  { name: "AI SEO Services", shortLabel: "AI SEO", href: "/services/seo" },
   { name: "Social Media Services", shortLabel: "Social Media", href: "/services/social-media" },
   { name: "PPC Services", shortLabel: "PPC", href: "/services/ppc" },
   { name: "Branding Services", shortLabel: "Branding", href: "/services/branding" },
@@ -99,18 +99,18 @@ export const SERVICE_MENU_ITEMS: Array<Pick<ServiceConfig, "name" | "shortLabel"
 export const SERVICES: ServiceConfig[] = [
   {
     slug: "seo",
-    name: "SEO Services",
-    shortLabel: "SEO",
+    name: "AI SEO Services",
+    shortLabel: "AI SEO",
     href: "/services/seo",
-    headline: "Struggling To Rank Higher Or Generate Leads? It's Time To Partner With The Best SEO Company",
-    highlightedKeyword: "Best SEO Company",
+    headline: "Struggling To Rank Higher Or Generate Leads? It's Time To Partner With The Best AI SEO Company",
+    highlightedKeyword: "Best AI SEO Company",
     heroDescription:
-      "We build measurable organic growth systems that connect technical SEO, content strategy, and conversion intelligence into one scalable engine.",
-    ctaLabel: "Get SEO Growth Plan",
-    whyTitle: "Why high-growth brands trust Uptrix for SEO",
+      "We build measurable organic growth systems that connect AI-powered technical SEO, content strategy, and conversion intelligence into one scalable engine.",
+    ctaLabel: "Get AI SEO Growth Plan",
+    whyTitle: "Why high-growth brands trust Uptrix for AI SEO",
     whyDescription:
       "From audits to execution, we align every optimization with revenue goals so rankings become qualified traffic and qualified traffic becomes pipeline.",
-    whyBullets: ["Search intent-first strategy", "Technical SEO at enterprise depth", "Weekly growth sprints"],
+    whyBullets: ["AI-powered keyword research and intent-first strategy", "AI-driven technical SEO at enterprise depth", "Weekly growth sprints"],
     heroVisuals: {
       dashboardImage: "/services/seo.svg",
       chartImage:
@@ -126,7 +126,7 @@ export const SERVICES: ServiceConfig[] = [
     },
     featureCards: [
       {
-        title: "Tailored SEO Strategies",
+        title: "Tailored AI SEO Strategies",
         description: "Custom playbooks aligned with your market, funnel, and sales cycle.",
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
       },
@@ -142,17 +142,17 @@ export const SERVICES: ServiceConfig[] = [
       },
       {
         title: "Proven Expertise",
-        description: "Experienced specialists scaling SEO for startups, B2B, and enterprise teams.",
+        description: "Experienced specialists scaling AI SEO for startups, B2B, and enterprise teams.",
         image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80",
       },
     ],
     finalCtaTitle: "Ready to own search in your category?",
-    finalCtaDescription: "Launch a precision SEO roadmap tailored to your growth stage.",
-    cardTitle: "Search Engine Optimization",
-    cardCategory: "SEO",
-    cardDescription: "Build sustainable organic growth through technical SEO, content architecture, and AI-led search insights.",
+    finalCtaDescription: "Launch a precision AI SEO roadmap tailored to your growth stage.",
+    cardTitle: "AI-Powered Search Engine Optimization",
+    cardCategory: "AI SEO",
+    cardDescription: "Build sustainable organic growth through AI-powered technical SEO, content architecture, and AI-led search insights.",
     cardImage: "/services/seo.svg",
-    dropdownDescription: "Organic growth & technical SEO",
+    dropdownDescription: "Organic growth & AI-powered technical SEO",
     dropdownColor: "rgba(0,102,255,0.2)",
   },
   {

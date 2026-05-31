@@ -34,7 +34,7 @@ const PORTFOLIO: PortfolioItem[] = [
   },
   {
     title: "Growth Studio",
-    description: "Integrated paid, SEO, and lifecycle workflows for scale-ready brands.",
+    description: "Integrated paid, AI SEO, and lifecycle workflows for scale-ready brands.",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
   },
   {
@@ -305,7 +305,7 @@ export function EnterpriseExperienceSection() {
                 </motion.span>
                 <h4 className="mt-4 font-heading text-xl font-semibold text-white">Adaptive AI Marketing Framework</h4>
                 <p className="mt-3 text-sm leading-7 text-white/70">
-                  Modular services for SEO, paid media, analytics, and automation workflows with real-time optimization.
+                  Modular services for AI SEO, paid media, analytics, and automation workflows with real-time optimization.
                 </p>
               </div>
             </motion.article>
