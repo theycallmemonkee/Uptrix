@@ -1,13 +1,11 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown, Hash } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { TocItem } from "@/lib/blog/types";
 
 export function BlogToc({ items }: { items: TocItem[] }) {
-  if (!items.length) return null;
-
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
   const [openMobile, setOpenMobile] = useState(false);
   const headings = useMemo(() => items.map((item) => item.id), [items]);
@@ -29,6 +27,8 @@ export function BlogToc({ items }: { items: TocItem[] }) {
     });
     return () => observer.disconnect();
   }, [headings]);
+
+  if (!items.length) return null;
 
   return (
     <motion.nav

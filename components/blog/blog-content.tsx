@@ -316,7 +316,7 @@ export function BlogContent({ content }: { content: string }) {
       strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
       em: ({ children }) => <em className="text-[#DDEBFF]/88">{children}</em>,
     };
-  }, [content]);
+  }, []);
 
   return (
     <div className="blog-article-prose mt-8 w-full lg:mt-10">

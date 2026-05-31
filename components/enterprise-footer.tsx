@@ -10,7 +10,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { SERVICES } from "@/data/services";
 

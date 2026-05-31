@@ -159,7 +159,7 @@ export function AnimatedCounter({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      <motion.span>{rounded}</motion.span>
+      <motion.span transition={{ duration }}>{rounded}</motion.span>
       {suffix}
     </span>
   );

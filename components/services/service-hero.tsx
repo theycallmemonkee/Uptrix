@@ -46,9 +46,7 @@ export function ServiceHero({ service }: Props) {
     }
   }, [
     service.slug,
-    service.heroVisuals?.dashboardImage,
-    service.heroVisuals?.chartImage,
-    service.heroVisuals?.workspaceImage,
+      service.heroVisuals, // Ensure heroVisuals is included in the dependency array
   ]);
 
   return (

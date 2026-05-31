@@ -22,7 +22,7 @@ export function WhyChooseSection({ service }: Props) {
     if (service.slug === "ai-ugc-video-ads" || service.slug === "business-automation") {
       console.log("[why-choose] image sources", service.slug, service.whyVisuals);
     }
-  }, [service.slug, service.whyVisuals.mainImage, service.whyVisuals.analyticsImage]);
+  }, [service.slug, service.whyVisuals]);
 
   return (
     <section ref={sectionRef} className="px-6 py-14 md:px-10 md:py-20">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, BarChart2, ChevronDown, Cpu, Globe, Palette, Search, Video } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 

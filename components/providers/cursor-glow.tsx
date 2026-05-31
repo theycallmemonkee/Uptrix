@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  useMotionValue,
-  useSpring,
-  motion,
-  useMotionTemplate,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useMotionValue, useSpring, motion, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 export function CursorGlow() {
   const mouseX = useMotionValue(-400);

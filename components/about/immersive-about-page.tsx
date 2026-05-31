@@ -3,9 +3,9 @@
 import { animate, motion, useInView, useMotionValue, useMotionTemplate, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Brain, Globe, Rocket, Shield, Sparkles, Target, TrendingUp, Users, Zap } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { FloatingParticles, FloatingOrbs, AnimatedGrid } from "@/components/ui/visual-effects";
-import { ScrollReveal, SplitTextReveal } from "@/components/ui/motion-components";
+import { useEffect, useRef, useState } from "react";
+import { FloatingParticles, AnimatedGrid } from "@/components/ui/visual-effects";
+import { ScrollReveal } from "@/components/ui/motion-components";
 import { MarqueeLogos } from "@/components/ui/client-logo-strip";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
