@@ -234,27 +234,7 @@ export function CinematicHero() {
             </div>
           </motion.article>
 
-          {/* Testimonial card */}
-          <motion.article
-            className="absolute -right-6 -bottom-6 w-64 rounded-2xl border border-[#8BB7FF]/25 bg-[#0D2547]/85 p-5 shadow-[0_20px_60px_rgba(2,8,21,0.55)] backdrop-blur-xl sm:w-72"
-            style={{ x: useTransform(parallaxX, (v) => v * 0.85), y: useTransform(parallaxY, (v) => v * -0.7) }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.42 }}
-            whileHover={{ y: -4 }}
-          >
-            <p className="text-sm text-white/75">&quot;Uptrix transformed our acquisition pipeline with AI precision.&quot;</p>
-            <p className="mt-4 font-heading text-sm font-semibold text-white">Aarav Singh</p>
-            <p className="text-xs text-white/55">VP Growth, Altitude Labs</p>
-            <Link
-              href="/contact"
-              scroll
-              className="shine-sweep mt-5 inline-flex items-center gap-2 rounded-xl border border-[#5F9AFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-4 py-2.5 font-heading text-sm font-medium text-white shadow-[0_10px_26px_rgba(0,102,255,0.32)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(0,102,255,0.42)]"
-            >
-              Book Free Consultation
-              <ArrowUpRight size={15} />
-            </Link>
-          </motion.article>
+
         </motion.div>
       </div>
     </section>

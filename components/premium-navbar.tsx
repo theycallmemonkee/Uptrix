@@ -21,7 +21,7 @@ const NAV_ITEMS: NavItem[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function PremiumNavbar() {
+export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   const pathname = usePathname();
   const isContactActive = pathname.startsWith("/contact");
 
@@ -64,20 +64,24 @@ export function PremiumNavbar() {
             width: navWidth,
             paddingTop: navPaddingY,
             paddingBottom: navPaddingY,
-            border: scrolled
+            border: theme === "blog"
+              ? "1px solid rgba(255,255,255,0.16)"
+              : scrolled
               ? "1px solid rgba(255,255,255,0.22)"
               : "1px solid rgba(255,255,255,0.12)",
-            backgroundColor: scrolled
+            backgroundColor: theme === "blog"
+              ? "rgba(11,31,58,0.92)"
+              : scrolled
               ? "rgba(11,31,58,0.72)"
               : "rgba(11,31,58,0.08)",
-            boxShadow: scrolled
+            boxShadow: theme === "blog" || scrolled
               ? "0 12px 50px rgba(7,14,29,0.42), 0 0 0 1px rgba(0,102,255,0.08) inset"
               : "0 12px 50px rgba(7,14,29,0.18)",
           }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          {/* Subtle top border highlight when scrolled */}
-          {scrolled && (
+          {/* Subtle top border highlight when scrolled or blog page */}
+          {(scrolled || theme === "blog") && (
             <motion.div
               className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{

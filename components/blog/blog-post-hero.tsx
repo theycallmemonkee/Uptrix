@@ -16,6 +16,7 @@ export type BlogPostHeroData = {
   date: string;
   displayDate?: string;
   readingTime: string;
+  cover: string;
 };
 
 function AuthorAvatar({ name, image }: { name: string; image?: string }) {
@@ -28,14 +29,14 @@ function AuthorAvatar({ name, image }: { name: string; image?: string }) {
 
   if (image) {
     return (
-      <div className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-[#3B82F6]/30">
+      <div className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-[#0066FF]/20">
         <Image src={image} alt={name} fill className="object-cover" sizes="44px" />
       </div>
     );
   }
 
   return (
-    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[linear-gradient(135deg,#0066FF,#235FC6)] text-sm font-semibold text-white ring-2 ring-[#3B82F6]/30">
+    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[linear-gradient(135deg,#0066FF,#235FC6)] text-sm font-semibold text-white ring-2 ring-[#0066FF]/20">
       {initials}
     </div>
   );
@@ -51,22 +52,24 @@ export function BlogPostHero({ post }: { post: BlogPostHeroData }) {
     }).format(new Date(post.date));
 
   return (
-    <header className="w-full border-b border-white/10 pb-10 lg:pb-12">
+    <header className="w-full pb-10">
+      {/* Back button */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className="mb-7"
+        className="mb-8"
       >
         <Link
           href="/blog"
-          className="group inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white"
+          className="group inline-flex items-center gap-2 text-sm text-[#6B7280] transition-colors hover:text-[#111827]"
         >
           <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
           Back to insights
         </Link>
       </motion.div>
 
+      {/* Hero content animation */}
       <motion.div
         initial="hidden"
         animate="show"
@@ -75,57 +78,86 @@ export function BlogPostHero({ post }: { post: BlogPostHeroData }) {
           show: { transition: { staggerChildren: 0.08 } },
         }}
       >
-        <motion.span
+        {/* Category Pill */}
+        <motion.div
           variants={{
             hidden: { opacity: 0, y: 12 },
             show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
           }}
-          className="inline-flex items-center rounded-full border border-[#3B82F6]/30 bg-[#0066FF]/10 px-3.5 py-1 text-[11px] font-medium tracking-[0.18em] text-[#93C5FD] uppercase"
         >
-          {post.category}
-        </motion.span>
+          <span className="inline-flex items-center rounded-full border border-[#0066FF]/20 bg-[#0066FF]/5 px-3.5 py-1 text-xs font-semibold tracking-wider text-[#0066FF] uppercase">
+            {post.category}
+          </span>
+        </motion.div>
 
+        {/* H1 Title */}
         <motion.h1
           variants={{
             hidden: { opacity: 0, y: 18 },
             show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
           }}
-          className="mt-5 font-heading text-[clamp(2.25rem,5vw,4.25rem)] leading-[1.08] font-semibold tracking-[-0.03em] text-white"
+          className="mt-6 font-heading text-4xl sm:text-5xl lg:text-[64px] leading-[1.1] font-extrabold tracking-tight text-[#111827]"
         >
           {post.title}
         </motion.h1>
 
-        <motion.p
-          variants={{
-            hidden: { opacity: 0, y: 14 },
-            show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
-          }}
-          className="blog-article-lead mt-5 text-[clamp(1.05rem,1.8vw,1.3rem)] leading-[1.65] text-white/68"
-        >
-          {post.excerpt}
-        </motion.p>
-
+        {/* Author & Meta Block */}
         <motion.div
           variants={{
             hidden: { opacity: 0, y: 10 },
             show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
           }}
-          className="mt-7 flex flex-wrap items-center gap-4 text-sm text-white/55"
+          className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-[#6B7280] border-y border-gray-100 py-5"
         >
           <div className="flex items-center gap-3">
             <AuthorAvatar name={post.author} image={post.authorImage} />
-            <span className="font-medium text-white/90">{post.author}</span>
+            <span className="font-semibold text-[#111827]">{post.author}</span>
           </div>
-          <span className="h-1 w-1 rounded-full bg-white/25" />
+          
+          <span className="hidden sm:block h-4 w-px bg-gray-200" />
+          
           <span className="inline-flex items-center gap-1.5">
-            <Calendar size={14} className="text-[#60A5FA]/75" />
+            <Calendar size={14} className="text-[#0066FF]" />
             {displayDate}
           </span>
-          <span className="h-1 w-1 rounded-full bg-white/25" />
+          
+          <span className="h-4 w-px bg-gray-200" />
+          
           <span className="inline-flex items-center gap-1.5">
-            <Clock size={14} className="text-[#60A5FA]/75" />
+            <Clock size={14} className="text-[#0066FF]" />
             {post.readingTime}
           </span>
+        </motion.div>
+
+        {/* Cover Image (Below Hero Info) */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 22 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+          }}
+          className="relative mt-10 overflow-hidden rounded-[24px] md:rounded-[32px] aspect-[16/9] w-full border border-gray-100 shadow-sm"
+        >
+          <Image
+            src={post.cover}
+            alt={post.title}
+            fill
+            priority
+            className="object-cover"
+            sizes="(min-width: 1280px) 760px, 90vw"
+          />
+        </motion.div>
+
+        {/* Article Intro (Excerpt) (Below Cover Image) */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 14 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+          }}
+          className="mt-10"
+        >
+          <p className="text-xl sm:text-[22px] leading-[1.65] text-[#4B5563] font-light italic">
+            {post.excerpt}
+          </p>
         </motion.div>
       </motion.div>
     </header>

@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { PremiumNavbar } from "@/components/premium-navbar";
 import { BlogProgress } from "@/components/blog/blog-progress";
-import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostHero } from "@/components/blog/blog-post-hero";
 import { BlogContent } from "@/components/blog/blog-content";
+import { BlogLeftTOC, BlogLeftShare } from "@/components/blog/blog-left-toc";
+import { BlogTakeawaysAccordion } from "@/components/blog/blog-takeaways-accordion";
+import { BlogRightForm } from "@/components/blog/blog-right-form";
 import { RelatedArticles } from "@/components/blog/related-articles";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/posts";
 
@@ -20,6 +22,7 @@ export async function generateMetadata({ params }) {
   if (!post) return { title: "Blog | Uptrix Technologies" };
 
   const canonical = `/blog/${post.slug}`;
+  const coverUrl = post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`;
   return {
     title: `${post.title} | Uptrix Technologies`,
     description: post.excerpt,
@@ -29,13 +32,13 @@ export async function generateMetadata({ params }) {
       description: post.excerpt,
       type: "article",
       url: `${SITE_URL}${canonical}`,
-      images: [{ url: post.cover }],
+      images: [{ url: coverUrl }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [post.cover],
+      images: [coverUrl],
     },
   };
 }
@@ -47,35 +50,98 @@ export default async function BlogPostPage({ params }) {
   const related = getRelatedPosts(post.slug, 3);
   const shareUrl = `${SITE_URL}/blog/${post.slug}`;
 
-  return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-[#0B1F3A] text-white">
-      <BlogProgress />
-      <div
-        className="pointer-events-none absolute inset-0 -z-20"
-        style={{
-          background:
-            "radial-gradient(980px circle at 16% 12%, rgba(0,102,255,0.24), transparent 56%), radial-gradient(760px circle at 84% 10%, rgba(154,197,255,0.14), transparent 60%), linear-gradient(180deg,#0B1F3A 0%,#081830 52%,#060F1E 100%)",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.045] bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:84px_84px]" />
-      <PremiumNavbar />
+  // Article and Author Schema for SEO
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": "Person",
+      "name": post.author,
+      "image": post.authorImage ? (post.authorImage.startsWith("http") ? post.authorImage : `${SITE_URL}${post.authorImage}`) : undefined,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Uptrix Technologies",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE_URL}/Uptrix.png`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/blog/${post.slug}`
+    }
+  };
 
-      <main className="relative z-10 mx-auto w-full max-w-[1600px] px-4 pb-20 pt-[96px] sm:px-6 lg:px-8 lg:pt-[112px]">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start lg:gap-10 xl:gap-12">
+  return (
+    <div className="relative min-h-screen bg-white text-[#111827] antialiased">
+      {/* Schema Integration */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
+      <BlogProgress />
+      <PremiumNavbar theme="blog" />
+
+      {/* Main container with max-width 1440px and centered alignment */}
+      <main className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-24 pt-[130px] md:pt-[150px]">
+        {/* CSS Grid for Desktop 3-column layout: TOC Left | Content Center | Form Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,760px)_320px] gap-12 xl:gap-[48px] justify-between items-start">
+          
+          {/* COLUMN 1: LEFT SIDEBAR (TOC & Share) */}
+          <aside className="w-full lg:w-[280px] lg:shrink-0 lg:sticky lg:top-[120px] lg:self-start lg:space-y-6">
+            {/* Desktop TOC */}
+            <div className="hidden lg:block">
+              <BlogLeftTOC headings={post.headings || []} variant="desktop" />
+            </div>
+
+            {/* Tablet TOC: rendered above content (TOC first) */}
+            <div className="hidden md:block lg:hidden w-full mb-2">
+              <BlogLeftTOC headings={post.headings || []} variant="tablet" />
+            </div>
+
+            {/* Mobile TOC: collapsible at top */}
+            <div className="block md:hidden w-full mb-2">
+              <BlogLeftTOC headings={post.headings || []} variant="mobile" />
+            </div>
+
+            {/* Desktop Left Share */}
+            <div className="hidden lg:block pt-5 border-t border-gray-150">
+              <BlogLeftShare shareUrl={shareUrl} shareTitle={post.title} />
+            </div>
+          </aside>
+
+          {/* COLUMN 2: CENTER CONTENT */}
           <article className="min-w-0 w-full">
             <BlogPostHero post={post} />
+            
+            {/* Key Takeaways Accordion: placed BEFORE article content */}
+            <div className="mt-8 mb-10">
+              <BlogTakeawaysAccordion takeaways={post.takeaways || []} />
+            </div>
+
             <BlogContent content={post.content} />
+
+            {/* Share Section below content for Mobile/Tablet */}
+            <div className="lg:hidden mt-10 pt-6 border-t border-gray-100">
+              <BlogLeftShare shareUrl={shareUrl} shareTitle={post.title} />
+            </div>
           </article>
 
-          <BlogSidebar
-            headings={post.headings || []}
-            shareUrl={shareUrl}
-            shareTitle={post.title}
-          />
+          {/* COLUMN 3: RIGHT SIDEBAR (Lead Form Card) */}
+          <aside className="w-full lg:w-[320px] lg:shrink-0 lg:sticky lg:top-[120px] lg:self-start mt-12 lg:mt-0">
+            <BlogRightForm post={post} />
+          </aside>
         </div>
 
         {related.length > 0 ? (
-          <div className="mt-16 border-t border-white/10 pt-14 lg:mt-20">
+          <div className="mt-20 border-t border-gray-100 pt-16">
             <RelatedArticles posts={related} />
           </div>
         ) : null}
