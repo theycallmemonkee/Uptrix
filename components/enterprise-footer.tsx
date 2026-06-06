@@ -19,6 +19,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Blogs", href: "/blog" },
 ] as const;
 

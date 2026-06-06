@@ -10,9 +10,9 @@ export function CustomCursor() {
   const mouseY = useMotionValue(-100);
   const [cursorState, setCursorState] = useState<CursorState>("default");
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches,
-  );
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
 
   // Smooth spring-based following
   const springConfig = { stiffness: 350, damping: 28, mass: 0.5 };
@@ -26,8 +26,16 @@ export function CustomCursor() {
   const glowY = useSpring(mouseY, { stiffness: 60, damping: 18, mass: 1.2 });
 
   useEffect(() => {
-    // If touch device detected initially, skip attaching listeners
-    if (isTouchDevice) return;
+    const hasTouch = window.matchMedia("(pointer: coarse)").matches;
+    const rafId = requestAnimationFrame(() => {
+      setIsMounted(true);
+      setIsTouchDevice(hasTouch);
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || isTouchDevice) return;
 
     const onMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -73,9 +81,9 @@ export function CustomCursor() {
       window.removeEventListener("mouseenter", onEnterWindow);
       document.documentElement.style.cursor = "";
     };
-  }, [mouseX, mouseY, isVisible, isTouchDevice]);
+  }, [isMounted, isTouchDevice, mouseX, mouseY, isVisible]);
 
-  if (isTouchDevice) return null;
+  if (!isMounted || isTouchDevice) return null;
 
   const isHover = cursorState === "hover";
   const isClick = cursorState === "click";

@@ -78,6 +78,8 @@ export default async function BlogPostPage({ params }) {
     }
   };
 
+  const hasHeadings = post.headings && post.headings.length > 0;
+
   return (
     <div className="relative min-h-screen bg-white text-[#111827] antialiased">
       {/* Schema Integration */}
@@ -91,31 +93,33 @@ export default async function BlogPostPage({ params }) {
 
       {/* Main container with max-width 1440px and centered alignment */}
       <main className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-24 pt-[130px] md:pt-[150px]">
-        {/* CSS Grid for Desktop 3-column layout: TOC Left | Content Center | Form Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,760px)_320px] gap-12 xl:gap-[48px] justify-between items-start">
+        {/* CSS Grid for Desktop layout: dynamic 3-column or 2-column based on TOC headings */}
+        <div className={`grid grid-cols-1 ${hasHeadings ? "lg:grid-cols-[280px_minmax(0,760px)_320px]" : "lg:grid-cols-[minmax(0,760px)_320px]"} gap-12 xl:gap-[48px] justify-between items-start`}>
           
           {/* COLUMN 1: LEFT SIDEBAR (TOC & Share) */}
-          <aside className="w-full lg:w-[280px] lg:shrink-0 lg:sticky lg:top-[120px] lg:self-start lg:space-y-6">
-            {/* Desktop TOC */}
-            <div className="hidden lg:block">
-              <BlogLeftTOC headings={post.headings || []} variant="desktop" />
-            </div>
+          {hasHeadings && (
+            <aside className="w-full lg:w-[280px] lg:shrink-0 lg:sticky lg:top-[120px] lg:self-start lg:space-y-6">
+              {/* Desktop TOC */}
+              <div className="hidden lg:block">
+                <BlogLeftTOC headings={post.headings || []} variant="desktop" />
+              </div>
 
-            {/* Tablet TOC: rendered above content (TOC first) */}
-            <div className="hidden md:block lg:hidden w-full mb-2">
-              <BlogLeftTOC headings={post.headings || []} variant="tablet" />
-            </div>
+              {/* Tablet TOC: rendered above content (TOC first) */}
+              <div className="hidden md:block lg:hidden w-full mb-2">
+                <BlogLeftTOC headings={post.headings || []} variant="tablet" />
+              </div>
 
-            {/* Mobile TOC: collapsible at top */}
-            <div className="block md:hidden w-full mb-2">
-              <BlogLeftTOC headings={post.headings || []} variant="mobile" />
-            </div>
+              {/* Mobile TOC: collapsible at top */}
+              <div className="block md:hidden w-full mb-2">
+                <BlogLeftTOC headings={post.headings || []} variant="mobile" />
+              </div>
 
-            {/* Desktop Left Share */}
-            <div className="hidden lg:block pt-5 border-t border-gray-150">
-              <BlogLeftShare shareUrl={shareUrl} shareTitle={post.title} />
-            </div>
-          </aside>
+              {/* Desktop Left Share */}
+              <div className="hidden lg:block pt-5 border-t border-gray-150">
+                <BlogLeftShare shareUrl={shareUrl} shareTitle={post.title} />
+              </div>
+            </aside>
+          )}
 
           {/* COLUMN 2: CENTER CONTENT */}
           <article className="min-w-0 w-full">
@@ -128,8 +132,8 @@ export default async function BlogPostPage({ params }) {
 
             <BlogContent content={post.content} />
 
-            {/* Share Section below content for Mobile/Tablet */}
-            <div className="lg:hidden mt-10 pt-6 border-t border-gray-100">
+            {/* Share Section below content */}
+            <div className={`${hasHeadings ? "lg:hidden" : ""} mt-10 pt-6 border-t border-gray-100`}>
               <BlogLeftShare shareUrl={shareUrl} shareTitle={post.title} />
             </div>
           </article>

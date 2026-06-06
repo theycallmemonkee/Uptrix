@@ -7,6 +7,8 @@ import { PremiumNavbar } from "@/components/premium-navbar";
 import { PremiumFaqSection } from "@/components/premium-faq-section";
 import { TrustedCompanies } from "@/components/trusted-companies";
 import { FloatingOrbs, AnimatedGrid, AIWaveOverlay } from "@/components/ui/visual-effects";
+import { PortfolioPreview } from "@/components/portfolio/portfolio-preview";
+import { PortfolioCta } from "@/components/portfolio/portfolio-cta";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -43,7 +45,9 @@ export default function Home() {
         <AiServicesSection />
         <FeaturedServices />
         <EnterpriseExperienceSection />
+        <PortfolioPreview />
         <PremiumFaqSection />
+        <PortfolioCta />
         <EnterpriseFooter />
       </main>
     </div>

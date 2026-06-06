@@ -1,14 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+
+interface LenisInstance {
+  raf: (time: number) => void;
+  destroy: () => void;
+  scrollTo: (target: number | string | HTMLElement, options?: { immediate?: boolean }) => void;
+}
 
 export function LenisProvider() {
-  useEffect(() => {
-    let lenis: {
-      raf: (time: number) => void;
-      destroy: () => void;
-    } | null = null;
+  const pathname = usePathname();
+  const lenisRef = useRef<LenisInstance | null>(null);
 
+  useEffect(() => {
+    let lenis: LenisInstance | null = null;
     let rafId: number;
 
     async function init() {
@@ -24,7 +30,12 @@ export function LenisProvider() {
           gestureOrientation: "vertical",
           smoothWheel: true,
           wheelMultiplier: 1,
-        } as ConstructorParameters<typeof LenisClass>[0]);
+        } as ConstructorParameters<typeof LenisClass>[0]) as unknown as LenisInstance;
+
+        lenisRef.current = lenis;
+
+        // Force scroll reset on initial startup
+        lenis.scrollTo(0, { immediate: true });
 
         function raf(time: number) {
           lenis?.raf(time);
@@ -33,7 +44,7 @@ export function LenisProvider() {
 
         rafId = requestAnimationFrame(raf);
       } catch {
-        // If Lenis fails (SSR guard, old browser), silently fall back
+        console.error("Lenis init failed");
       }
     }
 
@@ -41,9 +52,29 @@ export function LenisProvider() {
 
     return () => {
       cancelAnimationFrame(rafId);
-      lenis?.destroy();
+      if (lenis) {
+        lenis.destroy();
+      }
+      lenisRef.current = null;
     };
   }, []);
 
+  // Track pathname transitions and scroll back to top of new view instantly
+  useEffect(() => {
+    if (lenisRef.current) {
+      try {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } catch {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+    } else {
+      try {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      } catch {}
+    }
+  }, [pathname]);
+
   return null;
 }
+
+
