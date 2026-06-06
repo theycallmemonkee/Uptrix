@@ -76,6 +76,7 @@ export function PortfolioPreview() {
               {/* Image Frame */}
               <Link
                 href={`/portfolio/${categorySlugMap[item.id] || item.id}/case-study-1`}
+                onClick={() => window.scrollTo(0, 0)}
                 className="relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/8 bg-[#081220]"
               >
                 <Image
@@ -119,6 +120,7 @@ export function PortfolioPreview() {
                   
                   <Link
                     href={`/portfolio/${categorySlugMap[item.id] || item.id}/case-study-1`}
+                    onClick={() => window.scrollTo(0, 0)}
                     className="rounded-full border border-white/10 p-2 text-white/80 transition-all duration-300 group-hover:bg-[#0066FF] group-hover:border-[#70A8FF]/40 group-hover:text-white"
                   >
                     <ArrowUpRight size={16} />
@@ -133,6 +135,7 @@ export function PortfolioPreview() {
         <div className="mt-16 text-center">
           <Link
             href="/portfolio"
+            onClick={() => window.scrollTo(0, 0)}
             className="shine-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-7 py-4 font-heading text-sm font-semibold text-white shadow-[0_14px_34px_rgba(0,102,255,0.36)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(0,102,255,0.48)] cursor-pointer"
           >
             Explore Full Portfolio

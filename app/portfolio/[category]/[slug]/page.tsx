@@ -10,6 +10,7 @@ const categoryToItemIdMap: Record<string, string> = {
   "google-ads": "google-ads",
   "meta-ads": "meta-ads",
   "social": "social-media",
+  "websites": "website-development",
 };
 
 export function generateStaticParams() {
@@ -18,6 +19,7 @@ export function generateStaticParams() {
     { category: "google-ads", slug: "case-study-1" },
     { category: "meta-ads", slug: "case-study-1" },
     { category: "social", slug: "case-study-1" },
+    { category: "websites", slug: "case-study-1" },
   ];
 }
 

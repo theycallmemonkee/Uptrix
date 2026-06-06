@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, BarChart3, Eye, Phone, Laptop, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PORTFOLIO_ITEMS, PortfolioImage } from "@/data/portfolio-data";
+import { WebsiteShowcase } from "@/components/portfolio/website-showcase";
 
 // Helper to resolve images defensively
 function getSafeImage(images: PortfolioImage[], index: number, fallbackType?: "dashboard" | "phone" | "report" | "masonry"): { src: string; alt: string } {
@@ -68,7 +69,7 @@ export function FloatingAnalyticsWindow({
   href: string;
 }) {
   return (
-    <Link href={href} className="block">
+    <Link href={href} onClick={() => window.scrollTo(0, 0)} className="block">
       <motion.div
         whileHover={{ y: -8, scale: 1.02, zIndex: 10 }}
         transition={{ duration: 0.45, ease: EASE }}
@@ -126,7 +127,7 @@ export function PremiumPhoneMockup({
   href: string;
 }) {
   return (
-    <Link href={href} className="block">
+    <Link href={href} onClick={() => window.scrollTo(0, 0)} className="block">
       <motion.div
         whileHover={{ y: -10, scale: 1.03, rotate: 0.5, zIndex: 10 }}
         transition={{ duration: 0.45, ease: EASE }}
@@ -182,7 +183,7 @@ export function LayeredCaseStudyCard({
   const offset = index === 0 ? "translate-y-0" : index === 1 ? "translate-y-4 translate-x-4 md:translate-x-6" : "translate-y-8 translate-x-8 md:translate-x-12";
   
   return (
-    <Link href={href} className={`absolute block transition-all duration-300 w-[82%] sm:w-[85%] ${offset}`}>
+    <Link href={href} onClick={() => window.scrollTo(0, 0)} className={`absolute block transition-all duration-300 w-[82%] sm:w-[85%] ${offset}`}>
       <motion.div
         style={{ rotate: rotation }}
         whileHover={{ y: -12, scale: 1.04, rotate: "0deg", zIndex: 20 }}
@@ -238,6 +239,174 @@ export function MetricBadge({
   );
 }
 
+export function FloatingGlassCard({
+  icon,
+  text,
+  className = "",
+  delay = 0,
+}: {
+  icon: string;
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      animate={{
+        y: [0, -8, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+        delay: delay,
+      }}
+      className={`flex items-center gap-2 rounded-xl border border-white/12 bg-[#0C1B33]/80 px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-md text-xs font-semibold text-white/90 ${className}`}
+    >
+      <span>{icon}</span>
+      <span>{text}</span>
+    </motion.div>
+  );
+}
+
+const SLIDESHOW_WEBSITES = [
+  { name: "Jazzo Store", url: "jazzo.store", src: "/portfolio/websites/jazzo.jpg" },
+  { name: "Bigblare Innovations", url: "bigblareinnovations.com", src: "/portfolio/websites/bigblare.jpg" },
+  { name: "Vastra Store", url: "vastra-store.com", src: "/portfolio/websites/vastra.jpg" },
+  { name: "Vodaiq", url: "vodaiq.com", src: "/portfolio/websites/vodaiq.jpg" },
+  { name: "Klevrax", url: "klevrax.com", src: "/portfolio/websites/klevrax.jpg" },
+  { name: "Uptrix Technologies", url: "uptrixtechnologies.com", src: "/portfolio/websites/uptrix.jpg" },
+  { name: "Ecofitz", url: "ecofitz.com", src: "/portfolio/websites/ecofitz.jpg" },
+  { name: "Lebodee", url: "lebodee.com", src: "/portfolio/websites/lebodee.jpg" },
+  { name: "T-Adda", url: "t-adda.in", src: "/portfolio/websites/t-adda.jpg" },
+];
+
+export function WebsiteSlideshowSection({
+  route,
+  item,
+}: {
+  route: string;
+  item: typeof PORTFOLIO_ITEMS[number];
+}) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % SLIDESHOW_WEBSITES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentSite = SLIDESHOW_WEBSITES[currentIdx];
+
+  return (
+    <div className="grid gap-6 md:grid-cols-[1fr_1.2fr] relative">
+      {/* Left Column: Floating glass cards */}
+      <div className="relative flex flex-col justify-center gap-4 py-6 md:py-12 min-h-[240px] md:min-h-[380px]">
+        {/* Floating background glow */}
+        <div className="absolute inset-0 bg-[#0066FF]/5 blur-3xl rounded-full pointer-events-none" />
+        
+        <FloatingGlassCard icon="⚡" text="0.4s Load" className="relative md:absolute md:top-[8%] md:left-2" delay={0} />
+        <FloatingGlassCard icon="🚀" text="Next.js 15" className="relative md:absolute md:top-[30%] md:right-2" delay={0.8} />
+        <FloatingGlassCard icon="🤖" text="AI Ready" className="relative md:absolute md:top-[52%] md:left-4" delay={0.4} />
+        <FloatingGlassCard icon="🔒" text="Enterprise Secure" className="relative md:absolute md:top-[74%] md:right-4" delay={1.2} />
+      </div>
+
+      {/* Right Column: Browser mockup and stats */}
+      <div className="flex flex-col justify-between gap-6">
+        <Link href={route} onClick={() => window.scrollTo(0, 0)} className="block">
+          <motion.div
+            whileHover={{ y: -8, scale: 1.02, zIndex: 10 }}
+            transition={{ duration: 0.45, ease: EASE }}
+            className="group relative overflow-hidden rounded-xl border border-white/12 bg-[#0B1528]/80 shadow-2xl backdrop-blur-md cursor-pointer select-none"
+          >
+            {/* Dynamic light highlight border */}
+            <div className="absolute inset-0 z-10 border border-transparent group-hover:border-[#70A8FF]/20 rounded-xl transition-colors duration-400" />
+            
+            {/* Browser Bar */}
+            <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0E1E38]/90 px-4 py-2.5">
+              <div className="flex gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F56] opacity-80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FFBD2E] opacity-80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#27C93F] opacity-80" />
+              </div>
+              <div className="rounded bg-white/[0.05] px-4 py-0.5 text-[10px] tracking-wide text-white/40 font-mono">
+                {currentSite.url}
+              </div>
+              <div className="w-12" />
+            </div>
+
+            {/* Image Container with Slideshow */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#081220]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIdx}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={currentSite.src}
+                    alt={currentSite.name}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Glass Overlay on Hover */}
+              <div className="absolute inset-0 flex items-center justify-center bg-[#071224]/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 backdrop-blur-[2px]">
+                <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[#0066FF] px-4 py-2 text-xs font-semibold text-white shadow-[0_8px_24px_rgba(0,102,255,0.4)]">
+                  <Laptop size={14} />
+                  Inspect Website
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </Link>
+
+        {/* Bottom stats cards */}
+        <div className="grid gap-6 sm:grid-cols-2">
+          {item.metrics[2] && (
+            <Link
+              href={route}
+              onClick={() => window.scrollTo(0, 0)}
+              className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
+            >
+              <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                {item.metrics[2].value}
+              </p>
+              <p className="mt-1 text-xs font-medium tracking-wide text-[#70A8FF] uppercase">
+                {item.metrics[2].label}
+              </p>
+            </Link>
+          )}
+
+          {item.metrics[3] && (
+            <Link
+              href={route}
+              onClick={() => window.scrollTo(0, 0)}
+              className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
+            >
+              <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                {item.metrics[3].value}
+              </p>
+              <p className="mt-1 text-xs font-medium tracking-wide text-[#70A8FF] uppercase">
+                {item.metrics[3].label}
+              </p>
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── MAIN INTERACTIVE PORTFOLIO SHOWCASE ──────────────────────────
 
 const categorySlugMap: Record<string, string> = {
@@ -245,7 +414,10 @@ const categorySlugMap: Record<string, string> = {
   "google-ads": "google-ads",
   "meta-ads": "meta-ads",
   "social-media": "social",
+  "website-development": "websites",
 };
+
+const TABS = ["All", "AI SEO", "Google Ads", "Meta Ads", "Social Media", "Website Development"];
 
 export function PortfolioShowcase() {
   const [activeTab, setActiveTab] = useState<string>("All");
@@ -265,7 +437,7 @@ export function PortfolioShowcase() {
         
         {/* Navigation Tabs */}
         <div className="mb-20 flex flex-wrap justify-center gap-3">
-          {["All", "AI SEO", "Google Ads", "Meta Ads", "Social Media"].map((tab) => (
+          {TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -315,7 +487,7 @@ export function PortfolioShowcase() {
                     {/* Showcase Stats Widgets */}
                     <div className="mt-8 grid grid-cols-2 gap-4">
                       {item.metrics.slice(0, 2).map((m) => (
-                        <Link key={m.label} href={route} className="block rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 select-none cursor-pointer">
+                        <Link key={m.label} href={route} onClick={() => window.scrollTo(0, 0)} className="block rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 select-none cursor-pointer">
                           <p className="font-heading text-2xl font-bold text-white">{m.value}</p>
                           <p className="mt-1 text-[10px] font-medium tracking-wider text-white/60 uppercase">{m.label}</p>
                         </Link>
@@ -326,6 +498,7 @@ export function PortfolioShowcase() {
                     <div className="mt-10">
                       <Link
                         href={route}
+                        onClick={() => window.scrollTo(0, 0)}
                         className="shine-sweep inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-5 py-3.5 font-heading text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm transition-all duration-300 hover:border-[#70A8FF]/30 hover:bg-[#0C2448]/50 cursor-pointer"
                       >
                         Explore Case Study
@@ -340,7 +513,7 @@ export function PortfolioShowcase() {
                       <div className="grid gap-6 md:grid-cols-2">
                         {/* Layered Cards Column */}
                         <div className="relative flex flex-col justify-center gap-6">
-                          <div className="absolute inset-0 bg-[#0066FF]/5 blur-3xl rounded-full" />
+                          <div className="absolute inset-0 bg-[#0066FF]/5 blur-3xl rounded-full pointer-events-none" />
                           <div className="relative h-[250px] md:h-[300px]">
                             <LayeredCaseStudyCard
                               src={getSafeImage(item.images, 0, "report").src}
@@ -362,7 +535,7 @@ export function PortfolioShowcase() {
                         
                         {/* Interactive Masonry Frame + Stats Badges */}
                         <div className="flex flex-col gap-6 relative">
-                          <Link href={route}>
+                          <Link href={route} onClick={() => window.scrollTo(0, 0)}>
                             <motion.div
                               whileHover={{ y: -6, scale: 1.02 }}
                               className="relative aspect-[1.4] overflow-hidden rounded-2xl border border-white/12 shadow-2xl cursor-pointer bg-[#081220]"
@@ -385,6 +558,7 @@ export function PortfolioShowcase() {
 
                           <Link
                             href={route}
+                            onClick={() => window.scrollTo(0, 0)}
                             className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
                           >
                             <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -415,7 +589,7 @@ export function PortfolioShowcase() {
                         </div>
                         
                         <div className="grid gap-6 sm:grid-cols-3">
-                          <Link href={route} className="col-span-1 sm:col-span-2 block">
+                          <Link href={route} onClick={() => window.scrollTo(0, 0)} className="col-span-1 sm:col-span-2 block">
                             <motion.div
                               whileHover={{ y: -6, scale: 1.01 }}
                               className="relative aspect-[2] overflow-hidden rounded-2xl border border-white/12 cursor-pointer shadow-2xl bg-[#081220]"
@@ -438,6 +612,7 @@ export function PortfolioShowcase() {
 
                           <Link
                             href={route}
+                            onClick={() => window.scrollTo(0, 0)}
                             className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer flex flex-col justify-center items-center text-center block"
                           >
                             <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -477,6 +652,7 @@ export function PortfolioShowcase() {
                             
                             <Link
                               href={route}
+                              onClick={() => window.scrollTo(0, 0)}
                               className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
                             >
                               <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -489,6 +665,7 @@ export function PortfolioShowcase() {
 
                             <Link
                               href={route}
+                              onClick={() => window.scrollTo(0, 0)}
                               className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
                             >
                               <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -534,6 +711,7 @@ export function PortfolioShowcase() {
                             
                             <Link
                               href={route}
+                              onClick={() => window.scrollTo(0, 0)}
                               className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
                             >
                               <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -546,6 +724,7 @@ export function PortfolioShowcase() {
 
                             <Link
                               href={route}
+                              onClick={() => window.scrollTo(0, 0)}
                               className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-[0_12px_40px_rgba(2,9,22,0.4)] backdrop-blur-xl hover:border-[#70A8FF]/25 cursor-pointer block"
                             >
                               <p className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
@@ -564,12 +743,35 @@ export function PortfolioShowcase() {
                         </div>
                       </div>
                     )}
+
+                    {item.id === "website-development" && (
+                      <WebsiteSlideshowSection route={route} item={item} />
+                    )}
                   </div>
 
                 </div>
               </div>
             );
           })}
+
+
+
+          {activeTab === "Website Development" && (
+            <div className="border-t border-white/8 pt-16">
+              <div className="mb-12 text-center">
+                <span className="text-[11px] font-medium tracking-[0.25em] text-[#70A8FF] uppercase">
+                  Website Showcase
+                </span>
+                <h2 className="mt-4 font-heading text-3xl font-black leading-tight text-white md:text-4xl sm:text-5xl">
+                  DETAILED PORTFOLIO PROJECTS
+                </h2>
+                <p className="mt-4 text-base text-white/70 max-w-xl mx-auto">
+                  Explore our premium, high-converting enterprise portals and custom e-commerce developments.
+                </p>
+              </div>
+              <WebsiteShowcase />
+            </div>
+          )}
         </div>
 
       </div>

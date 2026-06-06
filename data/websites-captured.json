@@ -1,0 +1,65 @@
+[
+  {
+    "id": "jazzo",
+    "name": "Jazzo Store",
+    "url": "https://www.jazzo.store/",
+    "industry": "Premium Retail",
+    "screenshot": "/portfolio/websites/jazzo.jpg"
+  },
+  {
+    "id": "bigblare",
+    "name": "Big Blare Innovations",
+    "url": "https://bigblareinnovations.com/",
+    "industry": "Tech & Agency",
+    "screenshot": "/portfolio/websites/bigblare.jpg"
+  },
+  {
+    "id": "vastra",
+    "name": "Vastra Store",
+    "url": "https://vastra-store.com/",
+    "industry": "Ethnic Wear & E-Commerce",
+    "screenshot": "/portfolio/websites/vastra.jpg"
+  },
+  {
+    "id": "vodaiq",
+    "name": "Vodaiq",
+    "url": "https://www.vodaiq.com/",
+    "industry": "SaaS & Analytics",
+    "screenshot": "/portfolio/websites/vodaiq.jpg"
+  },
+  {
+    "id": "klevrax",
+    "name": "Klevrax",
+    "url": "https://www.klevrax.com/",
+    "industry": "Design & Creative Studio",
+    "screenshot": "/portfolio/websites/klevrax.jpg"
+  },
+  {
+    "id": "uptrix",
+    "name": "Uptrix Technologies",
+    "url": "https://uptrixtechnologies.com/",
+    "industry": "Enterprise AI Marketing",
+    "screenshot": "/portfolio/websites/uptrix.jpg"
+  },
+  {
+    "id": "ecofitz",
+    "name": "Ecofitz",
+    "url": "https://ecofitz.com/",
+    "industry": "Eco-friendly Products & Retail",
+    "screenshot": "/portfolio/websites/ecofitz.jpg"
+  },
+  {
+    "id": "lebodee",
+    "name": "Lebodee",
+    "url": "https://www.lebodee.com/",
+    "industry": "Apparel & Lifestyle",
+    "screenshot": "/portfolio/websites/lebodee.jpg"
+  },
+  {
+    "id": "t-adda",
+    "name": "T-Adda",
+    "url": "https://t-adda.in/",
+    "industry": "Custom Merch & Print",
+    "screenshot": "/portfolio/websites/t-adda.jpg"
+  }
+]

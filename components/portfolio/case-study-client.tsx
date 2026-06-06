@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ArrowRight, Target, Compass, Award, BookOpen } from "lucide-react";
 import Image from "next/image";
@@ -57,12 +58,20 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
     };
   }, [isLightboxOpen]);
 
-  // Scroll to top on mount
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    try {
-      window.scrollTo({ top: 0, behavior: "auto" });
-    } catch {}
+    setMounted(true);
   }, []);
+
+  // Scroll to top on mount and whenever project id changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant"
+    });
+  }, [project.id]);
 
   // Safe image fallback references to prevent index out of bounds crashes
   const currentImage = (project.images && project.images[activeImageIndex]) || (project.images && project.images[0]) || { src: "/portfolio/ai-seo/5.png", alt: "Campaign Image" };
@@ -378,6 +387,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
             <Link
               key={item.id}
               href={`/portfolio/${categorySlugMap[item.id]}/case-study-1`}
+              onClick={() => window.scrollTo(0, 0)}
               className="group relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.02] p-5 hover:border-[#70A8FF]/25 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
@@ -401,6 +411,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
       <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/8 pt-8 gap-4 select-none">
         <Link
           href={prevRoute}
+          onClick={() => window.scrollTo(0, 0)}
           className="group inline-flex items-center gap-2 font-heading text-xs font-semibold text-white/60 hover:text-[#70A8FF] transition-colors cursor-pointer"
         >
           <ChevronLeft size={16} />
@@ -409,6 +420,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
 
         <Link
           href="/portfolio"
+          onClick={() => window.scrollTo(0, 0)}
           className="rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 font-heading text-xs font-semibold text-white/90 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
         >
           Back to Portfolio
@@ -416,6 +428,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
 
         <Link
           href={nextRoute}
+          onClick={() => window.scrollTo(0, 0)}
           className="group inline-flex items-center gap-2 font-heading text-xs font-semibold text-white/60 hover:text-[#70A8FF] transition-colors cursor-pointer"
         >
           <span>Next Case Study</span>
@@ -429,61 +442,64 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
       </div>
 
       {/* ── FULLSCREEN LIGHTBOX OVERLAY ───────────────────────── */}
-      <AnimatePresence>
-        {isLightboxOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md select-none">
-            <div className="absolute inset-0 cursor-pointer" onClick={() => setIsLightboxOpen(false)} />
-            
-            {/* Lightbox Container */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              data-lenis-prevent
-              className="relative z-10 w-full max-w-5xl aspect-[16/10] bg-[#070E1A] border border-white/12 rounded-3xl overflow-hidden flex flex-col"
-            >
-              {/* Header Close button */}
-              <div className="flex justify-between items-center px-6 py-4 border-b border-white/8 bg-black/20">
-                <span className="text-[10px] tracking-wider font-semibold text-white/50 uppercase">
-                  Image {activeImageIndex + 1} of {project.images.length}
-                </span>
-                <button
-                  onClick={() => setIsLightboxOpen(false)}
-                  className="rounded-full bg-white/5 p-2 text-white/80 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
-                >
-                  <X size={16} />
-                </button>
-              </div>
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {isLightboxOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md select-none">
+              <div className="absolute inset-0 cursor-pointer" onClick={() => setIsLightboxOpen(false)} />
+              
+              {/* Lightbox Container */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.3, ease: EASE }}
+                data-lenis-prevent
+                className="relative z-10 w-full max-w-5xl aspect-[16/10] bg-[#070E1A] border border-white/12 rounded-3xl overflow-hidden flex flex-col"
+              >
+                {/* Header Close button */}
+                <div className="flex justify-between items-center px-6 py-4 border-b border-white/8 bg-black/20">
+                  <span className="text-[10px] tracking-wider font-semibold text-white/50 uppercase">
+                    Image {activeImageIndex + 1} of {project.images.length}
+                  </span>
+                  <button
+                    onClick={() => setIsLightboxOpen(false)}
+                    className="rounded-full bg-white/5 p-2 text-white/80 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
 
-              {/* Viewport */}
-              <div className="flex-1 relative flex items-center justify-center p-4">
-                <Image
-                  src={currentImage.src}
-                  alt={currentImage.alt}
-                  fill
-                  className="object-contain transition-transform duration-500 hover:scale-103 cursor-zoom-out"
-                  onClick={() => setIsLightboxOpen(false)}
-                />
+                {/* Viewport */}
+                <div className="flex-1 relative flex items-center justify-center p-4">
+                  <Image
+                    src={currentImage.src}
+                    alt={currentImage.alt}
+                    fill
+                    className="object-contain transition-transform duration-500 hover:scale-103 cursor-zoom-out"
+                    onClick={() => setIsLightboxOpen(false)}
+                  />
 
-                {/* Arrows */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+                  {/* Arrows */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
     </div>
   );

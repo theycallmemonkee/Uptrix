@@ -11,7 +11,7 @@ export interface PortfolioImage {
 
 export interface PortfolioItem {
   id: string;
-  category: "AI SEO" | "Google Ads" | "Meta Ads" | "Social Media";
+  category: "AI SEO" | "Google Ads" | "Meta Ads" | "Social Media" | "Website Development";
   title: string;
   subtitle: string;
   client: string;
@@ -152,5 +152,39 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       { src: "/portfolio/social/4-dashboard.jpg", alt: "Social engagement dashboard analytics", type: "dashboard" }
     ],
     featuredImage: "/portfolio/social/4.jpg"
+  },
+  {
+    id: "website-development",
+    category: "Website Development",
+    title: "Enterprise Websites & High-Converting Digital Experiences",
+    subtitle: "Building high-performance websites focused on speed, SEO, conversions, automation, and scalable growth systems.",
+    client: "Uptrix Technologies Portfolio",
+    challenge: "Brands often struggle to translate complex product narratives into high-converting digital interfaces, leading to lost pipeline value, high bounce rates, and stalled organic search growth.",
+    strategy: "Implement responsive modular UI architectures optimized for visual storytelling, high-speed page delivery, headless content management, and integrated automation funnels.",
+    execution: "Engineered high-performance React/Next.js frameworks backed by edge rendering, compressed media distribution nodes, and automated lead capture routing systems.",
+    results: "Delivered responsive, lightning-fast digital pipelines with 99+ Lighthouse performance scores, average page speeds below 0.5s, and integrated automation engines.",
+    takeaways: [
+      "Headless web architecture improves load latency and conversion efficiency.",
+      "Staggered layout structures and custom interactive micro-interactions increase reader session duration.",
+      "Automated CRM capture engines decrease response latency by 90%."
+    ],
+    metrics: [
+      { label: "Projects Delivered", value: "+300" },
+      { label: "Lighthouse Score", value: "99+" },
+      { label: "Client Rating", value: "4.9★" },
+      { label: "Conversion Focus", value: "10X" }
+    ],
+    images: [
+      { src: "/portfolio/websites/jazzo.jpg", alt: "Jazzo Store Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/bigblare.jpg", alt: "Bigblare Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/vastra.jpg", alt: "Vastra Store Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/vodaiq.jpg", alt: "Vodaiq Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/klevrax.jpg", alt: "Klevrax Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/uptrix.jpg", alt: "Uptrix Technologies Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/ecofitz.jpg", alt: "Ecofitz Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/lebodee.jpg", alt: "Lebodee Showcase", type: "dashboard" },
+      { src: "/portfolio/websites/t-adda.jpg", alt: "T-Adda Showcase", type: "dashboard" }
+    ],
+    featuredImage: "/portfolio/websites/jazzo.jpg"
   }
 ];
