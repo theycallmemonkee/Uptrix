@@ -57,6 +57,7 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
+        <meta name="google-site-verification" content="4fTWd9X25lUEgqKMjkQfFuzMjLKz4qnWtBKEPE-jxEg" />
       </head>
       <body className="min-h-full flex flex-col">
         {/* Google Tag Manager (noscript) */}
