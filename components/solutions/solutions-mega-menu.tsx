@@ -83,10 +83,10 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
             <div
               className="grid grid-cols-[1.25fr_1fr] overflow-hidden rounded-3xl h-[620px] w-full"
               style={{
-                border: "1px solid rgba(120, 170, 255, 0.16)",
+                border: "1px solid rgba(120, 170, 255, 0.12)",
                 background: "linear-gradient(180deg,#071426,#0a1a30)",
                 backgroundColor: "rgba(7,20,38,0.96)",
-                boxShadow: "0 40px 100px rgba(0,0,0,0.55)",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
                 backdropFilter: "blur(24px)",
               }}
             >
@@ -94,15 +94,15 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
               <div
                 className="pointer-events-none absolute -inset-20 -z-10 rounded-3xl"
                 style={{
-                  background: "radial-gradient(closest-side at 50% 15%, rgba(0, 102, 255, 0.22), rgba(0, 102, 255, 0.05) 24%, transparent 55%)",
-                  filter: "blur(50px)",
-                  opacity: 0.9,
+                  background: "radial-gradient(closest-side at 50% 15%, rgba(0, 102, 255, 0.16), rgba(0, 102, 255, 0.03) 24%, transparent 55%)",
+                  filter: "blur(40px)",
+                  opacity: 0.85,
                 }}
               />
 
               {/* Left Column: Solutions List */}
-              <div className="flex flex-col border-r border-white/[0.07] p-5 h-full justify-between">
-                <div className="space-y-1">
+              <div className="flex flex-col border-r border-white/[0.06] p-6 h-full justify-between">
+                <div className="space-y-1.5">
                   {SOLUTIONS.map((sol) => {
                     const IconComp = ICON_MAP[sol.iconName] || TrendingUp;
                     const isSelected = sol.slug === activeSlug;
@@ -112,12 +112,13 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         key={sol.slug}
                         onMouseEnter={() => setActiveSlug(sol.slug)}
                         onClick={() => setActiveSlug(sol.slug)}
-                        className="group/item relative flex h-[68px] cursor-pointer items-center gap-3 rounded-2xl p-[6px_14px] transition-all duration-300"
-                        style={{
-                          background: isSelected ? "rgba(255, 255, 255, 0.035)" : "transparent",
-                          border: isSelected ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid transparent",
-                        }}
+                        className={`group/item relative flex cursor-pointer items-center gap-3.5 rounded-2xl p-[10px_16px] transition-all duration-200 border border-transparent ${
+                          isSelected 
+                            ? "bg-white/[0.035] border-white/[0.08] shadow-[0_8px_30px_rgba(0,102,255,0.08),0_0_0_1px_rgba(255,255,255,0.04)] opacity-100" 
+                            : "opacity-60 hover:opacity-100"
+                        }`}
                       >
+                        {/* 40x40 Icon */}
                         <div
                           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 bg-white/[0.02]"
                           style={{
@@ -127,14 +128,15 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         >
                           <IconComp size={18} className="text-[#9FC5FF]" />
                         </div>
+                        
                         <div className="min-w-0 flex-1 leading-tight">
-                          <p className="text-[12px] font-semibold tracking-wider text-white/45 uppercase group-hover/item:text-white/60">
+                          <p className="text-[10px] font-semibold tracking-wider text-white/45 uppercase group-hover/item:text-white/60">
                             {sol.subtitle}
                           </p>
-                          <p className="font-heading text-[16px] font-medium text-white/92 transition-colors group-hover/item:text-[#A8C9FF]">
+                          <p className="font-heading text-[16px] font-medium text-white/92 transition-colors group-hover/item:text-[#A8C9FF] mt-0.5">
                             {sol.title}
                           </p>
-                          <div className="mt-0.5 flex flex-wrap gap-x-1.5 gap-y-0 text-[10px] text-white/40">
+                          <div className="mt-1 flex flex-wrap gap-x-1.5 gap-y-0 text-[10px] text-white/30">
                             {sol.features.slice(0, 4).map((f, i) => (
                               <span key={f}>
                                 {f}{i < Math.min(sol.features.length, 4) - 1 ? " •" : ""}
@@ -146,7 +148,7 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         {/* Hover glow line */}
                         {isSelected && (
                           <motion.div
-                            className="absolute inset-y-2.5 left-0 w-[3px] rounded-r bg-blue-core"
+                            className="absolute inset-y-3 left-0 w-[3px] rounded-r bg-[#0066FF]"
                             layoutId="activeIndicator"
                             transition={{ type: "spring", stiffness: 380, damping: 30 }}
                           />
@@ -157,15 +159,15 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                 </div>
 
                 {/* Bottom Row: Trusted Tags */}
-                <div className="mt-3 border-t border-white/[0.07] pt-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35">
+                <div className="mt-4 border-t border-white/[0.06] pt-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
                     Trusted by ambitious brands across
                   </p>
-                  <div className="mt-1.5 flex flex-wrap gap-2">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     {["D2C", "SaaS", "Fintech", "Healthcare", "B2B"].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-0.5 text-[10px] font-medium text-white/60 shadow-sm"
+                        className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-0.5 text-[10px] font-medium text-white/50 shadow-sm"
                       >
                         {tag}
                       </span>
@@ -175,7 +177,7 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
               </div>
 
               {/* Right Column: Dynamic Content Panel */}
-              <div className="relative flex flex-col bg-[#071324]/40 p-6 h-full justify-between">
+              <div className="relative flex flex-col bg-[#071324]/30 p-8 h-full justify-between">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSolution.slug}
@@ -183,34 +185,40 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -12 }}
                     transition={{ duration: 0.28, ease: EASE }}
-                    className="flex flex-1 flex-col justify-between h-full animate-panel"
+                    className="flex flex-1 flex-col justify-between h-full"
                   >
-                    <div className="space-y-3">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/20 bg-[#153B6A]/55 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#A8C9FF]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#7FB0FF]" />
-                        {activeSolution.badge}
-                      </span>
+                    <div className="space-y-4 pt-2">
+                      {/* Badge */}
+                      <div>
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/20 bg-[#153B6A]/55 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#A8C9FF]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#7FB0FF]" />
+                          {activeSolution.badge}
+                        </span>
+                      </div>
 
-                      <h4 className="mt-3 font-heading text-xl font-semibold leading-snug text-white">
+                      {/* Title */}
+                      <h4 className="font-heading text-xl font-bold leading-snug text-white tracking-tight">
                         {activeSolution.title}
                       </h4>
 
-                      <p className="mt-2.5 text-xs leading-normal text-white/70">
+                      {/* Description */}
+                      <p className="text-xs leading-relaxed text-white/70 max-w-[90%]">
                         {activeSolution.description}
                       </p>
 
-                      <div className="mt-4 rounded-2xl border border-white/[0.06] bg-[#071529]/80 p-3.5 shadow-sm">
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40">
+                      {/* Best For Card */}
+                      <div className="rounded-2xl border border-white/[0.05] bg-white/[0.01] p-3.5 shadow-sm max-w-[90%] backdrop-blur-sm">
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35">
                           Best For
                         </p>
-                        <p className="mt-1 text-xs leading-normal text-white/75">
+                        <p className="mt-1 text-xs leading-normal text-white/70">
                           {activeSolution.bestFor}
                         </p>
                       </div>
                     </div>
 
-                    {/* Bottom CTA Row: Pinned at bottom */}
-                    <div className="mt-4 space-y-3">
+                    {/* Bottom CTA Row: Pinned at bottom with breathing room */}
+                    <div className="mt-6 pt-5 border-t border-white/[0.06] flex flex-col gap-4 max-w-[90%]">
                       <Link
                         href={`/solutions/${activeSolution.slug}`}
                         onClick={() => setOpen(false)}
