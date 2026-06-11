@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useMemo } from "react";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { 
   ArrowRight, 
   ArrowUpRight,
@@ -35,6 +35,97 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
   Layers,
 };
 
+const AVATARS = [
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80",
+];
+
+type HeroContent = {
+  line1: string;
+  line2: string;
+  pillText: string;
+  mockupImage: string;
+  card1Val: string;
+  card1Lbl: string;
+  card2Val: string;
+  card2Lbl: string;
+};
+
+const HERO_MAP: Record<string, HeroContent> = {
+  "demand-generation-system": {
+    line1: "Transform Silent Traffic",
+    line2: "Into Staggering Inbound",
+    pillText: "Pipelines",
+    mockupImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "+217%",
+    card1Lbl: "Conversion Lift",
+    card2Val: "3.4x",
+    card2Lbl: "Inbound SQLs",
+  },
+  "paid-growth-engine": {
+    line1: "Scale Paid Channels",
+    line2: "Without Campaign ROAS",
+    pillText: "Decline",
+    mockupImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "4.5x",
+    card1Lbl: "Budget Scaled",
+    card2Val: "-22%",
+    card2Lbl: "CAC Reduction",
+  },
+  "conversion-website-system": {
+    line1: "Turn Passive Web Visitors",
+    line2: "Into High-Converting",
+    pillText: "Revenue",
+    mockupImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "0.8s",
+    card1Lbl: "Load Speed",
+    card2Val: "+142%",
+    card2Lbl: "Signup Boost",
+  },
+  "ai-lead-conversion-system": {
+    line1: "Automate Lead Qualification",
+    line2: "24/7 With Custom",
+    pillText: "AI Agents",
+    mockupImage: "https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "12s",
+    card1Lbl: "Response Speed",
+    card2Val: "34h",
+    card2Lbl: "Saved / Week",
+  },
+  "growth-foundation-system": {
+    line1: "Transition From Random",
+    line2: "Tactics to Category",
+    pillText: "Dominance",
+    mockupImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "4.9★",
+    card1Lbl: "Client Rating",
+    card2Val: "90d",
+    card2Lbl: "GTM Roadmap",
+  },
+  "ai-marketing-system": {
+    line1: "Unleash Advanced Generative",
+    line2: "AI to Triple Content",
+    pillText: "Velocity",
+    mockupImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "4.0x",
+    card1Lbl: "Content Volume",
+    card2Val: "-62%",
+    card2Lbl: "Overhead Cost",
+  },
+  "revenue-operations-system": {
+    line1: "Unify Tech Stacks And",
+    line2: "Track Inbound Funnel",
+    pillText: "Accuracy",
+    mockupImage: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1200&q=80",
+    card1Val: "99.8%",
+    card1Lbl: "Data Match Rate",
+    card2Val: "+52%",
+    card2Lbl: "Lead Velocity",
+  },
+};
+
 type Props = {
   solution: SolutionConfig;
 };
@@ -42,8 +133,39 @@ type Props = {
 export function SolutionPageTemplate({ solution }: Props) {
   const IconComp = ICON_MAP[solution.iconName] || TrendingUp;
   
+  // Custom hero content mappings
+  const heroContent = HERO_MAP[solution.slug] || HERO_MAP["demand-generation-system"];
+
+  // Framer motion interactive mouse hooks
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.4);
+
+  const smoothX = useSpring(mouseX, { stiffness: 90, damping: 20, mass: 0.7 });
+  const smoothY = useSpring(mouseY, { stiffness: 90, damping: 20, mass: 0.7 });
+
+  const glowX = useTransform(smoothX, [0, 1], ["8%", "92%"]);
+  const glowY = useTransform(smoothY, [0, 1], ["8%", "78%"]);
+  const glowBackground = useMotionTemplate`radial-gradient(680px circle at ${glowX} ${glowY}, rgba(0, 102, 255, 0.2), transparent 62%)`;
+
+  const parallaxX = useTransform(smoothX, [0, 1], [-14, 14]);
+  const parallaxY = useTransform(smoothY, [0, 1], [-10, 12]);
+  const rotateCard = useTransform(smoothX, [0, 1], [-4, 4]);
+
   // Find related solutions (excluding current)
   const relatedSolutions = SOLUTIONS.filter((s) => s.slug !== solution.slug).slice(0, 3);
+
+  const textVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+      show: (delay = 0) => ({
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.75, delay, ease: EASE },
+      }),
+    }),
+    [],
+  );
 
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-[#0B1F3A] text-white font-sans antialiased">
@@ -69,70 +191,213 @@ export function SolutionPageTemplate({ solution }: Props) {
         {/* ============================================================
            HERO SECTION
            ============================================================ */}
-        <section className="relative px-6 pt-[140px] pb-16 md:px-10 md:pt-[170px] md:pb-24">
-          <div className="mx-auto max-w-6xl text-center">
-            {/* Badge */}
+        <section 
+          className="relative flex w-full flex-col overflow-hidden pb-16 pt-[120px] md:pb-24 md:pt-[150px] lg:pt-[170px]"
+          onMouseMove={(event) => {
+            const rect = event.currentTarget.getBoundingClientRect();
+            mouseX.set((event.clientX - rect.left) / rect.width);
+            mouseY.set((event.clientY - rect.top) / rect.height);
+          }}
+        >
+          {/* Interactive mouse glow */}
+          <motion.div className="pointer-events-none absolute inset-0 -z-10" style={{ background: glowBackground }} />
+
+          {/* Animated moving background grid */}
+          <div className="pointer-events-none absolute inset-0 -z-20 opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_90%)]">
             <motion.div
-              initial={{ opacity: 0, y: -16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE }}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/20 bg-[#153B6A]/55 px-3 py-1 text-xs font-medium uppercase tracking-wider text-[#A8C9FF]"
+              className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:75px_75px]"
+              animate={{ backgroundPosition: ["0px 0px", "75px 75px"] }}
+              transition={{ duration: 25, repeat: Infinity, ease: [0, 0, 1, 1] }}
+            />
+          </div>
+
+          {/* Ambient orbs */}
+          <motion.div
+            className="pointer-events-none absolute left-[8%] top-[20%] -z-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(0,102,255,0.22),transparent_65%)] blur-3xl"
+            animate={{ y: [0, -20, 0], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: EASE }}
+          />
+          <motion.div
+            className="pointer-events-none absolute right-[12%] top-[25%] -z-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(120,168,255,0.18),transparent_60%)] blur-3xl"
+            animate={{ y: [0, 15, 0], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 10, repeat: Infinity, ease: EASE, delay: 1 }}
+          />
+
+          {/* UPTRIX brand watermark */}
+          <p className="pointer-events-none absolute left-1/2 top-[50%] -z-20 -translate-x-1/2 -translate-y-1/2 text-center font-heading text-[15vw] leading-none font-bold tracking-[0.22em] text-white/[0.022] blur-[0.2px] md:text-[10rem]">
+            UPTRIX
+          </p>
+
+          <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-6 md:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+            {/* Left Side: Typography and Actions */}
+            <motion.div
+              className="relative max-w-3xl text-center lg:text-left"
+              initial="hidden"
+              animate="show"
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
             >
-              <IconComp size={14} className="text-[#8CB8FF]" />
-              <span>{solution.badge}</span>
+              {/* Category Badge */}
+              <motion.div
+                custom={0}
+                variants={textVariants}
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/28 bg-[#0C2C57]/42 px-4 py-1.5 text-xs tracking-[0.2em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
+              >
+                <IconComp size={12} className="text-[#79ABFF]" />
+                <span>{solution.badge}</span>
+              </motion.div>
+
+              {/* Headline */}
+              <motion.h1
+                custom={0.08}
+                variants={textVariants}
+                className="font-heading text-4xl leading-[1.08] font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[80px]"
+              >
+                {heroContent.line1} <br />
+                {heroContent.line2}{" "}
+                <motion.span
+                  className="relative inline-flex items-center rounded-2xl border border-[#87B4FF]/35 bg-[#7CB0FF]/16 px-4 py-1.5 text-[#D8E8FF] shadow-[0_8px_30px_rgba(0,102,255,0.22)]"
+                  animate={{ boxShadow: ["0 8px 30px rgba(0,102,255,0.22)", "0 12px 44px rgba(0,102,255,0.38)", "0 8px 30px rgba(0,102,255,0.22)"] }}
+                  transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
+                >
+                  {heroContent.pillText}
+                </motion.span>
+              </motion.h1>
+
+              {/* Supporting paragraph */}
+              <motion.p
+                custom={0.18}
+                variants={textVariants}
+                className="mt-8 max-w-xl text-base leading-8 text-white/72 md:text-lg mx-auto lg:mx-0"
+              >
+                {solution.heroDescription}
+              </motion.p>
+
+              {/* Two CTA Buttons */}
+              <motion.div 
+                custom={0.28} 
+                variants={textVariants} 
+                className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
+              >
+                <Link
+                  href="/contact"
+                  className="shine-sweep will-gpu group relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-6 py-3.5 font-heading text-sm font-semibold text-white shadow-[0_16px_38px_rgba(0,102,255,0.36)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#86B6FF] hover:shadow-[0_20px_48px_rgba(0,102,255,0.48)]"
+                >
+                  Get Growth Roadmap
+                  <ArrowRight size={16} />
+                </Link>
+                <a
+                  href="#problems"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/16 bg-white/[0.04] px-6 py-3.5 font-heading text-sm font-medium text-white/88 backdrop-blur-sm transition-all duration-300 hover:border-white/28 hover:bg-white/[0.07] hover:text-white hover:-translate-y-0.5"
+                >
+                  Explore System
+                  <ChevronRight size={16} />
+                </a>
+              </motion.div>
+
+              {/* Trust Section */}
+              <motion.div 
+                custom={0.36} 
+                variants={textVariants} 
+                className="mt-10 flex flex-col items-center gap-5 sm:flex-row justify-center lg:justify-start"
+              >
+                <div className="flex items-center">
+                  {AVATARS.map((src, index) => (
+                    <span
+                      key={src}
+                      className="-ml-2.5 first:ml-0 inline-block h-10 w-10 overflow-hidden rounded-full border-2 border-[#0B1F3A] shadow-[0_6px_16px_rgba(0,0,0,0.3)]"
+                    >
+                      <span
+                        className="block h-full w-full bg-cover bg-center"
+                        style={{ backgroundImage: `url(${src})`, zIndex: AVATARS.length - index }}
+                      />
+                    </span>
+                  ))}
+                </div>
+                <div className="text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-1 mb-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="h-3.5 w-3.5 fill-[#FFBA00]" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-xs leading-relaxed text-white/64">
+                    Used by startups, D2C, healthcare & enterprise companies.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Sub-headline */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.1, ease: EASE }}
-              className="mt-6 font-heading text-sm font-semibold tracking-[0.2em] text-[#9BC2FF] uppercase"
-            >
-              {solution.subtitle}
-            </motion.p>
-
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
-              className="mt-4 font-heading text-4xl font-semibold tracking-tight text-white md:text-6xl max-w-4xl mx-auto leading-tight md:leading-tight"
-            >
-              {solution.headline}
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.2, ease: EASE }}
-              className="mt-6 max-w-2xl mx-auto text-base leading-relaxed text-white/72 md:text-lg"
-            >
-              {solution.heroDescription}
-            </motion.p>
-
-            {/* CTAs */}
+            {/* Right Side: Interactive Showcase & Metric Cards */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              className="relative mx-auto w-full max-w-lg pb-4 lg:justify-self-end mt-10 lg:mt-0"
+              style={{ x: parallaxX, y: parallaxY }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
-              className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+              transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
             >
-              <Link
-                href="/contact"
-                className="shine-sweep w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#1552B6] border border-[#4D8EFF] px-7 py-4 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.36)] transition-all hover:border-[#7FAEFF] hover:shadow-[0_20px_54px_rgba(0,102,255,0.48)]"
+              {/* Large floating showcase panel */}
+              <motion.article
+                className="relative overflow-hidden rounded-[2rem] border border-white/18 bg-white/[0.07] p-4 shadow-[0_30px_90px_rgba(3,9,21,0.6)] backdrop-blur-xl"
+                style={{ rotate: rotateCard }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: EASE }}
               >
-                Get Growth Roadmap
-                <ArrowRight size={16} />
-              </Link>
-              <a
-                href="#problems"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-7 py-4 font-heading text-sm font-semibold text-white transition-colors duration-300 hover:bg-white/10 hover:border-white/20"
+                {/* Animated border overlay */}
+                <motion.div
+                  className="pointer-events-none absolute -inset-[1px] rounded-[2rem] opacity-50"
+                  style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.04), rgba(0,102,255,0.18))" }}
+                />
+                <div
+                  className="h-[21rem] w-full rounded-[1.35rem] bg-cover bg-center transition-transform duration-700 hover:scale-[1.01]"
+                  style={{
+                    backgroundImage: `url(${heroContent.mockupImage})`,
+                  }}
+                />
+                <div className="pointer-events-none absolute inset-4 rounded-[1.35rem] bg-gradient-to-t from-[#071022]/80 via-transparent to-transparent" />
+              </motion.article>
+
+              {/* Floating Metric Card 1 (Left Side) */}
+              <motion.article
+                className="absolute -left-10 top-12 w-52 overflow-hidden rounded-2xl border border-[#6EA6FF]/30 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4.5 shadow-[0_18px_40px_rgba(2,9,22,0.5),0_4px_18px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl"
+                style={{ x: useTransform(parallaxX, (v) => v * -0.65), y: useTransform(parallaxY, (v) => v * 0.55) }}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                whileHover={{ y: -4, scale: 1.02 }}
               >
-                Explore Solution
-                <ChevronRight size={16} />
-              </a>
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_12%,rgba(255,255,255,0.1),transparent_48%),radial-gradient(circle_at_82%_14%,rgba(0,102,255,0.18),transparent_46%)]" />
+                <div className="relative z-10 leading-snug">
+                  <p className="text-[10px] font-semibold tracking-wider text-[#A8C9FF]/70 uppercase">
+                    {heroContent.card1Lbl}
+                  </p>
+                  <p className="mt-1.5 font-heading text-[1.85rem] font-semibold text-white leading-none">
+                    {heroContent.card1Val}
+                  </p>
+                </div>
+              </motion.article>
+
+              {/* Floating Metric Card 2 (Right Side) */}
+              <motion.article
+                className="absolute -right-8 bottom-12 w-48 overflow-hidden rounded-2xl border border-[#6EA6FF]/30 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4.5 shadow-[0_18px_40px_rgba(2,9,22,0.5),0_4px_18px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl"
+                style={{ x: useTransform(parallaxX, (v) => v * 0.55), y: useTransform(parallaxY, (v) => v * -0.65) }}
+                initial={{ opacity: 0, x: 12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                whileHover={{ y: -4, scale: 1.02 }}
+              >
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_12%,rgba(255,255,255,0.1),transparent_48%),radial-gradient(circle_at_82%_14%,rgba(0,102,255,0.18),transparent_46%)]" />
+                <div className="relative z-10 leading-snug">
+                  <p className="text-[10px] font-semibold tracking-wider text-[#A8C9FF]/70 uppercase">
+                    {heroContent.card2Lbl}
+                  </p>
+                  <p className="mt-1.5 font-heading text-[1.85rem] font-semibold text-white leading-none">
+                    {heroContent.card2Val}
+                  </p>
+                </div>
+              </motion.article>
             </motion.div>
           </div>
         </section>
