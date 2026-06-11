@@ -48,31 +48,31 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
     >
       <button
         type="button"
-        className="group relative inline-flex items-center gap-1 font-heading text-sm font-medium tracking-wide text-white/80 transition-colors duration-150 hover:text-white"
+        className="group relative inline-flex items-center gap-1 font-heading text-sm font-medium tracking-wide text-white/80 transition-colors duration-300 hover:text-white"
         aria-expanded={open}
         aria-haspopup="menu"
       >
         <span>Our Solutions</span>
         <ChevronDown
           size={15}
-          className={`transition-transform duration-150 ${open ? "rotate-180 text-white" : "text-white/60 group-hover:text-white"}`}
+          className={`transition-transform duration-300 ${open ? "rotate-180 text-white" : "text-white/60 group-hover:text-white"}`}
         />
         <motion.span
           className="absolute inset-x-0 -bottom-2 h-px origin-left bg-gradient-to-r from-[#70A8FF] via-[#0066FF] to-[#70A8FF]"
           initial={false}
           animate={{ scaleX: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.25, ease: EASE }}
+          transition={{ duration: 0.35, ease: EASE }}
         />
       </button>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            className="absolute left-1/2 z-50 mt-[20px] w-[min(1150px,94vw)] -translate-x-[45%]"
-            initial={{ opacity: 0, y: -8, scale: 0.995 }}
+            className="absolute left-1/2 z-50 mt-[22px] w-[min(1180px,94vw)] -translate-x-[45%]"
+            initial={{ opacity: 0, y: -12, scale: 0.99 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.995 }}
-            transition={{ duration: 0.2, ease: EASE }}
+            exit={{ opacity: 0, y: -8, scale: 0.99 }}
+            transition={{ type: "spring", stiffness: 350, damping: 35, mass: 0.75 }}
             role="menu"
           >
             {/* Arrow */}
@@ -81,18 +81,28 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
             </div>
 
             <div
-              className="grid grid-cols-[40%_60%] overflow-y-auto rounded-[24px] max-h-[72vh] w-full"
+              className="grid grid-cols-[1.25fr_1fr] overflow-hidden rounded-3xl h-[620px] w-full"
               style={{
-                border: "1px solid rgba(120, 170, 255, 0.12)",
+                border: "1px solid rgba(120, 170, 255, 0.16)",
                 background: "linear-gradient(180deg,#071426,#0a1a30)",
-                backgroundColor: "rgba(7,20,38,0.95)",
-                boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
-                backdropFilter: "blur(14px)",
+                backgroundColor: "rgba(7,20,38,0.96)",
+                boxShadow: "0 40px 100px rgba(0,0,0,0.55)",
+                backdropFilter: "blur(24px)",
               }}
             >
-              {/* Left Column: Solutions Navigation */}
-              <div className="flex flex-col border-r border-white/[0.06] p-4">
-                <div className="flex-1 space-y-1">
+              {/* Soft blue ambient glow behind layout */}
+              <div
+                className="pointer-events-none absolute -inset-20 -z-10 rounded-3xl"
+                style={{
+                  background: "radial-gradient(closest-side at 50% 15%, rgba(0, 102, 255, 0.22), rgba(0, 102, 255, 0.05) 24%, transparent 55%)",
+                  filter: "blur(50px)",
+                  opacity: 0.9,
+                }}
+              />
+
+              {/* Left Column: Solutions List */}
+              <div className="flex flex-col border-r border-white/[0.07] p-5 h-full justify-between">
+                <div className="space-y-1">
                   {SOLUTIONS.map((sol) => {
                     const IconComp = ICON_MAP[sol.iconName] || TrendingUp;
                     const isSelected = sol.slug === activeSlug;
@@ -102,33 +112,31 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         key={sol.slug}
                         onMouseEnter={() => setActiveSlug(sol.slug)}
                         onClick={() => setActiveSlug(sol.slug)}
-                        className="group/item relative flex h-[76px] cursor-pointer items-center gap-3.5 rounded-xl p-[14px_18px] transition-colors duration-150"
+                        className="group/item relative flex h-[68px] cursor-pointer items-center gap-3 rounded-2xl p-[6px_14px] transition-all duration-300"
                         style={{
-                          background: isSelected ? "rgba(255, 255, 255, 0.03)" : "transparent",
-                          border: isSelected ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid transparent",
+                          background: isSelected ? "rgba(255, 255, 255, 0.035)" : "transparent",
+                          border: isSelected ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid transparent",
                         }}
                       >
-                        {/* 44x44 Icon Container */}
                         <div
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-all duration-150 bg-white/[0.01]"
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 bg-white/[0.02]"
                           style={{
-                            background: isSelected ? sol.iconColor : "rgba(255, 255, 255, 0.01)",
-                            border: isSelected ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(255, 255, 255, 0.02)",
+                            background: isSelected ? sol.iconColor : "rgba(255, 255, 255, 0.02)",
+                            border: isSelected ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(255, 255, 255, 0.04)",
                           }}
                         >
                           <IconComp size={18} className="text-[#9FC5FF]" />
                         </div>
-                        
-                        <div className="min-w-0 flex-1 flex flex-col justify-center leading-normal">
-                          <span className="text-[13px] font-medium text-white/40 leading-none group-hover/item:text-white/60">
+                        <div className="min-w-0 flex-1 leading-tight">
+                          <p className="text-[12px] font-semibold tracking-wider text-white/45 uppercase group-hover/item:text-white/60">
                             {sol.subtitle}
-                          </span>
-                          <h4 className="font-heading text-[18px] font-medium text-white/92 transition-colors leading-tight group-hover/item:text-[#A8C9FF] mt-0.5">
+                          </p>
+                          <p className="font-heading text-[16px] font-medium text-white/92 transition-colors group-hover/item:text-[#A8C9FF]">
                             {sol.title}
-                          </h4>
-                          <div className="mt-1 flex flex-wrap gap-x-1.5 gap-y-0.5 leading-none">
+                          </p>
+                          <div className="mt-0.5 flex flex-wrap gap-x-1.5 gap-y-0 text-[10px] text-white/40">
                             {sol.features.slice(0, 4).map((f, i) => (
-                              <span key={f} className="text-[12px] text-white/30">
+                              <span key={f}>
                                 {f}{i < Math.min(sol.features.length, 4) - 1 ? " •" : ""}
                               </span>
                             ))}
@@ -138,9 +146,9 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         {/* Hover glow line */}
                         {isSelected && (
                           <motion.div
-                            className="absolute inset-y-3.5 left-0 w-[2.5px] rounded-r bg-[#0066ff]"
+                            className="absolute inset-y-2.5 left-0 w-[3px] rounded-r bg-blue-core"
                             layoutId="activeIndicator"
-                            transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
                           />
                         )}
                       </div>
@@ -149,15 +157,15 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                 </div>
 
                 {/* Bottom Row: Trusted Tags */}
-                <div className="mt-4 border-t border-white/[0.06] pt-3.5 px-1">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+                <div className="mt-3 border-t border-white/[0.07] pt-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35">
                     Trusted by ambitious brands across
                   </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
+                  <div className="mt-1.5 flex flex-wrap gap-2">
                     {["D2C", "SaaS", "Fintech", "Healthcare", "B2B"].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-white/[0.04] bg-white/[0.01] px-2 py-0.5 text-[10px] font-medium text-white/50"
+                        className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-0.5 text-[10px] font-medium text-white/60 shadow-sm"
                       >
                         {tag}
                       </span>
@@ -166,49 +174,43 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                 </div>
               </div>
 
-              {/* Right Column: Content Panel */}
-              <div className="relative flex flex-col bg-[#071324]/20 p-6">
+              {/* Right Column: Dynamic Content Panel */}
+              <div className="relative flex flex-col bg-[#071324]/40 p-6 h-full justify-between">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSolution.slug}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.25, ease: EASE }}
-                    className="flex flex-1 flex-col justify-between"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    transition={{ duration: 0.28, ease: EASE }}
+                    className="flex flex-1 flex-col justify-between h-full animate-panel"
                   >
-                    <div className="space-y-4">
-                      {/* Badge */}
-                      <div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/15 bg-[#153B6A]/45 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#A8C9FF]">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#7FB0FF]" />
-                          {activeSolution.badge}
-                        </span>
-                      </div>
+                    <div className="space-y-3">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/20 bg-[#153B6A]/55 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#A8C9FF]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#7FB0FF]" />
+                        {activeSolution.badge}
+                      </span>
 
-                      {/* Title */}
-                      <h4 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                      <h4 className="mt-3 font-heading text-xl font-semibold leading-snug text-white">
                         {activeSolution.title}
                       </h4>
 
-                      {/* Description */}
-                      <p className="text-[13px] leading-relaxed text-white/70">
+                      <p className="mt-2.5 text-xs leading-normal text-white/70">
                         {activeSolution.description}
                       </p>
 
-                      {/* Best For Card */}
-                      <div className="rounded-[18px] border border-white/[0.06] bg-white/[0.02] p-3.5 backdrop-blur-sm shadow-sm">
+                      <div className="mt-4 rounded-2xl border border-white/[0.06] bg-[#071529]/80 p-3.5 shadow-sm">
                         <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40">
                           Best For
                         </p>
-                        <p className="mt-1 text-[12px] leading-relaxed text-white/75">
+                        <p className="mt-1 text-xs leading-normal text-white/75">
                           {activeSolution.bestFor}
                         </p>
                       </div>
                     </div>
 
                     {/* Bottom CTA Row: Pinned at bottom */}
-                    <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-4">
+                    <div className="mt-4 space-y-3">
                       <Link
                         href={`/solutions/${activeSolution.slug}`}
                         onClick={() => setOpen(false)}
@@ -221,7 +223,7 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                       <Link
                         href="/contact"
                         onClick={() => setOpen(false)}
-                        className="shine-sweep inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-5 py-2.5 text-center text-xs font-semibold text-white shadow-md hover:shadow-lg transition-all"
+                        className="shine-sweep flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#1552B6] py-2.5 text-center text-xs font-semibold text-white shadow-[0_8px_24px_rgba(0,102,255,0.28)] transition-all hover:shadow-[0_12px_32px_rgba(0,102,255,0.42)]"
                       >
                         Get Growth Roadmap
                         <ArrowRight size={13} />
@@ -251,7 +253,7 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
         aria-expanded={open}
       >
         <span>Our Solutions</span>
-        <ChevronDown size={22} className={`transition-transform duration-150 ${open ? "rotate-180" : "rotate-0"}`} />
+        <ChevronDown size={22} className={`transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"}`} />
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -260,21 +262,20 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: EASE }}
+            transition={{ duration: 0.3, ease: EASE }}
           >
             {SOLUTIONS.map((sol) => {
               const IconComp = ICON_MAP[sol.iconName] || TrendingUp;
               return (
                 <li key={sol.slug}>
                   <Link
-                    key={sol.slug}
                     href={`/solutions/${sol.slug}`}
-                    className="group flex items-center gap-3 rounded-xl border border-transparent bg-[#0B2A52]/44 px-3 py-2.5 text-base text-white/82 transition-all duration-150 hover:border-[#8CB8FF]/30 hover:text-white"
+                    className="group flex items-center gap-3 rounded-xl border border-transparent bg-[#0B2A52]/44 px-3 py-2.5 text-base text-white/82 transition-all duration-250 hover:border-[#8CB8FF]/30 hover:text-white"
                     onClick={onNavigate}
                   >
                     <IconComp size={16} className="text-[#79ABFF]" />
                     <div className="flex-1">
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40">
+                      <p className="text-[9px] font-semibold uppercase tracking-wider text-white/40">
                         {sol.subtitle}
                       </p>
                       <p className="font-heading text-sm font-medium text-white/90">
