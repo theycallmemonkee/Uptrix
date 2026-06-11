@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ServicesDropdownDesktop, ServicesDropdownMobile } from "@/components/services/services-dropdown";
+import { SolutionsDropdownDesktop, SolutionsDropdownMobile } from "@/components/solutions/solutions-mega-menu";
 
 type NavItem = {
   label: string;
@@ -117,7 +117,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
                 </NavLink>
               );
             })}
-            <ServicesDropdownDesktop />
+            <SolutionsDropdownDesktop />
             {NAV_ITEMS.slice(1).map((item) => {
               const active = isActive(item.href);
               return (
@@ -226,7 +226,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
                 variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
                 transition={{ duration: 0.45, ease: EASE }}
               >
-                <ServicesDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
+                <SolutionsDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
               </motion.li>
               {NAV_ITEMS.slice(1).map((item) => (
                 <MobileNavItem
