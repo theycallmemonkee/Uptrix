@@ -14,9 +14,22 @@ const PortfolioCta = dynamic(() => import("@/components/portfolio/portfolio-cta"
 const EnterpriseFooter = dynamic(() => import("@/components/enterprise-footer").then(mod => mod.EnterpriseFooter));
 
 export const metadata: Metadata = {
-  title: "Uptrix Technologies — AI-Powered Digital Marketing Agency",
+  title: "Uptrix Technologies | Your AI Growth Systems Partner",
   description:
-    "India's leading AI-powered digital marketing agency. We build precision AI SEO, PPC automation, social media, and branding systems for enterprise-scale growth.",
+    "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+  openGraph: {
+    title: "Uptrix Technologies | Your AI Growth Systems Partner",
+    description:
+      "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+    type: "website",
+    url: "https://uptrixtechnologies.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Uptrix Technologies | Your AI Growth Systems Partner",
+    description:
+      "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+  },
 };
 
 export default function Home() {
