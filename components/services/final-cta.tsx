@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export function FinalCta({ title, description }: Props) {
-  const [magnet, setMagnet] = useState({ x: 0, y: 0 });
+
 
   return (
     <section className="px-6 pt-10 pb-20 md:px-10 md:pt-14 md:pb-24">
@@ -63,28 +62,16 @@ export function FinalCta({ title, description }: Props) {
             {description}
           </motion.p>
 
-          <motion.div
-            className="mt-9 inline-flex"
-            animate={{ x: magnet.x, y: magnet.y }}
-            transition={{ type: "spring", stiffness: 180, damping: 15 }}
-          >
+          <div className="mt-9 inline-flex">
             <Link
               href="/contact"
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-6 py-3.5 font-heading text-sm font-semibold text-white shadow-[0_16px_40px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A9CCFF]"
-              onMouseMove={(event) => {
-                const rect = event.currentTarget.getBoundingClientRect();
-                setMagnet({
-                  x: (event.clientX - rect.left - rect.width / 2) * 0.18,
-                  y: (event.clientY - rect.top - rect.height / 2) * 0.18,
-                });
-              }}
-              onMouseLeave={() => setMagnet({ x: 0, y: 0 })}
             >
               <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.22),transparent_58%)]" />
               Start your premium growth journey
               <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </section>

@@ -11,7 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useMemo, useRef, useSyncExternalStore } from "react";
 import { SERVICES } from "@/data/services";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -57,7 +57,7 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
 export function EnterpriseFooter() {
   const ref = useRef<HTMLElement | null>(null);
   const inView = useInView(ref, { once: true, amount: 0.25 });
-  const [magnet, setMagnet] = useState({ x: 0, y: 0 });
+
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -230,22 +230,11 @@ export function EnterpriseFooter() {
                 With Us
               </h3>
 
-              <motion.div
-                animate={{ x: magnet.x, y: magnet.y }}
-                transition={{ type: "spring", stiffness: 180, damping: 14, mass: 0.8 }}
-                className="w-full lg:w-auto"
-              >
+              <div className="w-full lg:w-auto">
                 <Link
                   href="/contact"
                   scroll
                   className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-5 py-4 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A7CBFF] lg:w-auto"
-                  onMouseMove={(event) => {
-                    const rect = event.currentTarget.getBoundingClientRect();
-                    const x = (event.clientX - rect.left - rect.width / 2) * 0.18;
-                    const y = (event.clientY - rect.top - rect.height / 2) * 0.18;
-                    setMagnet({ x, y });
-                  }}
-                  onMouseLeave={() => setMagnet({ x: 0, y: 0 })}
                 >
                   <motion.span
                     className="pointer-events-none absolute -inset-10 -z-10 opacity-0"
@@ -269,7 +258,7 @@ export function EnterpriseFooter() {
                     className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   />
                 </Link>
-              </motion.div>
+              </div>
 
               <div className="flex items-center gap-3">
                 {SOCIALS.map(({ href, label, Icon }) => (

@@ -1,38 +1,33 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, BookOpen, Eye, X, Sparkles, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { WEBSITE_PROJECTS, WebsiteProject } from "@/data/website-data";
-
-// Pre-create empty json mock if it doesn't exist
-let capturedManifest: any[] = [];
-try {
-  capturedManifest = require("@/data/websites-captured.json");
-} catch (e) {
-  capturedManifest = [];
-}
+import capturedManifest from "@/data/websites-captured.json";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function WebsiteShowcase() {
   const [selectedProject, setSelectedProject] = useState<WebsiteProject | null>(null);
-  const [activeProjects, setActiveProjects] = useState<WebsiteProject[]>([]);
   const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMounted(true);
-    // Check which projects are successfully captured (based on the manifest)
+    const mountRaf = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(mountRaf);
+  }, []);
+
+  const activeProjects = useMemo(() => {
     if (capturedManifest && capturedManifest.length > 0) {
       const capturedIds = new Set(capturedManifest.map(m => m.id));
-      const filtered = WEBSITE_PROJECTS.filter(p => capturedIds.has(p.id));
-      setActiveProjects(filtered);
-    } else {
-      setActiveProjects(WEBSITE_PROJECTS);
+      return WEBSITE_PROJECTS.filter(p => capturedIds.has(p.id));
     }
+    return WEBSITE_PROJECTS;
   }, []);
 
   // Lock body scroll and focus modal when open

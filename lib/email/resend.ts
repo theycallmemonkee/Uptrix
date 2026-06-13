@@ -22,6 +22,9 @@ export async function sendContactNotificationEmail(params: {
   email: string;
   message: string;
   timestampIso: string;
+  website?: string;
+  budget?: string;
+  source_page?: string;
 }) {
   const resend = getResendClient();
   const from = CONTACT_FROM;
@@ -29,33 +32,49 @@ export async function sendContactNotificationEmail(params: {
 
   console.info("[contact/email] Resend send attempt", { from, to });
 
+  const textLines = [
+    "New contact form submission",
+    "",
+    `Name: ${params.name}`,
+    `Email: ${params.email}`,
+    `Timestamp: ${params.timestampIso}`,
+  ];
+
+  if (params.website) {
+    textLines.push(`Website: ${params.website}`);
+  }
+  if (params.budget) {
+    textLines.push(`Monthly Budget Range: ${params.budget}`);
+  }
+  if (params.source_page) {
+    textLines.push(`Source Page: ${params.source_page}`);
+  }
+
+  textLines.push("", "Message:", params.message);
+
+  const htmlBody = `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111">
+      <h2 style="margin-bottom:12px;">New contact form submission</h2>
+      <p><strong>Name:</strong> ${escapeHtml(params.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(params.email)}</p>
+      <p><strong>Timestamp:</strong> ${escapeHtml(params.timestampIso)}</p>
+      ${params.website ? `<p><strong>Website:</strong> ${escapeHtml(params.website)}</p>` : ""}
+      ${params.budget ? `<p><strong>Monthly Budget Range:</strong> ${escapeHtml(params.budget)}</p>` : ""}
+      ${params.source_page ? `<p><strong>Source Page:</strong> ${escapeHtml(params.source_page)}</p>` : ""}
+      <p><strong>Message:</strong></p>
+      <pre style="white-space:pre-wrap;background:#f5f5f5;padding:12px;border-radius:8px;">${escapeHtml(
+        params.message,
+      )}</pre>
+    </div>
+  `;
+
   const result = await resend.emails.send({
     from,
     to,
     replyTo: params.email,
-    subject: "New Uptrix Contact Form Submission",
-    text: [
-      "New contact form submission",
-      "",
-      `Name: ${params.name}`,
-      `Email: ${params.email}`,
-      `Timestamp: ${params.timestampIso}`,
-      "",
-      "Message:",
-      params.message,
-    ].join("\n"),
-    html: `
-      <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111">
-        <h2 style="margin-bottom:12px;">New contact form submission</h2>
-        <p><strong>Name:</strong> ${escapeHtml(params.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(params.email)}</p>
-        <p><strong>Timestamp:</strong> ${escapeHtml(params.timestampIso)}</p>
-        <p><strong>Message:</strong></p>
-        <pre style="white-space:pre-wrap;background:#f5f5f5;padding:12px;border-radius:8px;">${escapeHtml(
-          params.message,
-        )}</pre>
-      </div>
-    `,
+    subject: `New Uptrix Contact Form Submission${params.source_page ? ` (${params.source_page})` : ""}`,
+    text: textLines.join("\n"),
+    html: htmlBody,
   });
 
   if (result.error) {

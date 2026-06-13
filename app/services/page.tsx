@@ -28,7 +28,7 @@ export default function ServicesPage() {
       />
       <PremiumNavbar />
       <main className="relative z-10 flex flex-1 flex-col">
-        <section className="px-6 pt-[100px] pb-16 md:px-10 md:pt-[120px] md:pb-20 lg:pb-24">
+        <section className="px-6 pt-32 pb-16 md:px-10 md:pt-36 lg:pt-40 md:pb-20 lg:pb-24">
           <div className="mx-auto max-w-6xl">
             <div className="max-w-3xl">
               <p className="font-heading text-xs font-medium tracking-[0.22em] text-[#9BC2FF] uppercase">

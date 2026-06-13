@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Sparkles, Star, TrendingUp, BarChart3, Eye, Award } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Star, TrendingUp, BarChart3, Eye, Award } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
   }, []);
 
   return (
-    <section className="relative flex min-h-[95vh] items-center justify-center overflow-hidden px-6 pt-[120px] pb-20 md:px-10 lg:pt-[160px] bg-[#061124]">
+    <section className="relative z-[1] flex min-h-[95vh] items-center justify-center overflow-hidden px-6 pt-[120px] pb-20 md:px-10 lg:pt-[160px] bg-[#061124]">
       {/* ── Layered Background System ───────────────────────── */}
       <div
         className="pointer-events-none absolute inset-0 -z-30 bg-[linear-gradient(180deg,#0a1b35_0%,#061124_62%,#030915_100%)]"
@@ -85,10 +85,9 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
               initial={{ opacity: 0, y: 12, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.65, ease: EASE }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/30 bg-[#78A8FF]/10 px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] text-[#DCEBFF] uppercase backdrop-blur-sm"
+              className="mb-6 inline-flex items-center rounded-full border border-[#8DB8FF]/30 bg-[#78A8FF]/10 px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] text-[#DCEBFF] uppercase backdrop-blur-sm"
             >
-              <Sparkles size={11} className="text-[#70A8FF]" />
-              ✨ ENTERPRISE PORTFOLIO
+              PORTFOLIO
             </motion.div>
 
             {/* Heading */}

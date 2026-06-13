@@ -32,8 +32,24 @@ export function WhyChooseSection({ service }: Props) {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="font-heading text-3xl leading-tight font-semibold text-white md:text-5xl">{service.whyTitle}</h2>
-          <p className="mt-5 max-w-xl text-base leading-7 text-white/74 md:text-lg">{service.whyDescription}</p>
+          <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight text-white md:text-5xl">{service.whyTitle}</h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/74 md:text-lg">{service.whyDescription}</p>
+          
+          <ul className="mt-6 space-y-3.5 max-w-xl">
+            {service.whyBullets.map((bullet, index) => (
+              <motion.li
+                key={bullet}
+                className="flex items-start gap-3 text-sm text-white/84 md:text-base"
+                initial={{ opacity: 0, x: -12 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
+                transition={{ duration: 0.45, delay: 0.15 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <CheckCircle2 size={18} className="text-[#8CB9FF] shrink-0 mt-0.5" />
+                <span>{bullet}</span>
+              </motion.li>
+            ))}
+          </ul>
+
           <Link
             href="/contact"
             className="group mt-8 inline-flex items-center gap-2 rounded-xl border border-[#4D8EFF] bg-[#0D2D59]/66 px-5 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:border-[#93BEFF] hover:bg-[#103769]"
@@ -102,21 +118,6 @@ export function WhyChooseSection({ service }: Props) {
             >
               +187% qualified growth
             </motion.div>
-
-            <ul className="relative mt-6 space-y-3">
-              {service.whyBullets.map((bullet, index) => (
-                <motion.li
-                  key={bullet}
-                  className="flex items-center gap-3 text-sm text-white/84 md:text-base"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
-                  transition={{ duration: 0.45, delay: 0.15 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <CheckCircle2 size={16} className="text-[#8CB9FF]" />
-                  {bullet}
-                </motion.li>
-              ))}
-            </ul>
           </motion.div>
         </motion.div>
       </div>

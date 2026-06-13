@@ -19,7 +19,7 @@ export function BlogArticleHero({ blog }: { blog: Blog }) {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_32px_100px_rgba(2,9,22,0.7)] ring-1 ring-inset ring-white/8"
+      className="relative z-[1] overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_32px_100px_rgba(2,9,22,0.7)] ring-1 ring-inset ring-white/8"
     >
       {/* Animated mesh / grid overlay */}
       <div

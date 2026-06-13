@@ -3,6 +3,7 @@
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -89,13 +90,15 @@ export function AiServicesSection() {
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
-            <div
-              className="h-[21rem] w-full rounded-[1.35rem] bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url(https://images.unsplash.com/photo-1553484771-cc0d9b8c2b33?auto=format&fit=crop&w=1400&q=80)",
-              }}
-            />
+            <div className="relative h-[21rem] w-full overflow-hidden rounded-[1.35rem]">
+              <Image
+                src="https://images.unsplash.com/photo-1553484771-cc0d9b8c2b33?auto=format&fit=crop&w=1400&q=80"
+                alt="AI-Powered Marketing Solutions Showcase"
+                fill
+                sizes="(max-width: 768px) 100vw, 600px"
+                className="object-cover"
+              />
+            </div>
             <div className="pointer-events-none absolute inset-4 rounded-[1.35rem] bg-gradient-to-t from-[#061124]/78 via-transparent to-transparent" />
           </motion.article>
 

@@ -35,10 +35,8 @@ type MobileProps  = { onNavigate?: () => void };
 export function SolutionsDropdownDesktop({ className }: DesktopProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [activeSlug, setActiveSlug] = useState<string>(SOLUTIONS[0].slug);
   
   const isActive = pathname.startsWith("/solutions");
-  const activeSolution = SOLUTIONS.find((s) => s.slug === activeSlug) || SOLUTIONS[0];
 
   return (
     <div
@@ -67,60 +65,68 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            className="absolute left-1/2 z-50 mt-[22px] w-[min(1180px,94vw)] -translate-x-[45%]"
-            initial={{ opacity: 0, y: -12, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.99 }}
-            transition={{ type: "spring", stiffness: 350, damping: 35, mass: 0.75 }}
-            role="menu"
-          >
-            {/* Arrow */}
-            <div className="relative mx-auto mb-1 h-2 w-4 overflow-hidden" style={{ left: "-5%" }}>
-              <div className="absolute inset-x-0 top-1 h-3 w-3 origin-bottom-left rotate-45 rounded-sm border border-[#8CB8FF]/22 bg-[#071426]" style={{ left: "50%", transform: "translateX(-50%) rotate(45deg)" }} />
-            </div>
+          <>
+            {/* Full screen dim and backdrop blur (z-190) behind the dropdown, clearing the navbar */}
+            <motion.div
+              className="fixed inset-x-0 bottom-0 top-[98px] z-[-10] bg-black/15 pointer-events-none"
+              style={{ backdropFilter: "blur(18px)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            />
 
-            <div
-              className="grid grid-cols-[1.25fr_1fr] overflow-hidden rounded-3xl h-[620px] w-full"
-              style={{
-                border: "1px solid rgba(120, 170, 255, 0.12)",
-                background: "linear-gradient(180deg,#071426,#0a1a30)",
-                backgroundColor: "rgba(7,20,38,0.96)",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
-                backdropFilter: "blur(24px)",
-              }}
+            {/* Dropdown panel (z-200) spaced 28px from navbar */}
+            <motion.div
+              className="dropdown absolute left-1/2 top-full z-[200] pt-[28px] w-[min(540px,94vw)] -translate-x-1/2"
+              initial={{ opacity: 0, y: -12, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.99 }}
+              transition={{ type: "spring", stiffness: 350, damping: 35, mass: 0.75 }}
+              role="menu"
             >
-              {/* Soft blue ambient glow behind layout */}
+              {/* Arrow */}
+              <div className="relative mx-auto mb-1 h-2 w-4 overflow-hidden">
+                <div className="absolute inset-x-0 top-1 h-3 w-3 origin-bottom-left rotate-45 rounded-sm border border-[#78aaff]/12 bg-[#071024]" style={{ left: "50%", transform: "translateX(-50%) rotate(45deg)" }} />
+              </div>
+
               <div
-                className="pointer-events-none absolute -inset-20 -z-10 rounded-3xl"
+                className="overflow-hidden rounded-3xl w-full p-4 flex flex-col relative"
                 style={{
-                  background: "radial-gradient(closest-side at 50% 15%, rgba(0, 102, 255, 0.16), rgba(0, 102, 255, 0.03) 24%, transparent 55%)",
-                  filter: "blur(40px)",
-                  opacity: 0.85,
+                  border: "1px solid rgba(120, 170, 255, 0.12)",
+                  background: "linear-gradient(135deg, rgba(7, 16, 36, 0.99), rgba(10, 24, 52, 0.98))",
+                  boxShadow: "0 20px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(35, 90, 255, 0.08)",
+                  backdropFilter: "blur(20px)",
                 }}
-              />
+              >
+                {/* Soft blue ambient glow inside panel, constrained to prevent bleeding upwards into navbar */}
+                <div
+                  className="pointer-events-none absolute -inset-x-20 -bottom-20 top-0 -z-10 rounded-3xl"
+                  style={{
+                    background: "radial-gradient(closest-side at 50% 15%, rgba(0, 102, 255, 0.12), rgba(0, 102, 255, 0.02) 24%, transparent 55%)",
+                    filter: "blur(40px)",
+                    opacity: 0.8,
+                  }}
+                />
 
-              {/* Left Column: Solutions List */}
-              <div className="flex flex-col border-r border-white/[0.06] p-6 h-full justify-between">
-                <div className="space-y-1.5">
+                <div className="space-y-1 select-none">
                   {SOLUTIONS.map((sol) => {
-                    const IconComp = ICON_MAP[sol.iconName] || TrendingUp;
-                    const isSelected = sol.slug === activeSlug;
+                     const IconComp = ICON_MAP[sol.iconName] || TrendingUp;
+                     const isSelected = pathname === `/solutions/${sol.slug}`;
 
-                    return (
-                      <div
+                     return (
+                      <Link
                         key={sol.slug}
-                        onMouseEnter={() => setActiveSlug(sol.slug)}
-                        onClick={() => setActiveSlug(sol.slug)}
-                        className={`group/item relative flex cursor-pointer items-center gap-3.5 rounded-2xl p-[10px_16px] transition-all duration-200 border border-transparent ${
+                        href={`/solutions/${sol.slug}`}
+                        onClick={() => setOpen(false)}
+                        className={`menu-item group/item relative flex items-center gap-3.5 rounded-2xl p-[10px_16px] transition-all duration-200 border border-transparent ${
                           isSelected 
-                            ? "bg-white/[0.035] border-white/[0.08] shadow-[0_8px_30px_rgba(0,102,255,0.08),0_0_0_1px_rgba(255,255,255,0.04)] opacity-100" 
-                            : "opacity-60 hover:opacity-100"
+                            ? "bg-white/[0.05] border-white/[0.08] shadow-[0_8px_24px_rgba(0,102,255,0.06),0_0_0_1px_rgba(255,255,255,0.05)] opacity-100" 
+                            : "opacity-80 hover:opacity-100 hover:bg-white/[0.04] hover:border-[#8CB8FF]/20 hover:shadow-[0_8px_24px_rgba(0,102,255,0.04)]"
                         }`}
                       >
-                        {/* 40x40 Icon */}
                         <div
-                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 bg-white/[0.02]"
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300"
                           style={{
                             background: isSelected ? sol.iconColor : "rgba(255, 255, 255, 0.02)",
                             border: isSelected ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(255, 255, 255, 0.04)",
@@ -128,21 +134,13 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                         >
                           <IconComp size={18} className="text-[#9FC5FF]" />
                         </div>
-                        
-                        <div className="min-w-0 flex-1 leading-tight">
+                        <div className="min-w-0 flex-1 leading-tight py-0.5">
                           <p className="text-[10px] font-semibold tracking-wider text-white/45 uppercase group-hover/item:text-white/60">
                             {sol.subtitle}
                           </p>
-                          <p className="font-heading text-[16px] font-medium text-white/92 transition-colors group-hover/item:text-[#A8C9FF] mt-0.5">
+                          <p className="font-heading text-[16px] font-medium text-white/92 transition-colors group-hover/item:text-[#A8C9FF] mt-1">
                             {sol.title}
                           </p>
-                          <div className="mt-1 flex flex-wrap gap-x-1.5 gap-y-0 text-[10px] text-white/30">
-                            {sol.features.slice(0, 4).map((f, i) => (
-                              <span key={f}>
-                                {f}{i < Math.min(sol.features.length, 4) - 1 ? " •" : ""}
-                              </span>
-                            ))}
-                          </div>
                         </div>
 
                         {/* Hover glow line */}
@@ -153,95 +151,13 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                             transition={{ type: "spring", stiffness: 380, damping: 30 }}
                           />
                         )}
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>
-
-                {/* Bottom Row: Trusted Tags */}
-                <div className="mt-4 border-t border-white/[0.06] pt-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
-                    Trusted by ambitious brands across
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {["D2C", "SaaS", "Fintech", "Healthcare", "B2B"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-0.5 text-[10px] font-medium text-white/50 shadow-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
-
-              {/* Right Column: Dynamic Content Panel */}
-              <div className="relative flex flex-col bg-[#071324]/30 p-8 h-full justify-between">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSolution.slug}
-                    initial={{ opacity: 0, x: 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -12 }}
-                    transition={{ duration: 0.28, ease: EASE }}
-                    className="flex flex-1 flex-col justify-between h-full"
-                  >
-                    <div className="space-y-4 pt-2">
-                      {/* Badge */}
-                      <div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#8CB8FF]/20 bg-[#153B6A]/55 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#A8C9FF]">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#7FB0FF]" />
-                          {activeSolution.badge}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h4 className="font-heading text-xl font-bold leading-snug text-white tracking-tight">
-                        {activeSolution.title}
-                      </h4>
-
-                      {/* Description */}
-                      <p className="text-xs leading-relaxed text-white/70 max-w-[90%]">
-                        {activeSolution.description}
-                      </p>
-
-                      {/* Best For Card */}
-                      <div className="rounded-2xl border border-white/[0.05] bg-white/[0.01] p-3.5 shadow-sm max-w-[90%] backdrop-blur-sm">
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35">
-                          Best For
-                        </p>
-                        <p className="mt-1 text-xs leading-normal text-white/70">
-                          {activeSolution.bestFor}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Bottom CTA Row: Pinned at bottom with breathing room */}
-                    <div className="mt-6 pt-5 border-t border-white/[0.06] flex flex-col gap-4 max-w-[90%]">
-                      <Link
-                        href={`/solutions/${activeSolution.slug}`}
-                        onClick={() => setOpen(false)}
-                        className="group/cta inline-flex items-center gap-1.5 text-xs font-semibold text-[#86B3FF] transition-colors hover:text-white"
-                      >
-                        {activeSolution.cta}
-                        <ArrowRight size={13} className="transition-transform group-hover/cta:translate-x-1" />
-                      </Link>
-
-                      <Link
-                        href="/contact"
-                        onClick={() => setOpen(false)}
-                        className="shine-sweep flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#1552B6] py-2.5 text-center text-xs font-semibold text-white shadow-[0_8px_24px_rgba(0,102,255,0.28)] transition-all hover:shadow-[0_12px_32px_rgba(0,102,255,0.42)]"
-                      >
-                        Get Growth Roadmap
-                        <ArrowRight size={13} />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
@@ -266,7 +182,7 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
       <AnimatePresence initial={false}>
         {open && (
           <motion.ul
-            className="mt-4 space-y-2 overflow-hidden"
+            className="mt-4 space-y-2 overflow-hidden select-none"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -283,7 +199,7 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
                   >
                     <IconComp size={16} className="text-[#79ABFF]" />
                     <div className="flex-1">
-                      <p className="text-[9px] font-semibold uppercase tracking-wider text-white/40">
+                      <p className="text-[9px] font-semibold uppercase tracking-wider text-white/45">
                         {sol.subtitle}
                       </p>
                       <p className="font-heading text-sm font-medium text-white/90">

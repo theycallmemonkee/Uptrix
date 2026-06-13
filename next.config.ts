@@ -46,6 +46,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/more-leads",
+        destination: "/solutions/demand-generation-system",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

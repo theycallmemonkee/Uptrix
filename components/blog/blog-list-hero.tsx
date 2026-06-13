@@ -47,7 +47,7 @@ export default function BlogListHero() {
 
   return (
     <motion.section
-      className="relative mx-auto w-full max-w-[1280px] px-6 pt-[100px] pb-16 md:px-10 md:pt-[120px] lg:pt-[160px]"
+      className="relative z-[1] mx-auto w-full max-w-[1280px] px-6 pt-[100px] pb-16 md:px-10 md:pt-[120px] lg:pt-[160px]"
       initial="hidden"
       animate="show"
       variants={container}

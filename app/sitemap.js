@@ -4,7 +4,7 @@ export default function sitemap() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://uptrixtechnologies.com";
   const posts = getAllPosts();
 
-  const baseRoutes = ["", "/blog", "/about", "/contact", "/services", "/services/seo", "/services/social-media", "/services/ppc", "/services/branding", "/services/ai-ugc-video-ads", "/services/business-automation"];
+  const baseRoutes = ["", "/blog", "/about", "/contact", "/services", "/services/seo", "/services/social-media", "/services/ppc", "/services/branding", "/services/ai-ugc-video-ads", "/services/business-automation", "/solutions/demand-generation-system"];
 
   const staticEntries = baseRoutes.map((route) => ({
     url: `${siteUrl}${route}`,

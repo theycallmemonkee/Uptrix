@@ -5,6 +5,9 @@ export const contactSubmissionSchema = z.object({
   email: z.email("Enter a valid email address").max(160, "Email is too long"),
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(4000, "Message is too long"),
   honey: z.string().optional().default(""),
+  website: z.string().trim().optional(),
+  budget: z.string().trim().optional(),
+  source_page: z.string().trim().optional(),
 });
 
 export type ContactSubmissionInput = z.infer<typeof contactSubmissionSchema>;

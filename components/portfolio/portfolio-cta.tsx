@@ -3,12 +3,11 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function PortfolioCta() {
-  const [magnet, setMagnet] = useState({ x: 0, y: 0 });
+
 
   return (
     <section className="relative z-10 px-6 py-24 md:px-10 bg-[#040C1A]">
@@ -59,30 +58,17 @@ export function PortfolioCta() {
             </span>
           </div>
 
-          {/* Magnet Button Wrapper */}
           <div className="mt-10 flex justify-center">
-            <motion.div
-              animate={{ x: magnet.x, y: magnet.y }}
-              transition={{ type: "spring", stiffness: 180, damping: 14, mass: 0.8 }}
+            <Link
+              href="/contact"
+              className="shine-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-8 py-4.5 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A7CBFF] cursor-pointer"
             >
-              <Link
-                href="/contact"
-                className="shine-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-8 py-4.5 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A7CBFF] cursor-pointer"
-                onMouseMove={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect();
-                  const x = (event.clientX - rect.left - rect.width / 2) * 0.18;
-                  const y = (event.clientY - rect.top - rect.height / 2) * 0.18;
-                  setMagnet({ x, y });
-                }}
-                onMouseLeave={() => setMagnet({ x: 0, y: 0 })}
-              >
-                Book Free Strategy Call
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </Link>
-            </motion.div>
+              Book Free Strategy Call
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
           </div>
 
         </div>

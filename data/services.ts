@@ -79,6 +79,7 @@ export type ServiceConfig = {
   cardImage: string;
   dropdownDescription: string;
   dropdownColor: string;
+  heroMetrics?: { label: string; value: string }[];
   problems?: ServiceProblem[];
   solutions?: ServiceSolution[];
   processSteps?: ServiceProcessStep[];
@@ -102,11 +103,15 @@ export const SERVICES: ServiceConfig[] = [
     name: "AI SEO Services",
     shortLabel: "AI SEO",
     href: "/services/seo",
-    headline: "Struggling To Rank Higher Or Generate Leads? It's Time To Partner With The Best AI SEO Company",
+    headline: "Scale Organic Growth With The Best AI SEO Company",
     highlightedKeyword: "Best AI SEO Company",
     heroDescription:
       "We build measurable organic growth systems that connect AI-powered technical SEO, content strategy, and conversion intelligence into one scalable engine.",
     ctaLabel: "Get AI SEO Growth Plan",
+    heroMetrics: [
+      { label: "Organic Traffic", value: "+240%" },
+      { label: "Keywords Ranked", value: "12.4K" }
+    ],
     whyTitle: "Why high-growth brands trust Uptrix for AI SEO",
     whyDescription:
       "From audits to execution, we align every optimization with revenue goals so rankings become qualified traffic and qualified traffic becomes pipeline.",
@@ -160,11 +165,15 @@ export const SERVICES: ServiceConfig[] = [
     name: "Social Media Services",
     shortLabel: "Social Media",
     href: "/services/social-media",
-    headline: "Your Brand Deserves More Than Just Likes — Partner With The Best Social Media Agency",
+    headline: "Amplify Real Engagement With The Best Social Media Agency",
     highlightedKeyword: "Best Social Media Agency",
     heroDescription:
       "We combine strategy, creative velocity, and audience intelligence to turn social channels into compounding brand and demand assets.",
     ctaLabel: "Scale Social Growth",
+    heroMetrics: [
+      { label: "Audience Growth", value: "+187%" },
+      { label: "Viral Reach", value: "4.2M" }
+    ],
     whyTitle: "A social media system built for consistent outcomes",
     whyDescription:
       "Our team blends audience insights, platform behavior, and creative testing to grow meaningful engagement and commercial impact.",
@@ -219,11 +228,15 @@ export const SERVICES: ServiceConfig[] = [
     name: "PPC Services",
     shortLabel: "PPC",
     href: "/services/ppc",
-    headline: "Stop Wasting Money On Ads. Partner With The PPC Marketing Company That Delivers Results.",
+    headline: "Maximize Ad ROAS With A Premium PPC Marketing Company",
     highlightedKeyword: "PPC Marketing Company",
     heroDescription:
       "We engineer performance media systems that reduce waste, accelerate qualified leads, and maximize ROAS across your highest-value channels.",
     ctaLabel: "Launch PPC Engine",
+    heroMetrics: [
+      { label: "ROAS Boost", value: "3.8x" },
+      { label: "Cost per Lead", value: "-32%" }
+    ],
     whyTitle: "High-precision media buying with full-funnel accountability",
     whyDescription:
       "Our PPC team continuously tests audience, creative, and bidding strategies to unlock efficient growth at every stage of your funnel.",
@@ -278,11 +291,15 @@ export const SERVICES: ServiceConfig[] = [
     name: "Branding Services",
     shortLabel: "Branding",
     href: "/services/branding",
-    headline: "Stop Wasting Ad Spend. Partner With The Branding Company That Builds Long-Term Growth.",
+    headline: "Command Authority With An Enterprise Branding Company",
     highlightedKeyword: "Branding Company",
     heroDescription:
       "We shape distinctive positioning, visual systems, and narrative architecture so your brand commands trust before any sales conversation starts.",
     ctaLabel: "Build Brand Authority",
+    heroMetrics: [
+      { label: "Recall Lift", value: "+45%" },
+      { label: "Domain Authority", value: "78" }
+    ],
     whyTitle: "Brand strategy that compounds over time",
     whyDescription:
       "From positioning to identity rollout, we design brand systems that keep messaging clear, premium, and scalable across channels.",
@@ -342,6 +359,10 @@ export const SERVICES: ServiceConfig[] = [
     heroDescription:
       "Generate unlimited ad creatives using AI avatars, AI voices, performance-tested hooks, and platform-optimized video systems.",
     ctaLabel: "Get UGC Ad Strategy",
+    heroMetrics: [
+      { label: "Ad Click Rate", value: "+3.2%" },
+      { label: "Creative Velocity", value: "4x" }
+    ],
     whyTitle: "Why brands choose AI-powered UGC video ads",
     whyDescription:
       "We turn product stories into scroll-stopping video creatives with AI avatars, voice cloning, and platform-specific systems that keep ads converting.",
@@ -509,6 +530,10 @@ export const SERVICES: ServiceConfig[] = [
     heroDescription:
       "Build intelligent workflows that automate lead management, reporting, customer support, and operational processes.",
     ctaLabel: "Start Automation",
+    heroMetrics: [
+      { label: "Process Speed", value: "+40%" },
+      { label: "Time Saved", value: "24h/wk" }
+    ],
     whyTitle: "Why modern teams choose automation over manual handoffs",
     whyDescription:
       "We connect AI agents, CRM workflows, and reporting pipelines so teams move faster, reduce errors, and keep growth systems aligned.",

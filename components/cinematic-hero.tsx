@@ -3,6 +3,7 @@
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useMemo } from "react";
 
 const AVATARS = [
@@ -45,7 +46,7 @@ export function CinematicHero() {
 
   return (
     <section
-      className="relative flex w-full flex-col overflow-hidden justify-center min-h-[85vh] lg:h-[88vh] lg:min-h-[620px] lg:max-h-[820px] pt-28 pb-10"
+      className="relative z-[1] flex w-full flex-col overflow-hidden justify-center min-h-[85vh] lg:h-[88vh] lg:min-h-[620px] lg:max-h-[820px] pt-28 pb-10"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);
@@ -147,11 +148,15 @@ export function CinematicHero() {
               {AVATARS.map((src, index) => (
                 <span
                   key={src}
-                  className="-ml-2 first:ml-0 inline-block h-9.5 w-9.5 overflow-hidden rounded-full border-2 border-[#0B1F3A] shadow-md"
+                  className="-ml-2 first:ml-0 inline-block h-[38px] w-[38px] overflow-hidden rounded-full border-2 border-[#0B1F3A] shadow-md relative"
+                  style={{ zIndex: AVATARS.length - index }}
                 >
-                  <span
-                    className="block h-full w-full bg-cover bg-center"
-                    style={{ backgroundImage: `url(${src})`, zIndex: AVATARS.length - index }}
+                  <Image
+                    src={src}
+                    alt="Client Avatar"
+                    width={38}
+                    height={38}
+                    className="object-cover"
                   />
                 </span>
               ))}
@@ -192,13 +197,16 @@ export function CinematicHero() {
               transition={{ duration: 4, repeat: Infinity, ease: EASE }}
               style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.03), rgba(0,102,255,0.18))" }}
             />
-            <div
-              className="h-[17.5rem] w-full rounded-[1.2rem] bg-cover bg-center transition-transform duration-700 hover:scale-[1.015]"
-              style={{
-                backgroundImage:
-                  "url(https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80)",
-              }}
-            />
+            <div className="relative h-[17.5rem] w-full overflow-hidden rounded-[1.2rem] transition-transform duration-700 hover:scale-[1.015]">
+              <Image
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                alt="Brand Performance Showcase"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+            </div>
             <div className="pointer-events-none absolute inset-3 rounded-[1.2rem] bg-gradient-to-t from-[#071022]/80 via-transparent to-transparent" />
           </motion.article>
 

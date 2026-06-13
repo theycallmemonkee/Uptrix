@@ -1,13 +1,4 @@
-import { 
-  TrendingUp, 
-  Target, 
-  Globe, 
-  Cpu, 
-  Compass, 
-  Sparkles, 
-  Layers,
-  LucideIcon 
-} from "lucide-react";
+
 
 export type SolutionProblem = {
   title: string;

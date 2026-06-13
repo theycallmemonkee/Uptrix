@@ -30,10 +30,10 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  const [magnetStyle, setMagnetStyle] = useState({ x: 0, y: 0 });
-  const navWidth = useTransform(scrollY, [0, 120], ["min(1120px, 94vw)", "min(1040px, 92vw)"]);
+
+  const navWidth = useTransform(scrollY, [0, 120], ["min(1120px, 82vw)", "min(1040px, 80vw)"]);
   const navTop = useTransform(scrollY, [0, 120], [24, 12]);
-  const navPaddingY = useTransform(scrollY, [0, 120], [16, 10]);
+  const navPaddingY = useTransform(scrollY, [0, 120], [18, 12]);
 
   useEffect(() => {
     const unsub = scrollY.on("change", (v) => setScrolled(v > 40));
@@ -56,7 +56,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 z-50 flex justify-center"
+        className="fixed inset-x-0 z-[100] flex justify-center"
         style={{ top: navTop }}
       >
         <motion.nav
@@ -99,16 +99,16 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
             <Image
               src="/Uptrix.png"
               alt="Uptrix Technologies"
-              width={176}
-              height={48}
+              width={140}
+              height={38}
               priority
-              className="h-9 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90 md:h-10"
-              sizes="(min-width: 768px) 176px, 140px"
+              className="h-[34px] w-auto object-contain transition-opacity duration-300 group-hover:opacity-90 md:h-[38px]"
+              sizes="(min-width: 768px) 140px, 110px"
             />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="relative hidden items-center gap-8 md:flex">
+          <div className="relative hidden items-center gap-8 md:flex select-none">
             {NAV_ITEMS.slice(0, 1).map((item) => {
               const active = isActive(item.href);
               return (
@@ -129,32 +129,21 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
           </div>
 
           <div className="flex items-center gap-3">
-            <motion.div
-              className="hidden md:block"
-              animate={{ x: magnetStyle.x, y: magnetStyle.y }}
-              transition={{ type: "spring", stiffness: 180, damping: 14, mass: 0.8 }}
-            >
+            <div className="hidden md:block">
               <Link
                 href="/contact"
                 scroll
                 aria-label="Contact Us"
-                className={`shine-sweep group inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 font-heading text-sm font-medium text-white transition-all duration-300 ${
+                className={`shine-sweep group inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 font-heading text-sm font-medium text-white transition-all duration-300 ${
                   isContactActive
                     ? "border-[#9FC5FF] bg-gradient-to-r from-[#1A74FF] to-[#235FC6] shadow-[0_8px_24px_rgba(0,102,255,0.45)] ring-2 ring-[#8CB8FF]/45"
                     : "border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] shadow-[0_8px_24px_rgba(0,102,255,0.35)] hover:border-[#7FAEFF] hover:shadow-[0_12px_32px_rgba(0,102,255,0.48)]"
                 }`}
-                onMouseMove={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect();
-                  const x = (event.clientX - rect.left - rect.width / 2) * 0.2;
-                  const y = (event.clientY - rect.top - rect.height / 2) * 0.2;
-                  setMagnetStyle({ x, y });
-                }}
-                onMouseLeave={() => setMagnetStyle({ x: 0, y: 0 })}
               >
                 Contact Us
                 <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
-            </motion.div>
+            </div>
 
             <button
               type="button"
@@ -200,7 +189,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
             />
 
             <motion.ul
-              className="relative z-10 mt-10 space-y-6"
+              className="relative z-10 mt-10 space-y-6 select-none"
               initial="hidden"
               animate="visible"
               exit="hidden"

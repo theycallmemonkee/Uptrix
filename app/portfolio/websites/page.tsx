@@ -38,7 +38,7 @@ export default function WebsitesPortfolioPage() {
 
             {/* Core Hero Copy */}
             <h1 className="font-heading text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              WEBSITES THAT DON'T <br />
+              WEBSITES THAT DON&apos;T <br />
               <span className="bg-gradient-to-r from-[#70A8FF] via-[#0066FF] to-[#8DB8FF] bg-clip-text text-transparent">
                 JUST LOOK GOOD.
               </span>

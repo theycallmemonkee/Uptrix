@@ -234,13 +234,6 @@ body::before {
   backface-visibility: hidden;
 }
 
-
-/* Prevent cursor flicker on custom-cursor pages */
-* { cursor: inherit; }
-a, button, [role="button"], label, input, textarea, select {
-  cursor: inherit;
-}
-
 /* ============================================================
    REDUCED-MOTION SUPPORT
    ============================================================ */
@@ -453,4 +446,31 @@ a, button, [role="button"], label, input, textarea, select {
   font-weight: 600;
   color: #93c5fd;
   box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.32);
+}
+
+/* Disable text selection and I-beam cursor on navbar, dropdowns, and menu-items */
+nav,
+nav *,
+.dropdown,
+.dropdown *,
+.menu-item {
+  user-select: none;
+}
+
+/* Ensure interactive elements show the standard pointer cursor */
+a,
+button,
+[role="button"],
+nav a,
+nav button,
+.dropdown a,
+.dropdown button,
+.menu-item a {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
+  user-select: text;
 }

@@ -4,7 +4,6 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ScrollRestoration } from "@/components/scroll-restoration";
 import { LenisProvider } from "@/components/providers/lenis-provider";
-import { CustomCursor } from "@/components/providers/custom-cursor";
 import { LoadingScreen } from "@/components/providers/loading-screen";
 import { ScrollProgress } from "@/components/providers/scroll-progress";
 
@@ -71,7 +70,6 @@ export default function RootLayout({
         {/* Global providers — order matters */}
         <LenisProvider />
         <ScrollProgress />
-        <CustomCursor />
         <LoadingScreen />
         <ScrollRestoration />
         {children}

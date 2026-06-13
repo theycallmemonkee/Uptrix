@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { 
   ArrowRight, 
@@ -56,7 +56,7 @@ type HeroContent = {
 const HERO_MAP: Record<string, HeroContent> = {
   "demand-generation-system": {
     line1: "Transform Silent Traffic",
-    line2: "Into Staggering Inbound",
+    line2: "Into Predictable",
     pillText: "Pipelines",
     mockupImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
     card1Val: "+217%",
@@ -66,7 +66,7 @@ const HERO_MAP: Record<string, HeroContent> = {
   },
   "paid-growth-engine": {
     line1: "Scale Paid Channels",
-    line2: "Without Campaign ROAS",
+    line2: "Without ROAS",
     pillText: "Decline",
     mockupImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     card1Val: "4.5x",
@@ -86,7 +86,7 @@ const HERO_MAP: Record<string, HeroContent> = {
   },
   "ai-lead-conversion-system": {
     line1: "Automate Lead Qualification",
-    line2: "24/7 With Custom",
+    line2: "With Custom",
     pillText: "AI Agents",
     mockupImage: "https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=1200&q=80",
     card1Val: "12s",
@@ -95,8 +95,8 @@ const HERO_MAP: Record<string, HeroContent> = {
     card2Lbl: "Saved / Week",
   },
   "growth-foundation-system": {
-    line1: "Transition From Random",
-    line2: "Tactics to Category",
+    line1: "Transition From Random Tactics",
+    line2: "To Category",
     pillText: "Dominance",
     mockupImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
     card1Val: "4.9★",
@@ -105,8 +105,8 @@ const HERO_MAP: Record<string, HeroContent> = {
     card2Lbl: "GTM Roadmap",
   },
   "ai-marketing-system": {
-    line1: "Unleash Advanced Generative",
-    line2: "AI to Triple Content",
+    line1: "Unleash Generative AI",
+    line2: "To Triple Content",
     pillText: "Velocity",
     mockupImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
     card1Val: "4.0x",
@@ -115,8 +115,8 @@ const HERO_MAP: Record<string, HeroContent> = {
     card2Lbl: "Overhead Cost",
   },
   "revenue-operations-system": {
-    line1: "Unify Tech Stacks And",
-    line2: "Track Inbound Funnel",
+    line1: "Unify Your Tech Stack",
+    line2: "For Funnel",
     pillText: "Accuracy",
     mockupImage: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1200&q=80",
     card1Val: "99.8%",
@@ -150,6 +150,13 @@ export function SolutionPageTemplate({ solution }: Props) {
   const parallaxX = useTransform(smoothX, [0, 1], [-10, 10]);
   const parallaxY = useTransform(smoothY, [0, 1], [-8, 9]);
   const rotateCard = useTransform(smoothX, [0, 1], [-3, 3]);
+  const rotateX = useTransform(smoothY, [0, 1], [5, -5]);
+  const rotateY = useTransform(smoothX, [0, 1], [-5, 5]);
+
+  const metric1X = useTransform(parallaxX, (v) => v * -0.4);
+  const metric1Y = useTransform(parallaxY, (v) => v * 0.4);
+  const metric2X = useTransform(parallaxX, (v) => v * 0.4);
+  const metric2Y = useTransform(parallaxY, (v) => v * -0.4);
 
   // Find related solutions (excluding current)
   const relatedSolutions = SOLUTIONS.filter((s) => s.slug !== solution.slug).slice(0, 3);
@@ -192,7 +199,7 @@ export function SolutionPageTemplate({ solution }: Props) {
            HERO SECTION
            ============================================================ */}
         <section 
-          className="relative flex w-full flex-col overflow-hidden justify-center min-h-[85vh] lg:h-[88vh] lg:min-h-[620px] lg:max-h-[820px] pt-28 pb-10"
+          className="relative z-[1] flex w-full flex-col overflow-hidden justify-start min-h-[90vh] lg:h-[95vh] lg:min-h-[660px] lg:max-h-[860px] pt-[124px] pb-6"
           onMouseMove={(event) => {
             const rect = event.currentTarget.getBoundingClientRect();
             mouseX.set((event.clientX - rect.left) / rect.width);
@@ -223,15 +230,15 @@ export function SolutionPageTemplate({ solution }: Props) {
             transition={{ duration: 10, repeat: Infinity, ease: EASE, delay: 1 }}
           />
 
-          {/* UPTRIX brand watermark */}
-          <p className="pointer-events-none absolute left-1/2 top-[52%] -z-20 -translate-x-1/2 -translate-y-1/2 text-center font-heading text-[15vw] leading-none font-bold tracking-[0.22em] text-white/[0.02] blur-[0.2px] md:text-[9.5rem]">
+          {/* UPTRIX brand watermark with lowered opacity */}
+          <p className="pointer-events-none absolute left-1/2 top-[52%] -z-20 -translate-x-1/2 -translate-y-1/2 text-center font-heading text-[15vw] leading-none font-bold tracking-[0.22em] text-white/[0.008] blur-[0.2px] md:text-[9.5rem]">
             UPTRIX
           </p>
 
-          <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-6 md:px-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:gap-16 px-6 md:px-10 lg:grid-cols-2">
             {/* Left Side: Typography and Actions */}
             <motion.div
-              className="relative max-w-2xl text-center lg:text-left"
+              className="relative max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start"
               initial="hidden"
               animate="show"
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
@@ -240,7 +247,7 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.div
                 custom={0}
                 variants={textVariants}
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-3.5 py-1 text-xs tracking-[0.2em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-3.5 py-1 text-xs tracking-[0.2em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
               >
                 <IconComp size={11} className="text-[#79ABFF]" />
                 <span>{solution.badge}</span>
@@ -250,13 +257,13 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.h1
                 custom={0.08}
                 variants={textVariants}
-                className="font-heading text-4xl leading-[1.05] font-extrabold tracking-tight text-white sm:text-5xl md:text-[clamp(56px,5vw,78px)]"
+                className="mx-auto lg:mx-0 font-heading text-4xl sm:text-5xl md:text-[clamp(52px,4.5vw,72px)] leading-[1.02] font-extrabold tracking-[-0.04em] text-white max-w-[640px]"
               >
                 {heroContent.line1} <br />
                 {heroContent.line2}{" "}
                 <motion.span
-                  className="relative inline-flex items-center rounded-2xl border border-[#87B4FF]/30 bg-[#7CB0FF]/12 px-3 py-1 text-[#D8E8FF] shadow-[0_8px_24px_rgba(0,102,255,0.18)]"
-                  animate={{ boxShadow: ["0 8px 24px rgba(0,102,255,0.18)", "0 10px 36px rgba(0,102,255,0.3)", "0 8px 24px rgba(0,102,255,0.18)"] }}
+                  className="relative inline-flex items-center rounded-xl border border-[#87B4FF]/25 bg-[#7CB0FF]/10 px-3.5 py-0.5 text-[#D8E8FF] shadow-[0_8px_20px_rgba(0,102,255,0.12)] backdrop-blur-[2px]"
+                  animate={{ boxShadow: ["0 8px 20px rgba(0,102,255,0.12)", "0 10px 28px rgba(0,102,255,0.2)", "0 8px 20px rgba(0,102,255,0.12)"] }}
                   transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
                 >
                   {heroContent.pillText}
@@ -267,7 +274,7 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.p
                 custom={0.16}
                 variants={textVariants}
-                className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 mx-auto lg:mx-0"
+                className="mt-6 max-w-[520px] text-sm leading-relaxed text-white/70 mx-auto lg:mx-0"
               >
                 {solution.heroDescription}
               </motion.p>
@@ -276,7 +283,7 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.div 
                 custom={0.24} 
                 variants={textVariants} 
-                className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
+                className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start w-full sm:w-auto"
               >
                 <Link
                   href="/contact"
@@ -287,7 +294,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                 </Link>
                 <a
                   href="#problems"
-                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.03] px-5 py-3 font-heading text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white hover:-translate-y-0.5"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-transparent px-5 py-3 font-heading text-xs font-medium text-white/60 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.02] hover:text-white hover:-translate-y-0.5"
                 >
                   Explore System
                   <ChevronRight size={14} />
@@ -298,17 +305,21 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.div 
                 custom={0.32} 
                 variants={textVariants} 
-                className="mt-8 flex flex-col items-center gap-5 sm:flex-row justify-center lg:justify-start"
+                className="mt-8 flex flex-col items-center gap-4 sm:flex-row justify-center lg:justify-start"
               >
                 <div className="flex items-center">
                   {AVATARS.map((src, index) => (
                     <span
                       key={src}
-                      className="-ml-2 first:ml-0 inline-block h-9.5 w-9.5 overflow-hidden rounded-full border-2 border-[#0B1F3A] shadow-md"
+                      className="-ml-2 first:ml-0 inline-block h-[38px] w-[38px] overflow-hidden rounded-full border-2 border-[#0B1F3A] shadow-md relative"
+                      style={{ zIndex: AVATARS.length - index }}
                     >
-                      <span
-                        className="block h-full w-full bg-cover bg-center"
-                        style={{ backgroundImage: `url(${src})`, zIndex: AVATARS.length - index }}
+                      <Image
+                        src={src}
+                        alt="Client Avatar"
+                        width={38}
+                        height={38}
+                        className="object-cover"
                       />
                     </span>
                   ))}
@@ -322,7 +333,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                     ))}
                   </div>
                   <p className="text-xs leading-normal text-white/65">
-                    Used by startups, D2C, healthcare & enterprise companies.
+                    Trusted by ambitious enterprise brands.
                   </p>
                 </div>
               </motion.div>
@@ -330,16 +341,19 @@ export function SolutionPageTemplate({ solution }: Props) {
 
             {/* Right Side: Interactive Showcase & Metric Cards */}
             <motion.div
-              className="relative mx-auto w-full max-w-md pb-4 lg:justify-self-end mt-10 lg:mt-0"
-              style={{ x: parallaxX, y: parallaxY }}
+              className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[440px] lg:max-w-[500px] pb-4 lg:justify-self-end mt-10 lg:mt-0"
+              style={{ x: parallaxX, y: parallaxY, perspective: 1200 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
             >
-              {/* Large floating showcase panel */}
+              {/* Subtle ambient fade behind the hero image */}
+              <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.15),transparent_70%)] blur-3xl opacity-80" />
+
+              {/* Large floating showcase panel inside premium glass frame */}
               <motion.article
-                className="relative overflow-hidden rounded-[1.8rem] border border-white/14 bg-white/[0.06] p-3 shadow-[0_24px_70px_rgba(3,9,21,0.55)] backdrop-blur-xl"
-                style={{ rotate: rotateCard }}
+                className="relative overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/[0.04] p-2 sm:p-2.5 shadow-[0_24px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(0,102,255,0.08),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-xl"
+                style={{ rotateX, rotateY, rotate: rotateCard, transformStyle: "preserve-3d" }}
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 5.8, repeat: Infinity, ease: EASE }}
               >
@@ -348,19 +362,23 @@ export function SolutionPageTemplate({ solution }: Props) {
                   className="pointer-events-none absolute -inset-[1px] rounded-[1.8rem] opacity-40"
                   style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.03), rgba(0,102,255,0.18))" }}
                 />
-                <div
-                  className="h-[17.5rem] w-full rounded-[1.2rem] bg-cover bg-center transition-transform duration-700 hover:scale-[1.015]"
-                  style={{
-                    backgroundImage: `url(${heroContent.mockupImage})`,
-                  }}
-                />
+                <div className="relative h-[19.5rem] w-full overflow-hidden rounded-[1.2rem] transition-transform duration-700 hover:scale-[1.015]">
+                  <Image
+                    src={heroContent.mockupImage}
+                    alt="Solutions Showcase Mockup"
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 500px, 90vw"
+                  />
+                </div>
                 <div className="pointer-events-none absolute inset-3 rounded-[1.2rem] bg-gradient-to-t from-[#071022]/80 via-transparent to-transparent" />
               </motion.article>
 
-              {/* Floating Metric Card 1 (Left Side) - Sized down & kept inside borders */}
+              {/* Floating Metric Card 1 (Left Side) - Overlapping the image naturally */}
               <motion.article
-                className="absolute -left-6 top-8 w-44 overflow-hidden rounded-2xl border border-[#6EA6FF]/25 bg-[linear-gradient(155deg,rgba(18,43,82,0.9),rgba(8,21,43,0.78))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.45),0_4px_14px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-50"
-                style={{ x: useTransform(parallaxX, (v) => v * -0.6), y: useTransform(parallaxY, (v) => v * 0.5) }}
+                className="absolute -left-6 md:-left-8 top-6 w-38 overflow-hidden rounded-2xl border border-[#6EA6FF]/20 bg-[linear-gradient(155deg,rgba(10,28,59,0.92),rgba(5,13,31,0.85))] p-3.5 shadow-[0_12px_28px_rgba(2,9,22,0.4),0_0_20px_rgba(0,102,255,0.05)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-42 z-10"
+                style={{ x: metric1X, y: metric1Y }}
                 initial={{ opacity: 0, x: -8 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -378,10 +396,10 @@ export function SolutionPageTemplate({ solution }: Props) {
                 </div>
               </motion.article>
 
-              {/* Floating Metric Card 2 (Right Side) - Sized down & kept inside borders */}
+              {/* Floating Metric Card 2 (Right Side) - Overlapping the image naturally */}
               <motion.article
-                className="absolute -right-6 bottom-10 w-42 overflow-hidden rounded-2xl border border-[#6EA6FF]/25 bg-[linear-gradient(155deg,rgba(18,43,82,0.9),rgba(8,21,43,0.78))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.45),0_4px_14px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-46"
-                style={{ x: useTransform(parallaxX, (v) => v * 0.5), y: useTransform(parallaxY, (v) => v * -0.6) }}
+                className="absolute -right-6 md:-right-8 bottom-6 w-36 overflow-hidden rounded-2xl border border-[#6EA6FF]/20 bg-[linear-gradient(155deg,rgba(10,28,59,0.92),rgba(5,13,31,0.85))] p-3.5 shadow-[0_12px_28px_rgba(2,9,22,0.4),0_0_20px_rgba(0,102,255,0.05)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-40 z-10"
+                style={{ x: metric2X, y: metric2Y }}
                 initial={{ opacity: 0, x: 8 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -569,7 +587,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                 System Core
               </p>
               <h2 className="mt-4 font-heading text-3xl font-semibold text-white md:text-5xl">
-                What's included in the system
+                What&apos;s included in the system
               </h2>
               <p className="mt-4 text-sm text-white/68">
                 We bundle enterprise-grade technology and dedicated expertise to remove key operational constraints.
@@ -748,7 +766,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   Frequently Asked Questions
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-white/70">
-                  Got questions about onboarding, tools integrations, and roadmap delivery? We've compiled responses to our most common client queries.
+                  Got questions about onboarding, tools integrations, and roadmap delivery? We&apos;ve compiled responses to our most common client queries.
                 </p>
                 <div className="mt-8">
                   <Link

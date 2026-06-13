@@ -104,16 +104,15 @@ export function ServicesDropdownDesktop({ className }: DesktopProps) {
             <div
               className="overflow-hidden rounded-2xl"
               style={{
-                border: "1px solid rgba(120,170,255,0.15)",
-                background: "linear-gradient(180deg,#071426,#0B1D38)",
-                backgroundColor: "rgba(7,20,38,0.94)",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
-                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(120, 170, 255, 0.12)",
+                background: "linear-gradient(135deg, rgba(7, 16, 36, 0.99), rgba(10, 24, 52, 0.98))",
+                boxShadow: "0 20px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(35, 90, 255, 0.08)",
+                backdropFilter: "blur(20px)",
               }}
             >
-              {/* Large soft blue glow behind the panel */}
+              {/* Large soft blue glow behind the panel, constrained to prevent bleeding upwards */}
               <div
-                className="pointer-events-none absolute -inset-12 -z-10 rounded-3xl"
+                className="pointer-events-none absolute -inset-x-12 -bottom-12 top-0 -z-10 rounded-3xl"
                 style={{
                   background:
                     "radial-gradient(closest-side at 50% 10%, rgba(0,102,255,0.18), rgba(0,102,255,0.06) 18%, transparent 45%)",

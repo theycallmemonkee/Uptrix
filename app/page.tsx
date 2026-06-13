@@ -1,15 +1,17 @@
-import { AiServicesSection } from "@/components/ai-services-section";
+import dynamic from "next/dynamic";
 import { CinematicHero } from "@/components/cinematic-hero";
-import { EnterpriseFooter } from "@/components/enterprise-footer";
-import { EnterpriseExperienceSection } from "@/components/enterprise-experience-section";
-import { FeaturedServices } from "@/components/featured-services";
 import { PremiumNavbar } from "@/components/premium-navbar";
-import { PremiumFaqSection } from "@/components/premium-faq-section";
-import { TrustedCompanies } from "@/components/trusted-companies";
 import { FloatingOrbs, AnimatedGrid, AIWaveOverlay } from "@/components/ui/visual-effects";
-import { PortfolioPreview } from "@/components/portfolio/portfolio-preview";
-import { PortfolioCta } from "@/components/portfolio/portfolio-cta";
 import type { Metadata } from "next";
+
+const TrustedCompanies = dynamic(() => import("@/components/trusted-companies").then(mod => mod.TrustedCompanies));
+const AiServicesSection = dynamic(() => import("@/components/ai-services-section").then(mod => mod.AiServicesSection));
+const FeaturedServices = dynamic(() => import("@/components/featured-services").then(mod => mod.FeaturedServices));
+const EnterpriseExperienceSection = dynamic(() => import("@/components/enterprise-experience-section").then(mod => mod.EnterpriseExperienceSection));
+const PortfolioPreview = dynamic(() => import("@/components/portfolio/portfolio-preview").then(mod => mod.PortfolioPreview));
+const PremiumFaqSection = dynamic(() => import("@/components/premium-faq-section").then(mod => mod.PremiumFaqSection));
+const PortfolioCta = dynamic(() => import("@/components/portfolio/portfolio-cta").then(mod => mod.PortfolioCta));
+const EnterpriseFooter = dynamic(() => import("@/components/enterprise-footer").then(mod => mod.EnterpriseFooter));
 
 export const metadata: Metadata = {
   title: "Uptrix Technologies — AI-Powered Digital Marketing Agency",

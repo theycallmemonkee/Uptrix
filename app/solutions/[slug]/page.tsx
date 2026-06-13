@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { SOLUTIONS } from "@/data/solutions-data";
-import { SolutionPageTemplate } from "@/components/solutions/solution-page-template";
+import dynamic from "next/dynamic";
+
+const SolutionPageTemplate = dynamic(() => import("@/components/solutions/solution-page-template").then(mod => mod.SolutionPageTemplate));
 
 type Props = {
   params: Promise<{
@@ -10,9 +12,11 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return SOLUTIONS.map((sol) => ({
-    slug: sol.slug,
-  }));
+  return SOLUTIONS
+    .filter((sol) => sol.slug !== "demand-generation-system")
+    .map((sol) => ({
+      slug: sol.slug,
+    }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

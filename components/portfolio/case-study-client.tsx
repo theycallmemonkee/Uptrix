@@ -61,7 +61,10 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const mountRaf = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(mountRaf);
   }, []);
 
   // Scroll to top on mount and whenever project id changes

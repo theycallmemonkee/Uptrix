@@ -111,13 +111,16 @@ export async function POST(request: Request) {
       message: input.message,
     });
 
-    const timestampIso = new Date().toISOString();
+        const timestampIso = new Date().toISOString();
 
     const emailResult = await sendContactNotificationEmail({
       name: input.name,
       email: input.email,
       message: input.message,
       timestampIso,
+      website: input.website,
+      budget: input.budget,
+      source_page: input.source_page,
     });
 
     if (!emailResult.ok) {
@@ -156,10 +159,18 @@ export async function POST(request: Request) {
     if (hasSupabaseServerEnv()) {
       try {
         const supabase = createSupabaseAdminClient();
+        let formattedMessage = input.message;
+        if (input.website || input.budget || input.source_page) {
+          formattedMessage += "\n";
+          if (input.website) formattedMessage += `\nWebsite: ${input.website}`;
+          if (input.budget) formattedMessage += `\nBudget: ${input.budget}`;
+          if (input.source_page) formattedMessage += `\nSource Page: ${input.source_page}`;
+        }
+
         const { error: dbError } = await supabase.from(CONTACT_TABLE).insert({
           name: input.name,
           email: input.email,
-          message: input.message,
+          message: formattedMessage,
           created_at: timestampIso,
         });
 
