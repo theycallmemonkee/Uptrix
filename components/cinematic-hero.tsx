@@ -5,6 +5,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
+import type { SanityHomePage } from "@/lib/sanity";
 
 const AVATARS = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80",
@@ -16,7 +17,20 @@ const AVATARS = [
 const EASE = [0.22, 1, 0.36, 1] as const;
 const EASE_LINEAR = [0, 0, 1, 1] as const;
 
-export function CinematicHero() {
+export interface CinematicHeroProps {
+  data?: SanityHomePage | null
+}
+
+export function CinematicHero({ data }: CinematicHeroProps = {}) {
+  const eyebrow = data?.heroEyebrow ?? "AI Powered Growth Systems Partner";
+  const headlinePart1 = data?.heroHeadlinePart1 ?? "Marketing Feels";
+  const headlineHighlight = data?.heroHeadlineHighlight ?? "Broken?";
+  const bodyText = data?.heroBody ?? "Most businesses stitch together random tactics and hope something works. Uptrix Technologies builds the connected systems that bring you customers, convert them, and let you scale without the chaos. One partner. One engine. Real growth.";
+  const cta1Label = data?.heroCta1Label ?? "Contact Us";
+  const cta1Href = data?.heroCta1Href ?? "/contact";
+  const cta2Label = data?.heroCta2Label ?? "Find Your System";
+  const cta2Href = data?.heroCta2Href ?? "/solutions";
+  const socialProofText = data?.heroSocialProofText ?? "Trusted by growing brands worldwide";
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.4);
 
@@ -99,13 +113,13 @@ export function CinematicHero() {
             className="mt-6 mb-6 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/48 px-4 py-1.5 text-xs tracking-[0.18em] text-[#CFE3FF]/88 uppercase shadow-[0_2px_16px_rgba(0,102,255,0.1)] backdrop-blur-md"
           >
             <Sparkles size={11} className="text-[#79ABFF]" />
-            AI Powered Growth Systems Partner
+            {eyebrow}
           </motion.div>
 
           {/* Headline */}
           <motion.div custom={0.08} variants={textVariants} className="text-center lg:text-left">
             <h1 className="font-heading text-[clamp(2.75rem,7vw,4.75rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white">
-              Marketing Feels
+              {headlinePart1}
               <br />
               <motion.span
                 className="relative mt-1 inline-flex items-center whitespace-nowrap rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)] backdrop-blur-[2px]"
@@ -118,7 +132,7 @@ export function CinematicHero() {
                 }}
                 transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
               >
-                Broken?
+                {headlineHighlight}
               </motion.span>
             </h1>
           </motion.div>
@@ -129,7 +143,7 @@ export function CinematicHero() {
             variants={textVariants}
             className="mt-6 max-w-[480px] text-[0.9375rem] leading-[1.8] text-white/65 mx-auto lg:mx-0"
           >
-            Most businesses stitch together random tactics and hope something works. Uptrix Technologies builds the connected systems that bring you customers, convert them, and let you scale without the chaos. One partner. One engine. Real growth.
+            {bodyText}
           </motion.p>
 
           {/* CTAs */}
@@ -139,18 +153,18 @@ export function CinematicHero() {
             className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
           >
             <Link
-              href="/contact"
+              href={cta1Href}
               scroll
               className="shine-sweep will-gpu group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-6 py-3.5 font-heading text-sm font-semibold text-white shadow-[0_12px_32px_rgba(0,102,255,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#86B6FF] hover:shadow-[0_18px_44px_rgba(0,102,255,0.4)]"
             >
-              Contact Us
+              {cta1Label}
               <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
             <Link
-              href="#problem-router"
+              href={cta2Href}
               className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-6 py-3.5 font-heading text-sm font-medium text-white/78 backdrop-blur-sm transition-all duration-300 hover:border-white/18 hover:bg-white/[0.055] hover:text-white hover:-translate-y-0.5"
             >
-              Find Your System
+              {cta2Label}
               <ArrowUpRight size={14} className="opacity-45 transition-transform duration-300 group-hover:opacity-90 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
@@ -187,7 +201,7 @@ export function CinematicHero() {
                 ))}
               </div>
               <p className="text-[11px] leading-tight text-white/58">
-                Trusted by growing brands worldwide
+                {socialProofText}
               </p>
             </div>
           </motion.div>

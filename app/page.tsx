@@ -3,9 +3,10 @@ import { CinematicHero } from "@/components/cinematic-hero";
 import { PremiumNavbar } from "@/components/premium-navbar";
 import { FloatingOrbs, AnimatedGrid, AIWaveOverlay } from "@/components/ui/visual-effects";
 import type { Metadata } from "next";
+import { getHomePage, getGlobalSettings, getGlobalFaqs } from "@/lib/sanity";
 
 const TrustedCompanies = dynamic(() => import("@/components/trusted-companies").then(mod => mod.TrustedCompanies));
-const ProblemRouter = dynamic(() => import("@/components/problem-router").then(mod => mod.ProblemRouter));
+
 const AiServicesSection = dynamic(() => import("@/components/ai-services-section").then(mod => mod.AiServicesSection));
 const FeaturedServices = dynamic(() => import("@/components/featured-services").then(mod => mod.FeaturedServices));
 const EnterpriseExperienceSection = dynamic(() => import("@/components/enterprise-experience-section").then(mod => mod.EnterpriseExperienceSection));
@@ -34,7 +35,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [homeData, globalSettings, faqs] = await Promise.all([
+    getHomePage(),
+    getGlobalSettings(),
+    getGlobalFaqs(),
+  ]);
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-[#0B1F3A] text-white">
       {/* ── Layered background system ───────────────────────── */}
@@ -53,21 +60,21 @@ export default function Home() {
       <PremiumNavbar />
 
       <main className="relative z-10 flex flex-1 flex-col">
-        <CinematicHero />
+        <CinematicHero data={homeData} />
 
         {/* AI wave divider */}
         <AIWaveOverlay className="relative -mt-4 h-24 opacity-60" />
 
         <TrustedCompanies />
-        <ProblemRouter />
-        <AiServicesSection />
+
+        <AiServicesSection data={homeData} />
         <FeaturedServices />
         <EnterpriseExperienceSection />
         <PortfolioPreview />
-        <IndustriesStrip />
-        <PremiumFaqSection />
+        <IndustriesStrip data={homeData} />
+        <PremiumFaqSection faqs={faqs} settings={globalSettings} />
         <PortfolioCta />
-        <EnterpriseFooter />
+        <EnterpriseFooter settings={globalSettings} />
       </main>
     </div>
   );
