@@ -4,10 +4,20 @@ import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } fr
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import type { SanityHomePage } from "@/lib/sanity";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function AiServicesSection() {
+export interface AiServicesSectionProps {
+  data?: SanityHomePage | null
+}
+
+export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
+  const eyebrow = data?.aiSectionEyebrow ?? "WHY UPTRIX TECHNOLOGIES";
+  const headline = data?.aiSectionHeadline ?? "We Build Growth Systems, Not Marketing Campaigns";
+  const body = data?.aiSectionBody ?? "Most agencies run campaigns. A campaign stops the day you stop paying. We build systems, connected engines that compound over time, so your growth keeps building instead of resetting every month. One team handles the whole engine, accountable to one thing: your growth.";
+  const ctaLabel = data?.aiSectionCtaLabel ?? "Why Uptrix Technologies";
+  const ctaHref = data?.aiSectionCtaHref ?? "/about";
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
   const smoothX = useSpring(mouseX, { stiffness: 90, damping: 20, mass: 0.8 });
@@ -45,21 +55,21 @@ export function AiServicesSection() {
             variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            WHY UPTRIX TECHNOLOGIES
+            {eyebrow}
           </motion.p>
           <motion.h2
             className="mt-4 font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           >
-            We Build Growth Systems, Not Marketing Campaigns
+            {headline}
           </motion.h2>
           <motion.p
             className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68"
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           >
-            Most agencies run campaigns. A campaign stops the day you stop paying. We build systems, connected engines that compound over time, so your growth keeps building instead of resetting every month. One team handles the whole engine, accountable to one thing: your growth.
+            {body}
           </motion.p>
 
           <motion.div
@@ -68,11 +78,11 @@ export function AiServicesSection() {
             transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
-              href="/contact"
+              href={ctaHref}
               scroll
               className="shine-sweep group inline-flex items-center gap-2 rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-5 py-3 font-heading text-sm font-semibold text-white shadow-[0_12px_32px_rgba(0,102,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#86B6FF] hover:shadow-[0_16px_42px_rgba(0,102,255,0.42)]"
             >
-              Why Uptrix Technologies
+              {ctaLabel}
               <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>

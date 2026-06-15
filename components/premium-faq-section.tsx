@@ -13,10 +13,11 @@ import {
 import { ArrowUpRight, PhoneCall } from "lucide-react";
 import { useMemo, useRef, useSyncExternalStore } from "react";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
+import type { SanityFaqItem, SanityGlobalSettings } from "@/lib/sanity";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const FAQS: PremiumAccordionItem[] = [
+const DEFAULT_FAQS: PremiumAccordionItem[] = [
   {
     id: "services",
     question: "What does Uptrix Technologies actually do?",
@@ -49,7 +50,18 @@ const FAQS: PremiumAccordionItem[] = [
   },
 ];
 
-export function PremiumFaqSection() {
+export interface PremiumFaqSectionProps {
+  faqs?: SanityFaqItem[] | null
+  settings?: SanityGlobalSettings | null
+}
+
+export function PremiumFaqSection({ faqs, settings }: PremiumFaqSectionProps = {}) {
+  const phone = settings?.phone ?? "+91-9266 893 997";
+
+  const faqItems: PremiumAccordionItem[] =
+    faqs && faqs.length > 0
+      ? faqs.map((f, i) => ({ id: f._id ?? String(i), question: f.question, answer: f.answer }))
+      : DEFAULT_FAQS;
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -120,7 +132,7 @@ export function PremiumFaqSection() {
           animate={isInView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <PremiumAccordion items={FAQS} />
+          <PremiumAccordion items={faqItems} />
         </motion.div>
 
         <div className="relative">
@@ -206,7 +218,7 @@ export function PremiumFaqSection() {
                 <p className="text-[10px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">
                   Call Us Now!
                 </p>
-                <p className="mt-2 font-heading text-2xl font-semibold tracking-tight text-white">+91-9266 893 997</p>
+                <p className="mt-2 font-heading text-2xl font-semibold tracking-tight text-white">{phone}</p>
                 <div className="mt-4 flex items-center gap-3">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/14 bg-white/[0.06] text-[#9AC0FF]">
                     <PhoneCall size={18} />

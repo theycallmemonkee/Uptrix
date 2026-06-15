@@ -12,23 +12,25 @@ import {
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useMemo, useRef, useSyncExternalStore } from "react";
+import type { SanityGlobalSettings } from "@/lib/sanity";
+
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const NAV_LINKS = [
+const DEFAULT_NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Why Uptrix", href: "/about" },
   { label: "Our Work", href: "/portfolio" },
   { label: "Insights", href: "/blog" },
-] as const;
+];
 
-const SYSTEMS = [
+const DEFAULT_SYSTEMS = [
   { label: "Demand Generation System", href: "/solutions/demand-generation-system" },
   { label: "Paid Growth System", href: "/solutions/paid-growth-engine" },
   { label: "Conversion Website System", href: "/solutions/conversion-website-system" },
   { label: "Growth Foundation System", href: "/solutions/growth-foundation-system" },
   { label: "AI Marketing System", href: "/solutions/ai-marketing-system" },
   { label: "Revenue Operations System", href: "/solutions/revenue-operations-system" },
-] as const;
+];
 
 const SOCIALS = [
   {
@@ -42,6 +44,10 @@ const SOCIALS = [
     Icon: InstagramIcon,
   },
 ] as const;
+
+export interface EnterpriseFooterProps {
+  settings?: SanityGlobalSettings | null
+}
 
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -61,7 +67,21 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function EnterpriseFooter() {
+export function EnterpriseFooter({ settings }: EnterpriseFooterProps = {}) {
+  const navLinks = settings?.footerNavLinks?.length ? settings.footerNavLinks : DEFAULT_NAV_LINKS;
+  const systems = settings?.footerSystems?.length ? settings.footerSystems : DEFAULT_SYSTEMS;
+  const footerTagline = settings?.footerTagline ?? "AI Powered Growth Systems Partner for businesses worldwide";
+  const ctaHeadline = settings?.footerCtaHeadline ?? "Let's Talk About Your Business With Us";
+  const ctaButtonLabel = settings?.footerCtaButtonLabel ?? "Let's Get Started";
+  const copyrightText = settings?.copyrightText ?? "Copyright © 2026 Uptrix Technologies";
+  const facebookHref = settings?.facebookUrl ?? "https://www.facebook.com/uptrixtechnologies";
+  const instagramHref = settings?.instagramUrl ?? "https://www.instagram.com/uptrixtechnologies";
+
+  const socials = [
+    { label: "Facebook", href: facebookHref, Icon: FacebookIcon },
+    { label: "Instagram", href: instagramHref, Icon: InstagramIcon },
+  ];
+
   const ref = useRef<HTMLElement | null>(null);
   const inView = useInView(ref, { once: true, amount: 0.25 });
 
@@ -180,7 +200,7 @@ export function EnterpriseFooter() {
               <Link href="/" className="inline-flex items-center">
                 <Image
                   src="/Uptrix.png"
-                  alt="Uptrix Technologies"
+                  alt={settings?.logoAlt ?? "Uptrix Technologies"}
                   width={180}
                   height={50}
                   className="h-10 w-auto object-contain"
@@ -188,7 +208,7 @@ export function EnterpriseFooter() {
                 />
               </Link>
               <p className="mt-4 text-[0.9375rem] leading-[1.8] text-white/68">
-                AI Powered Growth Systems Partner for businesses worldwide
+                {footerTagline}
               </p>
             </motion.div>
 
@@ -196,7 +216,7 @@ export function EnterpriseFooter() {
               <div>
                 <p className="text-[11px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">Navigation</p>
                 <ul className="mt-4 space-y-3">
-                  {NAV_LINKS.map((link) => (
+                  {navLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
@@ -213,7 +233,7 @@ export function EnterpriseFooter() {
               <div>
                 <p className="text-[11px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">Services</p>
                 <ul className="mt-4 space-y-3">
-                  {SYSTEMS.map((service) => (
+                  {systems.map((service) => (
                     <li key={service.href}>
                       <Link
                         href={service.href}
@@ -230,11 +250,7 @@ export function EnterpriseFooter() {
 
             <motion.div variants={child} className="flex flex-col items-start gap-6 lg:items-end" style={mounted ? { x: rightX, y: rightY } : undefined}>
               <h3 className="font-heading text-[clamp(1.5rem,2.8vw,2.6rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-white lg:text-right">
-                Let&apos;s Talk About Your{" "}
-                <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/28 bg-[#7BABFF]/10 px-3.5 py-1 text-[#E7F1FF] shadow-[0_8px_28px_rgba(0,102,255,0.16)]">
-                  Business
-                </span>{" "}
-                With Us
+                {ctaHeadline}
               </h3>
 
               <div className="w-full lg:w-auto">
@@ -259,7 +275,7 @@ export function EnterpriseFooter() {
                         "linear-gradient(120deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02), rgba(0,102,255,0.18))",
                     }}
                   />
-                  Let&apos;s Get Started
+                  {ctaButtonLabel}
                   <ArrowUpRight
                     size={16}
                     className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -268,7 +284,7 @@ export function EnterpriseFooter() {
               </div>
 
               <div className="flex items-center gap-3">
-                {SOCIALS.map(({ href, label, Icon }) => (
+                {socials.map(({ href, label, Icon }) => (
                   <motion.div
                     key={href}
                     className="relative"
@@ -296,7 +312,7 @@ export function EnterpriseFooter() {
             variants={child}
             className="relative mt-12 flex flex-col gap-4 border-t border-white/10 pt-7 text-sm text-white/60 md:flex-row md:items-center md:justify-between"
           >
-            <p>Copyright © 2026 Uptrix Technologies</p>
+            <p>{copyrightText}</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <Link href="/terms-and-condition" className="transition-colors duration-300 hover:text-white">
                 Terms &amp; Condition

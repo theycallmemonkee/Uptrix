@@ -7,32 +7,47 @@ import { useEffect, useRef, useState } from "react";
 import { FloatingParticles, AnimatedGrid } from "@/components/ui/visual-effects";
 import { ScrollReveal } from "@/components/ui/motion-components";
 import { MarqueeLogos } from "@/components/ui/client-logo-strip";
+import type { SanityAboutPage } from "@/lib/sanity";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const EASE_LINEAR = [0, 0, 1, 1] as const;
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
-const STATS = [
+// Icon registry for Sanity icon name strings
+const ICON_MAP: Record<string, React.ElementType> = {
+  Users, Rocket, Shield, Brain, Target, Zap, Globe, TrendingUp,
+};
+
+function resolveIcon(name?: string): React.ElementType {
+  return (name && ICON_MAP[name]) ? ICON_MAP[name] : Sparkles;
+}
+
+// Default hardcoded data
+const DEFAULT_STATS = [
   { label: "Returning Clients",    value: 99,  suffix: "%", icon: Users },
   { label: "Successful Projects",  value: 150, suffix: "+", icon: Rocket },
   { label: "Work Transparency",    value: 100, suffix: "%", icon: Shield },
   { label: "Years of Expertise",   value: 15,  suffix: "+", icon: Brain },
 ] as const;
 
-const TIMELINE = [
+const DEFAULT_TIMELINE = [
   { year: "2009", title: "Founded", desc: "Uptrix was born with a mission to bridge technology and marketing." },
   { year: "2014", title: "Going Digital", desc: "Expanded into AI SEO & PPC as digital channels exploded globally." },
   { year: "2018", title: "AI Integration", desc: "First-mover on AI-powered campaign optimization infrastructure." },
   { year: "2022", title: "Enterprise Scale", desc: "Serving 100+ enterprise brands across 12+ industries worldwide." },
   { year: "2026", title: "Growth OS", desc: "Launched full-stack AI Growth OS for ambitious brands." },
-] as const;
+];
 
-const VALUES = [
+const DEFAULT_VALUES = [
   { icon: Target,    title: "Precision",    desc: "Every decision backed by data, not guesswork." },
   { icon: Zap,       title: "Velocity",     desc: "Speed to market with zero compromise on quality." },
   { icon: Globe,     title: "Global Reach", desc: "Cross-border growth systems built for scale." },
   { icon: TrendingUp,title: "Outcomes",     desc: "We measure everything that moves the needle." },
-] as const;
+];
+
+export interface ImmersiveAboutPageProps {
+  data?: SanityAboutPage | null
+}
 
 function CountCard({ value, suffix, label, icon: Icon }: { value: number; suffix: string; label: string; icon: React.ElementType }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -116,7 +131,28 @@ function TimelineItem({ year, title, desc, index }: { year: string; title: strin
   );
 }
 
-export function ImmersiveAboutPage() {
+export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
+  // Derive active data from Sanity or fall back to hardcoded defaults
+  const STATS: Array<{ label: string; value: number; suffix: string; icon: React.ElementType }> =
+    data?.stats?.length
+      ? data.stats.map((s) => {
+          const raw = s.value ?? "";
+          const numeric = parseInt(raw.replace(/[^0-9]/g, ""), 10) || 0;
+          const suffix = raw.replace(/[0-9]/g, "");
+          return { label: s.label, value: numeric, suffix, icon: Sparkles };
+        })
+      : [...DEFAULT_STATS];
+
+  const VALUES: Array<{ icon: React.ElementType; title: string; desc: string }> =
+    data?.values?.length
+      ? data.values.map((v) => ({ icon: resolveIcon(v.iconName), title: v.title, desc: v.description }))
+      : [...DEFAULT_VALUES];
+
+  const TIMELINE: Array<{ year: string; title: string; desc: string }> =
+    data?.timeline?.length
+      ? data.timeline.map((t) => ({ year: t.year, title: t.title, desc: t.description }))
+      : [...DEFAULT_TIMELINE];
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
