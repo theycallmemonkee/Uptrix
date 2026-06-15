@@ -20,9 +20,28 @@
   --glass-ring:   rgba(255, 255, 255, 0.08);
 
   /* Typography scale */
-  --font-size-hero: clamp(2.5rem, 6vw, 5rem);
-  --font-size-h2:   clamp(1.75rem, 3.5vw, 3.25rem);
+  --font-size-hero: clamp(2.75rem, 6vw, 5rem);
+  --font-size-h2:   clamp(1.875rem, 3.5vw, 3.25rem);
   --font-size-h3:   clamp(1.25rem, 2vw, 2rem);
+
+  /* Consistent spacing scale (8-pt grid) */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  --space-32: 8rem;      /* 128px */
+
+  /* Section rhythm — desktop / mobile */
+  --section-py:    6rem;     /* 96px sections on desktop */
+  --section-py-sm: 4.5rem;   /* 72px sections on mobile */
 
   /* Shadows */
   --shadow-card:   0 22px 65px rgba(2, 9, 22, 0.45);
@@ -34,6 +53,12 @@
   --duration-fast: 0.28s;
   --duration-base: 0.55s;
   --duration-slow: 0.85s;
+
+  /* Card system */
+  --card-radius:   1.5rem;
+  --card-border:   rgba(255, 255, 255, 0.12);
+  --card-bg:       rgba(14, 34, 64, 0.65);
+  --card-padding:  1.5rem;
 }
 
 /* ============================================================
@@ -68,6 +93,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  line-height: 1.65;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 /* Prevent layout shift during page transitions */
@@ -121,6 +148,43 @@ body::before {
   outline: 2px solid rgba(0, 102, 255, 0.7);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* ============================================================
+   HEADING BALANCE — prevents single-word orphans
+   ============================================================ */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+
+h1 { letter-spacing: -0.025em; }
+h2 { letter-spacing: -0.02em; }
+
+p {
+  text-wrap: pretty;
+}
+
+/* Consistent section padding utility */
+.section-py {
+  padding-top: var(--section-py-sm);
+  padding-bottom: var(--section-py-sm);
+}
+
+@media (min-width: 768px) {
+  .section-py {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
+  }
+}
+
+/* Premium card — reusable base */
+.card-premium {
+  border-radius: var(--card-radius);
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* ============================================================
@@ -189,6 +253,11 @@ body::before {
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Smooth image rendering */
+img {
+  image-rendering: auto;
 }
 
 /* Glow pulse keyframe — reusable */

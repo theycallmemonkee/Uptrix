@@ -20,10 +20,10 @@ type Stat = { value: number; suffix: string; label: string; icon: React.ElementT
 type PortfolioItem = { title: string; description: string; image: string };
 
 const STATS: Stat[] = [
-  { value: 100, suffix: "+", label: "Project Complete", icon: Award },
-  { value: 98, suffix: "%", label: "Client Retention", icon: TrendingUp },
-  { value: 10, suffix: "+", label: "Multi-Channel Expertise", icon: Zap },
-  { value: 90, suffix: "+", label: "Best Customer Service", icon: Users2 },
+  { value: 2.5, suffix: "M+", label: "Ad spend managed", icon: TrendingUp },
+  { value: 3.21, suffix: "X", label: "ROAS delivered on D2C campaigns", icon: Zap },
+  { value: 955, suffix: "%", label: "ROAS delivered on Google ads", icon: Award },
+  { value: 6, suffix: "+ years", label: "Building growth systems", icon: Users2 },
 ];
 
 const PORTFOLIO: PortfolioItem[] = [
@@ -132,6 +132,11 @@ function PortfolioCard({
   );
 }
 
+function formatNumber(n: number, target: number): string {
+  const decimals = target % 1 !== 0 ? String(target).split(".")[1].length : 0;
+  return n.toFixed(decimals);
+}
+
 function CountUpNumber({ value, suffix, icon: Icon }: { value: number; suffix: string; icon: React.ElementType }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, amount: 0.65 });
@@ -145,7 +150,7 @@ function CountUpNumber({ value, suffix, icon: Icon }: { value: number; suffix: s
       frame += 1;
       const progress = frame / totalFrames;
       const eased = 1 - (1 - progress) ** 3;
-      setDisplay(Math.round(value * eased));
+      setDisplay(parseFloat((value * eased).toFixed(2)));
       if (frame < totalFrames) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -153,11 +158,11 @@ function CountUpNumber({ value, suffix, icon: Icon }: { value: number; suffix: s
 
   return (
     <div ref={ref} className="flex flex-col">
-      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#79ABFF]/28 bg-[#0C2C57]/42 text-[#79ABFF]">
+      <div className="mb-3.5 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#79ABFF]/24 bg-[#0C2C57]/40 text-[#79ABFF]">
         <Icon size={18} />
       </div>
-      <span className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl">
-        {display}
+      <span className="font-heading text-3xl font-bold tracking-[-0.02em] text-white md:text-4xl">
+        {formatNumber(display, value)}
         {suffix}
       </span>
     </div>
@@ -186,7 +191,7 @@ export function EnterpriseExperienceSection() {
 
   return (
     <section
-      className="relative z-10 w-full overflow-hidden px-6 pb-28 pt-4 md:px-10 md:pb-32"
+      className="relative z-10 w-full overflow-hidden px-6 pb-24 pt-12 md:px-10 md:pb-32"
       onMouseMove={(event) => {
         if (!mounted) return;
         const rect = event.currentTarget.getBoundingClientRect();
@@ -195,8 +200,8 @@ export function EnterpriseExperienceSection() {
       }}
     >
       <motion.div className="pointer-events-none absolute inset-0 -z-20" style={mounted ? { background: movingLight } : undefined} />
-      <div className="pointer-events-none absolute inset-0 -z-30 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_52%,transparent_90%)]">
-        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="pointer-events-none absolute inset-0 -z-30 opacity-35 [mask-image:radial-gradient(ellipse_at_center,black_52%,transparent_90%)]">
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:72px_72px]" />
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-14">
@@ -205,7 +210,7 @@ export function EnterpriseExperienceSection() {
           {STATS.map((stat, index) => (
             <motion.article
               key={stat.label}
-              className="group relative overflow-hidden rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(14,34,64,0.72),rgba(7,18,37,0.62))] p-5 shadow-[0_18px_50px_rgba(2,9,22,0.44)] ring-1 ring-inset ring-white/8 backdrop-blur-2xl will-change-transform transition-all duration-300 hover:border-[#79ABFF]/28 hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(14,34,64,0.7),rgba(7,18,37,0.6))] p-5 shadow-[0_18px_50px_rgba(2,9,22,0.42)] ring-1 ring-inset ring-white/[0.06] backdrop-blur-2xl will-change-transform transition-all duration-300 hover:border-[#79ABFF]/26 hover:-translate-y-2"
               initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.5 }}
@@ -268,21 +273,11 @@ export function EnterpriseExperienceSection() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.75, ease: EASE }}
           >
-            <h3 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-white md:text-5xl">
-              Proven{" "}
-              <motion.span
-                className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/35 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF]"
-                whileHover={{ scale: 1.03 }}
-                animate={{ boxShadow: ["0 6px 20px rgba(0,102,255,0.14)", "0 10px 32px rgba(0,102,255,0.28)", "0 6px 20px rgba(0,102,255,0.14)"] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
-              >
-                Strategies
-              </motion.span>{" "}
-              And Business Growth
+            <h3 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white">
+              One Connected Engine, Not Scattered Services
             </h3>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/72 md:text-lg">
-              We blend data science, creative systems, and precision media execution to unlock durable growth curves for
-              enterprise-ready brands.
+            <p className="mt-5 max-w-xl text-base leading-[1.8] text-white/68">
+              We blend strategy, creative and the right technology into systems that work together. Where most businesses juggle separate vendors who never talk to each other, you get one engine where every part feeds the next, optimised on real data.
             </p>
 
             <motion.article
@@ -303,9 +298,9 @@ export function EnterpriseExperienceSection() {
                 >
                   <Zap size={18} />
                 </motion.span>
-                <h4 className="mt-4 font-heading text-xl font-semibold text-white">Adaptive AI Marketing Framework</h4>
-                <p className="mt-3 text-sm leading-7 text-white/70">
-                  Modular services for AI SEO, paid media, analytics, and automation workflows with real-time optimization.
+                <h4 className="mt-4 font-heading text-xl font-semibold text-white">One System, One Number</h4>
+                <p className="mt-3 text-sm leading-[1.75] text-white/68">
+                  Every system we build connects to one clear growth metric, so you always know what is working and why.
                 </p>
               </div>
             </motion.article>
@@ -315,7 +310,7 @@ export function EnterpriseExperienceSection() {
         {/* Portfolio */}
         <div>
           <motion.h3
-            className="mx-auto max-w-4xl text-center font-heading text-3xl leading-tight font-semibold tracking-tight text-white md:text-5xl"
+            className="mx-auto max-w-4xl text-center font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
             initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.5 }}
@@ -326,7 +321,7 @@ export function EnterpriseExperienceSection() {
               Uptrix
             </span>
           </motion.h3>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {PORTFOLIO.map((item, index) => (
               <PortfolioCard
                 key={item.title}

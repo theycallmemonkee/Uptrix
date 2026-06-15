@@ -24,7 +24,7 @@ const TIMELINE = [
   { year: "2014", title: "Going Digital", desc: "Expanded into AI SEO & PPC as digital channels exploded globally." },
   { year: "2018", title: "AI Integration", desc: "First-mover on AI-powered campaign optimization infrastructure." },
   { year: "2022", title: "Enterprise Scale", desc: "Serving 100+ enterprise brands across 12+ industries worldwide." },
-  { year: "2024", title: "Growth OS", desc: "Launched full-stack AI Growth OS for ambitious brands." },
+  { year: "2026", title: "Growth OS", desc: "Launched full-stack AI Growth OS for ambitious brands." },
 ] as const;
 
 const VALUES = [
@@ -147,7 +147,7 @@ export function ImmersiveAboutPage() {
 
       <main className="relative z-10">
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="flex min-h-[90vh] items-center px-6 pb-16 pt-[100px] md:px-10 md:pt-[120px] lg:pt-[160px]">
+        <section className="flex min-h-[80vh] items-center px-6 pb-16 pt-[100px] md:px-10 md:pt-[120px] lg:pt-[160px]">
           <div className="mx-auto w-full max-w-7xl">
             <div className="mx-auto max-w-4xl text-center">
               <motion.div
@@ -161,7 +161,7 @@ export function ImmersiveAboutPage() {
               </motion.div>
 
               <motion.h1
-                className="font-heading text-6xl font-semibold tracking-tight md:text-8xl"
+                className="font-heading text-[clamp(2.75rem,6vw,5rem)] font-semibold tracking-[-0.025em]"
                 initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
@@ -177,7 +177,7 @@ export function ImmersiveAboutPage() {
               </motion.h1>
 
               <motion.p
-                className="mx-auto mt-6 max-w-2xl text-lg text-white/72 md:text-xl"
+                className="mx-auto mt-5 max-w-xl text-base text-white/68 leading-[1.8]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.72, delay: 0.18, ease: EASE }}
@@ -220,10 +220,10 @@ export function ImmersiveAboutPage() {
             <ScrollReveal direction="left" className="group relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-7 backdrop-blur-xl md:p-10 hover:border-[#79ABFF]/24 transition-colors duration-300">
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
               <p className="text-xs font-medium tracking-[0.2em] text-[#A8C9FF]/70 uppercase">Our Mission</p>
-              <h2 className="mt-4 max-w-xl font-heading text-4xl leading-tight font-semibold tracking-tight md:text-5xl">
+              <h2 className="mt-4 max-w-xl font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em]">
                 Maximize Your Growth With AI-Powered Marketing
               </h2>
-              <p className="mt-5 max-w-2xl text-white/72 leading-7">
+              <p className="mt-4 text-[0.9375rem] text-white/68 leading-[1.8]">
                 To empower businesses through smart development and result-driven marketing — creating growth that compounds over time.
               </p>
               <motion.div
@@ -238,7 +238,7 @@ export function ImmersiveAboutPage() {
             <ScrollReveal direction="right" delay={0.1} className="group relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-7 backdrop-blur-xl md:p-10 hover:border-[#79ABFF]/24 transition-colors duration-300">
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
               <p className="text-xs font-medium tracking-[0.2em] text-[#A8C9FF]/70 uppercase mb-4">Your Success, Our Priority</p>
-              <p className="text-white/74 leading-7">
+              <p className="text-[0.9375rem] text-white/68 leading-[1.8]">
                 At Uptrix, we turn ideas into impact. We&apos;re a passionate development and marketing firm dedicated to helping brands grow, scale, and stand out in the digital world.
               </p>
               <div className="mt-6 grid grid-cols-2 gap-3">
@@ -270,7 +270,7 @@ export function ImmersiveAboutPage() {
           <div className="mx-auto w-full max-w-4xl">
             <ScrollReveal className="mb-12 text-center">
               <p className="text-xs font-medium tracking-[0.22em] text-[#A8C9FF]/70 uppercase mb-4">Our Journey</p>
-              <h2 className="font-heading text-4xl font-semibold tracking-tight text-white md:text-5xl">
+              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold tracking-[-0.02em] text-white">
                 Built Over{" "}
                 <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">
                   15 Years
@@ -299,10 +299,10 @@ export function ImmersiveAboutPage() {
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 bg-[radial-gradient(circle_at_25%_15%,rgba(0,102,255,0.18),transparent_56%)]" />
                 <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
                   <div>
-                    <h2 className="max-w-2xl font-heading text-4xl font-semibold tracking-tight md:text-5xl">
+                    <h2 className="max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold tracking-[-0.02em]">
                       Proven Strategies And Business Growth
                     </h2>
-                    <p className="mt-4 max-w-3xl text-white/72 leading-7">
+                    <p className="mt-4 max-w-xl text-[0.9375rem] text-white/68 leading-[1.8]">
                       We combine creativity, technology, and strategy to deliver the one thing that matters most — your measurable success.
                     </p>
                   </div>

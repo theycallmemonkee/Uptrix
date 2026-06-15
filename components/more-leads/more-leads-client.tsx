@@ -19,11 +19,13 @@ import {
   X,
   XCircle,
 } from "lucide-react";
+import { InvisibleTurnstile } from "@/components/ui/turnstile";
 import { PremiumNavbar } from "@/components/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
 import { FloatingOrbs, AnimatedGrid, AIWaveOverlay, NoiseTexture } from "@/components/ui/visual-effects";
-import { ClientLogoStrip } from "@/components/ui/client-logo-strip";
+import { TrustedBrandsSlider } from "@/components/shared/TrustedBrandsSlider";
+import { DemandGenerationHero } from "@/components/solution-heroes/demand-generation-hero";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const EASE_LINEAR = [0, 0, 1, 1] as const;
@@ -71,6 +73,15 @@ export function MoreLeadsClient({ posts }: Props) {
   const [contactLoading, setContactLoading] = useState(false);
   const [contactSuccess, setContactSuccess] = useState(false);
   const [contactError, setContactError] = useState("");
+
+  // Turnstile tokens & refs
+  const [checklistToken, setChecklistToken] = useState("");
+  const [contactToken, setContactToken] = useState("");
+  const [exitToken, setExitToken] = useState("");
+
+  const checklistTurnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
+  const contactTurnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
+  const exitTurnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
 
   // Exit intent popup state
   const [showExitPopup, setShowExitPopup] = useState(false);
@@ -137,20 +148,32 @@ export function MoreLeadsClient({ posts }: Props) {
     setChecklistError("");
     setChecklistSuccess(false);
 
+    // If modal is active, send exitToken; otherwise send inline checklistToken
+    const activeToken = showExitPopup ? exitToken : checklistToken;
+
+    const payloadBody = {
+      name: checklistForm.firstName,
+      email: checklistForm.email,
+      message: "[Lead Magnet: Checklist] Requested download for the Lead Leak Checklist.",
+      honey: checklistForm.honey,
+      source_page: "/solutions/demand-generation-system",
+      turnstileToken: activeToken,
+    };
+
+    // Debug log formData
+    console.log("formData", payloadBody);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: checklistForm.firstName,
-          email: checklistForm.email,
-          message: "[Lead Magnet: Checklist] Requested download for the Lead Leak Checklist.",
-          honey: checklistForm.honey,
-          source_page: "/solutions/demand-generation-system",
-        }),
+        body: JSON.stringify(payloadBody),
       });
 
       const data = await response.json();
+      // Debug log apiResponse
+      console.log("apiResponse", data);
+
       if (!response.ok) {
         throw new Error(data.error || "Something went wrong. Please try again.");
       }
@@ -160,8 +183,26 @@ export function MoreLeadsClient({ posts }: Props) {
       setShowExitPopup(false);
       setShowStickyBanner(false);
       setChecklistForm({ firstName: "", email: "", honey: "" });
+      
+      // Reset Turnstile tokens
+      if (showExitPopup) {
+        exitTurnstileRef.current?.reset();
+        exitTurnstileRef.current?.execute();
+      } else {
+        checklistTurnstileRef.current?.reset();
+        checklistTurnstileRef.current?.execute();
+      }
     } catch (err: any) {
+      // Debug log serverError
+      console.log("serverError", err);
       setChecklistError(err.message || "Network error. Please try again.");
+      if (showExitPopup) {
+        exitTurnstileRef.current?.reset();
+        exitTurnstileRef.current?.execute();
+      } else {
+        checklistTurnstileRef.current?.reset();
+        checklistTurnstileRef.current?.execute();
+      }
     } finally {
       setChecklistLoading(false);
     }
@@ -180,22 +221,31 @@ export function MoreLeadsClient({ posts }: Props) {
       return;
     }
 
+    const payloadBody = {
+      name: contactForm.name,
+      email: contactForm.email,
+      message: contactForm.challenge,
+      honey: contactForm.honey,
+      website: contactForm.website,
+      budget: contactForm.budget,
+      source_page: "/solutions/demand-generation-system",
+      turnstileToken: contactToken,
+    };
+
+    // Debug log formData
+    console.log("formData", payloadBody);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: contactForm.name,
-          email: contactForm.email,
-          message: contactForm.challenge,
-          honey: contactForm.honey,
-          website: contactForm.website,
-          budget: contactForm.budget,
-          source_page: "/solutions/demand-generation-system",
-        }),
+        body: JSON.stringify(payloadBody),
       });
 
       const data = await response.json();
+      // Debug log apiResponse
+      console.log("apiResponse", data);
+
       if (!response.ok) {
         throw new Error(data.error || "Submission failed. Please try again.");
       }
@@ -204,8 +254,14 @@ export function MoreLeadsClient({ posts }: Props) {
       localStorage.setItem("uptrix_lead_converted", "true");
       setShowStickyBanner(false);
       setContactForm({ name: "", email: "", website: "", budget: "", challenge: "", honey: "" });
+      contactTurnstileRef.current?.reset();
+      contactTurnstileRef.current?.execute();
     } catch (err: any) {
+      // Debug log serverError
+      console.log("serverError", err);
       setContactError(err.message || "Network error. Please try again.");
+      contactTurnstileRef.current?.reset();
+      contactTurnstileRef.current?.execute();
     } finally {
       setContactLoading(false);
     }
@@ -283,290 +339,15 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 1 — HERO
            ============================================================ */}
-        <section className="relative z-20 flex w-full flex-col overflow-hidden justify-center min-h-[90vh] px-6 pt-32 pb-16 md:px-10 md:pt-40 md:pb-24">
-          {/* Watermark */}
-          <p className="pointer-events-none absolute left-1/2 top-[55%] -z-10 -translate-x-1/2 -translate-y-1/2 text-center font-heading text-[14vw] leading-none font-bold tracking-[0.22em] text-white/[0.009] blur-[0.3px] md:text-[9rem]">
-            UPTRIX
-          </p>
-
-          <div className="mx-auto grid w-full max-w-[1440px] items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <motion.div
-              className="relative max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start"
-              initial="hidden"
-              animate="show"
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-            >
-              {/* Eyebrow badge */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
-                  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.65, ease: EASE } },
-                }}
-                className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-4 py-1.5 text-xs tracking-[0.2em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
-              >
-                <Sparkles size={11} className="text-[#79ABFF]" />
-                Demand Generation System
-              </motion.div>
-
-              {/* Headline */}
-              <motion.h1
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-                  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.08, ease: EASE } },
-                }}
-                className="font-heading text-4xl leading-[1.08] font-extrabold tracking-tight text-white sm:text-5xl md:text-[clamp(42px,4.2vw,62px)] max-w-none"
-              >
-                Predictable Inbound Engines for B2B SaaS.
-              </motion.h1>
-
-              {/* Description */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-                  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.16, ease: EASE } },
-                }}
-                className="mt-6 space-y-4 max-w-2xl text-sm leading-relaxed text-white/70 mx-auto lg:mx-0 text-center lg:text-left"
-              >
-                <p>
-                  We build a unified demand generation system that aggregates SEO, intent-driven paid social, and AI search presence to bring high-intent SQLs straight to your sales calendar.
-                </p>
-                <p className="font-semibold text-white/90">
-                  Stop depending on hope. Build a compounding pipeline engine.
-                </p>
-              </motion.div>
-
-              {/* Actions */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-                  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.28, ease: EASE } },
-                }}
-                className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto"
-              >
-                <button
-                  onClick={() => scrollToId("contact")}
-                  className="shine-sweep will-gpu group relative inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-6 py-3.5 font-heading text-xs font-semibold text-white shadow-[0_12px_32px_rgba(0,102,255,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#86B6FF] hover:shadow-[0_16px_40px_rgba(0,102,255,0.38)] cursor-pointer"
-                >
-                  Contact Us →
-                </button>
-                <button
-                  onClick={() => scrollToId("checklist")}
-                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.03] px-6 py-3.5 font-heading text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Download Free: The Lead Leak Checklist ↓
-                </button>
-              </motion.div>
-
-              <motion.p
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: { opacity: 1, transition: { delay: 0.35 } },
-                }}
-                className="mt-3 text-xs italic text-white/40"
-              >
-                No commitment. We understand your situation first.
-              </motion.p>
-            </motion.div>
-
-            {/* Visual Column - Dashboard Mockup */}
-            <motion.div
-              className="relative w-full max-w-xl lg:justify-self-end mt-12 lg:mt-0"
-              initial={{ opacity: 0, scale: 0.98, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            >
-              {/* Main Dashboard Panel */}
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#081325]/90 p-5 shadow-[0_24px_70px_rgba(2,9,22,0.6)] backdrop-blur-2xl">
-                {/* Window header */}
-                <div className="flex items-center justify-between border-b border-white/[0.06] pb-4 mb-5">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="ml-2 font-mono text-[10px] text-white/40 tracking-wider">inbound_engine_v2.0</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 rounded-full bg-white/[0.03] px-2.5 py-1 text-[9px] font-medium text-white/60 border border-white/[0.04]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#79ABFF] animate-pulse" />
-                    <span>Active System</span>
-                  </div>
-                </div>
-
-                {/* Grid of micro-reports */}
-                <div className="grid grid-cols-2 gap-4 mb-5">
-                  {/* Left Report */}
-                  <div className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-3">
-                    <p className="text-[10px] text-white/40 font-medium tracking-wide uppercase">Pipeline Value</p>
-                    <p className="font-heading text-2xl font-bold text-white mt-1">$184,200</p>
-                    <div className="flex items-center gap-1 mt-1 text-[9px] text-emerald-400 font-semibold">
-                      <span>↑ 24%</span>
-                      <span className="text-white/30 font-normal">vs last month</span>
-                    </div>
-                  </div>
-
-                  {/* Right Report */}
-                  <div className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-3">
-                    <p className="text-[10px] text-white/40 font-medium tracking-wide uppercase">Conversion Rate</p>
-                    <p className="font-heading text-2xl font-bold text-[#79ABFF] mt-1">3.4%</p>
-                    <div className="flex items-center gap-1 mt-1 text-[9px] text-[#79ABFF] font-semibold">
-                      <span>+1.2%</span>
-                      <span className="text-white/30 font-normal">optimization lift</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SVG Visual Graph */}
-                <div className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-4 mb-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] font-semibold text-white/70 uppercase tracking-wide">Daily Inbound Leads</p>
-                    <div className="flex gap-2 text-[9px] text-white/40">
-                      <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-[#0066FF]" /> SEO</span>
-                      <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-[#79ABFF]" /> Paid</span>
-                    </div>
-                  </div>
-                  {/* Styled simulated line graph */}
-                  <div className="relative h-28 w-full">
-                    {/* Grid lines */}
-                    <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
-                      <div className="border-b border-white/[0.08] w-full h-px" />
-                      <div className="border-b border-white/[0.08] w-full h-px" />
-                      <div className="border-b border-white/[0.08] w-full h-px" />
-                    </div>
-
-                    <svg className="w-full h-full" viewBox="0 0 400 100" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#0066FF" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#0066FF" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      {/* Gradient fill */}
-                      <path
-                        d="M 0 90 Q 50 60 100 80 T 200 40 T 300 30 T 400 10 L 400 100 L 0 100 Z"
-                        fill="url(#gradient)"
-                      />
-                      {/* Stroke lines */}
-                      <motion.path
-                        d="M 0 90 Q 50 60 100 80 T 200 40 T 300 30 T 400 10"
-                        fill="none"
-                        stroke="#0066FF"
-                        strokeWidth="2.5"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                      />
-                      <motion.path
-                        d="M 0 95 Q 55 75 105 85 T 205 60 T 305 45 T 400 25"
-                        fill="none"
-                        stroke="#79ABFF"
-                        strokeWidth="1.5"
-                        strokeDasharray="3 3"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 1.8, ease: "easeOut", delay: 0.2 }}
-                      />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Lead Feed Table */}
-                <div className="rounded-xl border border-white/[0.04] bg-[#050b14] overflow-hidden">
-                  <div className="border-b border-white/[0.06] bg-white/[0.02] px-3.5 py-2 flex items-center justify-between">
-                    <p className="text-[9px] font-bold text-white/50 uppercase tracking-wider">Live Inbound Stream</p>
-                    <span className="text-[8px] font-mono text-emerald-400">updating...</span>
-                  </div>
-                  <div className="divide-y divide-white/[0.04] text-[10px]">
-                    {[
-                      { name: "Acme Corp", source: "SEO (High-Intent)", status: "Qualified", time: "2m ago" },
-                      { name: "Linear Systems", source: "Google Ads", status: "Qualified", time: "18m ago" },
-                      { name: "Stripe Partner", source: "AI Search Citation", status: "Closed-Won", time: "1h ago" }
-                    ].map((lead, idx) => (
-                      <div key={idx} className="px-3.5 py-2.5 flex items-center justify-between hover:bg-white/[0.01] transition-colors">
-                        <div className="flex items-center gap-2">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                          <span className="font-semibold text-white/90">{lead.name}</span>
-                          <span className="text-[9px] text-white/40">• {lead.source}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className={`px-2 py-0.5 rounded text-[8px] font-medium ${
-                            lead.status === "Closed-Won" 
-                              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                              : "bg-[#0066FF]/10 text-[#79ABFF] border border-[#0066FF]/20"
-                          }`}>
-                            {lead.status}
-                          </span>
-                          <span className="text-white/30 text-[9px]">{lead.time}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Metric Cards */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="absolute -left-8 bottom-12 w-44 rounded-2xl border border-white/[0.08] bg-[linear-gradient(155deg,rgba(10,24,47,0.95),rgba(5,11,20,0.85))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.5)] backdrop-blur-xl pointer-events-none"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-semibold tracking-wider text-white/40 uppercase">Inbound SQLs</span>
-                  <span className="flex h-4 w-4 items-center justify-center rounded bg-emerald-500/10 text-emerald-400 text-[9px]">↑</span>
-                </div>
-                <p className="mt-1 font-heading text-2xl font-bold text-white">3.4x</p>
-                <p className="text-[9px] text-white/50 leading-relaxed mt-0.5">Pipeline growth achieved in 90 days</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="absolute -right-6 top-12 w-40 rounded-2xl border border-white/[0.08] bg-[linear-gradient(155deg,rgba(10,24,47,0.95),rgba(5,11,20,0.85))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.5)] backdrop-blur-xl pointer-events-none"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-semibold tracking-wider text-white/40 uppercase">Average CPL</span>
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0066FF]" />
-                </div>
-                <p className="mt-1 font-heading text-2xl font-bold text-[#79ABFF]">$2.27</p>
-                <p className="text-[9px] text-white/50 leading-relaxed mt-0.5">Verified cost per qualified lead</p>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Jump Links Container */}
-          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 mt-16 border-t border-white/10 pt-6">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF] mb-3 text-center lg:text-left">
-              Jump to Section
-            </p>
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-xs font-semibold text-white/60">
-              {[
-                { label: "Why leads dry up", id: "why-leads-dry-up" },
-                { label: "What is inside the system", id: "what-is-inside" },
-                { label: "Who it is best for", id: "best-for" },
-                { label: "Results", id: "results" },
-                { label: "How it works", id: "how-it-works" },
-                { label: "FAQ", id: "faq" },
-                { label: "Contact", id: "contact" },
-              ].map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToId(link.id)}
-                  className="transition-colors hover:text-[#79ABFF] cursor-pointer"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        <DemandGenerationHero
+          onPrimaryClick={() => scrollToId("contact")}
+          onSecondaryClick={() => scrollToId("checklist")}
+        />
 
         {/* ============================================================
            LOGO STRIP
            ============================================================ */}
-        <ClientLogoStrip
-          title="Trusted by leaders at fast-growing enterprise companies"
-          className="relative z-10 w-full pb-20 md:pb-24"
-        />
+        <TrustedBrandsSlider />
 
         {/* AI wave overlay separator */}
         <AIWaveOverlay className="relative z-10 -mt-6 h-16 opacity-40" />
@@ -574,41 +355,45 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 2 — MARKET REALITY & SYSTEM ALIGNMENT
            ============================================================ */}
-        <section id="why-leads-dry-up" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-b border-white/[0.04] bg-[#040914]">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+        <section id="why-leads-dry-up" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#040914]">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
               {/* Left Column: Context & Title */}
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Market Reality</span>
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                  Why Standard Customer Acquisition Fails
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Market Reality</span>
+                <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                  Why Your Customers Arrive in Waves Instead of <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Steadily</span>
                 </h2>
-                <p className="mt-6 text-sm leading-relaxed text-white/70">
-                  Most B2B organizations scale tactics instead of systems. Juggling disparate search vendors, social managers, and design agencies results in disjointed attribution, high customer acquisition costs (CAC), and leaky pipelines.
+                <p className="mt-6 text-[0.9375rem] leading-[1.8] text-white/68">
+                  Most businesses scale tactics instead of systems. Juggling separate search vendors, social managers and design agencies leads to disjointed tracking, rising cost to get each customer, and a pipeline that leaks. You do not have a lead problem. You have a system problem.
                 </p>
-                <p className="mt-4 text-sm leading-relaxed text-white/70">
-                  A unified demand system replaces isolated channels with a cohesive machine where every click builds commercial intent.
+                <p className="mt-4 text-[0.9375rem] leading-[1.8] text-white/68">
+                  A unified demand generation system replaces isolated channels with one connected machine, where every click builds real buying intent instead of vanishing.
                 </p>
                 
-                <div className="mt-8 rounded-2xl border border-[#79ABFF]/15 bg-[#0066FF]/5 p-5 shadow-inner">
+                <div className="mt-8 rounded-2xl border border-[#79ABFF]/15 bg-[#0066FF]/5 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.15)] backdrop-blur-sm">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-[#79ABFF] block mb-1">
                     System Formula
                   </span>
                   <p className="text-xs font-semibold text-white/90 leading-relaxed">
-                    Demand Generation = SEO + AI Search Citation + Paid Search/Social Ads + Custom High-Intent Lead Captures
+                    Demand Generation System = SEO + AI Search + Paid Search and Social + Content + High Intent Lead Capture
                   </p>
                 </div>
+                <p className="mt-4 text-xs text-white/50 leading-relaxed">
+                  This is the complete engine. If you only need one part fixed, like your ads or your website, see the focused systems lower down.
+                </p>
               </div>
 
               {/* Right Column: Comparative Alignments */}
               <div className="space-y-6">
-                <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+                <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 shadow-[0_12px_40px_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-white/15 hover:bg-white/[0.03]">
                   <h3 className="font-heading text-xs font-bold uppercase tracking-widest text-white/40 mb-4">The Bottlenecks</h3>
                   <div className="space-y-4">
                     {[
-                      { title: "Referral Dependency", desc: "Word-of-mouth is a bonus, not a scale model. It creates a volatile pipeline with zero monthly predictability." },
-                      { title: "Siloed Channels & Leaks", desc: "SEO traffic without conversion copy is waste. Ads without dedicated landing pages represent burned budget." },
-                      { title: "Empty Pipeline & Lack of Data", desc: "Vague web dashboards that track impressions instead of cost per lead (CPL) and sales conversations." }
+                      { title: "Referral Dependency", desc: "Word of mouth is a bonus, not a system. It creates an unpredictable pipeline with no monthly floor you can count on." },
+                      { title: "Siloed Channels and Leaks", desc: "SEO traffic with no conversion path is wasted. Ads with no dedicated landing pages are burned budget." },
+                      { title: "Empty Pipeline and No Data", desc: "Vague dashboards that track impressions instead of cost per lead and real sales conversations." }
                     ].map((item, idx) => (
                       <div key={idx} className="flex gap-3">
                         <XCircle size={16} className="text-rose-500 shrink-0 mt-0.5" />
@@ -621,13 +406,13 @@ export function MoreLeadsClient({ posts }: Props) {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#79ABFF]/10 bg-[#071329]/40 p-6">
+                <div className="rounded-[2rem] border border-[#79ABFF]/20 bg-[#071329]/40 p-6 shadow-[0_12px_40px_rgba(0,102,255,0.06)] transition-all duration-300 hover:border-[#79ABFF]/35 hover:bg-[#071329]/50">
                   <h3 className="font-heading text-xs font-bold uppercase tracking-widest text-[#79ABFF] mb-4">The Solution</h3>
                   <div className="space-y-4">
                     {[
-                      { title: "Compounding Inbound Engine", desc: "Organic authority and AI search citations that scale brand footprint without increasing monthly media costs." },
-                      { title: "Unified Conversion Layers", desc: "Every touchpoint is integrated into custom captures and instant automated nurture workflows." },
-                      { title: "ROI Accountability", desc: "One team accountable to a single growth metric: cost per qualified sales meeting." }
+                      { title: "Compounding Lead Engine", desc: "Organic authority and AI search citations that grow your reach without raising monthly ad costs." },
+                      { title: "Unified Conversion Layers", desc: "Every touchpoint connected to lead capture and instant automated follow up." },
+                      { title: "One Accountable Number", desc: "One team answerable to a single growth metric: cost per qualified lead." }
                     ].map((item, idx) => (
                       <div key={idx} className="flex gap-3">
                         <CheckCircle2 size={16} className="text-[#79ABFF] shrink-0 mt-0.5" />
@@ -647,14 +432,15 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 3 — SYSTEM ARCHITECTURE
            ============================================================ */}
-        <section id="what-is-inside" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 bg-[#050b14]/30">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="w-full mb-16">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">System Components</span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                The Core Modules We Build & Run
+        <section id="what-is-inside" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#050b14]/30">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl mb-12">
+              <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">System Components</span>
+              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                The Core Modules We <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Build & Run</span>
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-4xl">
+              <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-3xl">
                 Individual marketing campaigns produce reports. Systems produce revenue. We do not sell these modules separately because they only compound when operating as a single unified engine.
               </p>
             </div>
@@ -666,34 +452,34 @@ export function MoreLeadsClient({ posts }: Props) {
                   mod: "Module 01",
                   name: "Search Visibility Engine",
                   runs: "AI SEO + GEO (Generative Engine Optimization)",
-                  desc: "Dominate classical search engines and modern AI chat tools (ChatGPT, Gemini, Perplexity). We structure your digital footprint to ensure your solution is cited wherever prospects ask questions.",
-                  outcome: "A continuous flow of organic, high-intent buyers seeking immediate answers."
+                  desc: "Get found on classic search engines and modern AI tools like ChatGPT, Gemini and Perplexity. We structure your digital footprint so your business is cited wherever buyers ask their questions.",
+                  outcome: "A steady flow of organic, high intent buyers looking for answers now."
                 },
                 {
                   mod: "Module 02",
                   name: "Paid Acquisition Engine",
-                  runs: "Intent-Targeted Ads (Meta, Google, LinkedIn)",
-                  desc: "Scale paid acquisition campaigns governed strictly by target acquisition cost (CAC). We build targeting schemas and update creative assets weekly to bypass ad fatigue ceiling.",
-                  outcome: "Immediate pipeline velocity that keeps sales calendars filled."
+                  runs: "Intent targeted Ads (Meta, Google, LinkedIn)",
+                  desc: "Paid campaigns managed strictly against your target cost to acquire a customer. We build the targeting and refresh creative weekly to stay ahead of ad fatigue.",
+                  outcome: "Immediate lead volume that keeps your calendar full while organic compounds."
                 },
                 {
                   mod: "Module 03",
                   name: "Authority Content Loop",
-                  runs: "Content Assets & Social Amplification",
-                  desc: "Generate industry content addressing the exact commercial concerns of your target accounts. Every piece is built to build brand trust and fuel retargeting audiences.",
-                  outcome: "Higher buyer conversion rates and lower overall paid advertising costs."
+                  runs: "Content Assets and Social Amplification",
+                  desc: "Content built around the exact questions your buyers are asking. Every piece builds trust and feeds your retargeting audiences.",
+                  outcome: "Higher conversion rates and lower overall paid advertising costs."
                 },
                 {
                   mod: "Module 04",
-                  name: "Lead Capture & Funnel Automation",
-                  runs: "High-Speed Landing Pages + CRM Integrations",
-                  desc: "Bridge the gap between visitor traffic and sales pipeline. We construct high-converting Next.js landing pages, lead capture components, and instant automated qualification workflows.",
-                  outcome: "Sub-second load times and 24/7 lead scoring and routing."
+                  name: "Lead Capture and Funnel Automation",
+                  runs: "High Speed Landing Pages + CRM Integrations",
+                  desc: "We bridge the gap between visitor traffic and your pipeline with fast landing pages, lead capture and instant automated follow up.",
+                  outcome: "Fast loading pages with round the clock lead scoring and routing."
                 }
               ].map((m, idx) => (
                 <motion.article
                   key={idx}
-                  className="group relative overflow-hidden rounded-[2rem] border border-white/[0.06] bg-white/[0.01] p-8 transition-all duration-300 hover:border-[#79ABFF]/30 hover:bg-white/[0.03] shadow-lg hover:shadow-2xl"
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.01] p-8 transition-all duration-300 hover:border-[#79ABFF]/25 hover:bg-white/[0.03] hover:-translate-y-1 shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_rgba(0,102,255,0.06)]"
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -733,53 +519,49 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 4 — CASE STUDY SHOWCASE
            ============================================================ */}
-        <section id="results" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#040914]">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="w-full mb-16">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Proven Case Study</span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                Scaling Inbound Pipeline by 240%
+        <section id="results" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#040914]">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl mb-12">
+              <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Proven Results</span>
+              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                Real Results <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">From the System</span>
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-4xl">
-                How we deployed our demand generation system for an enterprise B2B SaaS provider, replacing cold outreach as their primary pipeline driver.
+              <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-3xl">
+                Here is what the demand generation system has delivered when every module runs together.
               </p>
             </div>
 
             {/* Premium Card Layout */}
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/[0.08] bg-[#070f1a]/80 p-8 md:p-12 shadow-2xl backdrop-blur-2xl">
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/12 bg-[#070f1a]/85 p-8 md:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.4)] backdrop-blur-2xl">
               <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_100%_0%,rgba(0,102,255,0.08),transparent_50%)]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[36rem] w-[56rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.08),transparent_65%)] blur-3xl" />
 
               <div className="relative z-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
-                {/* Left Side: Summary & Quote */}
+                {/* Left Side: Honest framing */}
                 <div>
                   <span className="inline-flex rounded bg-[#0066FF]/10 border border-[#0066FF]/20 px-2.5 py-1 text-[9px] font-semibold tracking-wider text-[#79ABFF] uppercase mb-4">
-                    Enterprise SaaS Client
+                    Verified Performance
                   </span>
                   <h3 className="font-heading text-2xl font-bold text-white mb-5 leading-snug">
-                    Overhauling Outbound with Predictable Inbound Demand
+                    What Happens When Every Module Runs Together
                   </h3>
                   <p className="text-xs text-white/70 leading-relaxed mb-6">
-                    Prior to partnering, the client relied on raw volume cold email campaigns that were seeing decaying conversion rates. By mapping transactional search intent, establishing SGE/AI engine authority, and building conversion landing pages, inbound replaced outbound within 90 days.
+                    These are real numbers from the demand generation system running at full capacity. Paid, organic, content and capture working as one engine — not as separate campaigns.
                   </p>
-
-                  <div className="border-l-2 border-[#79ABFF] pl-4 italic text-sm text-[#CFE3FF]">
-                    <p className="leading-relaxed">
-                      "Our marketing pipeline completely flipped. We are now generating higher-quality leads at a fraction of our previous acquisition cost."
-                    </p>
-                    <span className="block mt-2 text-[10px] font-bold uppercase tracking-wider text-white/40 not-italic">
-                      VP OF GROWTH — B2B CLOUD PLATFORM
-                    </span>
-                  </div>
+                  <p className="text-xs text-white/50 leading-relaxed">
+                    Results vary by market, budget and starting point. On the Growth Roadmap call we give you realistic targets for your specific situation before anything is built.
+                  </p>
                 </div>
 
-                {/* Right Side: Metrics Grid */}
+                {/* Right Side: Real Results Grid */}
                 <div className="space-y-6">
                   {[
-                    { label: "Pipeline Scale Value", value: "240%", bar: "w-full" },
-                    { label: "Increase in Inbound SQLs", value: "3.4x", bar: "w-[85%]" },
-                    { label: "Reduction in CPA/CAC", value: "32%", bar: "w-[68%]" }
+                    { label: "D2C Brand — Paid Social + Content. 90 days.", value: "3.21x ROAS", bar: "w-[85%]" },
+                    { label: "Ecommerce Brand — Search Ads Inside the System", value: "955% ROAS", bar: "w-full" },
+                    { label: "Service Brand — Zero Ad Budget. Content Only.", value: "1.9M Views", bar: "w-[75%]" }
                   ].map((metric, idx) => (
-                    <div key={idx} className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-4">
+                    <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.03] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[10px] font-bold text-white/50 uppercase tracking-wide">{metric.label}</span>
                         <span className="font-heading text-xl font-bold text-white">{metric.value}</span>
@@ -798,7 +580,7 @@ export function MoreLeadsClient({ posts }: Props) {
                 href="/portfolio"
                 className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-[#0A2D59]/30 px-6 py-3.5 text-xs font-semibold text-white/80 hover:text-white hover:bg-[#0A2D59]/50 hover:border-white/10 transition-all cursor-pointer"
               >
-                Explore all verified case studies →
+                Explore all results →
               </Link>
             </div>
           </div>
@@ -807,24 +589,25 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 5 — QUALIFICATION & VERTICALS
            ============================================================ */}
-        <section id="best-for" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#050b14]/15">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-start">
+        <section id="best-for" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#050b14]/15">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-start">
               {/* Left Column: Qualification */}
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Qualification</span>
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                  Is This Engine Aligned With Your Business?
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Qualification</span>
+                <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                  Is This System Right for <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Your Business?</span>
                 </h2>
-                <p className="mt-5 text-sm leading-relaxed text-white/70 max-w-xl">
-                  The demand generation system is not a quick fix for struggling offers. It is designed to scale companies that have proven product-market fit but lack a systematic client acquisition channel.
+                <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-xl">
+                  The demand generation system is not a quick fix for an offer that does not sell. It is built to scale businesses that already convert when the right people show up, but have no reliable system bringing those people in.
                 </p>
                 <div className="mt-8 space-y-4">
                   {[
-                    "You rely on referrals and want control over your monthly lead velocity.",
-                    "You have an offer that sells consistently when you get in front of the right buyers.",
-                    "You want a single growth team to handle the strategy, copy, design, ads, and technical SEO.",
-                    "You are prepared to invest for 90 days to let the compounding search assets scale."
+                    "You rely on referrals and want control over how many leads you get each month.",
+                    "You have an offer that sells well once the right buyer sees it.",
+                    "You want one team handling strategy, copy, design, ads and search instead of five vendors.",
+                    "You are ready to invest for 90 days while the search assets compound."
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-start gap-3 text-xs text-white/80">
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#0066FF]/10 border border-[#0066FF]/20 text-[#79ABFF] mt-0.5 font-bold">
@@ -837,16 +620,17 @@ export function MoreLeadsClient({ posts }: Props) {
               </div>
 
               {/* Right Column: Supported Verticals Grid */}
-              <div className="rounded-3xl border border-white/[0.06] bg-white/[0.01] p-6 md:p-8 shadow-xl">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#79ABFF] block mb-4">
+              <div className="rounded-[2.5rem] border border-white/12 bg-white/[0.01] p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl">
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-4">
                   Ecosystem Alignment
                 </span>
                 <div className="grid gap-4 text-xs">
                   {[
-                    { title: "B2B and SaaS Platforms", desc: "Demo and trial booking optimization. Dynamic search capturing and LinkedIn buyer loops." },
-                    { title: "Enterprise Professional Services", desc: "Positioning practitioners as high-authority answers in AI query results." },
-                    { title: "High-Growth Startups", desc: "Deploying GTM infrastructure rapidly to hit board goals in 90 days." },
-                    { title: "Healthcare & Fintech Services", desc: "Scale pipeline under strict privacy guidelines and compliant architectures." }
+                    { title: "D2C and Ecommerce Brands", desc: "New customer acquisition that scales while keeping the cost to acquire each order under control." },
+                    { title: "Startups", desc: "Lead infrastructure built fast to hit growth goals in 90 days." },
+                    { title: "Local and Service Businesses", desc: "Local search visibility plus instant follow up so no enquiry is missed." },
+                    { title: "B2B and Professional Services", desc: "Demo and consultation bookings through search and authority content." },
+                    { title: "Healthcare, Fintech and Regulated", desc: "Compliant lead generation with privacy safe tracking." }
                   ].map((vertical, idx) => (
                     <div key={idx} className="border-b border-white/[0.04] pb-4 last:border-b-0 last:pb-0">
                       <h4 className="font-heading font-bold text-white/90">{vertical.title}</h4>
@@ -862,15 +646,16 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 6 — METHODOLOGY TIMELINE
            ============================================================ */}
-        <section id="how-it-works" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#040914]">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="w-full mb-16">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Methodology</span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                The Path to a Compounding Pipeline
+        <section id="how-it-works" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#040914]">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl mb-12">
+              <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Methodology</span>
+              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                The Path to a <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Compounding Pipeline</span>
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-4xl">
-                We follow a strict, four-stage implementation blueprint to construct, test, and scale your inbound demand machine.
+              <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-3xl">
+                We follow a clear four stage blueprint to build, test and scale your lead engine.
               </p>
             </div>
 
@@ -883,23 +668,23 @@ export function MoreLeadsClient({ posts }: Props) {
                 {[
                   {
                     step: "01",
-                    title: "Growth Audit & Diagnosis",
-                    desc: "60 minutes. We audit search visibility, analyze conversion ceilings, and isolate where current pipeline is leaking."
+                    title: "Growth Roadmap Call",
+                    desc: "60 minutes. We audit your search visibility, look at where leads should come from, and find exactly where your current pipeline is leaking."
                   },
                   {
                     step: "02",
                     title: "System Architecture",
-                    desc: "We construct a map of your system: modules, traffic sources, retargeting pools, and CPL target thresholds."
+                    desc: "We map your system: which modules, which traffic sources, what budget and what cost per lead target, before anything is built."
                   },
                   {
                     step: "03",
                     title: "Engine Implementation",
-                    desc: "Every asset built and integrated. Next.js landing pages, paid search accounts, AI search schema, tracking."
+                    desc: "Every asset built and connected. Landing pages, paid search accounts, AI search setup and tracking."
                   },
                   {
                     step: "04",
-                    title: "Optimization & Scaling",
-                    desc: "Weekly performance optimizations, creative additions, and attribution checks to lower customer acquisition cost."
+                    title: "Optimisation and Scaling",
+                    desc: "Weekly performance work, fresh creative and tracking checks that bring your cost to acquire a customer down over time."
                   }
                 ].map((s, idx) => (
                   <motion.div
@@ -911,7 +696,7 @@ export function MoreLeadsClient({ posts }: Props) {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
                     {/* Circle Node */}
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#79ABFF]/25 bg-[#081325]/90 text-sm font-bold text-[#CFE3FF] shadow-xl mb-6 relative hover:border-[#79ABFF] hover:text-white transition-colors">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-[#081325]/90 text-sm font-bold text-[#CFE3FF] shadow-lg mb-6 relative hover:border-[#79ABFF] hover:bg-[#0c203a] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_25px_rgba(0,102,255,0.15)]">
                       {s.step}
                     </div>
                     <h3 className="font-heading text-sm font-bold text-white mb-2">{s.title}</h3>
@@ -926,7 +711,7 @@ export function MoreLeadsClient({ posts }: Props) {
                 onClick={() => scrollToId("contact")}
                 className="shine-sweep inline-flex items-center gap-2 rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-8 py-3.5 font-heading text-xs font-semibold text-white shadow-lg hover:-translate-y-0.5 transition-transform cursor-pointer"
               >
-                Schedule Your Growth Audit →
+                Schedule Your Growth Roadmap →
               </button>
             </div>
           </div>
@@ -935,29 +720,30 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 7 — INLINE LEAD MAGNET
            ============================================================ */}
-        <section id="checklist" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#050b14]/15">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="max-w-5xl mx-auto relative overflow-hidden rounded-[2.5rem] border border-white/[0.08] bg-[#070f1a]/80 p-8 md:p-12 shadow-2xl backdrop-blur-2xl">
+        <section id="checklist" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#050b14]/15">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl mx-auto relative overflow-hidden rounded-[2.5rem] border border-white/12 bg-[#070f1a]/85 p-8 md:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.4)] backdrop-blur-2xl">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_0%,rgba(0,102,255,0.08),transparent_50%)]" />
 
               <div className="relative z-10 grid gap-12 md:grid-cols-[1.1fr_0.9fr] items-center">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Free Resource</span>
-                  <h2 className="mt-4 font-heading text-2xl md:text-3xl font-bold leading-tight text-white">
-                    Audit Your Pipeline Bottlenecks
+                  <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Free Resource</span>
+                  <h2 className="font-heading text-2xl md:text-3xl font-bold leading-tight text-white mb-4">
+                    Find Your Lead <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Leak First</span>
                   </h2>
-                  <p className="mt-4 text-xs text-white/60 leading-relaxed">
-                    Most growing businesses lose inbound interest in one of ten predictable places. Get the exact self-diagnosis framework we use to isolate leaks.
+                  <p className="text-xs md:text-sm text-white/60 leading-relaxed">
+                    Most growing businesses lose interest from buyers in one of ten predictable places. Get the exact self diagnosis we use to find the leaks.
                   </p>
-                  <p className="mt-3 text-xs font-semibold text-white/90 leading-relaxed">
-                    Download: The Lead Leak Checklist — 10 Reasons Your Pipeline Is Stuck
+                  <p className="mt-3 text-xs md:text-sm font-semibold text-white/90 leading-relaxed">
+                    Download: The Lead Leak Checklist — 10 Reasons Your Business Is Not Getting Leads
                   </p>
-                  <p className="mt-3 text-xs text-[#79ABFF] leading-relaxed">
-                    A 10-minute audit covering traffic capturing, AI search citations, and follow-up loops. Complete with the primary fix for each bottleneck.
+                  <p className="mt-3 text-xs md:text-sm text-[#79ABFF] leading-relaxed">
+                    A 10 minute check covering traffic capture, AI search visibility and follow up. With the first fix for each leak.
                   </p>
                 </div>
 
-                <div className="bg-[#030712] border border-white/[0.06] rounded-2xl p-6 shadow-inner">
+                <div className="bg-[#030712]/60 border border-white/10 rounded-[2rem] p-6 shadow-inner backdrop-blur-md">
                   <form onSubmit={handleChecklistSubmit} className="space-y-4">
                     <div>
                       <label htmlFor="firstName" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">First Name</label>
@@ -1004,6 +790,8 @@ export function MoreLeadsClient({ posts }: Props) {
                       />
                     </div>
 
+                    <InvisibleTurnstile onVerify={setChecklistToken} widgetRef={checklistTurnstileRef} />
+
                     <button
                       type="submit"
                       disabled={checklistLoading || checklistForm.firstName.trim().length === 0 || checklistForm.email.trim().length === 0}
@@ -1042,7 +830,6 @@ export function MoreLeadsClient({ posts }: Props) {
                       </motion.div>
                     )}
                   </AnimatePresence>
-
                   <p className="mt-3 text-[9px] text-center text-white/30">
                     No spam. Zero sales pitch. Unsubscribe anytime.
                   </p>
@@ -1055,25 +842,20 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 9 — RELATED SOLUTIONS
            ============================================================ */}
-        <section className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 bg-transparent">
-          <div className="mx-auto w-full max-w-[1440px]">
-            <div className="w-full mb-12">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Synergy</span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                Complete the Growth Engine
+        <section className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-transparent">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl mb-12">
+              <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Complete the System</span>
+              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                Complete the <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Growth Engine</span>
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-4xl">
-                Accelerate your marketing efficiency by connecting related solution modules into a single synchronized framework.
+              <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-3xl">
+                Connect related systems into one synchronised engine.
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2">
               {[
-                {
-                  q: "Leads coming in but not turning into sales?",
-                  title: "AI Lead Conversion System",
-                  desc: "Automated scoring, nurture and follow up.",
-                  url: "/solutions/ai-lead-conversion-system",
-                },
                 {
                   q: "Traffic arriving but your website not converting it?",
                   title: "Conversion Website System",
@@ -1081,7 +863,7 @@ export function MoreLeadsClient({ posts }: Props) {
                   url: "/solutions/conversion-website-system",
                 },
                 {
-                  q: "Want to dominate AI search before competitors wake up?",
+                  q: "Want to win AI search before competitors wake up?",
                   title: "AI Marketing System",
                   desc: "GEO, AI automation and AI content.",
                   url: "/solutions/ai-marketing-system",
@@ -1090,7 +872,7 @@ export function MoreLeadsClient({ posts }: Props) {
                 <Link
                   href={sol.url}
                   key={idx}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0B1F3D]/45 p-6 transition-all duration-300 hover:bg-[#0B254E]/65 hover:border-[#8CB8FF]/25 hover:shadow-lg"
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B1F3D]/45 p-6 transition-all duration-300 hover:bg-[#0B254E]/65 hover:border-[#8CB8FF]/25 hover:shadow-[0_20px_50px_rgba(0,102,255,0.06)] hover:-translate-y-1"
                 >
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-[#79ABFF] mb-2">{sol.q}</p>
                   <h3 className="font-heading text-base font-bold text-white transition-colors group-hover:text-[#A8C9FF]">
@@ -1111,15 +893,16 @@ export function MoreLeadsClient({ posts }: Props) {
            SECTION 10 — INSIGHTS
            ============================================================ */}
         {posts.length > 0 && (
-          <section className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#091a33]/15">
-            <div className="mx-auto w-full max-w-[1440px]">
-              <div className="w-full mb-12">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Resources</span>
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">
-                  Lead Generation Insights
+          <section className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#091a33]/15">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+            <div className="mx-auto w-full max-w-7xl">
+              <div className="max-w-5xl mb-12">
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Resources</span>
+                <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                  Lead Generation <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Insights</span>
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-4xl">
-                  Deep dives, checklists, and execution playbooks covering B2B customer acquisition and pipeline conversion.
+                <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68 max-w-3xl">
+                  Practical guides and playbooks on filling your pipeline. No fluff.
                 </p>
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -1127,7 +910,7 @@ export function MoreLeadsClient({ posts }: Props) {
                   <Link
                     href={`/blog/${post.slug}`}
                     key={post.slug}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0B1F3D]/45 transition-all duration-300 hover:bg-[#0B254E]/65 hover:border-[#8CB8FF]/25 shadow-md flex flex-col h-full"
+                    className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B1F3D]/45 transition-all duration-300 hover:bg-[#0B254E]/65 hover:border-[#8CB8FF]/25 hover:shadow-[0_20px_50px_rgba(0,102,255,0.06)] hover:-translate-y-1 flex flex-col h-full"
                   >
                     <div className="relative aspect-video w-full overflow-hidden bg-[#0A1F3D]">
                       <Image
@@ -1163,17 +946,17 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 11 — FAQ
            ============================================================ */}
-        <section id="faq" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04]">
-          <div className="mx-auto w-full max-w-[1440px]">
+        <section id="faq" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-transparent">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Q&A</span>
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-white md:text-5xl">
-                  Frequently Asked Questions
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Q&A</span>
+                <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">
+                  Frequently Asked <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Questions</span>
                 </h2>
-                <p className="mt-5 text-sm leading-relaxed text-white/70">
-                  Got questions about our onboarding, lead generation metrics, or system features? Review our answers to
-                  our most common client queries.
+                <p className="mt-5 text-[0.9375rem] leading-[1.8] text-white/68">
+                  Questions about onboarding, lead generation and how the system works. Here are our most common answers.
                 </p>
                 <div className="mt-8">
                   <button
@@ -1196,20 +979,22 @@ export function MoreLeadsClient({ posts }: Props) {
         {/* ============================================================
            SECTION 12 — CONTACT FORM
            ============================================================ */}
-        <section id="contact" className="relative z-10 w-full px-6 py-28 md:px-10 md:py-32 border-t border-white/[0.04] bg-[#091a33]/15">
-          <div className="mx-auto w-full max-w-[1440px]">
+        <section id="contact" className="relative z-10 w-full px-6 pt-12 pb-28 md:px-10 md:pt-16 md:pb-32 bg-[#091a33]/15">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+          <div className="mx-auto w-full max-w-7xl">
             <div className="mx-auto max-w-3xl">
               <div className="text-center mb-12">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79ABFF]">Get Started</span>
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl max-w-none">Tell Us About Your Lead Problem</h2>
-                <p className="mt-4 text-sm leading-relaxed text-white/70 max-w-2xl mx-auto">
+                <span className="text-xs font-semibold tracking-[0.22em] text-[#79ABFF] uppercase block mb-3">Get Started</span>
+                <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-tight tracking-[-0.02em] text-white">Tell Us About Your <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">Lead Problem</span></h2>
+                <p className="mt-4 text-[0.9375rem] leading-[1.8] text-white/68 max-w-2xl mx-auto">
                   Fill this in and we will come back within 24 hours with our first honest read on where your pipeline is
                   leaking — before any call, any pitch, any commitment.
                 </p>
               </div>
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-white/[0.05] p-6 shadow-2xl backdrop-blur-xl md:p-8">
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/12 bg-white/[0.03] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.4)] backdrop-blur-xl md:p-8">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_0%,rgba(0,102,255,0.14),transparent_60%)]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[36rem] w-[56rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.08),transparent_65%)] blur-3xl" />
 
               <form onSubmit={handleContactSubmit} className="relative z-10 space-y-5">
                 <div className="grid gap-5 sm:grid-cols-2">
@@ -1314,6 +1099,8 @@ export function MoreLeadsClient({ posts }: Props) {
                     onChange={(e) => setContactForm(prev => ({ ...prev, honey: e.target.value }))}
                   />
                 </div>
+
+                <InvisibleTurnstile onVerify={setContactToken} widgetRef={contactTurnstileRef} />
 
                 <button
                   type="submit"
@@ -1442,6 +1229,8 @@ export function MoreLeadsClient({ posts }: Props) {
                           onChange={(e) => setChecklistForm(prev => ({ ...prev, honey: e.target.value }))}
                         />
                       </div>
+
+                      <InvisibleTurnstile onVerify={setExitToken} widgetRef={exitTurnstileRef} />
 
                       <button
                         type="submit"

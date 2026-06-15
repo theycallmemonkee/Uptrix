@@ -176,13 +176,13 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
       >
-        <span>Our Solutions</span>
+        <span>Solutions</span>
         <ChevronDown size={22} className={`transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"}`} />
       </button>
       <AnimatePresence initial={false}>
         {open && (
           <motion.ul
-            className="mt-4 space-y-2 overflow-hidden select-none"
+            className="mt-4 space-y-2 overflow-hidden select-none pointer-events-auto"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -194,7 +194,7 @@ export function SolutionsDropdownMobile({ onNavigate }: MobileProps) {
                 <li key={sol.slug}>
                   <Link
                     href={`/solutions/${sol.slug}`}
-                    className="group flex items-center gap-3 rounded-xl border border-transparent bg-[#0B2A52]/44 px-3 py-2.5 text-base text-white/82 transition-all duration-250 hover:border-[#8CB8FF]/30 hover:text-white"
+                    className="group flex items-center gap-3 rounded-xl border border-transparent bg-[#0B2A52]/44 px-3 py-2.5 text-base text-white/82 transition-all duration-200 hover:border-[#8CB8FF]/30 hover:bg-[#0B2A52]/65 hover:text-white cursor-pointer"
                     onClick={onNavigate}
                   >
                     <IconComp size={16} className="text-[#79ABFF]" />

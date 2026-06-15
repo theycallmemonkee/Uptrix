@@ -26,15 +26,15 @@ export function PortfolioPreview() {
 
       <div className="mx-auto w-full max-w-7xl">
         {/* Section Header */}
-        <div className="mb-16 flex flex-col items-center text-center">
+        <div className="mb-14 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.8 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/30 bg-[#78A8FF]/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-[#DCEBFF] uppercase"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/28 bg-[#78A8FF]/10 px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-[#DCEBFF] uppercase"
           >
-            <Sparkles size={13} className="text-[#70A8FF]" />
+            <Sparkles size={12} className="text-[#70A8FF]" />
             Proven Impact
           </motion.div>
 
@@ -43,9 +43,9 @@ export function PortfolioPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.6, delay: 0.05, ease: EASE }}
-            className="font-heading text-4xl font-semibold tracking-tight text-white md:text-5xl"
+            className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold tracking-[-0.02em] text-white"
           >
-            Case Studies &amp; Campaign Performance
+            Real Results From Real Work
           </motion.h2>
 
           <motion.p
@@ -53,14 +53,14 @@ export function PortfolioPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            className="mt-4 max-w-2xl text-base text-white/70"
+            className="mt-4 max-w-lg text-base leading-[1.75] text-white/68"
           >
-            Explore real results from real client campaigns. We build, manage, and scale growth frameworks that convert traffic into revenue.
+            We build, manage and scale growth systems that turn traffic into revenue. Here is a look at the work.
           </motion.p>
         </div>
 
         {/* Featured Projects Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
           {featured.map((item, index) => (
             <motion.div
               key={item.id}
@@ -68,7 +68,7 @@ export function PortfolioPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: index * 0.08, ease: EASE }}
-              className="group relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.03] p-5 backdrop-blur-md hover:border-[#70A8FF]/25 transition-all duration-300"
+              className="group relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.03] p-5 backdrop-blur-md hover:border-[#70A8FF]/30 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,102,255,0.12)] transition-all duration-300"
             >
               {/* Glass sweep top indicator */}
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_25%_20%,rgba(0,102,255,0.14),transparent_55%)]" />
@@ -83,7 +83,7 @@ export function PortfolioPreview() {
                   src={item.featuredImage}
                   alt={item.title}
                   fill
-                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-103"
+                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 {/* Overlay hover effect */}
@@ -112,7 +112,7 @@ export function PortfolioPreview() {
                 <div className="mt-4 flex items-center justify-between border-t border-white/6 pt-4">
                   <div className="flex gap-2">
                     {item.metrics.slice(0, 2).map((m) => (
-                      <span key={m.label} className="rounded-lg bg-white/5 px-2.5 py-1 text-[10px] font-semibold text-white/80">
+                      <span key={m.label} className="rounded-lg border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[10px] font-semibold text-white/88 backdrop-blur-sm">
                         {m.value} {m.label}
                       </span>
                     ))}

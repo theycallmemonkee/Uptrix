@@ -3,8 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
-import { useEffect } from "react";
+import { ArrowUpRight, CheckCircle2, Sparkles } from "lucide-react";
 import type { ServiceConfig } from "@/data/services";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -14,16 +13,16 @@ type Props = {
   service: ServiceConfig;
 };
 
-function highlightHeadline(headline: string, keyword: string, easeFunc: any) {
+function highlightHeadline(headline: string, keyword: string) {
   if (!headline.includes(keyword)) return headline;
   const [prefix, suffix] = headline.split(keyword);
   return (
     <>
       {prefix}
       <motion.span
-        className="relative inline-flex items-center rounded-2xl border border-[#87B4FF]/30 bg-[#7CB0FF]/12 px-3 py-1 text-[#D8E8FF] shadow-[0_8px_24px_rgba(0,102,255,0.18)]"
-        animate={{ boxShadow: ["0 8px 24px rgba(0,102,255,0.18)", "0 10px 36px rgba(0,102,255,0.3)", "0 8px 24px rgba(0,102,255,0.18)"] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: easeFunc }}
+        className="relative inline text-[#D8E8FF] [text-shadow:0_0_34px_rgba(0,102,255,0.32)]"
+        animate={{ opacity: [0.92, 1, 0.92] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: EASE }}
       >
         {keyword}
       </motion.span>
@@ -46,29 +45,14 @@ export function ServiceHero({ service }: Props) {
   const parallaxX = useTransform(smoothX, [0, 1], [-10, 10]);
   const parallaxY = useTransform(smoothY, [0, 1], [-8, 9]);
   const rotateCard = useTransform(smoothX, [0, 1], [-3, 3]);
-
-  useEffect(() => {
-    if (!service.heroVisuals) return;
-
-    if (service.slug === "ai-ugc-video-ads" || service.slug === "business-automation") {
-      console.log(
-        "[service-hero] hero images",
-        service.slug,
-        {
-          dashboardImage: service.heroVisuals.dashboardImage,
-          chartImage: service.heroVisuals.chartImage,
-          workspaceImage: service.heroVisuals.workspaceImage,
-        }
-      );
-    }
-  }, [
-    service.slug,
-    service.heroVisuals,
-  ]);
+  const firstMetricX = useTransform(parallaxX, (v) => v * -0.6);
+  const firstMetricY = useTransform(parallaxY, (v) => v * 0.5);
+  const secondMetricX = useTransform(parallaxX, (v) => v * 0.6);
+  const secondMetricY = useTransform(parallaxY, (v) => v * -0.5);
 
   return (
     <section
-      className="relative z-[1] flex w-full flex-col overflow-hidden justify-center min-h-[85vh] lg:h-[88vh] lg:min-h-[620px] lg:max-h-[820px] pt-28 pb-10"
+      className="relative z-[1] flex w-full flex-col overflow-hidden justify-center min-h-[86vh] lg:h-[90vh] lg:min-h-[640px] lg:max-h-[860px] pt-28 pb-14"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);
@@ -87,21 +71,13 @@ export function ServiceHero({ service }: Props) {
         />
       </div>
 
-      {/* Floating orbs */}
-      <motion.div
-        className="pointer-events-none absolute left-[8%] top-[20%] -z-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,102,255,0.22),transparent_65%)] blur-3xl"
-        animate={{ y: [0, -16, 0], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ duration: 8, repeat: Infinity, ease: EASE }}
-      />
-      <motion.div
-        className="pointer-events-none absolute right-[12%] top-[25%] -z-20 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(120,168,255,0.16),transparent_60%)] blur-3xl"
-        animate={{ y: [0, 12, 0], opacity: [0.25, 0.45, 0.25] }}
-        transition={{ duration: 10, repeat: Infinity, ease: EASE, delay: 1.5 }}
-      />
+      <p className="pointer-events-none absolute left-1/2 top-[51%] -z-20 -translate-x-1/2 -translate-y-1/2 text-center font-heading text-[16vw] leading-none font-bold tracking-[0.22em] text-white/[0.018] blur-[0.2px] md:text-[10rem]">
+        UPTRIX
+      </p>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-6 md:px-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-6 md:px-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(390px,0.98fr)] xl:gap-16">
         <motion.div
-          className="relative max-w-2xl text-center lg:text-left"
+          className="relative max-w-[46rem] text-center lg:text-left"
           initial="hidden"
           animate="show"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
@@ -113,7 +89,7 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
               show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } }
             }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-3.5 py-1 text-xs tracking-[0.2em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-3.5 py-1 text-xs tracking-[0.18em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
           >
             <Sparkles size={11} className="text-[#79ABFF]" />
             Uptrix {service.shortLabel} Systems
@@ -126,9 +102,9 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
               show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.08, ease: EASE } }
             }}
-            className="font-heading text-4xl leading-[1.05] font-extrabold tracking-tight text-white sm:text-5xl md:text-[clamp(56px,5vw,78px)]"
+            className="font-heading text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white"
           >
-            {highlightHeadline(service.headline, service.highlightedKeyword, EASE)}
+            {highlightHeadline(service.headline, service.highlightedKeyword)}
           </motion.h1>
 
           <motion.p
@@ -137,7 +113,7 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
               show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.16, ease: EASE } }
             }}
-            className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 mx-auto lg:mx-0"
+            className="mx-auto mt-5 max-w-[520px] text-[0.9375rem] leading-[1.8] text-white/68 lg:mx-0"
           >
             {service.heroDescription}
           </motion.p>
@@ -149,7 +125,7 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
               show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.24, ease: EASE } }
             }}
-            className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
           >
             <Link
               href="/contact"
@@ -167,30 +143,51 @@ export function ServiceHero({ service }: Props) {
               <ArrowUpRight size={13} className="opacity-50 transition-transform duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
+
+          {service.whyBullets?.length > 0 && (
+            <motion.div
+              custom={0.32}
+              variants={{
+                hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+                show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.32, ease: EASE } }
+              }}
+              className="mx-auto mt-7 grid gap-2.5 text-left sm:grid-cols-3 lg:mx-0"
+            >
+              {service.whyBullets.slice(0, 3).map((bullet) => (
+                <div
+                  key={bullet}
+                  className="flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs leading-[1.65] text-white/68 backdrop-blur-md"
+                >
+                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#8CB9FF]" />
+                  <span>{bullet}</span>
+                </div>
+              ))}
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Right Side: Showcase Panel & Floating Card */}
         <motion.div
-          className="relative mx-auto w-full max-w-md pb-4 lg:justify-self-end mt-10 lg:mt-0"
+          className="relative mx-auto mt-8 w-full max-w-[31rem] pb-4 lg:mt-0 lg:justify-self-end"
           style={{ x: parallaxX, y: parallaxY }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
         >
           <motion.article
-            className="relative overflow-hidden rounded-[1.8rem] border border-white/14 bg-white/[0.06] p-3 shadow-[0_24px_70px_rgba(3,9,21,0.55)] backdrop-blur-xl"
+            className="relative overflow-hidden rounded-[1.5rem] border border-white/14 bg-white/[0.055] p-3 shadow-[0_24px_70px_rgba(3,9,21,0.46)] backdrop-blur-xl"
             style={{ rotate: rotateCard }}
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 5.8, repeat: Number.POSITIVE_INFINITY, ease: EASE }}
           >
             {/* Animated border overlay */}
             <motion.div
-              className="pointer-events-none absolute -inset-[1px] rounded-[1.8rem] opacity-40"
+              className="pointer-events-none absolute -inset-[1px] rounded-[1.5rem] opacity-30"
               animate={{ opacity: [0.25, 0.45, 0.25] }}
               transition={{ duration: 4, repeat: Infinity, ease: EASE }}
               style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.03), rgba(0,102,255,0.18))" }}
             />
-            <div className="relative h-[17.5rem] w-full overflow-hidden rounded-[1.2rem] transition-transform duration-700 hover:scale-[1.015]">
+            <div className="relative h-[20rem] w-full overflow-hidden rounded-[1rem] transition-transform duration-700 hover:scale-[1.012] sm:h-[23rem] lg:h-[25rem]">
               <Image
                 src={service.heroVisuals.dashboardImage}
                 alt={`${service.name} Performance Showcase`}
@@ -200,14 +197,14 @@ export function ServiceHero({ service }: Props) {
                 sizes="(max-width: 768px) 100vw, 400px"
               />
             </div>
-            <div className="pointer-events-none absolute inset-3 rounded-[1.2rem] bg-gradient-to-t from-[#071022]/80 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-3 rounded-[1rem] bg-gradient-to-t from-[#071022]/80 via-transparent to-transparent" />
           </motion.article>
 
           {/* Floating Metric Card 1 */}
           {service.heroMetrics?.[0] && (
             <motion.article
-              className="absolute -left-6 top-8 w-44 overflow-hidden rounded-2xl border border-[#6EA6FF]/25 bg-[linear-gradient(155deg,rgba(18,43,82,0.9),rgba(8,21,43,0.78))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.45),0_4px_14px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-50 z-20 pointer-events-none"
-              style={{ x: useTransform(parallaxX, (v) => v * -0.6), y: useTransform(parallaxY, (v) => v * 0.5) }}
+              className="absolute left-3 top-4 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:-left-5 sm:top-8 sm:w-44"
+              style={{ x: firstMetricX, y: firstMetricY }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
@@ -228,8 +225,8 @@ export function ServiceHero({ service }: Props) {
           {/* Floating Metric Card 2 */}
           {service.heroMetrics?.[1] && (
             <motion.article
-              className="absolute -right-6 bottom-8 w-44 overflow-hidden rounded-2xl border border-[#6EA6FF]/25 bg-[linear-gradient(155deg,rgba(18,43,82,0.9),rgba(8,21,43,0.78))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.45),0_4px_14px_rgba(0,102,255,0.1)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl sm:w-50 z-20 pointer-events-none"
-              style={{ x: useTransform(parallaxX, (v) => v * 0.6), y: useTransform(parallaxY, (v) => v * -0.5) }}
+              className="absolute bottom-5 right-3 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:-right-5 sm:bottom-8 sm:w-44"
+              style={{ x: secondMetricX, y: secondMetricY }}
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}

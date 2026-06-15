@@ -7,8 +7,6 @@ import Link from "next/link";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function PortfolioCta() {
-
-
   return (
     <section className="relative z-10 px-6 py-24 md:px-10 bg-[#040C1A]">
       {/* Visual background lights */}
@@ -32,36 +30,36 @@ export function PortfolioCta() {
           <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
 
           {/* Tag */}
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#70A8FF] uppercase">
-            Let&apos;s Build Your Growth Infrastructure
+          <span className="text-xs font-semibold tracking-[0.22em] text-[#70A8FF] uppercase">
+            LET'S BUILD YOUR GROWTH ENGINE
           </span>
 
           {/* Title */}
-          <h2 className="mx-auto mt-6 max-w-2xl font-heading text-4xl font-semibold leading-tight text-white md:text-5xl">
-            Ready to scale your business?
+          <h2 className="mx-auto mt-5 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold leading-tight tracking-[-0.02em] text-white">
+            Ready to Stop Guessing and Start Growing?
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/70">
-            Deploy an optimized AI SEO roadmap, automate paid campaigns, and scale conversion pipelines with our certified marketing teams.
+          <p className="mx-auto mt-4 max-w-lg text-base leading-[1.75] text-white/68">
+            Tell us where your growth is stuck. We will show you exactly which system fixes it and how it works, before you commit to anything.
           </p>
 
           {/* Small list of value adds */}
           <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-xs text-white/60">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 size={14} className="text-[#70A8FF]" /> 90-Day Conversion Scaling
+              <CheckCircle2 size={14} className="text-[#70A8FF]" /> No commitment
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 size={14} className="text-[#70A8FF]" /> Full Funnel Accountability
+              <CheckCircle2 size={14} className="text-[#70A8FF]" /> Honest first read
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 size={14} className="text-[#70A8FF]" /> No Long-Term Lock-ins
+              <CheckCircle2 size={14} className="text-[#70A8FF]" /> No long contracts
             </span>
           </div>
 
           <div className="mt-10 flex justify-center">
             <Link
               href="/contact"
-              className="shine-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-8 py-4.5 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A7CBFF] cursor-pointer"
+              className="shine-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-8 py-4 font-heading text-sm font-semibold text-white shadow-[0_16px_44px_rgba(0,102,255,0.42)] transition-all duration-300 hover:border-[#A7CBFF] cursor-pointer"
             >
               Book Free Strategy Call
               <ArrowUpRight

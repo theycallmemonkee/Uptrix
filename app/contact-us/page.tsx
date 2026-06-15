@@ -6,6 +6,7 @@ import { MarqueeLogos } from "@/components/ui/client-logo-strip";
 import { FloatingOrbs, AnimatedGrid } from "@/components/ui/visual-effects";
 import { contactSubmissionSchema } from "@/lib/contact/schema";
 import { AnimatePresence, motion } from "framer-motion";
+import { InvisibleTurnstile } from "@/components/ui/turnstile";
 import {
   CheckCircle2,
   Loader2,
@@ -15,6 +16,7 @@ import {
   Send,
   Sparkles,
   User,
+  X,
   XCircle,
 } from "lucide-react";
 import {
@@ -34,19 +36,26 @@ type ToastState = { type: "success" | "error"; message: string } | null;
 
 export default function ContactUsPage() {
   const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const turnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [form, setForm] = useState<FormState>({ name: "", email: "", message: "", honey: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [toast, setToast] = useState<ToastState>(null);
   const [successPulse, setSuccessPulse] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const lastActiveElementRef = useRef<HTMLElement | null>(null);
 
   const canSubmit = useMemo(
     () =>
       !isSubmitting &&
+      submitStatus !== "success" &&
       form.name.trim().length > 0 &&
       form.email.trim().length > 0 &&
       form.message.trim().length > 0,
-    [form, isSubmitting],
+    [form, isSubmitting, submitStatus],
   );
 
   useEffect(() => {
@@ -61,20 +70,66 @@ export default function ContactUsPage() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  // ESC key handler for success modal
+  useEffect(() => {
+    if (!showSuccessModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleCloseSuccessModal();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showSuccessModal]);
+
+  // Focus management for success modal
+  useEffect(() => {
+    if (showSuccessModal) {
+      lastActiveElementRef.current = document.activeElement as HTMLElement;
+      const timer = setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      if (lastActiveElementRef.current) {
+        lastActiveElementRef.current.focus();
+      }
+    }
+  }, [showSuccessModal]);
+
+  // Auto-close success modal after 4.5 seconds
+  useEffect(() => {
+    if (!showSuccessModal) return;
+    const timer = setTimeout(() => {
+      handleCloseSuccessModal();
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, [showSuccessModal]);
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setSubmitStatus("idle");
+  };
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setToast(null);
+
+    // Debug log formData
+    console.log("formData", form);
 
     const parsed = contactSubmissionSchema.safeParse(form);
     if (!parsed.success) {
       const nextErrors = parsed.error.flatten().fieldErrors;
       setErrors({ name: nextErrors.name?.[0], email: nextErrors.email?.[0], message: nextErrors.message?.[0] });
-      setToast({ type: "error", message: "Please fix the highlighted fields." });
+      setToast({ type: "error", message: "We couldn't submit your request. Please try again." });
+      setSubmitStatus("idle");
       return;
     }
 
     setErrors({});
     setIsSubmitting(true);
+    setSubmitStatus("submitting");
 
     try {
       const apiUrl =
@@ -91,7 +146,7 @@ export default function ContactUsPage() {
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...parsed.data, turnstileToken }),
       });
 
       let payload: {
@@ -107,12 +162,17 @@ export default function ContactUsPage() {
       const raw = await response.text();
       try {
         payload = raw ? (JSON.parse(raw) as typeof payload) : {};
+        // Debug log apiResponse
+        console.log("apiResponse", payload);
       } catch {
         console.error("[contact/form] Non-JSON API response", { status: response.status, raw });
         setToast({
           type: "error",
-          message: `Server error (${response.status}). Invalid response from API.`,
+          message: "We couldn't submit your request. Please try again.",
         });
+        setSubmitStatus("idle");
+        turnstileRef.current?.reset();
+        turnstileRef.current?.execute();
         return;
       }
 
@@ -131,35 +191,34 @@ export default function ContactUsPage() {
           email: payload.fieldErrors?.email?.[0],
           message: payload.fieldErrors?.message?.[0],
         });
-        const detail =
-          payload.error ??
-          payload.resend?.message ??
-          (payload.missingEnv?.length
-            ? `Missing server config: ${payload.missingEnv.join(", ")}`
-            : undefined);
         setToast({
           type: "error",
-          message: detail ?? `Failed to send (${response.status}). Please try again.`,
+          message: "We couldn't submit your request. Please try again.",
         });
+        setSubmitStatus("idle");
+        turnstileRef.current?.reset();
+        turnstileRef.current?.execute();
         return;
       }
 
       setForm({ name: "", email: "", message: "", honey: "" });
-      setToast({
-        type: "success",
-        message: payload.warning ?? "Message sent! We'll get back to you shortly.",
-      });
+      setSubmitStatus("success");
+      setShowSuccessModal(true);
       setSuccessPulse(true);
       setTimeout(() => setSuccessPulse(false), 1800);
+      turnstileRef.current?.reset();
+      turnstileRef.current?.execute();
     } catch (submitError) {
       console.error("[contact/form] Submit failed", submitError);
+      // Debug log serverError
+      console.log("serverError", submitError);
       setToast({
         type: "error",
-        message:
-          submitError instanceof Error
-            ? submitError.message
-            : "Network error. Please try again.",
+        message: "We couldn't submit your request. Please try again.",
       });
+      setSubmitStatus("idle");
+      turnstileRef.current?.reset();
+      turnstileRef.current?.execute();
     } finally {
       setIsSubmitting(false);
     }
@@ -193,7 +252,7 @@ export default function ContactUsPage() {
               <Sparkles size={13} className="text-[#79ABFF]" />
               Contact Uptrix
             </div>
-            <h1 className="font-heading text-5xl font-semibold tracking-tight md:text-6xl">
+            <h1 className="font-heading text-[clamp(2.5rem,5vw,4rem)] font-semibold tracking-[-0.025em]">
               Let&apos;s Talk{" "}
               <motion.span
                 className="inline-block bg-gradient-to-r from-[#E6F1FF] via-[#70A8FF] to-[#E6F1FF] bg-[length:200%_100%] bg-clip-text text-transparent"
@@ -203,13 +262,13 @@ export default function ContactUsPage() {
                 Growth
               </motion.span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base text-white/68 leading-7">
+            <p className="mx-auto mt-4 max-w-md text-[0.9375rem] text-white/65 leading-[1.8]">
               Share your goals and our team will respond with a tailored strategy within 24 hours.
             </p>
           </motion.div>
 
           {/* Two-column layout */}
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             {/* Left — Contact info */}
             <motion.div
               className="flex flex-col gap-5"
@@ -224,8 +283,8 @@ export default function ContactUsPage() {
               ].map(({ icon: Icon, label, value, href }) => (
                 <motion.div
                   key={label}
-                  className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl transition-all duration-300 hover:border-[#79ABFF]/28 hover:-translate-y-1"
-                  whileHover={{ scale: 1.01 }}
+                  className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 hover:border-[#79ABFF]/28"
+                  whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
                 >
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
                   <div className="relative flex items-center gap-4">
@@ -246,23 +305,6 @@ export default function ContactUsPage() {
                 </motion.div>
               ))}
 
-              {/* Decorative AI badge */}
-              <motion.div
-                className="relative mt-2 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-6 backdrop-blur-xl"
-                animate={{ boxShadow: ["0 0 0 0 rgba(0,102,255,0)", "0 0 40px 8px rgba(0,102,255,0.12)", "0 0 0 0 rgba(0,102,255,0)"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: EASE }}
-              >
-                <motion.div
-                  className="pointer-events-none absolute -inset-[1px] rounded-2xl opacity-40"
-                  animate={{ opacity: [0.22, 0.5, 0.22] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: EASE }}
-                  style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.22), rgba(255,255,255,0.04), rgba(0,102,255,0.18))" }}
-                />
-                <p className="relative text-sm font-medium text-[#A8C9FF]/80 uppercase tracking-[0.16em] mb-2">AI-Powered Response</p>
-                <p className="relative text-xs leading-6 text-white/62">
-                  Every inquiry is analyzed by our AI strategy engine to craft a personalized growth plan before our team calls you.
-                </p>
-              </motion.div>
             </motion.div>
 
             {/* Right — Form */}
@@ -326,21 +368,27 @@ export default function ContactUsPage() {
                   />
                 </div>
 
+                <InvisibleTurnstile onVerify={setTurnstileToken} widgetRef={turnstileRef} />
+
                 <motion.button
                   type="submit"
-                  disabled={!canSubmit}
-                  whileHover={canSubmit ? { y: -2, scale: 1.01 } : undefined}
-                  whileTap={canSubmit ? { scale: 0.98 } : undefined}
+                  disabled={!canSubmit || submitStatus === "success"}
+                  whileHover={canSubmit && submitStatus !== "success" ? { y: -2, scale: 1.01 } : undefined}
+                  whileTap={canSubmit && submitStatus !== "success" ? { scale: 0.98 } : undefined}
                   className={`shine-sweep group inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl border px-5 py-4 font-heading text-sm font-semibold transition-all duration-300 ${
-                    canSubmit
+                    canSubmit && submitStatus !== "success"
                       ? "border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] text-white shadow-[0_14px_34px_rgba(0,102,255,0.35)] hover:shadow-[0_18px_44px_rgba(0,102,255,0.48)]"
                       : "cursor-not-allowed border-white/12 bg-white/[0.06] text-white/42"
                   }`}
                 >
-                  {isSubmitting ? (
+                  {submitStatus === "submitting" ? (
                     <>
                       <Loader2 size={16} className="animate-spin" />
-                      Sending...
+                      Submitting...
+                    </>
+                  ) : submitStatus === "success" ? (
+                    <>
+                      Submitted ✓
                     </>
                   ) : (
                     <>
@@ -355,7 +403,7 @@ export default function ContactUsPage() {
         </div>
       </main>
 
-      <MarqueeLogos title="Trusted by ambitious brands globally" className="pt-4" />
+      <MarqueeLogos title="Trusted by ambitious brands globally" className="pt-10 pb-4" />
       <EnterpriseFooter />
 
       {/* Toast */}
@@ -378,6 +426,66 @@ export default function ContactUsPage() {
               {toast.message}
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Success Viewport Modal */}
+      <AnimatePresence>
+        {showSuccessModal && (
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+            {/* Soft backdrop blur overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseSuccessModal}
+              className="fixed inset-0 bg-[#020813]/85 backdrop-blur-md z-0"
+            />
+
+            {/* Modal Body */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.35, ease: EASE }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="success-modal-title"
+              className="relative w-full max-w-md overflow-hidden rounded-[2.5rem] border border-white/14 bg-[linear-gradient(155deg,#0a1c3b,#050d1f)] p-8 shadow-2xl backdrop-blur-2xl z-10 text-center"
+            >
+              {/* Close Button top-right */}
+              <button
+                onClick={handleCloseSuccessModal}
+                className="absolute right-5 top-5 rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white cursor-pointer"
+                aria-label="Close success message"
+              >
+                <X size={16} />
+              </button>
+
+              <div className="flex flex-col items-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-5">
+                  <CheckCircle2 size={26} />
+                </div>
+                
+                <h3 id="success-modal-title" className="font-heading text-xl md:text-2xl font-bold text-white mb-3">
+                  ✓ Request Submitted Successfully
+                </h3>
+                
+                <p className="text-xs md:text-sm text-white/70 leading-relaxed mb-6">
+                  Thank you! Our team has received your request.<br />
+                  We will get back to you within 24 hours.
+                </p>
+
+                <button
+                  ref={closeButtonRef}
+                  onClick={handleCloseSuccessModal}
+                  className="w-full rounded-xl border border-white/10 bg-white/[0.06] hover:bg-white/[0.1] text-white px-5 py-3 text-xs font-semibold transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

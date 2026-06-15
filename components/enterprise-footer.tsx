@@ -12,15 +12,22 @@ import {
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useMemo, useRef, useSyncExternalStore } from "react";
-import { SERVICES } from "@/data/services";
-
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Blogs", href: "/blog" },
+  { label: "Why Uptrix", href: "/about" },
+  { label: "Our Work", href: "/portfolio" },
+  { label: "Insights", href: "/blog" },
+] as const;
+
+const SYSTEMS = [
+  { label: "Demand Generation System", href: "/solutions/demand-generation-system" },
+  { label: "Paid Growth System", href: "/solutions/paid-growth-engine" },
+  { label: "Conversion Website System", href: "/solutions/conversion-website-system" },
+  { label: "Growth Foundation System", href: "/solutions/growth-foundation-system" },
+  { label: "AI Marketing System", href: "/solutions/ai-marketing-system" },
+  { label: "Revenue Operations System", href: "/solutions/revenue-operations-system" },
 ] as const;
 
 const SOCIALS = [
@@ -153,7 +160,7 @@ export function EnterpriseFooter() {
       >
         <motion.div
           variants={child}
-          className="relative overflow-hidden rounded-[2.2rem] border border-white/12 bg-white/[0.04] px-6 py-10 shadow-[0_26px_90px_rgba(2,9,22,0.66)] ring-1 ring-inset ring-white/8 backdrop-blur-xl md:px-10 md:py-12"
+          className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] px-6 py-10 shadow-[0_26px_90px_rgba(2,9,22,0.6)] ring-1 ring-inset ring-white/[0.06] backdrop-blur-xl md:px-10 md:py-12"
         >
           <motion.div
             className="pointer-events-none absolute -inset-[1px] opacity-40"
@@ -168,7 +175,7 @@ export function EnterpriseFooter() {
             <div className="h-full w-full bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02),transparent)]" />
           </div>
 
-          <div className="relative grid gap-12 lg:grid-cols-[1.05fr_0.9fr_1.05fr] lg:gap-10">
+          <div className="relative grid gap-12 lg:grid-cols-[1fr_0.85fr_1.15fr] lg:gap-10">
             <motion.div variants={child} className="max-w-md" style={mounted ? { x: leftX } : undefined}>
               <Link href="/" className="inline-flex items-center">
                 <Image
@@ -180,8 +187,8 @@ export function EnterpriseFooter() {
                   sizes="180px"
                 />
               </Link>
-              <p className="mt-5 text-sm leading-7 text-white/74 md:text-[0.98rem]">
-                India&apos;s Top Next-Gen AI-Powered Digital Marketing Agency!
+              <p className="mt-4 text-[0.9375rem] leading-[1.8] text-white/68">
+                AI Powered Growth Systems Partner for businesses worldwide
               </p>
             </motion.div>
 
@@ -193,9 +200,9 @@ export function EnterpriseFooter() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="group inline-flex items-center gap-2 font-heading text-sm font-medium text-white/82 transition-colors duration-300 hover:text-white"
+                        className="group inline-flex items-center gap-2 font-heading text-sm font-medium text-white/72 transition-all duration-300 hover:text-white"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#79ABFF]/70 transition-transform duration-300 group-hover:scale-110" />
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#79ABFF]/60 transition-all duration-300 group-hover:bg-[#79ABFF] group-hover:scale-125" />
                         {link.label}
                       </Link>
                     </li>
@@ -206,14 +213,14 @@ export function EnterpriseFooter() {
               <div>
                 <p className="text-[11px] font-medium tracking-[0.22em] text-[#A8C9FF]/78 uppercase">Services</p>
                 <ul className="mt-4 space-y-3">
-                  {SERVICES.map((service) => (
+                  {SYSTEMS.map((service) => (
                     <li key={service.href}>
                       <Link
                         href={service.href}
-                        className="group inline-flex items-center gap-2 font-heading text-sm font-medium text-white/82 transition-colors duration-300 hover:text-white"
+                        className="group inline-flex items-center gap-2 font-heading text-sm font-medium text-white/72 transition-all duration-300 hover:text-white"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#79ABFF]/70 transition-transform duration-300 group-hover:scale-110" />
-                        {service.name}
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#79ABFF]/60 transition-all duration-300 group-hover:bg-[#79ABFF] group-hover:scale-125" />
+                        {service.label}
                       </Link>
                     </li>
                   ))}
@@ -222,9 +229,9 @@ export function EnterpriseFooter() {
             </motion.div>
 
             <motion.div variants={child} className="flex flex-col items-start gap-6 lg:items-end" style={mounted ? { x: rightX, y: rightY } : undefined}>
-              <h3 className="max-w-xl font-heading text-4xl leading-[1.06] font-semibold tracking-tight text-white md:text-[2.85rem] lg:text-right">
+              <h3 className="font-heading text-[clamp(1.5rem,2.8vw,2.6rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-white lg:text-right">
                 Let&apos;s Talk About Your{" "}
-                <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/30 bg-[#7BABFF]/10 px-4 py-1.5 text-[#E7F1FF] shadow-[0_10px_34px_rgba(0,102,255,0.18)]">
+                <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/28 bg-[#7BABFF]/10 px-3.5 py-1 text-[#E7F1FF] shadow-[0_8px_28px_rgba(0,102,255,0.16)]">
                   Business
                 </span>{" "}
                 With Us
@@ -287,7 +294,7 @@ export function EnterpriseFooter() {
 
           <motion.div
             variants={child}
-            className="relative mt-12 flex flex-col gap-4 border-t border-white/12 pt-7 text-sm text-white/62 md:flex-row md:items-center md:justify-between"
+            className="relative mt-12 flex flex-col gap-4 border-t border-white/10 pt-7 text-sm text-white/60 md:flex-row md:items-center md:justify-between"
           >
             <p>Copyright © 2026 Uptrix Technologies</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">

@@ -8,6 +8,8 @@ export const contactSubmissionSchema = z.object({
   website: z.string().trim().optional(),
   budget: z.string().trim().optional(),
   source_page: z.string().trim().optional(),
+  turnstileToken: z.string().optional().default(""),
+  phone: z.string().trim().optional(),
 });
 
 export type ContactSubmissionInput = z.infer<typeof contactSubmissionSchema>;

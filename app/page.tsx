@@ -5,30 +5,32 @@ import { FloatingOrbs, AnimatedGrid, AIWaveOverlay } from "@/components/ui/visua
 import type { Metadata } from "next";
 
 const TrustedCompanies = dynamic(() => import("@/components/trusted-companies").then(mod => mod.TrustedCompanies));
+const ProblemRouter = dynamic(() => import("@/components/problem-router").then(mod => mod.ProblemRouter));
 const AiServicesSection = dynamic(() => import("@/components/ai-services-section").then(mod => mod.AiServicesSection));
 const FeaturedServices = dynamic(() => import("@/components/featured-services").then(mod => mod.FeaturedServices));
 const EnterpriseExperienceSection = dynamic(() => import("@/components/enterprise-experience-section").then(mod => mod.EnterpriseExperienceSection));
 const PortfolioPreview = dynamic(() => import("@/components/portfolio/portfolio-preview").then(mod => mod.PortfolioPreview));
+const IndustriesStrip = dynamic(() => import("@/components/industries-strip").then(mod => mod.IndustriesStrip));
 const PremiumFaqSection = dynamic(() => import("@/components/premium-faq-section").then(mod => mod.PremiumFaqSection));
 const PortfolioCta = dynamic(() => import("@/components/portfolio/portfolio-cta").then(mod => mod.PortfolioCta));
 const EnterpriseFooter = dynamic(() => import("@/components/enterprise-footer").then(mod => mod.EnterpriseFooter));
 
 export const metadata: Metadata = {
-  title: "Uptrix Technologies | Your AI Growth Systems Partner",
+  title: "Uptrix Technologies | AI Powered Growth Systems Partner",
   description:
-    "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+    "Uptrix Technologies builds AI powered growth systems that bring you leads, convert customers and scale revenue. Your growth partner, not another agency.",
   openGraph: {
-    title: "Uptrix Technologies | Your AI Growth Systems Partner",
+    title: "Uptrix Technologies | AI Powered Growth Systems Partner",
     description:
-      "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+      "Uptrix Technologies builds AI powered growth systems that bring you leads, convert customers and scale revenue. Your growth partner, not another agency.",
     type: "website",
     url: "https://uptrixtechnologies.com",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uptrix Technologies | Your AI Growth Systems Partner",
+    title: "Uptrix Technologies | AI Powered Growth Systems Partner",
     description:
-      "We design AI-powered growth systems for B2B companies that want predictable pipeline, better conversions, and long-term revenue growth.",
+      "Uptrix Technologies builds AI powered growth systems that bring you leads, convert customers and scale revenue. Your growth partner, not another agency.",
   },
 };
 
@@ -57,10 +59,12 @@ export default function Home() {
         <AIWaveOverlay className="relative -mt-4 h-24 opacity-60" />
 
         <TrustedCompanies />
+        <ProblemRouter />
         <AiServicesSection />
         <FeaturedServices />
         <EnterpriseExperienceSection />
         <PortfolioPreview />
+        <IndustriesStrip />
         <PremiumFaqSection />
         <PortfolioCta />
         <EnterpriseFooter />

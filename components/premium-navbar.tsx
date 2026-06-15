@@ -15,9 +15,9 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Company", href: "/about" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Blog", href: "/blog" },
+  { label: "Our Work", href: "/portfolio" },
+  { label: "Why Uptrix", href: "/about" },
+  { label: "Insights", href: "/blog" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -41,11 +41,13 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   }, [scrollY]);
 
   useEffect(() => {
-    if (!isMobileOpen) return;
-    const previous = document.body.style.overflow;
+    if (!isMobileOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previous;
+      document.body.style.overflow = "";
     };
   }, [isMobileOpen]);
 
@@ -108,7 +110,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="relative hidden items-center gap-8 md:flex select-none">
+          <div className="relative hidden items-center gap-7 md:flex select-none">
             {NAV_ITEMS.slice(0, 1).map((item) => {
               const active = isActive(item.href);
               return (
@@ -172,14 +174,23 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
       {/* Mobile menu */}
       <AnimatePresence>
         {isMobileOpen && (
-          <motion.aside
-            id="mobile-navigation"
-            className="fixed inset-0 z-40 flex flex-col bg-[radial-gradient(circle_at_top,#14386b_0%,#0B1F3A_45%,#08152A_100%)] px-6 pt-28 pb-10 md:hidden"
-            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.42, ease: EASE }}
-          >
+          <>
+            {/* Backdrop overlay to prevent scroll */}
+            <motion.div
+              className="fixed inset-0 z-[39] pointer-events-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.42 }}
+            />
+            <motion.aside
+              id="mobile-navigation"
+              className="fixed inset-0 z-40 flex flex-col bg-[radial-gradient(circle_at_top,#14386b_0%,#0B1F3A_45%,#08152A_100%)] px-6 pt-28 pb-10 md:hidden overflow-y-auto pointer-events-auto"
+              initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+              animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+              exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+              transition={{ duration: 0.42, ease: EASE }}
+            >
             <motion.div
               className="pointer-events-none absolute inset-0 opacity-40"
               style={{
@@ -251,7 +262,8 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
                 <ArrowUpRight size={18} />
               </Link>
             </motion.div>
-          </motion.aside>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>

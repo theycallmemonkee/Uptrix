@@ -80,219 +80,305 @@ export const SOLUTIONS: SolutionConfig[] = [
     slug: "demand-generation-system",
     title: "Demand Generation System",
     subtitle: "Not Enough Leads?",
-    badge: "Pipeline Acceleration",
-    description: "We build organic and paid customer acquisition systems combining search engine dominance, content amplification, and intent-driven traffic capturing to scale qualified pipeline.",
-    bestFor: "B2B and SaaS brands ready to scale pipeline predictability and reduce dependency on outbound sales.",
-    features: ["SEO", "Paid Ads", "Social Content", "AI Search"],
-    cta: "See Full Solution",
+    badge: "Demand Generation System",
+    description: "Most businesses run scattered tactics that do not add up. We build one connected engine that brings customers to you on repeat, every single month.",
+    bestFor: "Businesses that rely on referrals or unpredictable pipeline, and want control over how many leads arrive each month.",
+    features: ["SEO", "AI Search", "Paid Ads", "Content", "Automation"],
+    cta: "Contact Us",
     iconName: "TrendingUp",
     iconColor: "rgba(0, 102, 255, 0.2)",
-    headline: "Transform Silent Traffic Into Staggering Growth Pipelines",
-    heroDescription: "Our Demand Generation System unifies AI SEO, intent-driven paid social, search media, and community loops to build a predictable system of high-intent buyers seeking your product.",
+    headline: "Tired of Wondering Where Your Next Customer Will Come From?",
+    heroDescription: "Most businesses run scattered tactics and pray something works. We build one connected engine that brings customers to you on repeat, every single month.",
     problems: [
       {
-        title: "Cold outbound is hitting a wall",
-        description: "Email open rates and response rates are at an all-time low. Without inbound, scaling becomes an expensive headcount game."
+        title: "Referral Dependency",
+        description: "Word of mouth is a bonus, not a system. It creates an unpredictable pipeline with no monthly floor you can count on."
       },
       {
-        title: "High traffic, low sales interest",
-        description: "Your website gets visitors, but they exit without sharing email or showing commercial interest. The traffic lacks commercial intent."
+        title: "Siloed Channels and Leaks",
+        description: "SEO traffic with no conversion path is wasted. Ads with no dedicated landing pages are burned budget."
+      },
+      {
+        title: "Empty Pipeline and No Data",
+        description: "Vague dashboards that track impressions instead of cost per lead and real sales conversations."
       }
     ],
     systemSolutions: [
       {
-        title: "Intent-First Keyword Funneling",
-        description: "We target customers searching for immediate answers, capturing them before they compare competitors."
+        title: "Compounding Lead Engine",
+        description: "Organic authority and AI search citations that grow your reach without raising monthly ad costs."
       },
       {
-        title: "Multi-Channel Demand Capturing",
-        description: "We align search ads, paid social channels, and technical SEO elements to guarantee consistent brand frequency."
+        title: "Unified Conversion Layers",
+        description: "Every touchpoint connected to lead capture and instant automated follow up."
+      },
+      {
+        title: "One Accountable Number",
+        description: "One team answerable to a single growth metric: cost per qualified lead."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "Demand Audit",
-        description: "We audit your search presence, current funnel conversion rates, and competitor ad creatives."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We audit your search visibility, look at where leads should come from, and find exactly where your current pipeline is leaking."
       },
       {
         step: "02",
-        title: "Funnel Engineering",
-        description: "We design landing pages, retargeting pools, and custom lead magnets aligned with search intent."
+        title: "System Architecture",
+        description: "We map your system: which modules, which traffic sources, what budget and what cost per lead target, before anything is built."
       },
       {
         step: "03",
-        title: "Launch Sprints",
-        description: "We push Google search campaigns, optimized SEO content, and paid social assets simultaneously."
+        title: "Engine Implementation",
+        description: "Every asset built and connected. Landing pages, paid search accounts, AI search setup and tracking."
       },
       {
         step: "04",
-        title: "Scale & Optimize",
-        description: "We scale high-performing pipelines, adjust bids dynamically, and continuously optimize user pathways."
+        title: "Optimisation and Scaling",
+        description: "Weekly performance work, fresh creative and tracking checks that bring your cost to acquire a customer down over time."
       }
     ],
     featureCards: [
       {
-        title: "Intent-Driven Paid Search",
-        description: "Capture buyers actively seeking solutions with zero waste and full conversion visibility.",
+        title: "Search Visibility Engine",
+        description: "Get found on classic search engines and modern AI tools like ChatGPT, Gemini and Perplexity. A steady flow of organic, high intent buyers looking for answers now.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Authority SEO Clustering",
-        description: "Dominate search engine page layouts for high-value transactional terms.",
+        title: "Paid Acquisition Engine",
+        description: "Paid campaigns managed strictly against your target cost to acquire a customer. Immediate lead volume that keeps your calendar full while organic compounds.",
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "High-Frequency Paid Social",
-        description: "Inject your brand value proposition into prospects' feeds across Meta and LinkedIn.",
+        title: "Authority Content Loop",
+        description: "Content built around the exact questions your buyers are asking. Higher conversion rates and lower overall paid advertising costs.",
         image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "Lead Capture and Funnel Automation",
+        description: "Fast landing pages, lead capture and instant automated follow up. Fast loading pages with round the clock lead scoring and routing.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
       }
     ],
     caseStudy: {
-      title: "How we scaled a B2B SaaS pipeline by 240%",
-      subtitle: "Uptrix deployed an omnichannel demand framework connecting high-intent Google Search ads with topical authority clusters.",
-      overview: "The client was relying heavily on cold email outreach. Within 90 days of deploying our demand system, inbound SQLs replaced cold outreach as their #1 pipeline generator.",
+      title: "Building a predictable lead engine",
+      subtitle: "Real results from the demand generation system when every module runs together.",
+      overview: "Here is what the demand generation system has delivered. 3.21x ROAS across D2C and paid social. 955 percent ROAS on ecommerce search ads. 1.9M views in 90 days with zero ad budget, content and social engine only.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      client: "B2B SaaS Provider",
-      quote: "Our marketing pipeline completely flipped. We are now generating higher-quality leads at a fraction of our previous acquisition cost.",
+      client: "Growing Brands",
+      quote: "We had no idea why leads disappeared some months. The system shows us exactly where they come from now.",
       metrics: [
-        { label: "Pipeline Growth", value: "240%" },
-        { label: "Inbound SQLs", value: "3.4x" },
-        { label: "CPA Reduction", value: "32%" }
+        { label: "ROAS", value: "3.21x" },
+        { label: "Search ROAS", value: "955%" },
+        { label: "Content Views", value: "1.9M" }
       ]
     },
     roiStats: [
-      { label: "Average ROI Observed", value: "310%" },
-      { label: "Pipeline Growth in 90 Days", value: "2.4x" }
+      { label: "Cost Per Lead", value: "$2.27" },
+      { label: "Qualified Leads", value: "3.4x" }
     ],
     testimonials: [
       {
-        quote: "Uptrix Technologies turned our website into an active revenue driver. Their demand system delivers high-quality pipeline month over month.",
-        author: "Sarah Jenkins",
-        role: "VP of Growth",
-        company: "VeloCRM"
+        quote: "We had no idea why leads disappeared some months. The system shows us exactly where they come from now and we can predict next month.",
+        author: "Business Owner",
+        role: "Founder",
+        company: "Growing Brand"
       }
     ],
     faqItems: [
       {
         id: "dg-1",
         question: "How long before we see qualified leads?",
-        answer: "Paid channels usually generate active leads within the first 14-21 days of launching. Organic search authority (SEO) compounding starts scaling around month 3-4."
+        answer: "Paid channels usually generate active leads within the first 14 to 21 days of launching. Organic search authority compounding starts scaling around month 3 to 4."
       },
       {
         id: "dg-2",
         question: "Do you build the landing pages and creatives?",
         answer: "Yes, our team handles all design, copywriting, Next.js implementation, and creative variables to keep execution speeds high."
+      },
+      {
+        id: "dg-3",
+        question: "What if we only need one module, not the whole system?",
+        answer: "Individual modules work better as part of the full system. If you only need one piece fixed, like ads or website conversion, see the focused systems instead."
+      },
+      {
+        id: "dg-4",
+        question: "How much does this cost?",
+        answer: "It depends on your goals and current state. On the call we audit your situation and tell you what the full system costs before anything starts."
+      },
+      {
+        id: "dg-5",
+        question: "Can you work with a small budget?",
+        answer: "Yes, if the budget is realistic for your market. A small budget inside a proper system beats a large budget on autopilot. We tell you honestly what your budget can achieve."
+      },
+      {
+        id: "dg-6",
+        question: "How long is the commitment?",
+        answer: "We recommend 90 days minimum to see the system compound. Most improvements show in 30 to 45 days, then scaling from there."
+      },
+      {
+        id: "dg-7",
+        question: "Do you manage the ads yourself or train my team?",
+        answer: "We run the system. Many clients hand it to us and we handle it month to month. Some want their team trained. We do both."
+      },
+      {
+        id: "dg-8",
+        question: "What happens if the leads dry up?",
+        answer: "You see it the same week we do. Weekly reports, open data, no black box. If something underperforms we fix it or replace it fast."
       }
     ]
   },
   {
     slug: "paid-growth-engine",
-    title: "Paid Growth Engine",
-    subtitle: "Ads Not Performing?",
-    badge: "Performance Media",
-    description: "An enterprise-grade paid media operation engineered for ROAS. We optimize budget allocation, audience segment targeting, and creative testing loops across Meta, Google, and LinkedIn.",
-    bestFor: "E-commerce, D2C, and B2B SaaS brands with minimum $15k/mo ad spend looking to scale campaigns efficiently.",
-    features: ["Meta", "Google", "LinkedIn", "Creative"],
-    cta: "See Full Solution",
+    title: "Paid Growth System",
+    subtitle: "Ads Not Converting?",
+    badge: "Paid Growth System",
+    description: "Spending on ads but not seeing sales? We find what is breaking and rebuild your Meta, Google and LinkedIn ads into one revenue system.",
+    bestFor: "Businesses already spending on ads that are not paying off.",
+    features: ["Meta", "Google", "LinkedIn", "Retargeting", "Tracking", "Testing"],
+    cta: "Contact Us",
     iconName: "Target",
     iconColor: "rgba(100, 150, 255, 0.2)",
-    headline: "Scale Performance Media Without Ad Fatigue Or ROAS Decline",
-    heroDescription: "We engineer paid media campaigns with creative velocity and rigorous cohort analysis to drive predictable customer acquisition cost (CAC) reductions.",
+    headline: "Spending on Ads but Not Seeing It in Your Bank Account?",
+    heroDescription: "Your dashboard shows clicks and reach. Your revenue shows nothing. The problem is rarely the ads themselves. It is the system around them. We rebuild it so every rupee you spend is tied to a real sale.",
     problems: [
       {
-        title: "ROAS is decaying as budgets scale",
-        description: "Winning ad creatives quickly hit audience fatigue, driving CPMs higher and making acquisition unprofitable."
+        title: "Spending Without a System",
+        description: "Boosting posts and random campaigns with no structure. Money goes out. Nobody can prove what came back."
       },
       {
-        title: "Siloed, uncoordinated campaigns",
-        description: "Your Meta and Google ads run independently, causing wasted touchpoints and double-attribution reporting issues."
+        title: "The Scaling Trap",
+        description: "Returns look fine on a small budget, then collapse the moment you spend more. Cold traffic with stale creative kills the numbers."
+      },
+      {
+        title: "No Tracking, No Truth",
+        description: "Platform dashboards flatter themselves with clicks and reach. Without real tracking you cannot see which ad drove an actual sale."
       }
     ],
     systemSolutions: [
       {
-        title: "Creative-First Velocity Testing",
-        description: "We deploy weekly testing iterations across hooks, angles, and formats to ensure ad freshness."
+        title: "One Connected Engine",
+        description: "Targeting, creative, landing pages and tracking built to work together, not as separate parts."
       },
       {
-        title: "Cross-Platform Cohort Optimization",
-        description: "We map your paid channels into a single full-funnel ecosystem so retargeting and acquisition work together."
+        title: "Test and Scale on Data",
+        description: "A weekly testing rhythm that finds winning ads early and scales them before they burn out."
+      },
+      {
+        title: "Every Sale Traced",
+        description: "Real attribution so budget moves toward what actually makes money, never toward vanity metrics."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "Creative Audit",
-        description: "We evaluate your historical ad account metrics, creative performance, and cohort decay rates."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We audit your ad account live on the call and show you exactly where budget is leaking before you decide anything."
       },
       {
         step: "02",
-        title: "Storyboard Pipeline",
-        description: "Our design team produces 15-20 custom hooks, angles, and visual storyboards."
+        title: "System Architecture",
+        description: "We map the platforms, budget split, creative testing calendar and your target cost per lead, all agreed before launch. You see the whole plan first."
       },
       {
         step: "03",
-        title: "Budget Restructure",
-        description: "We consolidate ad sets and set up clear testing environments and sandbox campaigns."
+        title: "Rebuild and Launch",
+        description: "Tracking and attribution first. Then campaigns. Then the testing rhythm. Building in this order is why the system works and random ad management does not."
       },
       {
         step: "04",
-        title: "ROAS Scaling",
-        description: "We move winning variables to main accounts, scale budget by 20% increments, and refresh creatives."
+        title: "Optimisation and Scaling",
+        description: "Weekly optimisation on live data. Leads get worked fast, because businesses that respond within 5 minutes are 9X more likely to convert them. Monthly reporting on cost per lead and revenue, never impressions."
       }
     ],
     featureCards: [
       {
-        title: "Advanced Meta Media Buying",
-        description: "Leverage Broad targeting alongside creative hooks to access untapped customer segments.",
+        title: "Platform Engine",
+        description: "The right platforms for your buyer, not every platform at once. We build the targeting and campaign structure and manage it all against one number, your target cost to get a lead.",
         image: "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Google Search & Shopping PMax",
-        description: "Position your brand at the exact moment of transactional buyer search intent.",
+        title: "Creative and Testing Engine",
+        description: "The hooks, angles and formats that stop the scroll, tested every week. Winners scale. Losers get cut fast before they waste budget.",
         image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "High-Velocity Ad Creative Studio",
-        description: "Generate static design sheets, animations, and video ads built for conversion.",
+        title: "Conversion Layer",
+        description: "The ad is half the job. The page it lands on is the other half. We align the page to the ad, then recapture everyone who did not buy with retargeting that runs on its own.",
         image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "Attribution Engine",
+        description: "Every sale traced to the exact ad, audience and creative that produced it. No more guessing. Budget follows proof.",
+        image: "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80"
       }
     ],
     caseStudy: {
-      title: "How an enterprise brand scaled from $40k to $180k/mo spend",
-      subtitle: "Uptrix built a structured creative testing matrix that allowed scaling ad spend by 4.5x while keeping CAC stable.",
-      overview: "The client was stuck at a performance ceiling. Our creative velocity system allowed us to feed Meta's delivery algorithms with high-converting assets daily.",
-      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
-      client: "UrbanWear Apparel",
-      quote: "Uptrix Technologies cracked our creative bottleneck. Their paid media team acts as an extension of our internal team, scaling our revenues to record highs.",
+      title: "Finding the leak in an ad account",
+      subtitle: "Rebuilt tracking, testing and scaling for a profitable ad engine.",
+      overview: "Ecommerce brand on search ads, rebuilt into one tracked system. Real results from a system where every module runs together. 955 percent ROAS. Cost per lead stable as budget rose.",
+      image: "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=1200&q=80",
+      client: "Growth Brand",
+      quote: "We had no idea where our budget was going. Uptrix Technologies rebuilt the whole system and now every rupee is traced to a real customer.",
       metrics: [
-        { label: "Monthly Revenue Increase", value: "280%" },
-        { label: "CAC Reduction", value: "22%" },
-        { label: "Tested Creatives", value: "180+" }
+        { label: "ROAS", value: "955%" },
+        { label: "Monthly Spend", value: "$10K" },
+        { label: "Cost Per Lead", value: "Stable" }
       ]
     },
     roiStats: [
-      { label: "Average ROAS Lift", value: "45%" },
-      { label: "Monthly Spend Scaled", value: "4.5x" }
+      { label: "ROAS Achieved", value: "955%" },
+      { label: "ROAS Multiple", value: "6X" }
     ],
     testimonials: [
       {
-        quote: "Our ad accounts were burning cash. Uptrix Technologies restructured the entire paid media operation. Within 60 days, we were highly profitable.",
-        author: "Michael Chang",
-        role: "Chief Marketing Officer",
-        company: "Lumina Co."
+        quote: "We had no idea where our budget was going. Uptrix Technologies rebuilt the whole system and now every rupee is traced to a real customer.",
+        author: "Growth Brand",
+        role: "Founder",
+        company: "Growth"
       }
     ],
     faqItems: [
       {
-        id: "pe-1",
-        question: "Do you require a minimum ad spend?",
-        answer: "We typically work with brands spending $10,000+ monthly across paid channels to ensure we have enough data to test and scale efficiently."
+        id: "pg-1",
+        question: "How much should I spend on ads monthly?",
+        answer: "Enough to give the system data to optimise, and not a rupee more than your numbers support. On the roadmap call we work backward from your target cost per lead and tell you the realistic figure. If your budget cannot support paid ads yet, we say so honestly."
       },
       {
-        id: "pe-2",
-        question: "How do you handle creative production?",
-        answer: "Our design team produces all ad formats, copy, and video hooks. We run weekly creative sprints so your accounts never suffer from ad fatigue."
+        id: "pg-2",
+        question: "What is a good return on ad spend for my business?",
+        answer: "It varies. Ecommerce usually needs three times spend or more to profit after costs. High margin services can win at two times. Lead based businesses measure cost per qualified lead instead. We benchmark your specific numbers on the call, not a figure that means nothing."
+      },
+      {
+        id: "pg-3",
+        question: "Should I hire an agency or a freelancer for my ads?",
+        answer: "A freelancer manages a platform. This system needs platforms, creative testing, landing pages and tracking working together with one party accountable for revenue. That is the difference. Many clients came to us after two or three freelancers who each managed one piece."
+      },
+      {
+        id: "pg-4",
+        question: "How long until my ad performance improves?",
+        answer: "Tracking fixes show cleaner data within days. Meaningful improvement usually lands within 30 to 45 days as the testing rhythm finds winners. Scaling comes after that, built on proof. We set exact expectations for your account before launch."
+      },
+      {
+        id: "pg-5",
+        question: "Do you work with small ad budgets?",
+        answer: "Yes, if the budget matches realistic targets for your market. A small budget run inside a proper system beats a large budget run on autopilot. The roadmap call tells you honestly what your budget can and cannot achieve."
+      },
+      {
+        id: "pg-6",
+        question: "Which platforms are right for my business?",
+        answer: "Wherever your buyer decides. Ecommerce brands usually win on Meta. Local services win on Google. Professional services win on search and LinkedIn. We pick the mix from your buyer data, not from what is fashionable this year."
+      },
+      {
+        id: "pg-7",
+        question: "How is Uptrix Technologies different from a regular ads agency?",
+        answer: "A regular agency manages campaigns and reports on clicks. We run a revenue system with over 2.5M in spend managed behind our process, judged on one number you actually care about. Cost per lead, tied to real sales."
+      },
+      {
+        id: "pg-8",
+        question: "What if my ads still do not perform?",
+        answer: "You will see it the same week we do. Weekly data reviews are open to you. Underperforming parts get fixed or replaced fast. We keep clients through results, not lock in contracts."
       }
     ]
   },
@@ -300,219 +386,152 @@ export const SOLUTIONS: SolutionConfig[] = [
     slug: "conversion-website-system",
     title: "Conversion Website System",
     subtitle: "Website Not Converting?",
-    badge: "UX/UI Design & CRO",
-    description: "A high-performance conversion website that turns static traffic into pipeline. Engineered with premium design, custom Next.js development, and conversion copywriting.",
-    bestFor: "High-growth brands whose current websites feel outdated, slow, or have a conversion rate under 2.5%.",
-    features: ["Design", "Development", "CRO", "Copywriting"],
-    cta: "See Full Solution",
+    badge: "Conversion Website System",
+    description: "Getting traffic but no enquiries? We design and build your site around one job. Turning the people who land on it into customers who contact you.",
+    bestFor: "Businesses getting visitors who are not turning into enquiries. If nobody is visiting yet, the page is not your first problem.",
+    features: ["Web Design", "Development", "Conversion Copy", "User Experience", "Conversion Optimisation", "Landing Pages", "Speed", "Lead Capture"],
+    cta: "Contact Us",
     iconName: "Globe",
     iconColor: "rgba(80, 130, 255, 0.2)",
-    headline: "Turn Passive Visitors Into Active Pipeline With Headless Next.js Solutions",
-    heroDescription: "We design and develop premium, high-speed websites that capture attention, load in milliseconds, and use structured copywriting to drive visitors to take action.",
+    headline: "Getting Visitors but No One Ever Reaches Out?",
+    heroDescription: "A website that looks beautiful but never turns a visitor into an enquiry is a cost, not an asset. We design and build your site around one job. Turning the people who land on it into customers who contact you.",
     problems: [
       {
-        title: "Slow, bloated website speed",
-        description: "Your site takes seconds to load, causing visitors to bounce before they see your value proposition. Google ranks you lower due to poor web vitals."
+        title: "Built to Look Good, Not to Sell",
+        description: "Pretty design with no clear path for the visitor to take the next step. Beauty does not convert."
       },
       {
-        title: "Low visitor-to-lead conversion rate",
-        description: "You drive traffic but the layout is complex, confusing, or lacks structured pathways, leaving potential sales on the table."
+        title: "No Clear Next Step",
+        description: "Visitors arrive, get no reason to act and no obvious way to enquire, so they simply leave."
+      },
+      {
+        title: "Slow and Confusing",
+        description: "Pages that load slowly or confuse the visitor lose the sale in the first few seconds, before your offer is even seen."
       }
     ],
     systemSolutions: [
       {
-        title: "Blazing Fast Next.js Tech Stack",
-        description: "We build custom headless sites with optimized images, dynamic scripts, and clean components for sub-second page loads."
+        title: "Designed Around the Buyer",
+        description: "Every page mapped to what your visitor needs to see to take the next step toward contacting you."
       },
       {
-        title: "Conversion-Focused UX Architecture",
-        description: "We map user layouts based on conversion intent, putting clear CTAs and trust elements exactly where visitors look."
+        title: "One Clear Path",
+        description: "A single obvious journey on every page that leads the visitor to enquire, with no dead ends."
+      },
+      {
+        title: "Fast and Frictionless",
+        description: "Pages that load in seconds and remove every obstacle between the visitor and the contact form."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "UX & Conversion Audit",
-        description: "We review your site's heatmaps, load speeds, device performance, and click-through dropoffs."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We review your current site live, find where visitors drop off and show you exactly why they are not converting."
       },
       {
         step: "02",
-        title: "Interactive Wireframing",
-        description: "We map out clean layouts, structured navigation, and copywriting wires."
+        title: "System Architecture",
+        description: "We map every page, the journey on each, the copy and the conversion points, all agreed before any design begins. You see the full plan first."
       },
       {
         step: "03",
-        title: "Custom Visual Design",
-        description: "We apply the premium, luxury glassmorphism theme, custom graphics, and animations."
+        title: "Design, Build and Launch",
+        description: "We design, write, build and connect the whole site. Pages, copy, forms and lead capture, all wired to your follow up from day one."
       },
       {
         step: "04",
-        title: "Next.js Build & Deploy",
-        description: "We write clean TypeScript code, optimize assets, and deploy to ultra-fast static servers."
+        title: "Optimisation and Scaling",
+        description: "We keep testing what makes more visitors enquire. Speed matters too, because businesses that respond within 5 minutes are 9X more likely to convert a lead, so we wire fast capture into every form."
       }
     ],
     featureCards: [
       {
-        title: "Premium UI/UX Architecture",
-        description: "Immersive layouts built with luxurious design elements and smooth interactive micro-animations.",
+        title: "Conversion Design and Build",
+        description: "We design and build your site from the ground up around one goal, turning visitors into enquiries. Clean, modern and structured so every page guides the visitor forward. Outcome: A website that looks credible and is built to move people to act.",
         image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Conversion Rate Optimization (CRO)",
-        description: "A/B test-ready page components, interactive forms, and clear user navigation paths.",
+        title: "Conversion Copy and Messaging",
+        description: "Words that speak to your buyer, answer their doubts and lead them to the next step. The design pulls them in. The copy makes them stay and act. Outcome: Visitors who understand what you do and why they should contact you.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Next-Gen Headless Speed",
-        description: "Perfect 100/100 Google Lighthouse and Core Web Vitals performance score to boost SEO.",
+        title: "Experience and Optimisation",
+        description: "We map the journey, remove friction and keep testing what makes more visitors enquire. The site gets better at converting over time, not worse. Outcome: A rising conversion rate, so more of the same traffic turns into leads.",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "Speed and Lead Capture",
+        description: "Fast loading pages, clear forms and lead capture connected straight to your follow up. No visitor lost to a slow page or a clunky form. Outcome: Every interested visitor captured and sent into your pipeline instantly.",
+        image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80"
       }
     ],
     caseStudy: {
-      title: "Redesigning a landing page portfolio for 142% conversion lift",
-      subtitle: "Uptrix Technologies redesigned an enterprise landing page ecosystem using Next.js and Tailwind CSS.",
-      overview: "The client had a bloated WordPress site loading in 4.8s. By rebuilding it as a custom Next.js static application with psychological copy, their conversion rate rose from 1.4% to 3.4%.",
+      title: "A site built to convert, not just to look good",
+      subtitle: "Here is what happens when the website is built to convert, not just to look good.",
+      overview: "3.21X ROAS on a D2C brand where the system included the landing pages the ads sent traffic to. Page and ad aligned. 1.9M views in 90 days for a service brand whose content engine sent traffic to pages built to capture it. Real estate account where landing pages held the conversion rate as traffic grew.",
       image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1200&q=80",
-      client: "CloudSphere Security",
-      quote: "The site Uptrix Technologies built feels premium, loads instantly, and has consistently doubled our web demo signups.",
+      client: "Growing Brands",
+      quote: "We had traffic but nobody was reaching out. Once the site was built around one job, enquiries started coming the first week.",
       metrics: [
-        { label: "Conversion Lift", value: "142%" },
-        { label: "Page Load Time", value: "0.4s" },
-        { label: "Bounce Rate Reduction", value: "38%" }
+        { label: "ROAS", value: "3.21X" },
+        { label: "Content Views", value: "1.9M" },
+        { label: "Monthly Spend Scaled", value: "$10K" }
       ]
     },
     roiStats: [
-      { label: "Avg Conversion Increase", value: "85%" },
-      { label: "Mobile Bounce Reduction", value: "44%" }
+      { label: "ROAS Delivered", value: "3.21X" },
+      { label: "Views in 90 Days", value: "1.9M" }
     ],
     testimonials: [
       {
-        quote: "Our new website instantly positions us as the enterprise leader. The speed is phenomenal, and it has set a new standard for our marketing.",
-        author: "David Kovacs",
-        role: "Head of Digital",
-        company: "SecureLink"
+        quote: "We had traffic but nobody was reaching out. Once the site was built around one job, enquiries started coming the first week.",
+        author: "Business Owner",
+        role: "Founder",
+        company: "Growing Brand"
       }
     ],
     faqItems: [
       {
         id: "cw-1",
-        question: "Can you migrate our existing CMS content?",
-        answer: "Yes, we migrate your data to headless systems like Sanity, Contentful, or database systems to keep page management simple."
+        question: "How much does a high converting website cost?",
+        answer: "It depends on the number of pages and the complexity of your offer. On the roadmap call we scope your site and give you a clear figure before any work starts. We price for the conversion outcome, not by the hour, so you know exactly what you are paying for."
       },
       {
         id: "cw-2",
-        question: "How do you ensure the site stays optimized?",
-        answer: "We code using strict Next.js standards, optimizing scripts, dynamic styling assets, and fonts to ensure static deployment remains fast."
-      }
-    ]
-  },
-  {
-    slug: "ai-lead-conversion-system",
-    title: "AI Lead Conversion System",
-    subtitle: "Leads Not Turning Into Sales?",
-    badge: "AI Automation",
-    description: "Automate prospect qualification and follow-up. Using custom AI agents and CRM triggers, we nurture cold and warm leads into booked sales calls 24/7/365.",
-    bestFor: "Sales-led services or enterprise organizations losing high volumes of leads due to slow speed-to-lead times.",
-    features: ["CRM", "Automation", "AI Nurture", "Follow Up"],
-    cta: "See Full Solution",
-    iconName: "Cpu",
-    iconColor: "rgba(120, 170, 255, 0.2)",
-    headline: "Nurture & Convert Leads Automatically 24/7 With Custom AI Agents",
-    heroDescription: "Eliminate response lag. Our AI system handles inbound inquiries, schedules meetings, qualifies prospects, and maintains custom follow-up loops instantly.",
-    problems: [
-      {
-        title: "Slow response times lose customers",
-        description: "If an inbound lead waits over 5 minutes for a response, conversion chances drop by 80%. Sales teams can't be online 24/7."
+        question: "Should I redesign my website or just optimise the one I have?",
+        answer: "It depends on the foundation. If your current site is fast and well structured but underperforming, optimisation is faster and cheaper. If it is slow, dated or built wrong, a rebuild pays for itself. We tell you honestly which one your site needs on the call."
       },
       {
-        title: "Sales teams waste time on unqualified calls",
-        description: "A high volume of booked meetings are poor fits. Sales reps waste time that could have been spent closing."
-      }
-    ],
-    systemSolutions: [
-      {
-        title: "Custom AI Agent Qualification",
-        description: "We build interactive AI agents that chat with incoming prospects, scoring them against your ideal customer profile (ICP)."
+        id: "cw-3",
+        question: "How long does a business website take to build?",
+        answer: "A focused conversion site usually takes four to eight weeks depending on page count and content readiness. Landing pages can be faster. We give you an exact timeline in the architecture stage before design begins, so there are no surprises."
       },
       {
-        title: "Multi-Channel Automation Playbooks",
-        description: "We deploy immediate automated sequences across SMS, email, and WhatsApp to confirm booking steps."
-      }
-    ],
-    processSteps: [
-      {
-        step: "01",
-        title: "Workflow Mapping",
-        description: "We diagram your lead flow from opt-in to sales handoff to isolate communication gaps."
+        id: "cw-4",
+        question: "Why does my website get traffic but no enquiries?",
+        answer: "Usually because the site was built to look good, not to convert. No clear next step, weak copy, slow pages or a confusing journey. Traffic is not the problem. The page is. We find the exact leak and fix it."
       },
       {
-        step: "02",
-        title: "AI Character Training",
-        description: "We train custom AI models on your product knowledge, customer case studies, and brand tone."
+        id: "cw-5",
+        question: "Will this work for my type of business?",
+        answer: "If your buyers research or buy online, yes. We build conversion sites for ecommerce, local services, professional services, startups and regulated industries. The design changes by business. The goal of turning visitors into enquiries does not."
       },
       {
-        step: "03",
-        title: "CRM Integration",
-        description: "We sync automation layers directly to HubSpot, Salesforce, or custom backends."
+        id: "cw-6",
+        question: "Do you only build new sites or improve existing ones?",
+        answer: "Both. Sometimes the fastest win is optimising what you have. Sometimes a rebuild is the right call. We start by reviewing your current site and recommend the path that gets you more enquiries for the lowest sensible cost."
       },
       {
-        step: "04",
-        title: "Live Testing",
-        description: "We test AI agent conversations, scoring rules, and alert pathways to guarantee smooth handoffs."
-      }
-    ],
-    featureCards: [
-      {
-        title: "AI Agent Triage & Nurture",
-        description: "Converse with leads via text/chat to pre-qualify and handle objections before booking.",
-        image: "https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=800&q=80"
+        id: "cw-7",
+        question: "Do you write the copy too, or just design?",
+        answer: "Both, together. Design and copy cannot be separated in a converting site. The design pulls the visitor in and the words move them to act. We handle both as one system, not as separate jobs handed to separate people."
       },
       {
-        title: "CRM Automation Triggering",
-        description: "Automatically route qualified deals and sync contact properties without manual CRM entries.",
-        image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        title: "Omnichannel Follow-Up Sequences",
-        description: "Maintain contact frequency using automated email, SMS, and calendar notifications.",
-        image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=800&q=80"
-      }
-    ],
-    caseStudy: {
-      title: "How an enterprise team reduced lead response time to 12 seconds",
-      subtitle: "Uptrix Technologies automated inbound scheduling and pre-qualification using custom AI agent scripts.",
-      overview: "The client was manually routing incoming website leads to reps. During off-hours, leads waited up to 14 hours. Our AI lead system qualified prospects instantly, booking 68% more calls.",
-      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
-      client: "OmniCorp Services",
-      quote: "Our speed-to-lead became non-existent. The AI books qualified calls directly onto our sales reps' calendars while they sleep.",
-      metrics: [
-        { label: "Booked Call Volume", value: "+68%" },
-        { label: "Lead Response Time", value: "12s" },
-        { label: "Sales Team Hours Saved", value: "34/wk" }
-      ]
-    },
-    roiStats: [
-      { label: "Booked Meeting Boost", value: "+68%" },
-      { label: "Response Lag Decrease", value: "99.2%" }
-    ],
-    testimonials: [
-      {
-        quote: "Uptrix Technologies completely automated our sales qualification. The lead scoring is accurate, and we only talk to enterprise buyers now.",
-        author: "Rebecca Thorne",
-        role: "Director of Business Development",
-        company: "Apex Global"
-      }
-    ],
-    faqItems: [
-      {
-        id: "ac-1",
-        question: "Does the AI sound robotic?",
-        answer: "No, we use advanced NLP and custom styling prompts configured with your brand guidelines so emails and messages sound human."
-      },
-      {
-        id: "ac-2",
-        question: "Can we review the AI's conversations?",
-        answer: "Absolutely. All transcripts are logged inside your CRM in real time, giving your sales reps full context before calls start."
+        id: "cw-8",
+        question: "What happens after the site launches?",
+        answer: "The launch is the start, not the end. We keep testing what makes more visitors enquire and refine the pages on real data. A converting site gets better over time, and you see the conversion rate move month to month."
       }
     ]
   },
@@ -520,109 +539,152 @@ export const SOLUTIONS: SolutionConfig[] = [
     slug: "growth-foundation-system",
     title: "Growth Foundation System",
     subtitle: "No Marketing Strategy?",
-    badge: "Go-To-Market Strategy",
-    description: "Define your positioning, build your competitive strategy, and establish a clear 90-day execution roadmap. We help you transition from random tactics to a systemic growth architecture.",
-    bestFor: "Enterprise ventures, scaleups, or companies entering new markets requiring strong market positioning.",
-    features: ["Consulting", "Positioning", "Go To Market", "90 Day Roadmap"],
-    cta: "See Full Solution",
+    badge: "Growth Foundation System",
+    description: "Wasting money on random marketing? We build your positioning, go to market plan and 90 day roadmap so every decision has a clear purpose.",
+    bestFor: "Businesses at the very start of their marketing, whether planning or just launched. Not for businesses that already have a working marketing system.",
+    features: ["Positioning", "Market and Competitor Research", "Channel Plan", "Funnel Design", "Budget Plan", "90 Day Roadmap"],
+    cta: "Contact Us",
     iconName: "Compass",
     iconColor: "rgba(87, 148, 255, 0.2)",
-    headline: "Transition From Random Tactics To Structured Category Dominance",
-    heroDescription: "We design data-backed go-to-market strategies, positioning playbooks, and structured 90-day action roadmaps so your team executes with absolute alignment.",
+    headline: "Not Sure Where to Start With Your Marketing?",
+    heroDescription: "Whether you are still planning your business or you have just launched and feel invisible, the hardest part is the same. You do not know where to begin, and everyone gives different advice. We sit with you and build the plan, so every step has a reason behind it.",
     problems: [
       {
-        title: "Random acts of marketing",
-        description: "You execute seo, social, and paid ads, but they lack a unified message. You burn budget without understanding what drives growth."
+        title: "Too Much Conflicting Advice",
+        description: "Every expert, course and agency says something different, so you never know who to trust or what to do first."
       },
       {
-        title: "Vague, copycat positioning",
-        description: "Your site sounds exactly like your competitors. Enterprise prospects struggle to understand why they should pay you a premium."
+        title: "Random Spending",
+        description: "Trying a bit of everything with no plan, watching the budget vanish with nothing to show for it."
+      },
+      {
+        title: "No Clear Starting Point",
+        description: "You know you need marketing but have no idea which step actually comes first for your business."
       }
     ],
     systemSolutions: [
       {
-        title: "Category-Defining Positioning",
-        description: "We audit competitors and restructure your value proposition so you own a distinct market angle."
+        title: "One Clear Plan",
+        description: "A single roadmap built for your business, so you always know the next right move."
       },
       {
-        title: "90-Day Execution Blueprints",
-        description: "We map out exact deliverables, resourcing requirements, and KPIs so your marketing team stays aligned."
+        title: "Spend With Purpose",
+        description: "A budget plan that puts your money where it will actually work, in the right order."
+      },
+      {
+        title: "A Real Starting Point",
+        description: "Step one, step two, step three, mapped out, so you start with confidence instead of confusion."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "Market Audit",
-        description: "We conduct deep customer interviews, competitive reviews, and channel opportunity assessments."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We understand where you are, what you are building and what is making marketing feel overwhelming right now."
       },
       {
         step: "02",
-        title: "Positioning Sprint",
-        description: "We build your narrative guide, category description, and key visual assets."
+        title: "Research and Discovery",
+        description: "We dig into your market, your competitors and your customer, then bring back what we find. This is the groundwork your whole plan stands on."
       },
       {
         step: "03",
-        title: "Funnel Mapping",
-        description: "We design the buyer journey and identify target pages and content required."
+        title: "Build the Foundation Together",
+        description: "In working sessions we shape your positioning, your channels and your budget together, so you understand every decision and why it was made."
       },
       {
         step: "04",
-        title: "Roadmap Hand-off",
-        description: "We deliver a detailed 90-day growth roadmap complete with task boards and dashboards."
+        title: "Roadmap Handoff",
+        description: "We hand over your 90 day roadmap and walk you through it, step by step. You leave knowing exactly what to do next, and you can run it yourself or have us run it for you."
       }
     ],
     featureCards: [
       {
-        title: "GTM Playbook Strategy",
-        description: "Step-by-step launch playbooks designed to capture market share with low acquisition costs.",
+        title: "Discovery",
+        description: "We start by understanding your business, your goals, your customer and what makes you different. You do the talking. We ask the questions that uncover what your marketing should be built on. You get: total clarity on where you stand and where you want to go.",
         image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Message & Category Positioning",
-        description: "Differentiate your brand from copycats by defining a premium category you can dominate.",
+        title: "Market and Competitor Research",
+        description: "We research your market, study your competitors and find the gaps you can win in. This is the work most new founders cannot do alone, and it shapes everything that follows. You get: a clear picture of your market and where your opening is.",
         image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "90-Day Growth Roadmap",
-        description: "Tactical, weekly sprint items that coordinate content, design, and ad budgets into one plan.",
+        title: "Positioning and Messaging",
+        description: "We define who you are, who you serve and the exact words that make your buyer pay attention. You walk away knowing how to talk about your business with confidence. You get: your positioning and the core message you lead with everywhere.",
         image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "Go To Market Plan",
+        description: "Which channels to use first, why those channels, what to spend and what success looks like at 30, 60 and 90 days. A plan made for your business, not a template. You get: a clear channel and budget plan you can act on immediately.",
+        image: "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=1200&q=80"
       }
     ],
     caseStudy: {
-      title: "Building a category launch roadmap for 3.5x revenue scale",
-      subtitle: "Uptrix Technologies developed the go-to-market playbook and visual positioning for a scaling fintech startup.",
-      overview: "The client was struggling to stand out in a crowded space. Our strategic alignment defined a new product category, directing their design and SEO sprints to secure market share.",
+      title: "Your Positioning",
+      subtitle: "Who you are, who you serve and the words that make them listen. The foundation everything else is built on.",
+      overview: "At the end of the engagement you do not have a vague strategy document. You have three things you can use the next morning. Your positioning statement, your go to market plan, and your 90 day roadmap. Built by a team that has managed over 2.5M in ad spend and guided businesses across global markets. You are not getting theory. You are getting a plan from people who have done it.",
       image: "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=1200&q=80",
-      client: "PayStone Technologies",
-      quote: "Uptrix Technologies gave us the clarity we were missing. We finally stopped guessing and started executing a strategy that won.",
+      client: "Growing Brands",
+      quote: "We built the foundation with Uptrix Technologies and then moved into their Demand Generation system to execute it.",
       metrics: [
-        { label: "Revenue Scaling", value: "3.5x" },
-        { label: "GTM Launch Window", value: "45 Days" },
-        { label: "Organic Interest", value: "+180%" }
+        { label: "Deliverable", value: "Positioning" },
+        { label: "Deliverable", value: "Go To Market Plan" },
+        { label: "Deliverable", value: "90 Day Roadmap" }
       ]
     },
     roiStats: [
-      { label: "Category Launch Success", value: "100%" },
-      { label: "Team Execution Efficiency", value: "+52%" }
+      { label: "Ad Spend Managed", value: "$2.5M+" },
+      { label: "Businesses Guided", value: "Global" }
     ],
     testimonials: [
       {
-        quote: "If you are scaling and don't have a structured strategy, hire Uptrix Technologies. Their roadmap saved us months of trial and error.",
-        author: "Marcus Vance",
-        role: "Chief Executive Officer",
-        company: "PayStone"
+        quote: "We built the foundation with Uptrix Technologies and it changed everything. Now we move into their execution systems with total clarity.",
+        author: "Founder",
+        role: "CEO",
+        company: "Growing Brand"
       }
     ],
     faqItems: [
       {
         id: "gf-1",
-        question: "Is this only consulting, or do you execute too?",
-        answer: "This system provides the strategy and roadmap. We can then execute it using our specialized Solution Systems (Demand, Conversion, paid growth) or support your team."
+        question: "How much does a marketing consultant cost?",
+        answer: "It depends on the depth of the engagement. The Growth Foundation is a fixed scope project with a clear price, not an open ended hourly bill. On the call we tell you the exact figure before anything starts, so you know precisely what you are investing and what you get for it."
       },
       {
         id: "gf-2",
-        question: "How long does a positioning sprint take?",
-        answer: "A standard Go-To-Market and positioning sprint takes 4-6 weeks to complete, delivering the full GTM playbook and execution roadmap."
+        question: "What should my marketing budget be?",
+        answer: "That is one of the things we figure out together. The right budget depends on your business, your goals and your stage. We build a budget plan as part of your foundation, so you spend the right amount on the right channels in the right order, instead of guessing."
+      },
+      {
+        id: "gf-3",
+        question: "What is the difference between a marketing strategy and a marketing plan?",
+        answer: "A strategy is the thinking, who you serve and how you win. A plan is the doing, the channels, budget and weekly actions. Most new businesses need both, and a foundation gives you both, connected. Strategy without a plan is just theory. A plan without strategy is just guessing."
+      },
+      {
+        id: "gf-4",
+        question: "I have not launched yet. Is this still for me?",
+        answer: "Yes, this is one of the best times to do it. Building your foundation before you launch means you start right instead of wasting money fixing mistakes later. We help you enter the market with a clear plan from day one."
+      },
+      {
+        id: "gf-5",
+        question: "I just launched but have no marketing. Can you help?",
+        answer: "Absolutely. If you are live but invisible, this gives you the plan you skipped at the start. We build your positioning and roadmap so you stop guessing and start growing with direction."
+      },
+      {
+        id: "gf-6",
+        question: "Do you just give me a plan, or do you run it too?",
+        answer: "We build the plan with you, and you can take it from there yourself or have us run it. Many clients build the foundation with us and then move into our Demand Generation or Paid Growth systems to execute it. The choice is yours."
+      },
+      {
+        id: "gf-7",
+        question: "Will I understand the plan, or is it full of jargon?",
+        answer: "You will understand all of it. We build it with you in plain language, not consultant speak. The whole point is that you walk away knowing your own plan and why every part of it is there, so you feel in control of your marketing."
+      },
+      {
+        id: "gf-8",
+        question: "How long does the engagement take?",
+        answer: "Most foundations are completed within two to three weeks, depending on how quickly we can schedule the working sessions. You walk away with your positioning, your go to market plan and your 90 day roadmap ready to use."
       }
     ]
   },
@@ -630,219 +692,305 @@ export const SOLUTIONS: SolutionConfig[] = [
     slug: "ai-marketing-system",
     title: "AI Marketing System",
     subtitle: "Falling Behind in AI?",
-    badge: "AI Operations",
-    description: "Modernize your marketing operations with advanced AI. We audit, implement, and train teams on AI search optimization, custom agents, and automated content hubs.",
-    bestFor: "Forward-thinking teams looking to reduce marketing overhead by 30-50% while scaling output quality.",
-    features: ["AI Audit", "Automation", "AI Search", "AI Content"],
-    cta: "See Full Solution",
+    badge: "AI Marketing System",
+    description: "Competitors using AI and you are not? We audit your marketing and implement AI systems that produce real revenue, not idle tools.",
+    bestFor: "Businesses that know AI matters but have not put it to work in any real way. Not for businesses looking for a magic button.",
+    features: ["AI Audit", "Workflow Automation", "AI Content", "AI Search Visibility", "AI Lead Scoring", "Tool Setup", "Team Training"],
+    cta: "Contact Us",
     iconName: "Sparkles",
     iconColor: "rgba(96, 166, 255, 0.2)",
-    headline: "Unleash Advanced Generative AI to Triple Content Production",
-    heroDescription: "We build custom generative AI workflows, train internal AI assistants, and optimize your assets for AI-powered search engines (GEO/SGE).",
+    headline: "Worried Your Competitors Are Winning With AI While You Watch?",
+    heroDescription: "AI is not about collecting tools. It is about putting the right ones to work on the parts of your marketing that actually move revenue. We audit where AI will help you most, then build it into your business so it produces results, not just hype.",
     problems: [
       {
-        title: "Content creation is slow and costly",
-        description: "Your team spends days drafting blogs, copy, and ads. The cost is high, and output volume is too low to test effectively."
+        title: "Too Many Tools, No Direction",
+        description: "A new AI tool every week and no idea which ones actually matter for your business."
       },
       {
-        title: "AI search engines are stealing traffic",
-        description: "Google's SGE and Perplexity answer search queries directly. Standard SEO keywords are losing traffic to AI aggregators."
+        title: "Falling Behind Quietly",
+        description: "A growing worry that competitors are using AI to move faster while you stay stuck doing things manually."
+      },
+      {
+        title: "Invisible in AI Search",
+        description: "Buyers now ask ChatGPT and AI tools for recommendations, and your business is nowhere in the answers."
       }
     ],
     systemSolutions: [
       {
-        title: "Generative Engine Optimization (GEO)",
-        description: "We optimize your domain metadata, citations, and structure to ensure you are recommended in AI summaries."
+        title: "The Right Tools Only",
+        description: "We find the few AI tools that move your revenue and ignore the rest, so you stop chasing every shiny new thing."
       },
       {
-        title: "Custom AI Agent Content Hubs",
-        description: "We build secure AI models trained on your brand guidelines to generate blogs and social posts automatically."
+        title: "AI Built Into Your Work",
+        description: "Automation and AI handed to you inside your actual workflow, producing real output, not sitting unused."
+      },
+      {
+        title: "Visible Where Buyers Ask",
+        description: "Your business optimised to show up and get recommended inside ChatGPT, Perplexity and AI search."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "AI Readiness Audit",
-        description: "We review your content production workflows to identify areas where AI can cut costs by 50%."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We look at your marketing and find where AI will genuinely help, and just as importantly, where it will not."
       },
       {
         step: "02",
-        title: "Agent Engineering",
-        description: "We code custom GPTs, automated APIs, and content databases matching your brand's voice."
+        title: "AI Opportunity Map",
+        description: "We audit your workflows, content and search presence and bring back a clear map of the highest impact AI moves for your business."
       },
       {
         step: "03",
-        title: "GEO Alignment",
-        description: "We restructure your site content so SGE and LLMs can crawl and cite your brand."
+        title: "Build and Implement",
+        description: "We set up the tools, build the automations and content engine, and optimise your AI search visibility. Everything connected to how you already work."
       },
       {
         step: "04",
-        title: "Workflow Training",
-        description: "We run training sessions with your marketing team to ensure secure and efficient AI operations."
+        title: "Train and Optimise",
+        description: "We train you and your team so the system sticks, then keep improving it. AI search matters here, because AI driven search traffic tends to convert far higher than ordinary clicks."
       }
     ],
     featureCards: [
       {
-        title: "Generative Engine Optimization",
-        description: "Align your website elements to rank as recommended citations inside ChatGPT, Gemini, and Perplexity.",
+        title: "AI Opportunity Audit",
+        description: "We look at your whole marketing and find the few places where AI will actually save time or make money. No guessing, no chasing trends. A clear map of where AI fits your business. Outcome: A focused plan of the highest impact AI moves for your specific business.",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Generative Content Pipelines",
-        description: "Automate blog post and social copy generation using secure custom brand LLMs.",
+        title: "Workflow Automation",
+        description: "We automate the repetitive work that eats your week, from lead handling to reporting to content production, and set up the tools so they run inside how you already work. Outcome: Hours saved every week and fewer things done by hand.",
         image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Operational AI Training",
-        description: "Equip your marketing team with custom prompts, secure tools, and workflows to triple output.",
+        title: "AI Content Engine",
+        description: "We build a system that produces quality content faster using AI, guided by your brand and your buyer, so you publish more without burning out or losing your voice. Outcome: More content, produced faster, that still sounds like you.",
         image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "AI Search Visibility",
+        description: "We optimise your business to be found and recommended inside ChatGPT, Perplexity and Google AI answers, where over half of buyers now begin their research. Outcome: Your business showing up and getting cited where buyers now ask.",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80"
       }
     ],
     caseStudy: {
-      title: "Scaling content output by 400% while cutting costs by 62%",
-      subtitle: "Uptrix Technologies engineered a custom LLM blog generator and citation strategy for an e-commerce brand.",
-      overview: "The client was spending $8,000/mo on freelance content writers. By building a custom generative pipeline, we increased weekly blog output from 2 to 10 articles, with a 62% reduction in monthly spend.",
+      title: "Put AI to work and scale content output without burning out",
+      subtitle: "Uptrix Technologies built an AI content engine and search visibility system.",
+      overview: "The client was overwhelmed by AI tools and falling behind. We audited their marketing, found the highest impact AI opportunities, built an automated content engine, and optimized them for AI search. Result: more content, less manual work, and visible where buyers now ask.",
       image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-      client: "FreshLife Organic",
-      quote: "The content is on-brand, high-quality, and ranks. Uptrix Technologies helped us use AI safely to gain a massive competitive advantage.",
+      client: "Growing Marketing Team",
+      quote: "We finally know which AI actually matters. Uptrix Technologies cut through the noise and put AI to work in our actual workflow.",
       metrics: [
-        { label: "Content Velocity", value: "4x" },
-        { label: "Production Cost", value: "-62%" },
-        { label: "AI Search Referrals", value: "+190%" }
+        { label: "Content Produced", value: "1.9M views" },
+        { label: "Cost Per Lead", value: "$2.27" },
+        { label: "Organic Reach", value: "385K views" }
       ]
     },
     roiStats: [
-      { label: "Overhead Reduction", value: "62%" },
-      { label: "Content Volume Boost", value: "4.0x" }
+      { label: "Content Views in 90 Days", value: "1.9M" },
+      { label: "Organic Reach Growth", value: "385K" }
     ],
     testimonials: [
       {
-        quote: "Our organic traffic from AI search engines exploded after Uptrix Technologies optimized our structure. They understand the future of search.",
-        author: "Daniel Mercer",
-        role: "Head of Marketing",
-        company: "FreshLife Co."
+        quote: "We were drowning in AI tools that did nothing. Uptrix Technologies found the few that actually matter and built them into how we work.",
+        author: "Growth Marketing Lead",
+        role: "VP of Marketing",
+        company: "Growth-Focused Brand"
       }
     ],
     faqItems: [
       {
         id: "ai-1",
-        question: "Is AI-generated content safe from Google penalties?",
-        answer: "Yes, Google's guidelines prioritize high-quality, helpful content regardless of how it's created. We focus on search intent and topical accuracy to maintain search authority."
+        question: "What is GEO and does my business need it?",
+        answer: "GEO means optimising your business to be found inside AI search tools like ChatGPT and Perplexity, the way SEO optimises you for Google. Over half of buyers now start research in AI tools, so if you sell to people who research before buying, yes, your business needs it."
       },
       {
         id: "ai-2",
-        question: "What is Generative Engine Optimization (GEO)?",
-        answer: "GEO is the process of optimizing site content so it is crawled and selected as references and source links within AI chatbots like ChatGPT and Perplexity."
+        question: "How much do AI marketing services cost?",
+        answer: "It depends on how much you want to implement. We scope your AI opportunities first and give you a clear figure before any work starts. We focus on the moves that pay for themselves in time saved or revenue earned, so the system is an investment, not a cost."
+      },
+      {
+        id: "ai-3",
+        question: "Which AI tools should my business use?",
+        answer: "That depends entirely on your business, and the honest answer is far fewer than the internet suggests. Most businesses need a small set used well, not dozens used badly. We find the right few for you in the audit, so you stop wasting money on tools you do not need."
+      },
+      {
+        id: "ai-4",
+        question: "How do I get my business mentioned in ChatGPT?",
+        answer: "By being the kind of clear, credible source AI tools pull from. We structure your content and online presence so AI engines can find, understand and cite you when buyers ask questions in your space. It is a growing channel, and early movers have a real advantage."
+      },
+      {
+        id: "ai-5",
+        question: "Will AI replace my marketing team?",
+        answer: "No. AI makes good marketers faster, it does not replace strategy or judgement. The businesses winning with AI use it to do more with the people they have, not to remove them. We build AI around your team so they produce more, not so they disappear."
+      },
+      {
+        id: "ai-6",
+        question: "I tried AI tools and they did not help. Why would this be different?",
+        answer: "Because tools alone do not work. Buying ChatGPT access is not a strategy. The difference is a system, the right tools chosen for your business, built into your workflow, with training so they actually stick. That is what turns AI from a novelty into a result."
+      },
+      {
+        id: "ai-7",
+        question: "Is my data safe with AI tools?",
+        answer: "It depends on the tools and how they are set up. We choose tools and configurations that protect your data and your customers, which matters even more in regulated industries. Safe, compliant AI setup is part of how we build the system."
+      },
+      {
+        id: "ai-8",
+        question: "How long until AI starts helping my business?",
+        answer: "Some wins, like automating a repetitive task, show up almost immediately. AI search visibility builds over a few months. We sequence the quick wins first so you feel the benefit early, then build the longer term advantages on top."
       }
     ]
   },
   {
     slug: "revenue-operations-system",
     title: "Revenue Operations System",
-    subtitle: "Growth Hard To Manage?",
-    badge: "RevOps & Analytics",
-    description: "Unify your marketing, sales, and success systems. We build end-to-end attribution pipelines, custom dashboards, and automated lead routing so leaders can manage growth by the numbers.",
-    bestFor: "Mid-market to enterprise companies with messy CRM data, siloed teams, or broken pipeline reporting.",
-    features: ["CRM", "Workflows", "Dashboards", "Pipeline"],
-    cta: "See Full Solution",
+    subtitle: "Growth Hard to Manage?",
+    badge: "Revenue Operations System",
+    description: "Scaling but everything is breaking? We build RevOps systems that align sales and marketing so you grow without chaos or extra headcount.",
+    bestFor: "Growing businesses whose systems cannot keep up. Not for businesses just starting out.",
+    features: ["CRM Architecture", "Sales Process", "Marketing and Sales Alignment", "Lead Routing", "Automation", "Revenue Dashboards", "Pipeline Management"],
+    cta: "Contact Us",
     iconName: "Layers",
     iconColor: "rgba(0, 102, 255, 0.2)",
-    headline: "Unify Your Tech Stack And Track Funnel Performance With Accuracy",
-    heroDescription: "Eliminate blind spots. We build custom multi-touch attribution reporting, clean CRM properties, and automated alerts so you scale campaigns using accurate ROI data.",
+    headline: "Growing Fast but Everything Feels Like It Is Breaking?",
+    heroDescription: "More customers should feel like winning. Instead it feels like chaos. Leads slip through cracks, teams pull in different directions, and you are hiring more people without seeing more profit. We build the systems underneath your growth so it scales smoothly instead of breaking.",
     problems: [
       {
-        title: "Broken pipeline and data reporting",
-        description: "Your sales team uses one CRM, marketing uses ad accounts, and analytics are disconnected. You can't track which ad campaign drove revenue."
+        title: "Leads Lost Between Teams",
+        description: "Marketing hands off to sales and leads fall through the cracks, because nothing connects the two cleanly."
       },
       {
-        title: "Manual CRM updates slow down sales",
-        description: "Reps spend hours copying data, assigning tags, and routing leads manually, resulting in lead leaks and slow response times."
+        title: "No Single Source of Truth",
+        description: "Sales and marketing report different numbers and nobody knows which to trust, so decisions get made on guesses."
+      },
+      {
+        title: "Hiring Instead of Fixing",
+        description: "Throwing more people at a broken system, watching costs rise faster than profit."
       }
     ],
     systemSolutions: [
       {
-        title: "Multi-Touch Revenue Attribution",
-        description: "We connect UTM parameters, ad platforms, and CRM deals to track conversion pathways from first touch to closed won."
+        title: "Connected Teams and Tools",
+        description: "Sales and marketing working from one system with leads routed cleanly, so nothing gets dropped."
       },
       {
-        title: "Automated Lead Routing Playbooks",
-        description: "We write automated routing code to assign inbound accounts to reps instantly based on territory and size."
+        title: "One Clear View",
+        description: "Dashboards everyone trusts, showing the real numbers, so decisions are made on facts not opinions."
+      },
+      {
+        title: "Scale Without Chaos",
+        description: "Systems and automation that let you handle more customers without hiring for every new problem."
       }
     ],
     processSteps: [
       {
         step: "01",
-        title: "Stack Audit",
-        description: "We audit your integrations, duplicate CRM fields, and data attribution gaps."
+        title: "Growth Roadmap Call",
+        description: "60 minutes. We map how your business runs today and find exactly where growth is creating chaos and costing you money."
       },
       {
         step: "02",
-        title: "Data Schema Design",
-        description: "We align properties and lifecycle stages across HubSpot, Salesforce, and analytics dashboards."
+        title: "Operations Audit and Architecture",
+        description: "We map your tools, teams and processes, then design the system that connects them, all agreed before anything is built."
       },
       {
         step: "03",
-        title: "Attribution Pipelines",
-        description: "We deploy custom analytics code to capture and record user click history."
+        title: "Build and Connect",
+        description: "We set up your central system, connect your tools, align your teams and build your dashboards. Everything wired together and working."
       },
       {
         step: "04",
-        title: "RevOps Dashboard",
-        description: "We build live, interactive dashboards reporting CAC, LTV, pipeline velocity, and campaign ROI."
+        title: "Optimise and Scale",
+        description: "We refine the system as you grow. Speed of response is part of it, because businesses that reach a lead within 5 minutes are 9X more likely to convert, so clean routing is built in."
       }
     ],
     featureCards: [
       {
-        title: "Multi-Touch Attribution Analytics",
-        description: "Identify the exact ad campaigns, search phrases, and content posts driving closed revenue.",
+        title: "CRM and Systems Architecture",
+        description: "We design the central system that everything runs through, and connect your tools so your data lives in one place instead of scattered across spreadsheets and apps. Outcome: One clean system of record that your whole business runs on.",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "CRM Lifecycle Optimization",
-        description: "Unify HubSpot or Salesforce to automatically track pipeline stages, velocity, and owner routing.",
+        title: "Sales and Marketing Alignment",
+        description: "We define how leads move from marketing to sales, who owns what, and how handoffs happen, so leads stop falling through the cracks between teams. Outcome: Marketing and sales working as one engine, not two silos.",
         image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
       },
       {
-        title: "Live Operations Dashboards",
-        description: "Interactive visual reports tracking real-time pipeline value, acquisition costs, and team performance.",
+        title: "Automation and Workflows",
+        description: "We automate the manual work that slows your team and creates errors, from data entry to routing to reporting, so your people spend time on what actually grows the business. Outcome: Less manual work, fewer mistakes, more time for real work.",
         image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        title: "Dashboards and Forecasting",
+        description: "We build the dashboards that show your real numbers in one place, so you can see what is working, forecast with confidence and make decisions on facts. Outcome: One clear view of your revenue that everyone trusts.",
+        image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1200&q=80"
       }
     ],
     caseStudy: {
-      title: "Consolidating siloed operations for a 52% RevOps efficiency boost",
-      subtitle: "Uptrix Technologies unified Salesforce and Google Analytics to track multi-touch pipelines.",
-      overview: "The client was struggling to identify their highest-performing ad channels due to attribution data loss. We restructured their lead object schemas and built live visual pipelines, increasing lead velocity by 52%.",
+      title: "Consolidated siloed operations into one scaled system",
+      subtitle: "Uptrix Technologies unified sales, marketing and operations.",
+      overview: "The client was growing but losing leads between teams, had no unified pipeline view, and was hiring constantly to cover process gaps. We built a connected system with clean lead routing, unified dashboards and automated workflows. Result: more customers with existing team size.",
       image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1200&q=80",
-      client: "Innovo Industrial",
-      quote: "We finally have one source of truth. Uptrix Technologies aligned our datasets so we can make spend decisions based on closed won pipeline.",
+      client: "Growing B2B SaaS",
+      quote: "Everything was breaking as we scaled. Uptrix Technologies built the systems that let us grow without chaos.",
       metrics: [
-        { label: "Data Accuracy", value: "99.8%" },
-        { label: "Lead Velocity Boost", value: "+52%" },
-        { label: "Hours of Manual Work Saved", value: "24/wk" }
+        { label: "Ad Spend Managed", value: "$2.5M+" },
+        { label: "Systems Built", value: "7 complete" },
+        { label: "Pipeline Visibility", value: "100%" }
       ]
     },
     roiStats: [
-      { label: "Lead Velocity Increase", value: "+52%" },
-      { label: "Reporting Accuracy Achieved", value: "99.8%" }
+      { label: "Revenue Managed", value: "$2.5M+" },
+      { label: "ROAS Achieved", value: "6.0x" }
     ],
     testimonials: [
       {
-        quote: "Our data was a complete mess. Uptrix Technologies cleaned our CRM systems, mapped our fields, and built custom dashboards that we review daily.",
-        author: "Jonathan Pierce",
+        quote: "Growth itself was becoming the problem. Uptrix Technologies built the operational foundation that lets us scale smoothly.",
+        author: "Operations Leader",
         role: "Chief Operating Officer",
-        company: "Innovo Corp"
+        company: "Growing SaaS"
       }
     ],
     faqItems: [
       {
         id: "ro-1",
-        question: "Do you build custom APIs for disconnected software?",
-        answer: "Yes, we write custom integrations and webhook workflows if standard software connectors are unavailable for your platforms."
+        question: "What is revenue operations and does my business need it?",
+        answer: "Revenue operations is the system that connects your marketing, sales and tools so your business runs as one engine instead of disconnected parts. If you are growing and it feels like things are breaking or leads are getting lost, yes, you need it. If you are just starting out, you need leads first."
       },
       {
         id: "ro-2",
-        question: "Which CRMs do you support?",
-        answer: "We specialize in HubSpot and Salesforce, but we support any modern CRM system with open REST APIs."
+        question: "How much does revenue operations consulting cost?",
+        answer: "It depends on the size and complexity of your business and systems. We scope your operations first and give you a clear figure before any work starts. The system usually pays for itself by recovering lost leads and saving the cost of hires you would otherwise need to make."
+      },
+      {
+        id: "ro-3",
+        question: "How can I scale my business without hiring more people?",
+        answer: "By fixing the system instead of adding bodies to a broken one. Most growing businesses hire to cover for manual work and dropped leads. We automate that work and connect your teams, so you handle more customers with the people you already have. Hiring becomes a choice, not a patch."
+      },
+      {
+        id: "ro-4",
+        question: "My sales and marketing teams blame each other. Can you fix that?",
+        answer: "Yes, and it is one of the most common reasons businesses come to us. The blame usually comes from no shared system and no agreement on who owns what. We define the handoff, connect the tools and build one set of numbers both teams trust, so they work together instead of against each other."
+      },
+      {
+        id: "ro-5",
+        question: "What does a revenue operations system actually include?",
+        answer: "Your central system and connected tools, a clear sales process, aligned marketing and sales handoffs, clean lead routing, automation of manual work, and dashboards that show your real numbers. Together they let your business scale smoothly instead of breaking as you grow."
+      },
+      {
+        id: "ro-6",
+        question: "Will this work with the tools I already use?",
+        answer: "Usually yes. We work with your existing tools wherever they are right for you, and only recommend changes where something is genuinely holding you back. The goal is to connect and improve what you have, not to force an expensive rebuild you do not need."
+      },
+      {
+        id: "ro-7",
+        question: "How long does it take to build?",
+        answer: "It depends on the complexity of your business, but most systems are built and connected within four to eight weeks. We sequence it so you feel relief early, fixing the most painful bottleneck first, then building the full system around it."
+      },
+      {
+        id: "ro-8",
+        question: "Is this only for big companies?",
+        answer: "No. Any business growing fast enough that its systems are straining can benefit, often well before it feels big. The earlier you build the operational foundation, the smoother your scaling will be. Fixing it early is far cheaper than fixing it in crisis."
       }
     ]
   }

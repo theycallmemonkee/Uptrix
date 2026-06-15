@@ -92,7 +92,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
 
             {/* Heading */}
             <motion.h1
-              className="font-heading text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl"
+              className="font-heading text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-white"
               initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.75, delay: 0.08, ease: EASE }}
@@ -110,7 +110,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
 
             {/* Subheading */}
             <motion.p
-              className="mt-6 max-w-2xl text-sm leading-relaxed text-white/76 md:text-base md:leading-loose"
+              className="mt-5 max-w-xl text-[0.9375rem] leading-[1.8] text-white/68"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
@@ -160,7 +160,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
           </div>
 
           {/* ── RIGHT COLUMN: LAYERED PREVIEW VISUAL ───────────────── */}
-          <div className="relative flex items-center justify-center lg:mt-0 mt-16 py-8 px-4 w-full select-none">
+          <div className="relative flex items-center justify-center lg:mt-0 mt-12 py-14 px-12 w-full select-none">
             
             {/* Glow backing */}
             <div className="absolute inset-0 -z-10 rounded-full blur-3xl opacity-60 bg-[radial-gradient(circle,rgba(0,102,255,0.15)_0%,transparent_65%)]" />
@@ -220,7 +220,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
                 opacity: { duration: 0.6, delay: 0.3 },
                 y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="absolute -top-6 -left-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl hover:scale-104 transition-transform duration-300"
+              className="absolute -top-4 -left-4 md:-top-6 md:-left-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:scale-105"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0066FF]/20 text-[#70A8FF]">
                 <TrendingUp size={16} />
@@ -239,7 +239,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
                 opacity: { duration: 0.6, delay: 0.38 },
                 y: { duration: 5.5, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="absolute -top-10 -right-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl hover:scale-104 transition-transform duration-300"
+              className="absolute -top-4 md:-top-10 -right-4 md:-right-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:scale-105"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#27C93F]/20 text-[#54EC73]">
                 <BarChart3 size={16} />
@@ -258,7 +258,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
                 opacity: { duration: 0.6, delay: 0.44 },
                 y: { duration: 6.2, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="absolute -bottom-8 -left-8 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl hover:scale-104 transition-transform duration-300"
+              className="absolute -bottom-4 md:-bottom-8 -left-4 md:-left-8 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:scale-105"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E02424]/20 text-[#F05252]">
                 <Eye size={16} />
@@ -277,7 +277,7 @@ export function PortfolioHero({ onViewWorkClick }: PortfolioHeroProps) {
                 opacity: { duration: 0.6, delay: 0.5 },
                 y: { duration: 5.8, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="absolute -bottom-6 -right-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl hover:scale-104 transition-transform duration-300"
+              className="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 z-20 flex items-center gap-3 rounded-2xl border border-white/14 bg-[#0B1E3B]/85 px-4 py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:scale-105"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FFBD2E]/20 text-[#FFE066]">
                 <Award size={16} />

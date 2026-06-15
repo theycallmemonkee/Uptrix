@@ -19,33 +19,33 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const FAQS: PremiumAccordionItem[] = [
   {
     id: "services",
-    question: "What Services Does The Best AI-Powered Digital Marketing Agency Offer?",
+    question: "What does Uptrix Technologies actually do?",
     answer:
-      "Uptrix Technologies delivers AI-accelerated AI SEO, paid media, conversion optimization, analytics, creative systems, and marketing automation—built to improve pipeline quality, CAC efficiency, and enterprise-ready reporting.",
+      "We build AI powered growth systems for businesses. Instead of selling separate services, we build connected engines that bring you leads, convert them into customers and help you scale. You can use one system or combine several into one growth engine.",
+  },
+  {
+    id: "type",
+    question: "Do you work with my type of business?",
+    answer:
+      "Yes. We build systems for D2C, ecommerce, startups, local and service businesses, B2B, professional services and regulated industries. The systems adapt to your business. The goal of more customers and more revenue stays the same.",
   },
   {
     id: "custom",
-    question: "Do You Create Custom Marketing Strategies?",
+    question: "Do you create custom strategies or use templates?",
     answer:
-      "Yes. We design bespoke strategies around your revenue model, sales cycle, and competitive landscape—then operationalize them with measurable milestones, experimentation, and continuous AI-driven optimization.",
-  },
-  {
-    id: "industries",
-    question: "Which Industries Do You Serve?",
-    answer:
-      "We partner with B2B SaaS, D2C, healthcare, fintech, real estate, education, and services brands—adapting channel mix and messaging frameworks to industry compliance and buyer intent.",
+      "Every system is built for your specific business, your market and your goals. We start by understanding where you are, then build the system that fits. No templates, no one size fits all.",
   },
   {
     id: "measurement",
-    question: "How Do You Measure Campaign Success?",
+    question: "How do you measure success?",
     answer:
-      "We track the metrics that matter: qualified leads, pipeline velocity, ROAS, LTV:CAC, retention signals, and attribution clarity—backed by clean dashboards, experimentation logs, and weekly performance insights.",
+      "By real business outcomes, leads, customers and revenue, not vanity metrics like impressions or reach. Every system connects to one clear growth number you actually care about.",
   },
   {
     id: "start",
-    question: "How Can I Get Started With Uptrix Technologies?",
+    question: "How do I get started with Uptrix Technologies?",
     answer:
-      "Start with a short discovery call. We’ll map your goals, audit your current funnel, and recommend a phased plan—so you can scale with confidence and enterprise-grade execution.",
+      "Contact us and we will come back within 24 hours with a first honest read on where your growth is stuck and which system fixes it. No commitment, no pitch, just clarity.",
   },
 ];
 
@@ -114,7 +114,7 @@ export function PremiumFaqSection() {
         }}
       />
 
-      <div className="mx-auto grid w-full max-w-7xl items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+      <div className="mx-auto grid w-full max-w-7xl items-start gap-14 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : undefined}
@@ -125,13 +125,13 @@ export function PremiumFaqSection() {
 
         <div className="relative">
           <motion.h2
-            className="max-w-xl font-heading text-3xl leading-tight font-semibold tracking-tight text-white md:text-5xl"
+            className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
           >
             <motion.span custom={0.05} variants={headingVariants} className="block">
               Frequently Asked Questions{" "}
-              <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/35 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_10px_30px_rgba(0,102,255,0.18)]">
+              <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/32 bg-[#7BABFF]/12 px-3.5 py-1 text-[#DDEBFF] shadow-[0_10px_30px_rgba(0,102,255,0.16)]">
                 (FAQs)
               </span>
             </motion.span>
@@ -142,7 +142,7 @@ export function PremiumFaqSection() {
             variants={headingVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="mt-6 max-w-xl text-base leading-8 text-white/72 md:text-lg"
+            className="mt-5 text-base leading-[1.8] text-white/68"
           >
             Transparent answers, enterprise-ready execution, and a strategy-first approach—built for premium AI-powered growth.
           </motion.p>

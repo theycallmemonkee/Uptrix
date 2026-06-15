@@ -9,11 +9,11 @@ import { ScrollProgress } from "@/components/providers/scroll-progress";
 
 export const metadata: Metadata = {
   title: {
-    default: "Uptrix Technologies — AI-Powered Digital Marketing Agency",
+    default: "Uptrix Technologies | AI Powered Growth Systems Partner",
     template: "%s | Uptrix Technologies",
   },
   description:
-    "India's leading AI-powered digital marketing agency. We build precision AI SEO, PPC automation, social media, and branding systems for enterprise-scale growth.",
+    "Uptrix Technologies builds AI powered growth systems that bring you leads, convert customers and scale revenue. Your growth partner, not another agency.",
   metadataBase: new URL("https://uptrixtechnologies.com"),
   openGraph: {
     siteName: "Uptrix Technologies",
@@ -57,6 +57,7 @@ export default function RootLayout({
         />
         {/* End Google Tag Manager */}
         <meta name="google-site-verification" content="4fTWd9X25lUEgqKMjkQfFuzMjLKz4qnWtBKEPE-jxEg" />
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
       </head>
       <body className="min-h-full flex flex-col">
         {/* Google Tag Manager (noscript) */}

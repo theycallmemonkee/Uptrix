@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { User, Mail, Building, MessageSquare, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { InvisibleTurnstile } from "@/components/ui/turnstile";
 
 type Props = {
   post: {
@@ -14,6 +15,8 @@ type Props = {
 
 export function BlogRightForm({ post }: Props) {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", requirements: "" });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -29,19 +32,28 @@ export function BlogRightForm({ post }: Props) {
     setError("");
     setSuccess(false);
 
+    const payloadBody = {
+      name: formData.name,
+      email: formData.email,
+      message: `Company: ${formData.company}\n\nRequirements: ${formData.requirements}`,
+      honey: "", // Anti-spam honeypot
+      turnstileToken,
+    };
+
+    // Debug log formData
+    console.log("formData", payloadBody);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: `Company: ${formData.company}\n\nRequirements: ${formData.requirements}`,
-          honey: "", // Anti-spam honeypot
-        }),
+        body: JSON.stringify(payloadBody),
       });
 
       const resData = await response.json();
+      
+      // Debug log apiResponse
+      console.log("apiResponse", resData);
 
       if (!response.ok) {
         throw new Error(resData.error || "Submission failed. Please try again.");
@@ -49,8 +61,14 @@ export function BlogRightForm({ post }: Props) {
 
       setSuccess(true);
       setFormData({ name: "", email: "", company: "", requirements: "" });
+      turnstileRef.current?.reset();
+      turnstileRef.current?.execute();
     } catch (err: unknown) {
+      // Debug log serverError
+      console.log("serverError", err);
       setError(err instanceof Error ? err.message : "Failed to submit form. Please check your inputs.");
+      turnstileRef.current?.reset();
+      turnstileRef.current?.execute();
     } finally {
       setLoading(false);
     }
@@ -142,6 +160,8 @@ export function BlogRightForm({ post }: Props) {
               className="w-full rounded-xl border border-gray-200 bg-[#F8FAFC] pl-10 pr-4 py-2 text-sm outline-none transition-all duration-200 focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10 text-[#111827] resize-none"
             />
           </div>
+
+          <InvisibleTurnstile onVerify={setTurnstileToken} widgetRef={turnstileRef} />
 
           {/* Submit Button */}
           <button
