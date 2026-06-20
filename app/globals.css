@@ -134,6 +134,17 @@ body::before {
 }
 
 /* ============================================================
+   SCROLLBAR HIDE — for horizontal reel scroll
+   ============================================================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
    SELECTION
    ============================================================ */
 ::selection {
@@ -542,4 +553,171 @@ input,
 textarea {
   cursor: text;
   user-select: text;
+}
+
+/* ============================================================
+   LOGO MARQUEE — shared by client-logo-strip & portfolio-logo-strip
+   GPU-accelerated, jitter-free, 60 FPS infinite scroll
+   ============================================================ */
+
+/* ── cls-* classes  (ClientLogoStrip / MarqueeLogos) ── */
+.cls-marquee {
+  display: flex;
+  width: max-content;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.cls-track {
+  display: flex;
+  align-items: center;
+  min-width: max-content;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.cls-track-forward {
+  animation: cls-marquee-left linear infinite;
+}
+.cls-track-reverse {
+  animation: cls-marquee-right linear infinite;
+}
+/* Pause both tracks when the marquee wrapper is hovered */
+.cls-marquee.group:hover .cls-track {
+  animation-play-state: paused;
+}
+@keyframes cls-marquee-left {
+  0%   { transform: translateX(0) translateZ(0); }
+  100% { transform: translateX(-100%) translateZ(0); }
+}
+@keyframes cls-marquee-right {
+  0%   { transform: translateX(-100%) translateZ(0); }
+  100% { transform: translateX(0) translateZ(0); }
+}
+@media (max-width: 767px) {
+  .cls-track { animation-duration: 34s !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cls-track { animation: none !important; }
+}
+
+/* ── pls-* classes  (PortfolioLogoStrip) ── */
+.pls-marquee {
+  display: flex;
+  width: max-content;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.pls-track {
+  display: flex;
+  align-items: center;
+  min-width: max-content;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.pls-track-forward {
+  animation: pls-marquee-left linear infinite;
+}
+/* Pause both tracks when the marquee wrapper is hovered */
+.pls-marquee.group:hover .pls-track {
+  animation-play-state: paused;
+}
+@keyframes pls-marquee-left {
+  0%   { transform: translateX(0) translateZ(0); }
+  100% { transform: translateX(-100%) translateZ(0); }
+}
+@media (max-width: 767px) {
+  .pls-track-forward { animation-duration: 34s !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pls-track { animation: none !important; }
+}
+
+/* ============================================================
+   PORTFOLIO PAGE — Premium micro-interactions
+   ============================================================ */
+
+/* Shimmer sweep — stat cards */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-150%) skewX(-10deg) translateZ(0); }
+  100% { transform: translateX(280%)  skewX(-10deg) translateZ(0); }
+}
+.stat-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 55%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.045) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 3.8s ease-in-out infinite;
+  pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Pulse ring — primary CTA button */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.94) translateZ(0); opacity: 0.65; }
+  70%  { transform: scale(1.16) translateZ(0); opacity: 0; }
+  100% { transform: scale(1.16) translateZ(0); opacity: 0; }
+}
+.pulse-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0, 102, 255, 0.38);
+  animation: pulse-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Floating particles — CTA sections */
+@keyframes float-particle {
+  0%   { transform: translateY(0)    translateZ(0); opacity: 0; }
+  15%  { opacity: 0.55; }
+  80%  { opacity: 0.2; }
+  100% { transform: translateY(-72px) translateZ(0); opacity: 0; }
+}
+
+/* Gradient drift — CTA backgrounds */
+@keyframes gradient-drift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* Cursor glow element — desktop only */
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 102, 255, 0.065) 0%,
+    transparent 68%
+  );
+  will-change: transform;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  transform: translateZ(0);
+}
+@media (max-width: 1023px) {
+  .cursor-glow { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-shimmer::after   { animation: none !important; }
+  .pulse-cta::before     { animation: none !important; }
+  .cursor-glow           { display: none !important; }
 }

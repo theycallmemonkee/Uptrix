@@ -164,11 +164,11 @@ export function SolutionHero({ solution }: Props) {
 
   const textVariants = useMemo(
     () => ({
-      hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+      hidden: { opacity: 0, y: 20, scale: 1 },
       show: (delay = 0) => ({
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
+        scale: 1,
         transition: { duration: 0.7, delay, ease: EASE },
       }),
     }),

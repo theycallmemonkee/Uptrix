@@ -68,8 +68,8 @@ function CountCard({ value, suffix, label, icon: Icon }: { value: number; suffix
     <motion.div
       ref={ref}
       whileHover={{ y: -8, scale: 1.02 }}
-      initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 20, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.65, ease: EASE }}
       className="group relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] p-6 backdrop-blur-xl will-change-transform hover:border-[#79ABFF]/28"
@@ -99,8 +99,8 @@ function TimelineItem({ year, title, desc, index }: { year: string; title: strin
   return (
     <motion.div
       className={`relative flex items-start gap-6 ${isEven ? "flex-row" : "flex-row-reverse"} lg:items-center`}
-      initial={{ opacity: 0, x: isEven ? -30 : 30, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, x: isEven ? -30 : 30, scale: 1 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.7, delay: index * 0.06, ease: EASE }}
     >
@@ -198,8 +198,8 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
 
               <motion.h1
                 className="font-heading text-[clamp(2.75rem,6vw,5rem)] font-semibold tracking-[-0.025em]"
-                initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                initial={{ opacity: 0, y: 24, scale: 1 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
               >
                 About{" "}

@@ -42,8 +42,8 @@ export function DemandGenerationHero({ onPrimaryClick, onSecondaryClick }: Props
   );
   const itemVariants = useMemo(
     () => ({
-      hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-      show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.68, ease: EASE } },
+      hidden: { opacity: 0, y: 20, scale: 0.99 },
+      show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.68, ease: EASE } },
     }),
     [],
   );
@@ -149,8 +149,8 @@ export function DemandGenerationHero({ onPrimaryClick, onSecondaryClick }: Props
         <motion.div
           className="relative mx-auto w-full max-w-[320px] sm:max-w-[420px] lg:max-w-none lg:justify-self-end mt-10 lg:mt-0"
           style={{ x: parallaxX, y: parallaxY }}
-          initial={{ opacity: 0, scale: 0.97, y: 22, filter: "blur(8px)" }}
-          animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, scale: 0.97, y: 22 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.18, ease: EASE }}
         >
           {/* Soft blue glow behind image */}

@@ -1,5 +1,5 @@
 import { EnterpriseFooter } from "@/components/enterprise-footer";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { FinalCta } from "@/components/services/final-cta";
 import { ServiceFeatures } from "@/components/services/service-features";
 import { ServiceHero } from "@/components/services/service-hero";

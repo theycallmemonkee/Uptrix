@@ -10,11 +10,11 @@ const container = {
 };
 
 const item = (delay = 0) => ({
-  hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 22, scale: 1 },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
+    scale: 1,
     transition: { duration: 0.72, delay, ease: EASE },
   },
 });

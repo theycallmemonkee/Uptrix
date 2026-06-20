@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { BlogProgress } from "@/components/blog/blog-progress";
 import { BlogPostHero } from "@/components/blog/blog-post-hero";
 import { BlogContent } from "@/components/blog/blog-content";

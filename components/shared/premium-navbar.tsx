@@ -6,21 +6,9 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { SolutionsDropdownDesktop, SolutionsDropdownMobile } from "@/components/solutions/solutions-mega-menu";
-
-type NavItem = {
-  label: string;
-  href: string;
-};
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Our Work", href: "/portfolio" },
-  { label: "Why Uptrix", href: "/about" },
-  { label: "Insights", href: "/blog" },
-];
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { SolutionsDropdownDesktop, SolutionsDropdownMobile } from "@/components/shared/solutions-mega-menu";
+import { NAV_ITEMS } from "@/constants/navigation";
+import { EASE_PREMIUM } from "@/lib/motion";
 
 export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   const pathname = usePathname();
@@ -29,7 +17,6 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-
 
   const navWidth = useTransform(scrollY, [0, 120], ["min(1120px, 82vw)", "min(1040px, 80vw)"]);
   const navTop = useTransform(scrollY, [0, 120], [24, 12]);
@@ -81,7 +68,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
               ? "0 12px 50px rgba(7,14,29,0.42), 0 0 0 1px rgba(0,102,255,0.08) inset"
               : "0 12px 50px rgba(7,14,29,0.18)",
           }}
-          transition={{ duration: 0.5, ease: EASE }}
+          transition={{ duration: 0.5, ease: EASE_PREMIUM }}
         >
           {/* Subtle top border highlight when scrolled or blog page */}
           {(scrolled || theme === "blog") && (
@@ -189,79 +176,79 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
               initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
               animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
               exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-              transition={{ duration: 0.42, ease: EASE }}
+              transition={{ duration: 0.42, ease: EASE_PREMIUM }}
             >
-            <motion.div
-              className="pointer-events-none absolute inset-0 opacity-40"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 20% 20%, rgba(0,102,255,0.25), transparent 35%), radial-gradient(circle at 80% 10%, rgba(255,255,255,0.14), transparent 32%)",
-              }}
-            />
+              <motion.div
+                className="pointer-events-none absolute inset-0 opacity-40"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle at 20% 20%, rgba(0,102,255,0.25), transparent 35%), radial-gradient(circle at 80% 10%, rgba(255,255,255,0.14), transparent 32%)",
+                }}
+              />
 
-            <motion.ul
-              className="relative z-10 mt-10 space-y-6 select-none"
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.07, delayChildren: 0.08 },
-                },
-              }}
-            >
-              {NAV_ITEMS.slice(0, 1).map((item) => (
-                <MobileNavItem
-                  key={item.href}
-                  href={item.href}
-                  active={isActive(item.href)}
+              <motion.ul
+                className="relative z-10 mt-10 space-y-6 select-none"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.07, delayChildren: 0.08 },
+                  },
+                }}
+              >
+                {NAV_ITEMS.slice(0, 1).map((item) => (
+                  <MobileNavItem
+                    key={item.href}
+                    href={item.href}
+                    active={isActive(item.href)}
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    {item.label}
+                  </MobileNavItem>
+                ))}
+                <motion.li
+                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.45, ease: EASE_PREMIUM }}
+                >
+                  <SolutionsDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
+                </motion.li>
+                {NAV_ITEMS.slice(1).map((item) => (
+                  <MobileNavItem
+                    key={item.href}
+                    href={item.href}
+                    active={isActive(item.href)}
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    {item.label}
+                  </MobileNavItem>
+                ))}
+              </motion.ul>
+
+              <motion.div
+                className="relative z-10 mt-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.15, ease: EASE_PREMIUM }}
+              >
+                <Link
+                  href="/contact"
+                  scroll
+                  aria-label="Contact Us"
+                  className={`shine-sweep inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-4 font-heading text-base font-semibold text-white shadow-[0_14px_34px_rgba(0,102,255,0.34)] ${
+                    isContactActive
+                      ? "border-[#9FC5FF] bg-gradient-to-r from-[#1A74FF] to-[#235FC6] ring-2 ring-[#8CB8FF]/45"
+                      : "border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6]"
+                  }`}
                   onClick={() => setIsMobileOpen(false)}
                 >
-                  {item.label}
-                </MobileNavItem>
-              ))}
-              <motion.li
-                variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
-                transition={{ duration: 0.45, ease: EASE }}
-              >
-                <SolutionsDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
-              </motion.li>
-              {NAV_ITEMS.slice(1).map((item) => (
-                <MobileNavItem
-                  key={item.href}
-                  href={item.href}
-                  active={isActive(item.href)}
-                  onClick={() => setIsMobileOpen(false)}
-                >
-                  {item.label}
-                </MobileNavItem>
-              ))}
-            </motion.ul>
-
-            <motion.div
-              className="relative z-10 mt-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
-            >
-              <Link
-                href="/contact"
-                scroll
-                aria-label="Contact Us"
-                className={`shine-sweep inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-4 font-heading text-base font-semibold text-white shadow-[0_14px_34px_rgba(0,102,255,0.34)] ${
-                  isContactActive
-                    ? "border-[#9FC5FF] bg-gradient-to-r from-[#1A74FF] to-[#235FC6] ring-2 ring-[#8CB8FF]/45"
-                    : "border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6]"
-                }`}
-                onClick={() => setIsMobileOpen(false)}
-              >
-                Contact Us
-                <ArrowUpRight size={18} />
-              </Link>
-            </motion.div>
+                  Contact Us
+                  <ArrowUpRight size={18} />
+                </Link>
+              </motion.div>
             </motion.aside>
           </>
         )}
@@ -270,7 +257,6 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   );
 }
 
-/* ── Desktop nav link ──────────────────────────────────────── */
 function NavLink({
   href,
   active,
@@ -287,20 +273,17 @@ function NavLink({
       aria-current={active ? "page" : undefined}
     >
       <span>{children}</span>
-      {/* Active indicator */}
       <motion.span
         className="absolute inset-x-0 -bottom-2 h-px origin-left bg-gradient-to-r from-[#70A8FF] via-[#0066FF] to-[#70A8FF]"
         initial={false}
         animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.35, ease: EASE_PREMIUM }}
       />
-      {/* Hover indicator */}
       <span className="absolute inset-x-0 -bottom-2 h-px origin-left scale-x-0 bg-white/55 transition-transform duration-300 group-hover:scale-x-100" />
     </Link>
   );
 }
 
-/* ── Mobile nav item ──────────────────────────────────────── */
 function MobileNavItem({
   href,
   active,
@@ -315,7 +298,7 @@ function MobileNavItem({
   return (
     <motion.li
       variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.45, ease: EASE_PREMIUM }}
     >
       <Link
         href={href}

@@ -20,7 +20,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { InvisibleTurnstile } from "@/components/ui/turnstile";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
 import { FloatingOrbs, AnimatedGrid, AIWaveOverlay, NoiseTexture } from "@/components/ui/visual-effects";
@@ -482,7 +482,7 @@ export function MoreLeadsClient({ posts }: Props) {
                   className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.01] p-8 transition-all duration-300 hover:border-[#79ABFF]/25 hover:bg-white/[0.03] hover:-translate-y-1 shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_rgba(0,102,255,0.06)]"
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, delay: idx * 0.08, ease: EASE }}
                 >
                   <div className="pointer-events-none absolute -inset-px -z-10 rounded-[2rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(400px_circle_at_top_left,rgba(0,102,255,0.06),transparent_60%)]" />
@@ -692,7 +692,7 @@ export function MoreLeadsClient({ posts }: Props) {
                     className="flex flex-col items-start"
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
                     {/* Circle Node */}

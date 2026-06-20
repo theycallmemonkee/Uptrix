@@ -48,11 +48,10 @@ export function CinematicHero({ data }: CinematicHeroProps = {}) {
 
   const textVariants = useMemo(
     () => ({
-      hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+      hidden: { opacity: 0, y: 20 },
       show: (delay = 0) => ({
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
         transition: { duration: 0.7, delay, ease: EASE },
       }),
     }),
@@ -118,7 +117,7 @@ export function CinematicHero({ data }: CinematicHeroProps = {}) {
 
           {/* Headline */}
           <motion.div custom={0.08} variants={textVariants} className="text-center lg:text-left">
-            <h1 className="font-heading text-[clamp(2.75rem,7vw,4.75rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white">
+            <h1 className="font-heading text-[clamp(2.25rem,7vw,4.75rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white">
               {headlinePart1}
               <br />
               <motion.span
@@ -211,8 +210,8 @@ export function CinematicHero({ data }: CinematicHeroProps = {}) {
         <motion.div
           className="relative mx-auto w-full max-w-[320px] sm:max-w-[440px] lg:max-w-none lg:justify-self-end mt-6 lg:mt-0"
           style={{ x: parallaxX, y: parallaxY }}
-          initial={{ opacity: 0, scale: 0.97, y: 22, filter: "blur(8px)" }}
-          animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, scale: 0.97, y: 22 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
         >
           {/* Soft blue ambient glow behind image */}

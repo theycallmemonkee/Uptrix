@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { ServicesClient } from "@/components/services/ServicesClient";
 
@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: "Services | Uptrix Technologies",
   description:
     "Explore Uptrix premium services in AI UGC video ads, business automation, AI SEO, social media, PPC, and branding for enterprise growth.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services | Uptrix Technologies",
+    description: "Explore Uptrix premium services in AI UGC video ads, business automation, AI SEO, social media, PPC, and branding for enterprise growth.",
+    url: "https://uptrixtechnologies.com/services",
+  },
 };
 
 export default function ServicesPage() {

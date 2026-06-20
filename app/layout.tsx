@@ -3,9 +3,6 @@ import { Inter, Poppins } from "next/font/google";
 
 import "./globals.css";
 import { ScrollRestoration } from "@/components/scroll-restoration";
-import { LenisProvider } from "@/components/providers/lenis-provider";
-import { LoadingScreen } from "@/components/providers/loading-screen";
-import { ScrollProgress } from "@/components/providers/scroll-progress";
 
 export const metadata: Metadata = {
   title: {
@@ -18,9 +15,16 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "Uptrix Technologies",
     type: "website",
+    images: [{ url: "/Uptrix.png", width: 1200, height: 630, alt: "Uptrix Technologies" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/Uptrix.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
   },
 };
 
@@ -59,7 +63,7 @@ export default function RootLayout({
         <meta name="google-site-verification" content="4fTWd9X25lUEgqKMjkQfFuzMjLKz4qnWtBKEPE-jxEg" />
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         {/* Google Tag Manager (noscript) */}
         <noscript
           dangerouslySetInnerHTML={{
@@ -68,10 +72,6 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager (noscript) */}
-        {/* Global providers — order matters */}
-        <LenisProvider />
-        <ScrollProgress />
-        <LoadingScreen />
         <ScrollRestoration />
         {children}
       </body>

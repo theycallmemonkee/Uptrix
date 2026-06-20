@@ -264,7 +264,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
             key={metric.label}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: idx * 0.08, ease: EASE }}
             className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-7 text-center shadow-lg select-none"
           >
@@ -468,6 +468,7 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
                   <button
                     onClick={() => setIsLightboxOpen(false)}
                     className="rounded-full bg-white/5 p-2 text-white/80 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
+                    aria-label="Close lightbox"
                   >
                     <X size={16} />
                   </button>
@@ -487,12 +488,14 @@ export function CaseStudyPageClient({ project }: CaseStudyClientProps) {
                   <button
                     onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
+                    aria-label="Previous image"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
                     className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white/80 hover:bg-black/60 cursor-pointer"
+                    aria-label="Next image"
                   >
                     <ChevronRight size={20} />
                   </button>

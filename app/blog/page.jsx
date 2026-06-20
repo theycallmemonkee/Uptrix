@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { getAllPosts } from "@/lib/posts";
 import BlogListHero from "@/components/blog/blog-list-hero";
 

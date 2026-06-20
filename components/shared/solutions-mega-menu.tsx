@@ -66,7 +66,6 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
       <AnimatePresence>
         {open && (
           <>
-            {/* Full screen dim and backdrop blur (z-190) behind the dropdown, clearing the navbar */}
             <motion.div
               className="fixed inset-x-0 bottom-0 top-[98px] z-[-10] bg-black/15 pointer-events-none"
               style={{ backdropFilter: "blur(18px)" }}
@@ -76,7 +75,6 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
               transition={{ duration: 0.25 }}
             />
 
-            {/* Dropdown panel (z-200) spaced 28px from navbar */}
             <motion.div
               className="dropdown absolute left-1/2 top-full z-[200] pt-[28px] w-[min(540px,94vw)] -translate-x-1/2"
               initial={{ opacity: 0, y: -12, scale: 0.99 }}
@@ -85,7 +83,6 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
               transition={{ type: "spring", stiffness: 350, damping: 35, mass: 0.75 }}
               role="menu"
             >
-              {/* Arrow */}
               <div className="relative mx-auto mb-1 h-2 w-4 overflow-hidden">
                 <div className="absolute inset-x-0 top-1 h-3 w-3 origin-bottom-left rotate-45 rounded-sm border border-[#78aaff]/12 bg-[#071024]" style={{ left: "50%", transform: "translateX(-50%) rotate(45deg)" }} />
               </div>
@@ -99,7 +96,6 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                   backdropFilter: "blur(20px)",
                 }}
               >
-                {/* Soft blue ambient glow inside panel, constrained to prevent bleeding upwards into navbar */}
                 <div
                   className="pointer-events-none absolute -inset-x-20 -bottom-20 top-0 -z-10 rounded-3xl"
                   style={{
@@ -143,7 +139,6 @@ export function SolutionsDropdownDesktop({ className }: DesktopProps) {
                           </p>
                         </div>
 
-                        {/* Hover glow line */}
                         {isSelected && (
                           <motion.div
                             className="absolute inset-y-3 left-0 w-[3px] rounded-r bg-[#0066FF]"

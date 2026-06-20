@@ -53,9 +53,10 @@ const DEFAULT_FAQS: PremiumAccordionItem[] = [
 export interface PremiumFaqSectionProps {
   faqs?: SanityFaqItem[] | null
   settings?: SanityGlobalSettings | null
+  className?: string
 }
 
-export function PremiumFaqSection({ faqs, settings }: PremiumFaqSectionProps = {}) {
+export function PremiumFaqSection({ faqs, settings, className }: PremiumFaqSectionProps = {}) {
   const phone = settings?.phone ?? "+91-9266 893 997";
 
   const faqItems: PremiumAccordionItem[] =
@@ -102,7 +103,7 @@ export function PremiumFaqSection({ faqs, settings }: PremiumFaqSectionProps = {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 w-full overflow-hidden px-6 pb-24 pt-8 md:px-10 md:pb-32"
+      className={`relative z-10 w-full overflow-hidden px-6 md:px-10 ${className ?? "pb-24 pt-8 md:pb-32"}`}
       onMouseMove={(event) => {
         if (!mounted) return;
         const rect = event.currentTarget.getBoundingClientRect();
@@ -195,7 +196,7 @@ export function PremiumFaqSection({ faqs, settings }: PremiumFaqSectionProps = {
                   className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/14 to-transparent"
                   initial={{ x: "-120%" }}
                   whileInView={{ x: "120%" }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
                 />
               </div>

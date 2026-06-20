@@ -26,13 +26,13 @@ export function IndustriesStrip({ data }: IndustriesStripProps = {}) {
   const industries = data?.industries?.length ? data.industries : DEFAULT_INDUSTRIES;
 
   return (
-    <section className="relative z-10 w-full px-6 pb-24 pt-6 md:px-10 md:pb-32">
+    <section className="relative z-10 w-full px-6 pb-16 pt-6 md:px-10 md:pb-20">
       <div className="mx-auto w-full max-w-7xl">
         <div className="text-center">
           <p className="font-heading text-xs font-medium tracking-[0.22em] text-[#9BC2FF] uppercase">
             {eyebrow}
           </p>
-          <h2 className="mx-auto mt-4 max-w-3xl font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold leading-tight tracking-[-0.02em] text-white">
+          <h2 className="mx-auto mt-4 max-w-3xl font-heading text-[clamp(1.875rem,4.5vw,3rem)] font-semibold leading-tight tracking-[-0.02em] text-white">
             {headline}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-[1.75] text-white/68">

@@ -24,8 +24,8 @@ export function BlogCard({ blog, index }: { blog: Blog; index: number }) {
   return (
     <motion.article
       className="group relative overflow-hidden rounded-[1.7rem] border border-white/12 bg-[linear-gradient(160deg,rgba(14,34,64,0.62),rgba(6,14,28,0.72))] shadow-[0_22px_70px_rgba(2,9,22,0.55)] ring-1 ring-inset ring-white/8 backdrop-blur-xl will-change-transform"
-      initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 22, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.72, delay: index * 0.07, ease: EASE }}
       whileHover={{ y: -10, scale: 1.012 }}

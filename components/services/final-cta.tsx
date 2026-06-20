@@ -29,7 +29,7 @@ export function FinalCta({ title, description }: Props) {
             className="max-w-3xl font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55 }}
           >
             {title}
@@ -38,7 +38,7 @@ export function FinalCta({ title, description }: Props) {
             className="mx-auto mt-4 max-w-2xl text-[0.9375rem] leading-[1.8] text-white/68 md:mx-0"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: 0.08 }}
           >
             {description}

@@ -98,8 +98,8 @@ export function BlogArticleHero({ blog }: { blog: Blog }) {
         {/* Main title — large, cinematic */}
         <motion.h1
           className="max-w-5xl font-heading text-4xl font-bold leading-[1.06] tracking-tight text-white md:text-5xl lg:text-[3.6rem]"
-          initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 24, scale: 1 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
         >
           {blog.title}

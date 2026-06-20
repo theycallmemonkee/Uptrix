@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { CaseStudyPageClient } from "@/components/portfolio/case-study-client";
 import { PORTFOLIO_ITEMS } from "@/data/portfolio-data";

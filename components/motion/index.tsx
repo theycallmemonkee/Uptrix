@@ -41,9 +41,9 @@ export function FadeIn({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, filter: blur ? "blur(8px)" : "none" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once, amount: 0.25 }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, amount: 0.2 }}
       transition={{ duration, delay, ease: EASE_PREMIUM }}
     >
       {children}
@@ -91,11 +91,10 @@ export function StaggerContainer({
 
 export const StaggerItem = motion.div;
 export const STAGGER_ITEM_VARIANTS = {
-  hidden: { opacity: 0, y: 22, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.68, ease: EASE_PREMIUM },
   },
 };

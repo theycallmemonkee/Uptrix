@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 
 export const metadata: Metadata = {

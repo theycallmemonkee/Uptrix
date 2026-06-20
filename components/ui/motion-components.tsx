@@ -80,14 +80,12 @@ export function ScrollReveal({
   once?: boolean;
 }) {
   const initial: Record<string, number | string> = { opacity: 0 };
-  if (blur) initial.filter = "blur(10px)";
   if (direction === "up")    { initial.y = 28; }
   if (direction === "down")  { initial.y = -28; }
   if (direction === "left")  { initial.x = 28; }
   if (direction === "right") { initial.x = -28; }
 
   const visible: Record<string, number | string> = { opacity: 1 };
-  if (blur)            visible.filter = "blur(0px)";
   if (direction !== "none") {
     if (direction === "up" || direction === "down") visible.y = 0;
     else visible.x = 0;

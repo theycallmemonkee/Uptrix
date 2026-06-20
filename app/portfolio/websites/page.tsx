@@ -1,4 +1,4 @@
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { WebsiteShowcase } from "@/components/portfolio/website-showcase";
 import { PortfolioCta } from "@/components/portfolio/portfolio-cta";
 import { EnterpriseFooter } from "@/components/enterprise-footer";

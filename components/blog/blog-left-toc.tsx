@@ -74,6 +74,8 @@ export function BlogLeftTOC({ headings, variant = "desktop" }: Props) {
           type="button"
           onClick={() => setMobileOpen((v) => !v)}
           className="flex w-full items-center justify-between text-[#111827]"
+          aria-expanded={mobileOpen}
+          aria-label="Toggle table of contents"
         >
           <span className="text-xs font-bold tracking-widest text-[#111827] uppercase">Table of Contents</span>
           <ChevronDown

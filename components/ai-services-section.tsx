@@ -16,8 +16,8 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
   const eyebrow = data?.aiSectionEyebrow ?? "WHY UPTRIX TECHNOLOGIES";
   const headline = data?.aiSectionHeadline ?? "We Build Growth Systems, Not Marketing Campaigns";
   const body = data?.aiSectionBody ?? "Most agencies run campaigns. A campaign stops the day you stop paying. We build systems, connected engines that compound over time, so your growth keeps building instead of resetting every month. One team handles the whole engine, accountable to one thing: your growth.";
-  const ctaLabel = data?.aiSectionCtaLabel ?? "Why Uptrix Technologies";
-  const ctaHref = data?.aiSectionCtaHref ?? "/about";
+  const ctaLabel = data?.aiSectionCtaLabel ?? "Book Strategy Call";
+  const ctaHref = data?.aiSectionCtaHref ?? "/contact";
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
   const smoothX = useSpring(mouseX, { stiffness: 90, damping: 20, mass: 0.8 });
@@ -32,7 +32,7 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
 
   return (
     <section
-      className="relative z-10 w-full overflow-hidden px-6 pb-24 pt-8 md:px-10 md:pb-32"
+      className="relative z-10 w-full overflow-hidden px-6 pb-16 pt-10 md:px-10 md:pb-20"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);
@@ -58,7 +58,7 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
             {eyebrow}
           </motion.p>
           <motion.h2
-            className="mt-4 font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
+            className="mt-4 font-heading text-[clamp(1.875rem,4.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -89,7 +89,7 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
         </motion.div>
 
         <motion.div
-          className="relative mx-auto w-full max-w-[540px] pb-16 md:pb-20"
+          className="relative mx-auto w-full max-w-[540px] pb-4 lg:pb-20"
           style={{ x: parallaxX, y: parallaxY }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -120,11 +120,11 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
 
           {/* Top-left floating card */}
           <motion.article
-            className="absolute -top-4 -left-4 hidden w-52 rounded-2xl border border-[#7AAEFF]/24 bg-[linear-gradient(155deg,rgba(17,42,79,0.88),rgba(8,19,39,0.78))] p-4 shadow-[0_18px_46px_rgba(2,9,22,0.54)] ring-1 ring-inset ring-white/8 backdrop-blur-2xl md:block md:w-56 lg:-left-8"
+            className="absolute -top-4 -left-4 hidden w-52 rounded-2xl border border-[#7AAEFF]/24 bg-[linear-gradient(155deg,rgba(17,42,79,0.88),rgba(8,19,39,0.78))] p-4 shadow-[0_18px_46px_rgba(2,9,22,0.54)] ring-1 ring-inset ring-white/8 backdrop-blur-2xl md:w-56 lg:block lg:-left-8"
             style={{ x: useTransform(parallaxX, (v) => v * -0.65), y: useTransform(parallaxY, (v) => v * 0.6) }}
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             whileHover={{ y: -4, scale: 1.015 }}
           >
@@ -135,11 +135,11 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
 
           {/* Bottom-right floating card */}
           <motion.article
-            className="absolute -bottom-10 -right-4 hidden w-52 rounded-2xl border border-[#7AAEFF]/24 bg-[linear-gradient(160deg,rgba(16,40,76,0.90),rgba(7,18,38,0.80))] p-4 shadow-[0_22px_56px_rgba(2,9,22,0.56)] ring-1 ring-inset ring-white/8 backdrop-blur-2xl md:block md:w-56 lg:-right-8"
+            className="absolute -bottom-10 -right-4 hidden w-52 rounded-2xl border border-[#7AAEFF]/24 bg-[linear-gradient(160deg,rgba(16,40,76,0.90),rgba(7,18,38,0.80))] p-4 shadow-[0_22px_56px_rgba(2,9,22,0.56)] ring-1 ring-inset ring-white/8 backdrop-blur-2xl md:w-56 lg:block lg:-right-8"
             style={{ x: useTransform(parallaxX, (v) => v * 0.72), y: useTransform(parallaxY, (v) => v * -0.65) }}
             initial={{ opacity: 0, x: 12 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             whileHover={{ y: -4, scale: 1.015 }}
           >

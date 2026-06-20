@@ -1,7 +1,7 @@
 "use client";
 
 import { EnterpriseFooter } from "@/components/enterprise-footer";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { MarqueeLogos } from "@/components/ui/client-logo-strip";
 import { FloatingOrbs, AnimatedGrid } from "@/components/ui/visual-effects";
 import { contactSubmissionSchema } from "@/lib/contact/schema";
@@ -258,8 +258,8 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
           {/* Header */}
           <motion.div
             className="mb-12 text-center"
-            initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 22, scale: 1 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.72, ease: EASE }}
           >
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#8DB8FF]/30 bg-[#78A8FF]/10 px-4 py-1.5 text-xs tracking-[0.2em] text-[#DCEBFF] uppercase backdrop-blur-sm">
@@ -285,8 +285,8 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
             {/* Left — Contact info */}
             <motion.div
               className="flex flex-col gap-5"
-              initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, x: -24, scale: 1 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.72, delay: 0.1, ease: EASE }}
             >
               {[
@@ -322,8 +322,8 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
 
             {/* Right — Form */}
             <motion.div
-              initial={{ opacity: 0, x: 24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, x: 24, scale: 1 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.72, delay: 0.15, ease: EASE }}
               className={`relative overflow-hidden rounded-[2rem] border border-white/14 bg-white/[0.05] p-6 shadow-[0_30px_80px_rgba(1,8,20,0.56)] backdrop-blur-xl md:p-8 transition-all duration-500 ${successPulse ? "ring-2 ring-[#0066FF]/40 shadow-[0_0_60px_rgba(0,102,255,0.25)]" : ""}`}
             >

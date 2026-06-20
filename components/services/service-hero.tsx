@@ -86,8 +86,8 @@ export function ServiceHero({ service }: Props) {
           <motion.div
             custom={0}
             variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-              show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } }
+              hidden: { opacity: 0, y: 20, scale: 1 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: EASE } }
             }}
             className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#79ABFF]/20 bg-[#0C2C57]/42 px-3.5 py-1 text-xs tracking-[0.18em] text-[#CFE3FF]/85 uppercase backdrop-blur-md"
           >
@@ -99,8 +99,8 @@ export function ServiceHero({ service }: Props) {
           <motion.h1
             custom={0.08}
             variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-              show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.08, ease: EASE } }
+              hidden: { opacity: 0, y: 20, scale: 1 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.08, ease: EASE } }
             }}
             className="font-heading text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white"
           >
@@ -110,8 +110,8 @@ export function ServiceHero({ service }: Props) {
           <motion.p
             custom={0.16}
             variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-              show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.16, ease: EASE } }
+              hidden: { opacity: 0, y: 20, scale: 1 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.16, ease: EASE } }
             }}
             className="mx-auto mt-5 max-w-[520px] text-[0.9375rem] leading-[1.8] text-white/68 lg:mx-0"
           >
@@ -122,8 +122,8 @@ export function ServiceHero({ service }: Props) {
           <motion.div
             custom={0.24}
             variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-              show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.24, ease: EASE } }
+              hidden: { opacity: 0, y: 20, scale: 1 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.24, ease: EASE } }
             }}
             className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
           >
@@ -148,8 +148,8 @@ export function ServiceHero({ service }: Props) {
             <motion.div
               custom={0.32}
               variants={{
-                hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
-                show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, delay: 0.32, ease: EASE } }
+                hidden: { opacity: 0, y: 20, scale: 1 },
+                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.32, ease: EASE } }
               }}
               className="mx-auto mt-7 grid gap-2.5 text-left sm:grid-cols-3 lg:mx-0"
             >

@@ -101,7 +101,7 @@ export function HeroVisual({
           style={{ x: metric1X, y: metric1Y }}
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.25 }}
           whileHover={{ y: -3, scale: 1.015 }}
         >
@@ -122,7 +122,7 @@ export function HeroVisual({
           style={{ x: metric2X, y: metric2Y }}
           initial={{ opacity: 0, x: 10 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.35 }}
           whileHover={{ y: -3, scale: 1.015 }}
         >

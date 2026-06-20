@@ -43,8 +43,8 @@ export function HeroVisualV2({
     <motion.div
       className="relative mx-auto w-full max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] lg:justify-self-end mt-12 lg:mt-0"
       style={{ x: parallaxX, y: parallaxY }}
-      initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 28, scale: 1 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.9, delay: 0.18, ease: EASE }}
     >
       {/* Ambient glow behind card */}

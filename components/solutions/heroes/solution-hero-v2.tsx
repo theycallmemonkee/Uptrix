@@ -145,11 +145,11 @@ export function SolutionHeroV2({ solution }: Props) {
 
   const itemVariants = useMemo(
     () => ({
-      hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+      hidden: { opacity: 0, y: 20, scale: 1 },
       show: {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
+        scale: 1,
         transition: { duration: 0.68, ease: EASE },
       },
     }),

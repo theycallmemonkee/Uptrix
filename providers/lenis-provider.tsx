@@ -76,5 +76,3 @@ export function LenisProvider() {
 
   return null;
 }
-
-

@@ -16,7 +16,7 @@ import {
   Sparkles,
   Layers
 } from "lucide-react";
-import { PremiumNavbar } from "@/components/premium-navbar";
+import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { PremiumAccordion, type PremiumAccordionItem } from "@/components/ui/premium-accordion";
 import { SOLUTIONS, SolutionConfig } from "@/data/solutions-data";
@@ -116,7 +116,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                     key={`problem-${i}`}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                     className="relative overflow-hidden rounded-2xl border border-red-500/12 bg-red-500/[0.04] p-5 backdrop-blur-md"
                   >
@@ -152,7 +152,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                     key={`sys-${i}`}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                     className="relative overflow-hidden rounded-2xl border border-[#0066FF]/18 bg-[#0A234A]/50 p-5 backdrop-blur-md"
                   >
@@ -225,7 +225,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   key={`step-${i}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                   className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#081728]/65 p-6 shadow-[0_12px_36px_rgba(0,0,0,0.15)] backdrop-blur-md"
                 >
@@ -267,7 +267,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   key={`feat-${i}`}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
                   className="group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0B1F3D]/75 shadow-[0_20px_60px_rgba(0,0,0,0.22)] backdrop-blur-2xl"
                 >
@@ -307,7 +307,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   key={`stat-${i}`}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                   className="rounded-2xl border border-white/10 bg-[#0A224D]/55 p-8 text-center backdrop-blur-md"
                 >
@@ -326,7 +326,7 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, ease: EASE }}
                 className="relative overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#08192A]/80 p-7 shadow-xl backdrop-blur-2xl"
               >
@@ -363,7 +363,7 @@ export function SolutionPageTemplate({ solution }: Props) {
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
                 className="relative overflow-hidden rounded-[1.5rem] border border-white/10 shadow-xl aspect-[4/3]"
               >
@@ -398,7 +398,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   key={`testimonial-${i}`}
                   initial={{ opacity: 0, scale: 0.98 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
                   className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0B234A]/35 p-7 backdrop-blur-md"
                 >

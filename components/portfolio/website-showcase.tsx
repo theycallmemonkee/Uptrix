@@ -264,7 +264,7 @@ function ProjectCard({
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             whileHover={{ y: -3, scale: 1.05 }}
             className="absolute z-20 bottom-4 right-4 flex flex-col items-center justify-center rounded-xl border border-white/12 bg-[#0A1D36]/80 px-3.5 py-2 shadow-lg ring-1 ring-white/10 backdrop-blur-md transition-all duration-300 group-hover:border-[#70A8FF]/20"
           >
