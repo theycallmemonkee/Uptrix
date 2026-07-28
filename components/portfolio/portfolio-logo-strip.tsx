@@ -9,7 +9,6 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const LOGOS = [
   { src: "/logo1.png", alt: "Client Logo 1" },
   { src: "/logo2.png", alt: "Client Logo 2" },
-  { src: "/logo3.png", alt: "Client Logo 3" },
   { src: "/logo4.png", alt: "Client Logo 4" },
   { src: "/logo5.png", alt: "Client Logo 5" },
   { src: "/logo6.png", alt: "Client Logo 6" },
