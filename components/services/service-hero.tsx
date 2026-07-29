@@ -52,7 +52,7 @@ export function ServiceHero({ service }: Props) {
 
   return (
     <section
-      className="relative z-[1] flex w-full flex-col overflow-hidden pt-[130px] pb-16 sm:pt-[148px] sm:pb-20 lg:justify-center lg:min-h-[88vh] lg:h-[90vh] lg:min-h-[640px] lg:max-h-[880px] lg:pt-[100px] lg:pb-20"
+      className="relative z-[1] w-full overflow-hidden pt-36 pb-16 sm:pt-40 sm:pb-20 lg:pt-36 lg:pb-28 lg:min-h-[90vh]"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);
@@ -75,7 +75,7 @@ export function ServiceHero({ service }: Props) {
         UPTRIX
       </p>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-6 md:px-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(390px,0.98fr)] xl:gap-16">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-6 md:px-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-start xl:gap-14">
         <motion.div
           className="relative max-w-[46rem] text-center lg:text-left"
           initial="hidden"
@@ -102,7 +102,7 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, scale: 1 },
               show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.08, ease: EASE } }
             }}
-            className="font-heading text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-white"
+            className="font-heading text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] font-extrabold tracking-[-0.025em] text-white"
           >
             {highlightHeadline(service.headline, service.highlightedKeyword)}
           </motion.h1>
@@ -125,7 +125,7 @@ export function ServiceHero({ service }: Props) {
               hidden: { opacity: 0, y: 20, scale: 1 },
               show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.24, ease: EASE } }
             }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start"
           >
             <Link
               href="/contact"
@@ -151,12 +151,12 @@ export function ServiceHero({ service }: Props) {
                 hidden: { opacity: 0, y: 20, scale: 1 },
                 show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.32, ease: EASE } }
               }}
-              className="mx-auto mt-7 grid gap-2.5 text-left sm:grid-cols-3 lg:mx-0"
+              className="mx-auto mt-8 grid gap-3 text-left sm:grid-cols-3 lg:mx-0"
             >
               {service.whyBullets.slice(0, 3).map((bullet) => (
                 <div
                   key={bullet}
-                  className="flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs leading-[1.65] text-white/68 backdrop-blur-md"
+                  className="flex h-full items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs leading-[1.65] text-white/68 backdrop-blur-md"
                 >
                   <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#8CB9FF]" />
                   <span>{bullet}</span>
@@ -168,7 +168,7 @@ export function ServiceHero({ service }: Props) {
 
         {/* Right Side: Showcase Panel & Floating Card */}
         <motion.div
-          className="relative mx-auto mt-8 w-full max-w-[31rem] pb-4 lg:mt-0 lg:justify-self-end"
+          className="relative mx-auto w-full max-w-[28rem] pb-6 lg:max-w-[30rem] lg:pb-10"
           style={{ x: parallaxX, y: parallaxY }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -187,7 +187,7 @@ export function ServiceHero({ service }: Props) {
               transition={{ duration: 4, repeat: Infinity, ease: EASE }}
               style={{ background: "linear-gradient(120deg, rgba(0,102,255,0.2), rgba(255,255,255,0.03), rgba(0,102,255,0.18))" }}
             />
-            <div className="relative h-[20rem] w-full overflow-hidden rounded-[1rem] transition-transform duration-700 hover:scale-[1.012] sm:h-[23rem] lg:h-[25rem]">
+            <div className="relative h-[18rem] w-full overflow-hidden rounded-[1rem] transition-transform duration-700 hover:scale-[1.012] sm:h-[20rem] lg:h-[22rem]">
               <Image
                 src={service.heroVisuals.dashboardImage}
                 alt={`${service.name} Performance Showcase`}
@@ -203,7 +203,7 @@ export function ServiceHero({ service }: Props) {
           {/* Floating Metric Card 1 */}
           {service.heroMetrics?.[0] && (
             <motion.article
-              className="absolute left-3 top-4 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:-left-5 sm:top-8 sm:w-44"
+              className="absolute left-3 top-4 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:top-8 sm:w-44 lg:-left-5"
               style={{ x: firstMetricX, y: firstMetricY }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
@@ -225,7 +225,7 @@ export function ServiceHero({ service }: Props) {
           {/* Floating Metric Card 2 */}
           {service.heroMetrics?.[1] && (
             <motion.article
-              className="absolute bottom-5 right-3 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:-right-5 sm:bottom-8 sm:w-44"
+              className="absolute bottom-5 right-3 z-20 w-40 overflow-hidden rounded-2xl border border-[#6EA6FF]/22 bg-[linear-gradient(155deg,rgba(18,43,82,0.86),rgba(8,21,43,0.72))] p-4 shadow-[0_12px_32px_rgba(2,9,22,0.38)] ring-1 ring-inset ring-white/6 backdrop-blur-2xl pointer-events-none sm:bottom-8 sm:w-44 lg:-right-5"
               style={{ x: secondMetricX, y: secondMetricY }}
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
