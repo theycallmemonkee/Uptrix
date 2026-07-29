@@ -7,7 +7,9 @@ import { FloatingOrbs, AnimatedGrid } from "@/components/ui/visual-effects";
 import { contactSubmissionSchema } from "@/lib/contact/schema";
 import { AnimatePresence, motion } from "framer-motion";
 import { InvisibleTurnstile } from "@/components/ui/turnstile";
+import { ContactCard } from "@/components/contact-us/contact-card";
 import {
+  Calendar,
   CheckCircle2,
   Loader2,
   Mail,
@@ -18,6 +20,7 @@ import {
   User,
   X,
   XCircle,
+  type LucideIcon,
 } from "lucide-react";
 import {
   FormEvent,
@@ -49,6 +52,34 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
   const responseTime = contactData?.responseTime ?? "Within 24 business hours";
   const successModalTitle = contactData?.formSuccessTitle ?? "✓ Request Submitted Successfully";
   const successModalBody = contactData?.formSuccessBody ?? "Thank you! Our team has received your request.\nWe will get back to you within 24 hours.";
+
+  const contactCards = [
+    {
+      icon: Calendar,
+      label: "BOOK A 30-MINUTE FREE DISCOVERY CALL",
+      value: "with our Expert",
+      href: "https://calendly.com/growth-marketing-consultation-meeting",
+      isExternal: true,
+    },
+    {
+      icon: Mail,
+      label: "Email Us",
+      value: contactEmail,
+      href: `mailto:${contactEmail}`,
+    },
+    {
+      icon: Phone,
+      label: "Call Us",
+      value: contactPhone,
+      href: `tel:${contactPhone.replace(/\s+/g, "")}`,
+    },
+    {
+      icon: MessageSquare,
+      label: "Response Time",
+      value: responseTime,
+      href: null,
+    },
+  ];
   const firstInputRef = useRef<HTMLInputElement | null>(null);
   const turnstileRef = useRef<{ reset: () => void; execute: () => void } | null>(null);
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -284,38 +315,13 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             {/* Left — Contact info */}
             <motion.div
-              className="flex flex-col gap-5"
+              className="grid grid-cols-1 auto-rows-fr gap-5"
               initial={{ opacity: 0, x: -24, scale: 1 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.72, delay: 0.1, ease: EASE }}
             >
-              {[
-                { icon: Mail,    label: "Email Us",     value: contactEmail, href: `mailto:${contactEmail}` },
-                { icon: Phone,   label: "Call Us",      value: contactPhone, href: `tel:${contactPhone.replace(/\s+/g, "")}` },
-                { icon: MessageSquare, label: "Response Time", value: responseTime, href: null },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <motion.div
-                  key={label}
-                  className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 hover:border-[#79ABFF]/28"
-                  whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
-                >
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
-                  <div className="relative flex items-center gap-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#79ABFF]/28 bg-[#0C2C57]/42 text-[#79ABFF]">
-                      <Icon size={17} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium tracking-[0.18em] text-[#A8C9FF]/70 uppercase">{label}</p>
-                      {href ? (
-                        <a href={href} className="mt-1 block text-sm font-medium text-white transition-colors hover:text-[#A8C9FF]">
-                          {value}
-                        </a>
-                      ) : (
-                        <p className="mt-1 text-sm font-medium text-white">{value}</p>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
+              {contactCards.map((card) => (
+                <ContactCard key={card.label} {...card} />
               ))}
 
             </motion.div>
