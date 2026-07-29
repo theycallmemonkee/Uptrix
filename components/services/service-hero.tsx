@@ -52,7 +52,7 @@ export function ServiceHero({ service }: Props) {
 
   return (
     <section
-      className="relative z-[1] flex w-full flex-col overflow-hidden justify-center min-h-[86vh] lg:h-[90vh] lg:min-h-[640px] lg:max-h-[860px] pt-28 pb-14"
+      className="relative z-[1] flex w-full flex-col overflow-hidden pt-[130px] pb-16 sm:pt-[148px] sm:pb-20 lg:justify-center lg:min-h-[88vh] lg:h-[90vh] lg:min-h-[640px] lg:max-h-[880px] lg:pt-[100px] lg:pb-20"
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         mouseX.set((event.clientX - rect.left) / rect.width);

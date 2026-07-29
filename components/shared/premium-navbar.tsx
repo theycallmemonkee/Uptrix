@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SolutionsDropdownDesktop, SolutionsDropdownMobile } from "@/components/shared/solutions-mega-menu";
+import { ServicesDropdownDesktop, ServicesDropdownMobile } from "@/components/services/services-dropdown";
 import { NAV_ITEMS } from "@/constants/navigation";
 import { EASE_PREMIUM } from "@/lib/motion";
 
@@ -107,6 +108,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
               );
             })}
             <SolutionsDropdownDesktop />
+            <ServicesDropdownDesktop />
             {NAV_ITEMS.slice(1).map((item) => {
               const active = isActive(item.href);
               return (
@@ -214,6 +216,12 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
                   transition={{ duration: 0.45, ease: EASE_PREMIUM }}
                 >
                   <SolutionsDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
+                </motion.li>
+                <motion.li
+                  variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.45, ease: EASE_PREMIUM }}
+                >
+                  <ServicesDropdownMobile onNavigate={() => setIsMobileOpen(false)} />
                 </motion.li>
                 {NAV_ITEMS.slice(1).map((item) => (
                   <MobileNavItem
