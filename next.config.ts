@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
+    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: "https",

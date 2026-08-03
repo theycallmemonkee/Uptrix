@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Caveat } from "next/font/google";
 
 import "./globals.css";
 import { ScrollRestoration } from "@/components/scroll-restoration";
@@ -41,6 +41,12 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,9 +55,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} h-full antialiased`}
+      className={`${inter.variable} ${poppins.variable} ${caveat.variable} h-full antialiased`}
     >
       <head>
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         {/* Google Tag Manager */}
         {/* eslint-disable-next-line @next/next/next-script-for-ga */}
         <script

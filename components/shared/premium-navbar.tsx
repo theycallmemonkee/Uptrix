@@ -19,9 +19,9 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  const navWidth = useTransform(scrollY, [0, 120], ["min(1120px, 82vw)", "min(1040px, 80vw)"]);
-  const navTop = useTransform(scrollY, [0, 120], [24, 12]);
-  const navPaddingY = useTransform(scrollY, [0, 120], [18, 12]);
+  const navWidth    = useTransform(scrollY, [0, 120], ["min(1200px, 90vw)", "min(1120px, 88vw)"]);
+  const navTop      = useTransform(scrollY, [0, 120], [20, 10]);
+  const navPaddingY = useTransform(scrollY, [0, 120], [14, 9]);
 
   useEffect(() => {
     const unsub = scrollY.on("change", (v) => setScrolled(v > 40));
@@ -50,26 +50,26 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
         style={{ top: navTop }}
       >
         <motion.nav
-          className="relative flex w-full items-center justify-between rounded-2xl px-4 shadow-[0_12px_50px_rgba(7,14,29,0.28)] backdrop-blur-xl md:px-7"
+          className="relative flex w-full items-center justify-between rounded-2xl px-5 backdrop-blur-md md:px-8"
           style={{
             width: navWidth,
             paddingTop: navPaddingY,
             paddingBottom: navPaddingY,
             border: theme === "blog"
-              ? "1px solid rgba(255,255,255,0.16)"
+              ? "1px solid rgba(255,255,255,0.14)"
               : scrolled
-              ? "1px solid rgba(255,255,255,0.22)"
-              : "1px solid rgba(255,255,255,0.12)",
+              ? "1px solid rgba(255,255,255,0.18)"
+              : "1px solid rgba(255,255,255,0.1)",
             backgroundColor: theme === "blog"
-              ? "rgba(11,31,58,0.92)"
+              ? "rgba(11,31,58,0.90)"
               : scrolled
-              ? "rgba(11,31,58,0.72)"
-              : "rgba(11,31,58,0.08)",
+              ? "rgba(11,31,58,0.68)"
+              : "rgba(11,31,58,0.06)",
             boxShadow: theme === "blog" || scrolled
-              ? "0 12px 50px rgba(7,14,29,0.42), 0 0 0 1px rgba(0,102,255,0.08) inset"
-              : "0 12px 50px rgba(7,14,29,0.18)",
+              ? "0 8px 40px rgba(7,14,29,0.36), 0 0 0 1px rgba(0,102,255,0.07) inset"
+              : "none",
           }}
-          transition={{ duration: 0.5, ease: EASE_PREMIUM }}
+          transition={{ duration: 0.45, ease: EASE_PREMIUM }}
         >
           {/* Subtle top border highlight when scrolled or blog page */}
           {(scrolled || theme === "blog") && (
@@ -98,7 +98,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="relative hidden items-center gap-7 md:flex select-none">
+          <div className="relative hidden items-center gap-1 lg:flex select-none">
             {NAV_ITEMS.slice(0, 1).map((item) => {
               const active = isActive(item.href);
               return (
@@ -120,7 +120,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Link
                 href="/contact"
                 scroll
@@ -138,7 +138,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
 
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2 text-white transition-all duration-300 hover:bg-white/15 hover:border-white/30 md:hidden"
+              className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2 text-white transition-all duration-300 hover:bg-white/15 hover:border-white/30 lg:hidden"
               aria-expanded={isMobileOpen}
               aria-controls="mobile-navigation"
               aria-label="Toggle navigation menu"
@@ -174,7 +174,7 @@ export function PremiumNavbar({ theme = "dark" }: { theme?: "dark" | "blog" }) {
             />
             <motion.aside
               id="mobile-navigation"
-              className="fixed inset-0 z-40 flex flex-col bg-[radial-gradient(circle_at_top,#14386b_0%,#0B1F3A_45%,#08152A_100%)] px-6 pt-28 pb-10 md:hidden overflow-y-auto pointer-events-auto"
+              className="fixed inset-0 z-40 flex flex-col bg-[radial-gradient(circle_at_top,#14386b_0%,#0B1F3A_45%,#08152A_100%)] px-6 pt-28 pb-10 lg:hidden overflow-y-auto pointer-events-auto"
               initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
               animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
               exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
@@ -277,17 +277,19 @@ function NavLink({
   return (
     <Link
       href={href}
-      className="group relative font-heading text-sm font-medium tracking-wide text-white/80 transition-colors duration-300 hover:text-white"
+      className="group relative rounded-lg px-3 py-2 font-heading text-sm font-medium tracking-wide text-white/75 transition-all duration-200 hover:bg-white/[0.06] hover:text-white"
       aria-current={active ? "page" : undefined}
     >
-      <span>{children}</span>
-      <motion.span
-        className="absolute inset-x-0 -bottom-2 h-px origin-left bg-gradient-to-r from-[#70A8FF] via-[#0066FF] to-[#70A8FF]"
-        initial={false}
-        animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-        transition={{ duration: 0.35, ease: EASE_PREMIUM }}
-      />
-      <span className="absolute inset-x-0 -bottom-2 h-px origin-left scale-x-0 bg-white/55 transition-transform duration-300 group-hover:scale-x-100" />
+      <span className="relative">
+        {children}
+        {/* Active underline */}
+        <motion.span
+          className="absolute inset-x-0 -bottom-0.5 h-px origin-left bg-gradient-to-r from-[#70A8FF] via-[#0066FF] to-[#70A8FF]"
+          initial={false}
+          animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: EASE_PREMIUM }}
+        />
+      </span>
     </Link>
   );
 }

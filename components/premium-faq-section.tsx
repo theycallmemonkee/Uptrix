@@ -19,34 +19,46 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const DEFAULT_FAQS: PremiumAccordionItem[] = [
   {
-    id: "services",
-    question: "What does Uptrix Technologies actually do?",
+    id: "what-is-uptrix",
+    question: "What is Uptrix and what do you do?",
     answer:
-      "We build AI powered growth systems for businesses. Instead of selling separate services, we build connected engines that bring you leads, convert them into customers and help you scale. You can use one system or combine several into one growth engine.",
+      "Uptrix is a growth marketing company. We build and run the marketing engine for startups, scaleups and SMEs that want real growth, not just more campaigns. One team owns your brand, marketing and performance, end to end.",
   },
   {
-    id: "type",
-    question: "Do you work with my type of business?",
+    id: "different-from-agency",
+    question: "What makes Uptrix different from a traditional agency?",
     answer:
-      "Yes. We build systems for D2C, ecommerce, startups, local and service businesses, B2B, professional services and regulated industries. The systems adapt to your business. The goal of more customers and more revenue stays the same.",
+      "Traditional agencies run campaigns. We build frameworks. Our Uptrix 5S Framework covers everything from first-day audit to long-term scale, so you are not starting from scratch every quarter or juggling five different vendors.",
   },
   {
-    id: "custom",
-    question: "Do you create custom strategies or use templates?",
+    id: "what-is-5s",
+    question: "What is the Uptrix 5S Framework?",
     answer:
-      "Every system is built for your specific business, your market and your goals. We start by understanding where you are, then build the system that fits. No templates, no one size fits all.",
+      "Uptrix 5S is how we work. Scan, Strategy, Sequence, Ship, Scale. It is a five-stage framework we run on every engagement to make sure we are solving the right problem, in the right order, with the right resources.",
   },
   {
-    id: "measurement",
+    id: "early-or-established",
+    question: "Do you work with early-stage businesses or only established ones?",
+    answer:
+      "Both. We work with businesses at very different stages. Some are pre-launch and need positioning and a go-to-market plan. Others are scaling and need performance marketing and operations. The framework adapts to where you are.",
+  },
+  {
+    id: "typical-engagement",
+    question: "What does a typical engagement look like?",
+    answer:
+      "We start with a Scan: a full review of your market, competitors, current marketing and growth gaps. From there we build your strategy, sequence the right foundations and move into active delivery. Most clients see meaningful results within 60 to 90 days.",
+  },
+  {
+    id: "fractional-cmo",
+    question: "Can I work with Uptrix as a fractional CMO instead of an agency?",
+    answer:
+      "Yes. Our Fractional CMO service embeds a senior growth strategist into your business. You get executive-level thinking, team coordination and ownership of outcomes without the cost of a full-time hire.",
+  },
+  {
+    id: "measure-success",
     question: "How do you measure success?",
     answer:
-      "By real business outcomes, leads, customers and revenue, not vanity metrics like impressions or reach. Every system connects to one clear growth number you actually care about.",
-  },
-  {
-    id: "start",
-    question: "How do I get started with Uptrix Technologies?",
-    answer:
-      "Contact us and we will come back within 24 hours with a first honest read on where your growth is stuck and which system fixes it. No commitment, no pitch, just clarity.",
+      "By outcomes that matter to your business. Leads, qualified pipeline, customers acquired, revenue grown. We agree on the metrics at the start and report against them throughout.",
   },
 ];
 
@@ -138,26 +150,26 @@ export function PremiumFaqSection({ faqs, settings, className }: PremiumFaqSecti
 
         <div className="relative">
           <motion.h2
-            className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white"
+            className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-bold tracking-[-0.02em]"
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
           >
-            <motion.span custom={0.05} variants={headingVariants} className="block">
-              Frequently Asked Questions{" "}
-              <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/32 bg-[#7BABFF]/12 px-3.5 py-1 text-[#DDEBFF] shadow-[0_10px_30px_rgba(0,102,255,0.16)]">
-                (FAQs)
-              </span>
+            <motion.span custom={0.05} variants={headingVariants} className="block text-white">
+              FREQUENTLY
+            </motion.span>
+            <motion.span custom={0.1} variants={headingVariants} className="block text-[#79ABFF]">
+              ASKED QUESTIONS
             </motion.span>
           </motion.h2>
 
           <motion.p
-            custom={0.12}
+            custom={0.16}
             variants={headingVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="mt-5 text-base leading-[1.8] text-white/68"
+            className="mt-5 text-[0.9375rem] leading-[1.8] text-white/60"
           >
-            Transparent answers, enterprise-ready execution, and a strategy-first approach—built for premium AI-powered growth.
+            Honest answers about how we work, what to expect and whether we are the right fit for your business.
           </motion.p>
 
           <motion.div
