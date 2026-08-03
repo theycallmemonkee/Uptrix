@@ -1,18 +1,10 @@
 import type { NextConfig } from "next";
 
 const securityHeaders = [
-  {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
-  },
-  {
-    key: "X-Frame-Options",
-    value: "SAMEORIGIN",
-  },
-  {
-    key: "Referrer-Policy",
-    value: "strict-origin-when-cross-origin",
-  },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-DNS-Prefetch-Control", value: "on" },
   {
     key: "Content-Security-Policy",
     value: [
@@ -29,39 +21,35 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   devIndicators: false,
-  turbopack: {
-    root: process.cwd(),
-  },
+  turbopack: { root: process.cwd() },
+
+  // Deliver AVIF (smallest) with WebP as fallback; browser picks via Accept header
   images: {
+    formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-        pathname: "/**",
-      },
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "cdn.sanity.io", pathname: "/**" },
     ],
   },
+
   async headers() {
     return [
       {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      // Long-lived cache for static assets (Next.js _next/static is immutable)
+      {
+        source: "/_next/static/(.*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
     ];
   },
+
   async redirects() {
     return [
-      {
-        source: "/more-leads",
-        destination: "/solutions/demand-generation-system",
-        permanent: true,
-      },
+      { source: "/more-leads", destination: "/solutions/demand-generation-system", permanent: true },
     ];
   },
 };

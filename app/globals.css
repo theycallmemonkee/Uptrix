@@ -716,8 +716,46 @@ textarea {
 @media (max-width: 1023px) {
   .cursor-glow { display: none; }
 }
+/* ============================================================
+   HERO H1 — LCP OPTIMISATION
+   CSS animation starts painting immediately from SSR HTML without
+   waiting for Framer Motion hydration. The H1 is never opacity:0
+   in the server-rendered markup.
+   ============================================================ */
+@keyframes hero-h1-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-h1 {
+  animation: hero-h1-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Global kill-switch: honour the OS accessibility preference.
+   JS-driven Framer Motion animations are also stopped because
+   Framer Motion respects the `motion-safe` media query when
+   you use its useReducedMotion hook — this CSS layer catches
+   everything else (marquees, pulses, shimmer, keyframes).
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
+  /* Stop all CSS animations and transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Specific overrides for named utilities */
   .stat-shimmer::after   { animation: none !important; }
   .pulse-cta::before     { animation: none !important; }
   .cursor-glow           { display: none !important; }
+  .cls-track             { animation: none !important; }
+  .pls-track             { animation: none !important; }
+
+  /* Keep the hero H1 fully visible without animation */
+  .hero-h1 { animation: none; opacity: 1; transform: none; }
 }

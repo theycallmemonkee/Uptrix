@@ -233,58 +233,94 @@ export function ContactSection() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {/* Name */}
                   <div>
-                    <label className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]">
-                      Name <span className="text-[#79ABFF]">*</span>
+                    <label
+                      htmlFor="contact-name"
+                      className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
+                    >
+                      Name <span className="text-[#79ABFF]" aria-label="required">*</span>
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
+                      name="name"
                       placeholder="Your name"
                       value={form.name}
                       onChange={set("name")}
                       required
+                      autoComplete="name"
+                      aria-required="true"
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
                       className={inputClass}
                     />
-                    {errors.name && <p className="mt-1 text-[11px] text-red-400">{errors.name}</p>}
+                    {errors.name && (
+                      <p id="contact-name-error" role="alert" className="mt-1 text-[11px] text-red-400">
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
 
                   {/* Business email */}
                   <div>
-                    <label className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]">
-                      Business email <span className="text-[#79ABFF]">*</span>
+                    <label
+                      htmlFor="contact-email"
+                      className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
+                    >
+                      Business email <span className="text-[#79ABFF]" aria-label="required">*</span>
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
+                      name="email"
                       placeholder="you@company.com"
                       value={form.email}
                       onChange={set("email")}
                       required
+                      autoComplete="email"
+                      aria-required="true"
+                      aria-describedby={errors.email ? "contact-email-error" : undefined}
                       className={inputClass}
                     />
-                    {errors.email && <p className="mt-1 text-[11px] text-red-400">{errors.email}</p>}
+                    {errors.email && (
+                      <p id="contact-email-error" role="alert" className="mt-1 text-[11px] text-red-400">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   {/* Website */}
                   <div>
-                    <label className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]">
+                    <label
+                      htmlFor="contact-website"
+                      className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
+                    >
                       Website
                     </label>
                     <input
+                      id="contact-website"
                       type="url"
+                      name="website"
                       placeholder="https://yourwebsite.com"
                       value={form.website}
                       onChange={set("website")}
+                      autoComplete="url"
                       className={inputClass}
                     />
                   </div>
 
                   {/* Budget range */}
                   <div>
-                    <label className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]">
+                    <label
+                      htmlFor="contact-budget"
+                      className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
+                    >
                       Monthly budget
                     </label>
                     <select
+                      id="contact-budget"
+                      name="budget"
                       value={form.budget}
                       onChange={set("budget")}
+                      aria-label="Monthly budget range"
                       className={`${inputClass} cursor-pointer appearance-none`}
                     >
                       <option value="" className="bg-[#0B1F3A]">Select a range</option>
@@ -297,18 +333,29 @@ export function ContactSection() {
 
                 {/* Challenge */}
                 <div className="mt-4">
-                  <label className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]">
-                    Your biggest challenge right now <span className="text-[#79ABFF]">*</span>
+                  <label
+                    htmlFor="contact-message"
+                    className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
+                  >
+                    Your biggest challenge right now <span className="text-[#79ABFF]" aria-label="required">*</span>
                   </label>
                   <textarea
+                    id="contact-message"
+                    name="message"
                     rows={4}
                     placeholder="Tell us where growth is stuck. The more specific, the more useful our first reply will be."
                     value={form.message}
                     onChange={set("message")}
                     required
+                    aria-required="true"
+                    aria-describedby={errors.message ? "contact-message-error" : undefined}
                     className={`${inputClass} resize-none`}
                   />
-                  {errors.message && <p className="mt-1 text-[11px] text-red-400">{errors.message}</p>}
+                  {errors.message && (
+                    <p id="contact-message-error" role="alert" className="mt-1 text-[11px] text-red-400">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Turnstile */}
