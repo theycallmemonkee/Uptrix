@@ -3,25 +3,15 @@ import { CinematicHero } from "@/components/cinematic-hero";
 import { TrustedCompanies } from "@/components/trusted-companies";
 import { AiServicesSection } from "@/components/ai-services-section";
 import { PremiumNavbar } from "@/components/shared/premium-navbar";
+// BackgroundEffects is a "use client" wrapper — owns the ssr:false dynamic imports
+// (Turbopack requires ssr:false to live inside a Client Component)
+import { BackgroundEffects } from "@/components/ui/background-effects";
+// AIWaveOverlay: direct import is fine; visual-effects.tsx is already "use client"
+import { AIWaveOverlay } from "@/components/ui/visual-effects";
 import type { Metadata } from "next";
 import { getHomePage, getGlobalSettings, getGlobalFaqs } from "@/lib/sanity";
 
-// ── Decorative background effects — purely visual, no LCP impact
-// ssr:false keeps them out of the server HTML entirely (smaller initial payload)
-const FloatingOrbs = dynamic(
-  () => import("@/components/ui/visual-effects").then((m) => m.FloatingOrbs),
-  { ssr: false }
-);
-const AnimatedGrid = dynamic(
-  () => import("@/components/ui/visual-effects").then((m) => m.AnimatedGrid),
-  { ssr: false }
-);
-const AIWaveOverlay = dynamic(
-  () => import("@/components/ui/visual-effects").then((m) => m.AIWaveOverlay),
-  { ssr: false }
-);
-
-// ── Below-fold content — code-split into separate JS chunks
+// ── Below-fold content — code-split into separate JS chunks ──────────────────
 const Uptrix5SSection      = dynamic(() => import("@/components/uptrix-5s-section").then((m) => m.Uptrix5SSection));
 const SevenSolutionsSection = dynamic(() => import("@/components/seven-solutions-section").then((m) => m.SevenSolutionsSection));
 const CaseStudiesSection   = dynamic(() => import("@/components/case-studies-section").then((m) => m.CaseStudiesSection));
@@ -73,25 +63,25 @@ export default async function Home() {
         }}
       />
 
-      {/* Decorative animated layers — lazy-loaded, non-blocking */}
-      <AnimatedGrid opacity={0.38} gridSize={72} />
-      <FloatingOrbs />
+      {/* Decorative animated layers — client-only, non-blocking */}
+      <BackgroundEffects gridOpacity={0.38} gridSize={72} />
 
       <PremiumNavbar />
 
       <main id="main-content" className="relative z-10 flex flex-1 flex-col">
-        {/* 1. Hero — static import: above-fold, must hydrate first */}
+        {/* 1. Hero */}
         <CinematicHero data={homeData} />
 
+        {/* Wave separator — static import, "use client" boundary in source file */}
         <AIWaveOverlay className="relative -mt-4 h-24 opacity-60" />
 
-        {/* 2. Logo Bar — static import: above-fold trust signal */}
+        {/* 2. Logo Bar */}
         <TrustedCompanies />
 
-        {/* 3. What We Do — static import: first scroll section */}
+        {/* 3. What We Do */}
         <AiServicesSection data={homeData} />
 
-        {/* 4–11. Below fold — dynamic imports */}
+        {/* 4–11. Below fold */}
         <Uptrix5SSection />
         <SevenSolutionsSection />
         <CaseStudiesSection />
