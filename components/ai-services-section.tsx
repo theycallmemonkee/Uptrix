@@ -14,9 +14,9 @@ export interface AiServicesSectionProps {
 
 export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
   const eyebrow = data?.aiSectionEyebrow ?? "What we do";
-  const headlinePart1 = "One Partner.";
-  const headlinePart2 = "Your Entire Growth Marketing Team.";
-  const body = data?.aiSectionBody ?? "Some businesses are about to launch and do not know where to start. Others are already running but growth has stalled. Wherever you are, we build and run the marketing engine that moves you forward.";
+  const headlinePart1 = "One Team For Your Whole";
+  const headlinePart2 = "Marketing, Not Five Vendors";
+  const body = data?.aiSectionBody ?? "Some businesses are about to launch. Others are already spending and stuck. Either way, marketing runs with no plan behind it. We step in as your fractional CMO and team, owning the strategy and the execution from idea to scale.";
   const ctaLabel = data?.aiSectionCtaLabel ?? "Explore Uptrix 5S™";
   const ctaHref = data?.aiSectionCtaHref ?? "#uptrix-5s";
 
@@ -84,7 +84,7 @@ export function AiServicesSection({ data }: AiServicesSectionProps = {}) {
             variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.68, ease: EASE }}
           >
-            Built and run by strategists and growth experts, with AI supporting the work behind the scenes.
+            Expert led. Your fractional CMO sets the direction, our growth experts run it, with AI supporting behind the scenes.
           </motion.p>
 
           <motion.div

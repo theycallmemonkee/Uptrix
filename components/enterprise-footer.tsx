@@ -32,19 +32,6 @@ const DEFAULT_SYSTEMS = [
   { label: "Revenue Operations System", href: "/solutions/revenue-operations-system" },
 ];
 
-const SOCIALS = [
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/uptrixtechnologies",
-    Icon: FacebookIcon,
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/uptrixtechnologies",
-    Icon: InstagramIcon,
-  },
-] as const;
-
 export interface EnterpriseFooterProps {
   settings?: SanityGlobalSettings | null
 }

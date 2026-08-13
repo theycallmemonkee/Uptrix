@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Fragment, useRef } from "react";
 import Link from "next/link";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -11,32 +11,37 @@ const STAGES = [
   {
     number: "01",
     code: "SCAN",
+    title: "Find where growth is stuck or where the opportunity is",
     description:
-      "Uptrix runs a full audit of your market, competitors, audience and current efforts. We find the highest-value opportunity and the friction points holding growth back.",
+      "We audit where you are now and where growth is being lost or left on the table.",
   },
   {
     number: "02",
     code: "STRATEGY",
+    title: "Set the positioning, message and plan",
     description:
-      "We build your growth roadmap. Target segments, positioning, channel mix, 90-day priorities. One clear plan your whole team can follow.",
+      "We settle what you stand for, who you are for, and why anyone should choose you.",
   },
   {
     number: "03",
     code: "SEQUENCE",
+    title: "Map the channels and priorities for your stage",
     description:
-      "We lay the correct foundations before activation. Brand consistency, CRM, tracking, content and conversion architecture. No gaps that kill campaigns before they launch.",
+      "We decide what to build and in what order. Different for a startup than an SME.",
   },
   {
     number: "04",
     code: "SHIP",
+    title: "Build, launch and track the work",
     description:
-      "Campaigns, content, ads, SEO, outreach. Everything goes live with a tight feedback loop so we are learning from day one.",
+      "We build the pages, ads, content and tracking, put them live, and measure from day one.",
   },
   {
     number: "05",
     code: "SCALE",
+    title: "Measure, improve and reinvest what works",
     description:
-      "What is working gets more budget, more resource and more reach. What is not gets fixed or replaced. Growth compounds.",
+      "We review on a 90 day cycle and reinvest in what works, so each quarter starts ahead of the last.",
   },
 ];
 
@@ -65,7 +70,11 @@ function StageCard({ stage, index }: { stage: typeof STAGES[number]; index: numb
         {stage.code}
       </p>
 
-      <p className="mt-3 text-[0.8125rem] leading-[1.75] text-white/55 flex-1">
+      <p className="mt-2 text-[0.8125rem] font-semibold leading-[1.4] text-[#9BC2FF]">
+        {stage.title}
+      </p>
+
+      <p className="mt-2 text-[0.8125rem] leading-[1.75] text-white/55 flex-1">
         {stage.description}
       </p>
     </motion.div>
@@ -115,12 +124,28 @@ export function Uptrix5SSection() {
           >
             Uptrix 5S™ &middot; Scan &rarr; Strategy &rarr; Sequence &rarr; Ship &rarr; Scale
           </motion.p>
+
+          <motion.p
+            className="mx-auto mt-4 max-w-2xl text-[0.9375rem] leading-[1.75] text-white/55"
+            initial={{ opacity: 0, y: 14 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.18, ease: EASE }}
+          >
+            Expert led at every stage. Your fractional CMO owns the plan, our growth experts run it. The same five stages whether you are a startup, a scaleup or an SME. We pick up wherever you are today.
+          </motion.p>
         </div>
 
-        {/* Stage cards */}
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {/* Stage cards — horizontal flow with arrows on desktop */}
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-stretch lg:gap-0">
           {STAGES.map((stage, i) => (
-            <StageCard key={stage.code} stage={stage} index={i} />
+            <Fragment key={stage.code}>
+              <StageCard stage={stage} index={i} />
+              {i < STAGES.length - 1 && (
+                <div className="hidden shrink-0 items-center justify-center px-2 lg:flex">
+                  <ArrowRight className="h-4 w-4 text-[#79ABFF]/35" aria-hidden />
+                </div>
+              )}
+            </Fragment>
           ))}
         </div>
 
@@ -132,7 +157,7 @@ export function Uptrix5SSection() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          Built and run by strategists and growth experts with AI supporting the work behind the scenes
+          Expert led. Your fractional CMO sets the direction, our growth experts run it, with AI supporting behind the scenes.
         </motion.p>
 
         {/* Fractional CMO block */}
@@ -144,10 +169,10 @@ export function Uptrix5SSection() {
           transition={{ duration: 0.65, ease: EASE }}
         >
           <p className="font-heading text-[11px] font-semibold tracking-[0.18em] text-[#79ABFF] uppercase">
-            Fractional CMO
+            Your Fractional CMO
           </p>
           <p className="mt-3 text-[0.9375rem] leading-[1.75] text-white/68">
-            Need a senior growth leader, not just a team? Add Uptrix Fractional CMO to any engagement and get a dedicated strategist embedded in your business.
+            A fractional CMO gives you senior marketing leadership without building a senior team around it. Ours arrives with the team already attached. They own your strategy, your numbers and your quarterly plan, and sit with the people executing it.
           </p>
           <Link
             href="#contact"
@@ -167,7 +192,7 @@ export function Uptrix5SSection() {
           transition={{ duration: 0.65, ease: EASE }}
         >
           <p className="font-heading text-base font-semibold text-white md:text-lg">
-            Ready to see your Framework in action?
+            Ready to build your <span className="text-[#79ABFF]">growth function?</span>
           </p>
           <Link
             href="#contact"

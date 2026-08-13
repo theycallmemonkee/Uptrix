@@ -54,8 +54,6 @@ type Props = {
 };
 
 export function SolutionPageTemplate({ solution }: Props) {
-  const IconComp = ICON_MAP[solution.iconName] || TrendingUp;
-
   // Find related solutions (excluding current)
   const relatedSolutions = SOLUTIONS.filter((s) => s.slug !== solution.slug).slice(0, 3);
 
@@ -352,7 +350,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   </div>
 
                   <blockquote className="mt-5 border-l-2 border-[#8CB8FF]/38 bg-white/[0.02] px-4 py-3 text-sm italic text-white/78 rounded-r-lg">
-                    "{solution.caseStudy.quote}"
+                    &quot;{solution.caseStudy.quote}&quot;
                   </blockquote>
                   <p className="mt-3 text-sm font-semibold text-[#86B3FF]">
                     {solution.caseStudy.client}
@@ -403,7 +401,7 @@ export function SolutionPageTemplate({ solution }: Props) {
                   className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0B234A]/35 p-7 backdrop-blur-md"
                 >
                   <p className="text-base italic text-white/88 leading-[1.75]">
-                    "{t.quote}"
+                    &quot;{t.quote}&quot;
                   </p>
                   <div className="mt-5 flex items-center gap-3 border-t border-white/[0.06] pt-4">
                     <div>

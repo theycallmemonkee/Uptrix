@@ -11,7 +11,7 @@ interface SecurityLogParams {
   type: SecurityEventType;
   ip?: string;
   email?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
   path?: string;
   requestId?: string;
 }

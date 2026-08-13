@@ -23,7 +23,7 @@ export function CinematicHero({ data }: CinematicHeroProps = {}) {
   // Copy — Sanity overrides, sensible defaults
   const headlinePart1    = data?.heroHeadlinePart1  ?? "We Grow Startups Scaleups & SMEs";
   const headlineHighlight = data?.heroHeadlineHighlight ?? "From First Idea to Scale";
-  const bodyText         = data?.heroBody          ?? "A growth marketing company that runs as your fractional CMO. One team owning your brand, marketing and growth, from the first strategy call to the numbers at the end. No juggling five vendors.";
+  const bodyText         = data?.heroBody          ?? "A growth marketing company that runs as your fractional CMO. One team owning your brand, marketing and growth, from the first strategy call to the numbers at the end.";
   const cta1Label        = data?.heroCta1Label     ?? "Book a Growth Consultation";
   const cta1Href         = data?.heroCta1Href      ?? "#contact";
   const cta2Label        = data?.heroCta2Label     ?? "See Case Studies";
@@ -128,31 +128,44 @@ export function CinematicHero({ data }: CinematicHeroProps = {}) {
                        lg:justify-start"
           >
             {/* Primary */}
-            <Link
-              href={cta1Href}
-              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl
-                         border border-[#3D7FFF]
-                         bg-gradient-to-br from-[#0055FF] via-[#0066FF] to-[#0044CC]
-                         px-6 py-[15px]
-                         font-heading text-sm font-semibold text-white
-                         shadow-[0_8px_28px_rgba(0,102,255,0.28),inset_0_1px_0_rgba(255,255,255,0.1)]
-                         transition-all duration-300 active:scale-[0.98]
-                         sm:w-auto sm:py-3.5
-                         hover:-translate-y-px
-                         hover:border-[#6AACFF]
-                         hover:shadow-[0_14px_44px_rgba(0,102,255,0.46),inset_0_1px_0_rgba(255,255,255,0.14)]"
-            >
-              <span
+            <div className="relative w-full sm:w-auto">
+              <Link
+                href={cta1Href}
+                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl
+                           border border-[#3D7FFF]
+                           bg-gradient-to-br from-[#0055FF] via-[#0066FF] to-[#0044CC]
+                           px-6 py-[15px]
+                           font-heading text-sm font-semibold text-white
+                           shadow-[0_8px_28px_rgba(0,102,255,0.28),inset_0_1px_0_rgba(255,255,255,0.1)]
+                           transition-all duration-300 active:scale-[0.98]
+                           sm:w-auto sm:py-3.5
+                           hover:-translate-y-px
+                           hover:border-[#6AACFF]
+                           hover:shadow-[0_14px_44px_rgba(0,102,255,0.46),inset_0_1px_0_rgba(255,255,255,0.14)]"
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.09] to-transparent transition-transform duration-500 group-hover:translate-x-full"
+                />
+                <span className="relative">{cta1Label}</span>
+                <ArrowUpRight
+                  size={15}
+                  aria-hidden
+                  className="relative transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px"
+                />
+              </Link>
+
+              {/* Handwritten note pointing at the primary CTA */}
+              <motion.p
                 aria-hidden
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.09] to-transparent transition-transform duration-500 group-hover:translate-x-full"
-              />
-              <span className="relative">{cta1Label}</span>
-              <ArrowUpRight
-                size={15}
-                aria-hidden
-                className="relative transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px"
-              />
-            </Link>
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.65, delay: 0.55, ease: EASE }}
+                className="pointer-events-none absolute -top-6 -left-1 hidden -rotate-3 whitespace-nowrap font-hand text-lg text-[#79ABFF]/80 sm:-left-3 sm:block sm:text-xl"
+              >
+                ← talk to a growth strategist
+              </motion.p>
+            </div>
 
             {/* Secondary */}
             <Link

@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } fr
 import { useEffect } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const EASE_LINEAR = [0, 0, 1, 1] as const;
 
 /**
  * SpotlightBackground
@@ -73,7 +72,7 @@ export function FloatingOrbs({ orbs = DEFAULT_ORBS }: { orbs?: Orb[] }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {orbs.map((orb, i) => (
-        <motion.div
+        <div
           key={i}
           className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
           style={{
@@ -82,18 +81,7 @@ export function FloatingOrbs({ orbs = DEFAULT_ORBS }: { orbs?: Orb[] }) {
             width: orb.size,
             height: orb.size,
             background: `radial-gradient(circle, ${orb.color} 0%, transparent 70%)`,
-          }}
-          animate={{
-            y: [0, -28, 0],
-            x: [0, 14, 0],
-            scale: [1, 1.08, 1],
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: orb.duration,
-            delay: orb.delay ?? 0,
-            repeat: Infinity,
-            ease: EASE,
+            opacity: 0.7,
           }}
         />
       ))}
@@ -125,14 +113,12 @@ export function AnimatedGrid({
       className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_48%,transparent_90%)]"
       style={{ opacity }}
     >
-      <motion.div
+      <div
         className="h-full w-full"
         style={{
           backgroundImage: bg,
           backgroundSize: `${gridSize}px ${gridSize}px`,
         }}
-        animate={{ backgroundPosition: ["0px 0px", `${gridSize}px ${gridSize}px`] }}
-        transition={{ duration: 20, repeat: Infinity, ease: EASE_LINEAR }}
       />
     </div>
   );
@@ -171,25 +157,12 @@ export function AIWaveOverlay({ className = "" }: { className?: string }) {
         preserveAspectRatio="none"
         className="w-full"
       >
-        {[0, 0.3, 0.6].map((delay, i) => (
-          <motion.path
+        {[0, 0.3, 0.6].map((_, i) => (
+          <path
             key={i}
             d={`M0,60 C120,${20 + i * 15} 240,${100 - i * 15} 360,60 C480,${20 + i * 15} 600,${100 - i * 15} 720,60 C840,${20 + i * 15} 960,${100 - i * 15} 1080,60 C1200,${20 + i * 15} 1320,${100 - i * 15} 1440,60`}
             stroke={`rgba(0,102,255,${0.18 - i * 0.04})`}
             strokeWidth={1.5 - i * 0.3}
-            animate={{
-              d: [
-                `M0,60 C120,${20 + i * 15} 240,${100 - i * 15} 360,60 C480,${20 + i * 15} 600,${100 - i * 15} 720,60 C840,${20 + i * 15} 960,${100 - i * 15} 1080,60 C1200,${20 + i * 15} 1320,${100 - i * 15} 1440,60`,
-                `M0,60 C120,${100 - i * 15} 240,${20 + i * 15} 360,60 C480,${100 - i * 15} 600,${20 + i * 15} 720,60 C840,${100 - i * 15} 960,${20 + i * 15} 1080,60 C1200,${100 - i * 15} 1320,${20 + i * 15} 1440,60`,
-                `M0,60 C120,${20 + i * 15} 240,${100 - i * 15} 360,60 C480,${20 + i * 15} 600,${100 - i * 15} 720,60 C840,${20 + i * 15} 960,${100 - i * 15} 1080,60 C1200,${20 + i * 15} 1320,${100 - i * 15} 1440,60`,
-              ],
-            }}
-            transition={{
-              duration: 6 + i * 1.5,
-              delay,
-              repeat: Infinity,
-              ease: EASE,
-            }}
           />
         ))}
       </svg>

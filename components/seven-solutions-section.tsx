@@ -9,56 +9,58 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SOLUTIONS = [
   {
-    problem: "We need customers, but nobody knows we exist.",
-    name: "DEMAND GENERATION",
+    problem: "Every agency tells me something different.",
+    name: "BRAND & GTM STRATEGY",
     description:
-      "We build the organic, content and outreach engine that fills your pipeline with the right people.",
-    services: ["SEO & Content", "Email Outreach", "Thought Leadership", "PR & Link Building"],
-    href: "/solutions/demand-generation-system",
-    accent: "rgba(0,102,255,0.12)",
-  },
-  {
-    problem: "We are spending on ads but the returns are not there.",
-    name: "PAID GROWTH",
-    description:
-      "We build and manage paid campaigns that turn ad spend into predictable, measurable revenue.",
-    services: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Retargeting"],
-    href: "/solutions/paid-growth-engine",
-    accent: "rgba(121,171,255,0.10)",
-  },
-  {
-    problem: "Our website gets traffic but it does not convert.",
-    name: "CONVERSION WEBSITE",
-    description:
-      "We redesign, rebuild and optimise websites for one job: turning visitors into enquiries.",
-    services: ["Website Design", "CRO", "Landing Pages", "A/B Testing"],
-    href: "/solutions/conversion-website-system",
-    accent: "rgba(0,102,255,0.12)",
-  },
-  {
-    problem: "We are not clear on our positioning or where to start.",
-    name: "GROWTH FOUNDATION",
-    description:
-      "We define your positioning, build your growth plan and give you the 90-day roadmap to follow.",
-    services: ["Brand Strategy", "Market Research", "Go-To-Market", "Growth Roadmap"],
+      "We settle what you stand for, who you are for and why anyone should pick you. Then a 90 day roadmap.",
     href: "/solutions/growth-foundation-system",
     accent: "rgba(121,171,255,0.10)",
   },
   {
-    problem: "We want to use AI but do not know where it fits.",
+    problem: "I spend on ads monthly and cannot tell you what I got back.",
+    name: "PAID GROWTH ENGINE",
+    description:
+      "We find what is draining the account, rebuild creative and targeting, then fix the pages traffic lands on.",
+    href: "/solutions/paid-growth-engine",
+    accent: "rgba(0,102,255,0.12)",
+  },
+  {
+    problem: "My pipeline is empty and referrals are drying up.",
+    name: "DEMAND GENERATION",
+    description:
+      "People searching for what you sell start finding you. Several channels feeding one pipeline, not one bet.",
+    href: "/solutions/demand-generation-system",
+    accent: "rgba(121,171,255,0.10)",
+  },
+  {
+    problem: "People visit, look around, and leave without a word.",
+    name: "CONVERSION WEBSITE",
+    description:
+      "Your site stops being a brochure. We rebuild the message, flow and speed around one job: getting enquiries.",
+    href: "/solutions/conversion-website-system",
+    accent: "rgba(0,102,255,0.12)",
+  },
+  {
+    problem: "Leads go cold before anyone calls them.",
+    name: "AI LEAD CONVERSION",
+    description:
+      "The moment someone enquires, they hear back. Warm leads reach your team, cold ones stay in nurture.",
+    href: "/solutions/demand-generation-system",
+    accent: "rgba(121,171,255,0.10)",
+  },
+  {
+    problem: "Everything takes too long and my team is at capacity.",
     name: "AI MARKETING",
     description:
-      "We identify where AI creates real leverage in your marketing and build those workflows into your business.",
-    services: ["AI Content", "Automated Outreach", "AI Ad Creative", "Workflow Automation"],
+      "We rebuild the slow parts so a small team ships like a large one, with a specialist on every output.",
     href: "/solutions/ai-marketing-system",
     accent: "rgba(0,102,255,0.12)",
   },
   {
-    problem: "Growth is happening but operations cannot keep up.",
+    problem: "Growth is breaking our operations.",
     name: "REVENUE OPERATIONS",
     description:
-      "We build the ops layer that lets your business scale without chaos: CRM, reporting, process, automation.",
-    services: ["CRM Setup", "Revenue Reporting", "Process Design", "Automation"],
+      "One place where sales and marketing see the same numbers. Leads route themselves, nothing falls between teams.",
     href: "/solutions/revenue-operations-system",
     accent: "rgba(121,171,255,0.10)",
   },
@@ -97,18 +99,6 @@ function SolutionCard({ solution, index }: { solution: typeof SOLUTIONS[number];
         {solution.description}
       </p>
 
-      {/* Services */}
-      <div className="relative mt-4 flex flex-wrap gap-1.5">
-        {solution.services.map((s) => (
-          <span
-            key={s}
-            className="rounded-md border border-white/[0.09] bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-white/50"
-          >
-            {s}
-          </span>
-        ))}
-      </div>
-
       {/* Link */}
       <Link
         href={solution.href}
@@ -140,7 +130,7 @@ export function SevenSolutionsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            Seven solutions
+            Our solutions
           </motion.p>
 
           <motion.h2
@@ -149,18 +139,18 @@ export function SevenSolutionsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
           >
-            <span className="text-white">WHICH PROBLEM</span>
+            <span className="text-white">ANY GROWTH MARKETING PROBLEM.</span>
             <br />
-            <span className="text-[#79ABFF]">ARE WE SOLVING FOR YOU?</span>
+            <span className="text-[#79ABFF]">ONE GROWTH TEAM.</span>
           </motion.h2>
 
           <motion.p
-            className="mt-5 text-[0.9375rem] leading-[1.75] text-white/55 lg:whitespace-nowrap"
+            className="mt-5 text-[0.9375rem] leading-[1.75] text-white/55"
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.14, ease: EASE }}
           >
-            Find the challenge that sounds like yours. Every solution is built around a real growth problem, not a list of services.
+            Same capabilities as above, now sorted by the problem they solve. Whatever stage you are at, one of these owns what you are facing right now. Read the seven quotes and start with the one that sounds most like you.
           </motion.p>
         </div>
 
@@ -170,6 +160,26 @@ export function SevenSolutionsSection() {
             <SolutionCard key={solution.name} solution={solution} index={i} />
           ))}
         </div>
+
+        {/* Pre grid line + CTA */}
+        <motion.div
+          className="mx-auto mt-12 max-w-xl text-center"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
+          <p className="text-[0.9375rem] leading-[1.75] text-white/55">
+            Just starting out and none of these sound like you yet? That is the first one. We build the plan before there is anything to fix.
+          </p>
+          <Link
+            href="#contact"
+            className="shine-sweep group mt-6 inline-flex items-center gap-2 rounded-xl border border-[#4D8EFF] bg-gradient-to-r from-[#0066FF] to-[#1552B6] px-6 py-3 font-heading text-sm font-semibold text-white shadow-[0_10px_28px_rgba(0,102,255,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(0,102,255,0.42)]"
+          >
+            Not sure where to start? Find My Starting Point
+            <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

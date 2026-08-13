@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,6 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
-  Check,
   CheckCircle2,
   ChevronDown,
   Loader2,
@@ -28,7 +27,6 @@ import { TrustedBrandsSlider } from "@/components/shared/TrustedBrandsSlider";
 import { DemandGenerationHero } from "@/components/solution-heroes/demand-generation-hero";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const EASE_LINEAR = [0, 0, 1, 1] as const;
 
 type BlogPost = {
   slug: string;
@@ -47,12 +45,15 @@ type Props = {
 };
 
 export function MoreLeadsClient({ posts }: Props) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   // Navigation active state logic or page load state
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setMounted(true);
   }, []);
 
   // Form 1 State (Checklist Lead Magnet)
@@ -192,10 +193,10 @@ export function MoreLeadsClient({ posts }: Props) {
         checklistTurnstileRef.current?.reset();
         checklistTurnstileRef.current?.execute();
       }
-    } catch (err: any) {
+    } catch (err) {
       // Debug log serverError
       console.log("serverError", err);
-      setChecklistError(err.message || "Network error. Please try again.");
+      setChecklistError(err instanceof Error ? err.message : "Network error. Please try again.");
       if (showExitPopup) {
         exitTurnstileRef.current?.reset();
         exitTurnstileRef.current?.execute();
@@ -256,10 +257,10 @@ export function MoreLeadsClient({ posts }: Props) {
       setContactForm({ name: "", email: "", website: "", budget: "", challenge: "", honey: "" });
       contactTurnstileRef.current?.reset();
       contactTurnstileRef.current?.execute();
-    } catch (err: any) {
+    } catch (err) {
       // Debug log serverError
       console.log("serverError", err);
-      setContactError(err.message || "Network error. Please try again.");
+      setContactError(err instanceof Error ? err.message : "Network error. Please try again.");
       contactTurnstileRef.current?.reset();
       contactTurnstileRef.current?.execute();
     } finally {

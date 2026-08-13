@@ -338,7 +338,7 @@ export function CaseStudyTemplate({ study }: { study: CaseStudy }) {
               transition={{ duration: 0.6, ease: EASE, delay: 0.14 }}
               className="grid gap-3"
             >
-              {study.stats.map((stat, i) => (
+              {study.stats.map((stat) => (
                 <div
                   key={stat.label}
                   className="flex items-center justify-between rounded-xl border border-white/[0.07] bg-white/[0.025] px-5 py-4"

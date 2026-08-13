@@ -74,11 +74,11 @@ export async function verifyAdminRequest(request: Request): Promise<AdminAuthRes
     }
 
     return { authorized: true, role };
-  } catch (err: any) {
+  } catch (err) {
     logSecurityEvent({
       type: "UNAUTHORIZED_ACCESS",
       path,
-      details: { reason: "Unexpected error during auth check", error: err?.message },
+      details: { reason: "Unexpected error during auth check", error: err instanceof Error ? err.message : String(err) },
     });
     return {
       authorized: false,

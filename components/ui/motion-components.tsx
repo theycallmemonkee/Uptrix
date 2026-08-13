@@ -60,14 +60,13 @@ export function SplitTextReveal({
 
 /**
  * ScrollReveal
- * Generic scroll-triggered reveal with configurable direction/blur.
+ * Generic scroll-triggered reveal with configurable direction.
  */
 export function ScrollReveal({
   children,
   direction = "up",
   delay = 0,
   duration = 0.72,
-  blur = true,
   className = "",
   once = true,
 }: {
@@ -75,7 +74,6 @@ export function ScrollReveal({
   direction?: "up" | "down" | "left" | "right" | "none";
   delay?: number;
   duration?: number;
-  blur?: boolean;
   className?: string;
   once?: boolean;
 }) {

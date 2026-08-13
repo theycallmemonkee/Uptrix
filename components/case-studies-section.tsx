@@ -9,27 +9,24 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const CASE_STUDIES = [
   {
-    industry: "Real Estate",
-    headline: "From 3 leads a month to a consistent pipeline",
+    industry: "Real Estate, Canada",
     narrative:
-      "A regional property developer was generating around 3 inbound leads per month through an outdated website and sporadic social posts. Within 90 days we rebuilt their conversion architecture, launched a targeted content and outreach programme and implemented a follow-up sequence. Monthly inbound leads reached 40 within the quarter.",
-    highlights: ["40 inbound leads/month", "12x increase", "90 days"],
+      "Enquiries went cold before anyone called back. We rebuilt the follow up, connected it to the ad accounts, then scaled spend once tracking held.",
+    outcome: "Pipeline stayed clean as spend grew.",
     accent: "#2563EB",
   },
   {
     industry: "D2C Fashion",
-    headline: "3.2x ROAS on Meta within 60 days",
     narrative:
-      "A fashion brand was running Meta campaigns with creative that was not built for conversion. We audited the account, rebuilt the creative strategy around real customer language, restructured the funnel and relaunched. ROAS moved from 0.9x to 3.2x within 60 days.",
-    highlights: ["3.2x ROAS", "From 0.9x", "60 days"],
+      "Ad costs climbed while sales stayed flat. We rebuilt positioning and creative first, then landing pages, then retargeting.",
+    outcome: "3.21X ROAS on rebuilt Meta campaigns.",
     accent: "#79ABFF",
   },
   {
-    industry: "Healthcare Tech",
-    headline: "Positioning and pipeline for a regulated market",
+    industry: "Health Technology",
     narrative:
-      "A healthcare technology business had a strong product but was not communicating its value clearly in a regulated market. We redefined the positioning, rebuilt the website messaging and launched a compliant outreach programme targeting procurement teams. Within 120 days they had 14 qualified sales conversations booked.",
-    highlights: ["14 qualified meetings", "120 days", "Regulated market"],
+      "Search traffic was flat and content had no plan behind it. We rebuilt the site architecture around real search intent, then wrote against it.",
+    outcome: "Organic traffic and ranked keywords both grew.",
     accent: "#38BDF8",
   },
 ] as const;
@@ -60,27 +57,18 @@ function CaseStudyCard({ study, index }: { study: typeof CASE_STUDIES[number]; i
         {study.industry}
       </span>
 
-      {/* Headline */}
-      <h3 className="relative mt-4 font-heading text-lg font-semibold leading-snug text-white">
-        {study.headline}
-      </h3>
-
       {/* Narrative */}
-      <p className="relative mt-3 text-[0.8125rem] leading-[1.8] text-white/52 flex-1">
+      <p className="relative mt-4 text-[0.8125rem] leading-[1.8] text-white/52 flex-1">
         {study.narrative}
       </p>
 
-      {/* Results strip */}
-      <div className="relative mt-5 flex flex-wrap gap-2">
-        {study.highlights.map((h) => (
-          <span
-            key={h}
-            className="rounded-full border border-white/[0.1] bg-white/[0.04] px-3 py-1 font-heading text-[11px] font-semibold text-white/75"
-          >
-            {h}
-          </span>
-        ))}
-      </div>
+      {/* Outcome */}
+      <p
+        className="relative mt-5 font-heading text-sm font-semibold leading-snug"
+        style={{ color: study.accent }}
+      >
+        {study.outcome}
+      </p>
     </motion.article>
   );
 }
@@ -102,7 +90,7 @@ export function CaseStudiesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            Real results
+            Proven impact
           </motion.p>
 
           <motion.h2
@@ -111,18 +99,18 @@ export function CaseStudiesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
           >
-            <span className="text-white">REAL BUSINESSES</span>
+            <span className="text-white">REAL WORK.</span>
             <br />
-            <span className="text-[#79ABFF]">REAL GROWTH</span>
+            <span className="text-[#79ABFF]">REAL NUMBERS.</span>
           </motion.h2>
 
           <motion.p
-            className="mt-5 text-[0.9375rem] leading-[1.75] text-white/55 lg:whitespace-nowrap"
+            className="mt-5 text-[0.9375rem] leading-[1.75] text-white/55"
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.14, ease: EASE }}
           >
-            Anonymised to protect client confidentiality. The numbers are real.
+            Every number below came from a specific engagement, not an average. Results vary by business, budget and market, so we do not promise figures. What we do promise is that you will see the ones that did not move.
           </motion.p>
         </div>
 

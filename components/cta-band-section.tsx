@@ -21,19 +21,19 @@ export function CtaBandSection() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.72, ease: EASE }}
         >
-          <span className="text-white">EXPERT LED</span>
+          <span className="text-white">EXPERT LED GROWTH,</span>
           <br />
-          <span className="text-[#79ABFF]">GROWTH Marketing</span>
+          <span className="text-[#79ABFF]">RUN AS YOUR FRACTIONAL CMO</span>
         </motion.h2>
 
         <motion.p
-          className="mt-6 text-[0.9375rem] leading-[1.8] text-white/60 lg:whitespace-nowrap"
+          className="mt-6 text-[0.9375rem] leading-[1.8] text-white/60"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
         >
-          One team. Full ownership. From the first growth call to the numbers at the end of the quarter.
+          200+ projects delivered for startups, scaleups and SMEs worldwide. A growth marketing company that runs as your fractional CMO, so the channels we build keep working long after the first win.
         </motion.p>
 
         <motion.div

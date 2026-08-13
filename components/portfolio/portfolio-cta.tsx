@@ -62,7 +62,7 @@ export function PortfolioCta() {
           <FloatingParticles count={10} />
 
           <span className="relative z-10 text-[11px] font-semibold tracking-[0.2em] text-[#79ABFF] uppercase">
-            LET'S BUILD YOUR GROWTH ENGINE
+            LET&apos;S BUILD YOUR GROWTH ENGINE
           </span>
 
           <h2 className="relative z-10 mx-auto mt-5 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-[1.12] tracking-[-0.02em] text-white">

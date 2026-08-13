@@ -10,6 +10,8 @@ import { BackgroundEffects } from "@/components/ui/background-effects";
 import { AIWaveOverlay } from "@/components/ui/visual-effects";
 import type { Metadata } from "next";
 import { getHomePage, getGlobalSettings, getGlobalFaqs } from "@/lib/sanity";
+import { getAllPosts } from "@/lib/posts";
+import type { ArticlePreview } from "@/components/articles-section";
 
 // ── Below-fold content — code-split into separate JS chunks ──────────────────
 const Uptrix5SSection      = dynamic(() => import("@/components/uptrix-5s-section").then((m) => m.Uptrix5SSection));
@@ -51,6 +53,17 @@ export default async function Home() {
     getGlobalFaqs(),
   ]);
 
+  const articles: ArticlePreview[] = getAllPosts()
+    .slice(0, 4)
+    .map((post) => ({
+      slug: post.slug,
+      title: post.title,
+      category: post.category,
+      displayDate: post.displayDate,
+      author: post.author,
+      cover: post.cover,
+    }));
+
   return (
     <div className="relative isolate min-h-screen bg-[#0B1F3A] text-white" style={{ overflowX: "clip" }}>
       {/* Static gradient background — server-rendered, zero JS cost */}
@@ -87,7 +100,7 @@ export default async function Home() {
         <CaseStudiesSection />
         <CtaBandSection />
         <TestimonialsSection />
-        <ArticlesSection />
+        <ArticlesSection articles={articles} />
         <PremiumFaqSection faqs={faqs} settings={globalSettings} />
         <ContactSection />
         <EnterpriseFooter settings={globalSettings} />

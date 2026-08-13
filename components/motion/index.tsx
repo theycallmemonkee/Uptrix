@@ -24,7 +24,6 @@ interface FadeInProps {
   delay?: number;
   duration?: number;
   y?: number;
-  blur?: boolean;
   className?: string;
   once?: boolean;
 }
@@ -34,7 +33,6 @@ export function FadeIn({
   delay = 0,
   duration = 0.72,
   y = 24,
-  blur = true,
   className,
   once = true,
 }: FadeInProps) {

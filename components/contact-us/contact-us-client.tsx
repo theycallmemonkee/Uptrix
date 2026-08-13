@@ -20,7 +20,6 @@ import {
   User,
   X,
   XCircle,
-  type LucideIcon,
 } from "lucide-react";
 import {
   FormEvent,
@@ -115,6 +114,11 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
     return () => clearTimeout(t);
   }, [toast]);
 
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setSubmitStatus("idle");
+  };
+
   // ESC key handler for success modal
   useEffect(() => {
     if (!showSuccessModal) return;
@@ -150,11 +154,6 @@ export function ContactUsClient({ contactData, globalSettings }: ContactUsClient
     }, 4500);
     return () => clearTimeout(timer);
   }, [showSuccessModal]);
-
-  const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false);
-    setSubmitStatus("idle");
-  };
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

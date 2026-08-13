@@ -54,9 +54,10 @@ export async function GET(request: Request) {
         warning: "Supabase environment variables not configured. Showing mock development data.",
       });
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { ok: false, error: `Failed to export leads: ${err.message}` },
+      { ok: false, error: `Failed to export leads: ${message}` },
       { status: 500 }
     );
   }

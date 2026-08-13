@@ -8,7 +8,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const TESTIMONIALS = [
   {
     quote:
-      "We had tried two agencies before Uptrix. Both ran campaigns that looked good on paper but brought in the wrong people. Uptrix was the first team that actually asked what a good lead looks like for us before touching the budget. Within 90 days we had a pipeline we could rely on.",
+      "We had tried two agencies before Uptrix. Both ran campaigns that looked good on paper but brought in the wrong people. Uptrix was the first team that asked what a good lead looks like before touching the budget.",
     name: "Alex R.",
     role: "Co-Founder",
     company: "B2B SaaS",
@@ -26,7 +26,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "I was sceptical about a fractional model but the Uptrix team was more embedded than any full-time hire I have made. They knew our numbers, challenged our assumptions and owned the outcomes. Quarter one revenue was the best in the company's history.",
+      "I was sceptical about a fractional model but the Uptrix team was more embedded than any full-time hire I have made. They knew our numbers and owned the outcomes. Best quarter in the company's history.",
     name: "James O.",
     role: "Founder",
     company: "Service Business",
@@ -94,7 +94,7 @@ export function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            Client results
+            Testimonials
           </motion.p>
 
           <motion.h2
@@ -107,15 +107,6 @@ export function TestimonialsSection() {
             <br />
             <span className="text-[#79ABFF]">AFTER 90 DAYS</span>
           </motion.h2>
-
-          <motion.p
-            className="mt-5 text-[0.9375rem] leading-[1.75] text-white/55 lg:whitespace-nowrap"
-            initial={{ opacity: 0, y: 14 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.14, ease: EASE }}
-          >
-            Genuine words from founders and marketing leads who moved from stuck to scaling.
-          </motion.p>
         </div>
 
         {/* Cards */}

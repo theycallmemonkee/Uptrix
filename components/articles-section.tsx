@@ -4,87 +4,69 @@ import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const ARTICLES = [
-  {
-    category: "CRO",
-    title: "Why most growth strategies fail at the conversion layer",
-    excerpt: "Getting traffic is only half the job. Most businesses solve the wrong problem first.",
-    href: "/insights",
-    accent: "#2563EB",
-  },
-  {
-    category: "Strategy",
-    title: "Positioning before paid: the order most brands get wrong",
-    excerpt: "Spending on ads before your positioning is clear is one of the most expensive mistakes in growth.",
-    href: "/insights",
-    accent: "#79ABFF",
-  },
-  {
-    category: "Paid Growth",
-    title: "What a 3x ROAS campaign actually looks like from the inside",
-    excerpt: "The creative decisions, audience work and funnel structure behind campaigns that actually scale.",
-    href: "/insights",
-    accent: "#38BDF8",
-  },
-  {
-    category: "Leadership",
-    title: "The case for a fractional CMO before a full-time hire",
-    excerpt: "Why bringing in senior strategy part-time often outperforms a full-time hire at the early stage.",
-    href: "/insights",
-    accent: "#7C3AED",
-  },
-] as const;
+export interface ArticlePreview {
+  slug: string;
+  title: string;
+  category: string;
+  displayDate: string;
+  author: string;
+  cover: string;
+}
 
-function ArticleCard({ article, index }: { article: typeof ARTICLES[number]; index: number }) {
+function ArticleCard({ article, index }: { article: ArticlePreview; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <motion.article
       ref={ref}
-      className="group relative flex flex-col rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 transition-all duration-500 hover:border-white/[0.13] hover:bg-white/[0.055] hover:shadow-[0_12px_36px_rgba(0,0,0,0.22)]"
+      className="group relative flex w-[260px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] transition-all duration-500 hover:border-white/[0.13] hover:bg-white/[0.055] hover:shadow-[0_12px_36px_rgba(0,0,0,0.22)] sm:w-[300px]"
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.58, delay: index * 0.07, ease: EASE }}
     >
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_20%,rgba(0,102,255,0.07),transparent_55%)]" />
+      <Link href={`/blog/${article.slug}`} className="flex flex-1 flex-col">
+        <div className="relative h-36 w-full overflow-hidden sm:h-40">
+          <Image
+            src={article.cover}
+            alt={article.title}
+            fill
+            sizes="(max-width: 640px) 260px, 300px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061124]/70 via-transparent to-transparent" />
+          <span className="absolute left-3 top-3 rounded-md border border-white/[0.15] bg-[#061124]/80 px-2 py-0.5 text-[10px] font-bold tracking-[0.14em] text-[#79ABFF] uppercase backdrop-blur-sm">
+            {article.category}
+          </span>
+        </div>
 
-      <span
-        className="relative inline-block rounded-md px-2 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase"
-        style={{
-          background: `${article.accent}22`,
-          color: article.accent,
-          border: `1px solid ${article.accent}33`,
-        }}
-      >
-        {article.category}
-      </span>
-
-      <h3 className="relative mt-3 font-heading text-[0.9375rem] font-semibold leading-snug text-white flex-1">
-        {article.title}
-      </h3>
-
-      <p className="relative mt-2 text-[0.8125rem] leading-[1.7] text-white/50">
-        {article.excerpt}
-      </p>
-
-      <Link
-        href={article.href}
-        className="relative mt-4 inline-flex items-center gap-1 font-heading text-xs font-semibold text-[#79ABFF] hover:text-white transition-colors duration-200"
-      >
-        Read more
-        <ArrowUpRight size={12} />
+        <div className="flex flex-1 flex-col p-5">
+          <p className="text-[11px] text-white/45">{article.displayDate}</p>
+          <h3 className="mt-2 font-heading text-[0.9375rem] font-semibold leading-snug text-white flex-1">
+            {article.title}
+          </h3>
+          <div className="mt-4 flex items-center justify-between">
+            <p className="text-[11px] text-white/50">{article.author}</p>
+            <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-[#79ABFF] group-hover:text-white transition-colors duration-200">
+              Read more
+              <ArrowUpRight size={12} />
+            </span>
+          </div>
+        </div>
       </Link>
     </motion.article>
   );
 }
 
-export function ArticlesSection() {
+export function ArticlesSection({ articles = [] }: { articles?: ArticlePreview[] }) {
   const headingRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headingRef, { once: true, amount: 0.3 });
+
+  if (!articles.length) return null;
 
   return (
     <section className="relative z-10 w-full overflow-hidden px-6 py-20 md:px-10 md:py-24">
@@ -119,29 +101,29 @@ export function ArticlesSection() {
             transition={{ duration: 0.6, delay: 0.14, ease: EASE }}
           >
             <Link
-              href="/insights"
+              href="/blog"
               className="group inline-flex items-center gap-2 rounded-xl border border-white/[0.13] bg-white/[0.04] px-5 py-2.5 font-heading text-sm font-semibold text-white/75 backdrop-blur-sm transition-all duration-300 hover:border-white/22 hover:bg-white/[0.08] hover:text-white"
             >
-              Read All Insights
+              View All Articles
               <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
         </div>
 
         <motion.p
-          className="mt-4 text-[0.9375rem] leading-[1.75] text-white/55 lg:whitespace-nowrap"
+          className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.75] text-white/55"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          Practical thinking on growth marketing, positioning and building businesses that scale.
+          Practical writing on brand, growth, paid media and conversion. Written for founders and marketing leads who want the thinking behind the work.
         </motion.p>
 
-        {/* Article grid */}
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {ARTICLES.map((article, i) => (
-            <ArticleCard key={article.title} article={article} index={i} />
+        {/* Article horizontal scroll */}
+        <div className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 md:mx-0 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {articles.map((article, i) => (
+            <ArticleCard key={article.slug} article={article} index={i} />
           ))}
         </div>
       </div>

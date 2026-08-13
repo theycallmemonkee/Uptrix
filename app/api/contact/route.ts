@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     }
 
     // 2. Parse JSON body
-    let body: any;
+    let body: unknown;
     try {
       body = await request.json();
       console.info("[contact/api] Request body parsed", {
@@ -83,7 +83,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const email = typeof body?.email === "string" ? body.email.trim() : "";
+    const rawEmail =
+      body && typeof body === "object" && "email" in body ? (body as { email?: unknown }).email : undefined;
+    const email = typeof rawEmail === "string" ? rawEmail.trim() : "";
 
     // 3. Server-side Rate Limiting (IP & Email based)
     const rateLimit = checkRateLimit(ip, email);
@@ -292,9 +294,9 @@ export async function POST(request: Request) {
         } else {
           dbStatus = "saved";
         }
-      } catch (dbUnexpected: any) {
+      } catch (dbUnexpected) {
         dbStatus = "failed";
-        dbWarning = dbUnexpected?.message || "Database error";
+        dbWarning = dbUnexpected instanceof Error ? dbUnexpected.message : "Database error";
         console.error("[contact/api] Database unexpected error", {
           requestId,
           error: dbUnexpected,
@@ -333,9 +335,9 @@ export async function POST(request: Request) {
           emailStatus = "sent";
           emailId = emailResult.data?.id ?? null;
         }
-      } catch (emailUnexpected: any) {
+      } catch (emailUnexpected) {
         emailStatus = "failed";
-        emailWarning = emailUnexpected?.message || "Email error";
+        emailWarning = emailUnexpected instanceof Error ? emailUnexpected.message : "Email error";
         console.error("[contact/api] Resend unexpected error", {
           requestId,
           error: emailUnexpected,

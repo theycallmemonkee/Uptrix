@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import "@/types/common";
 
 interface TurnstileProps {
   onVerify: (token: string) => void;
@@ -20,15 +21,16 @@ export function InvisibleTurnstile({ onVerify, widgetRef }: TurnstileProps) {
     let widgetId: string | null = null;
 
     const renderWidget = () => {
-      if (typeof window !== "undefined" && (window as any).turnstile && containerRef.current) {
+      const turnstile = typeof window !== "undefined" ? window.turnstile : undefined;
+      if (turnstile && containerRef.current) {
         try {
-          widgetId = (window as any).turnstile.render(containerRef.current, {
+          widgetId = turnstile.render(containerRef.current, {
             sitekey: siteKey,
-            size: "invisible",
+            appearance: "interaction-only",
             callback: (token: string) => {
               onVerify(token);
             },
-            "error-callback": (err: any) => {
+            "error-callback": (err: unknown) => {
               console.error("[turnstile] client-side verification error", err);
             }
           });
@@ -36,21 +38,21 @@ export function InvisibleTurnstile({ onVerify, widgetRef }: TurnstileProps) {
           if (widgetRef) {
             widgetRef.current = {
               reset: () => {
-                if (widgetId && (window as any).turnstile?.reset) {
-                  (window as any).turnstile.reset(widgetId);
+                if (widgetId) {
+                  window.turnstile?.reset(widgetId);
                 }
               },
               execute: () => {
-                if (widgetId && (window as any).turnstile?.execute) {
-                  (window as any).turnstile.execute(widgetId);
+                if (widgetId) {
+                  window.turnstile?.execute(widgetId);
                 }
               }
             };
           }
 
           // Trigger execution automatically
-          if (widgetId && (window as any).turnstile?.execute) {
-            (window as any).turnstile.execute(widgetId);
+          if (widgetId) {
+            window.turnstile?.execute(widgetId);
           }
         } catch (err) {
           console.error("[turnstile] render initialization error", err);
@@ -59,11 +61,11 @@ export function InvisibleTurnstile({ onVerify, widgetRef }: TurnstileProps) {
     };
 
     // Check if global turnstile script is available
-    if (typeof window !== "undefined" && (window as any).turnstile) {
+    if (typeof window !== "undefined" && window.turnstile) {
       renderWidget();
     } else {
       const interval = setInterval(() => {
-        if (typeof window !== "undefined" && (window as any).turnstile) {
+        if (typeof window !== "undefined" && window.turnstile) {
           renderWidget();
           clearInterval(interval);
         }
@@ -72,10 +74,10 @@ export function InvisibleTurnstile({ onVerify, widgetRef }: TurnstileProps) {
     }
 
     return () => {
-      if (widgetId && typeof window !== "undefined" && (window as any).turnstile?.remove) {
+      if (widgetId && typeof window !== "undefined" && window.turnstile) {
         try {
-          (window as any).turnstile.remove(widgetId);
-        } catch (err) {
+          window.turnstile.remove(widgetId);
+        } catch {
           // ignore cleanup failures
         }
       }

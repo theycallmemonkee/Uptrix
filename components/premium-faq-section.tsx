@@ -19,46 +19,34 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const DEFAULT_FAQS: PremiumAccordionItem[] = [
   {
-    id: "what-is-uptrix",
-    question: "What is Uptrix and what do you do?",
+    id: "what-is-growth-marketing-company",
+    question: "What is a Growth Marketing Company and how is it different from an agency?",
     answer:
-      "Uptrix is a growth marketing company. We build and run the marketing engine for startups, scaleups and SMEs that want real growth, not just more campaigns. One team owns your brand, marketing and performance, end to end.",
-  },
-  {
-    id: "different-from-agency",
-    question: "What makes Uptrix different from a traditional agency?",
-    answer:
-      "Traditional agencies run campaigns. We build frameworks. Our Uptrix 5S Framework covers everything from first-day audit to long-term scale, so you are not starting from scratch every quarter or juggling five different vendors.",
+      "An agency sells you a channel. We own the path from positioning to revenue. Brand, GTM, website, ads, content and follow up are built by one team, on one plan, and measured on business numbers.",
   },
   {
     id: "what-is-5s",
-    question: "What is the Uptrix 5S Framework?",
+    question: "What is Uptrix 5S™?",
     answer:
-      "Uptrix 5S is how we work. Scan, Strategy, Sequence, Ship, Scale. It is a five-stage framework we run on every engagement to make sure we are solving the right problem, in the right order, with the right resources.",
-  },
-  {
-    id: "early-or-established",
-    question: "Do you work with early-stage businesses or only established ones?",
-    answer:
-      "Both. We work with businesses at very different stages. Some are pre-launch and need positioning and a go-to-market plan. Others are scaling and need performance marketing and operations. The framework adapts to where you are.",
-  },
-  {
-    id: "typical-engagement",
-    question: "What does a typical engagement look like?",
-    answer:
-      "We start with a Scan: a full review of your market, competitors, current marketing and growth gaps. From there we build your strategy, sequence the right foundations and move into active delivery. Most clients see meaningful results within 60 to 90 days.",
+      "It is how our team runs every engagement, in five stages: Scan, Strategy, Sequence, Ship, Scale. The same path whether you are a startup, a scaleup or an SME. Strategists set the direction, growth experts execute.",
   },
   {
     id: "fractional-cmo",
-    question: "Can I work with Uptrix as a fractional CMO instead of an agency?",
+    question: "Do you work as a fractional CMO?",
     answer:
-      "Yes. Our Fractional CMO service embeds a senior growth strategist into your business. You get executive-level thinking, team coordination and ownership of outcomes without the cost of a full-time hire.",
+      "Yes, with a team attached. A fractional CMO alone gives you strategy you still have to staff. We give you the senior leadership and the people who execute it, under one roof.",
   },
   {
-    id: "measure-success",
-    question: "How do you measure success?",
+    id: "business-stage",
+    question: "Do you work with my stage of business?",
     answer:
-      "By outcomes that matter to your business. Leads, qualified pipeline, customers acquired, revenue grown. We agree on the metrics at the start and report against them throughout.",
+      "Startups, scaleups and established SMEs, across B2B, SaaS, D2C, ecommerce, professional services and regulated industries. If it is not a fit, we say so on the first call.",
+  },
+  {
+    id: "how-quickly",
+    question: "How quickly can I get started?",
+    answer:
+      "Usually within two weeks of the consultation. Paid media and follow up move first. Search, content and brand compound over months, which is why we plan in 90 day blocks.",
   },
 ];
 

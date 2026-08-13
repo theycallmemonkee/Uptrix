@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Caveat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ScrollRestoration } from "@/components/scroll-restoration";
 
 // ── Typography ──────────────────────────────────────────────────────────────
-// Caveat removed — it was loaded but never referenced in active components.
-// Adding it back is a one-liner when needed.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -20,6 +18,14 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: true,
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  preload: false,
 });
 
 // ── Global metadata ─────────────────────────────────────────────────────────
@@ -109,7 +115,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} h-full antialiased`}
+      className={`${inter.variable} ${poppins.variable} ${caveat.variable} h-full antialiased`}
     >
       <head>
         {/* Preconnect to external origins used above the fold */}

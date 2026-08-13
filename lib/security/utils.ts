@@ -22,7 +22,7 @@ export function verifyCsrf(request: Request): boolean {
         return false;
       }
     }
-  } catch (err) {
+  } catch {
     return false; // Catch malformed URLs
   }
 

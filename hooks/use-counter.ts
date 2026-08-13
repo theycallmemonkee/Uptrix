@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 
 export function useCounter(end: number, decimals = 0, duration = 1400) {
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReduced = useReducedMotion();
   const [display, setDisplay] = useState(decimals ? (0).toFixed(decimals) : "0");

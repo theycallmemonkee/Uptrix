@@ -3,8 +3,9 @@ export interface TurnstileObject {
     container: HTMLElement,
     options: {
       sitekey: string;
-      size: "invisible" | "normal" | "compact";
-      callback: (token: string) => void;
+      size?: "normal" | "compact" | "flexible";
+      appearance?: "always" | "execute" | "interaction-only";
+      callback?: (token: string) => void;
       "error-callback"?: (err: unknown) => void;
     }
   ) => string;
