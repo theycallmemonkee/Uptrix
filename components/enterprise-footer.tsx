@@ -54,6 +54,16 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M6.94 8.5H3.56V20.5H6.94V8.5Z" />
+      <path d="M5.25 7.02c1.15 0 2.08-.93 2.08-2.08S6.4 2.86 5.25 2.86 3.17 3.79 3.17 4.94s.93 2.08 2.08 2.08Z" />
+      <path d="M20.5 20.5h-3.38v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.56V8.5h3.24v1.64h.05c.45-.86 1.56-1.76 3.2-1.76 3.43 0 4.45 2.26 4.45 5.2V20.5Z" />
+    </svg>
+  );
+}
+
 export function EnterpriseFooter({ settings }: EnterpriseFooterProps = {}) {
   const navLinks = settings?.footerNavLinks?.length ? settings.footerNavLinks : DEFAULT_NAV_LINKS;
   const systems = settings?.footerSystems?.length ? settings.footerSystems : DEFAULT_SYSTEMS;
@@ -63,10 +73,12 @@ export function EnterpriseFooter({ settings }: EnterpriseFooterProps = {}) {
   const copyrightText = settings?.copyrightText ?? "Copyright © 2026 Uptrix Technologies";
   const facebookHref = settings?.facebookUrl ?? "https://www.facebook.com/uptrixtechnologies";
   const instagramHref = settings?.instagramUrl ?? "https://www.instagram.com/uptrixtechnologies";
+  const linkedinHref = settings?.linkedinUrl ?? "https://www.linkedin.com/company/uptrix-technologies";
 
   const socials = [
     { label: "Facebook", href: facebookHref, Icon: FacebookIcon },
     { label: "Instagram", href: instagramHref, Icon: InstagramIcon },
+    { label: "LinkedIn", href: linkedinHref, Icon: LinkedInIcon },
   ];
 
   const ref = useRef<HTMLElement | null>(null);
