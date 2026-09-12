@@ -19,12 +19,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "Blog | Uptrix Technologies" };
+  if (!post) return { title: "Blog" };
 
   const canonical = `/blog/${post.slug}`;
   const coverUrl = post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`;
   return {
-    title: `${post.title} | Uptrix Technologies`,
+    title: post.title,
     description: post.excerpt,
     alternates: { canonical },
     openGraph: {

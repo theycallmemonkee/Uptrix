@@ -23,7 +23,7 @@ export async function sendContactNotificationEmail(params: {
   message: string;
   timestampIso: string;
   website?: string;
-  budget?: string;
+  hearAboutUs?: string;
   source_page?: string;
 }) {
   const resend = getResendClient();
@@ -43,8 +43,8 @@ export async function sendContactNotificationEmail(params: {
   if (params.website) {
     textLines.push(`Website: ${params.website}`);
   }
-  if (params.budget) {
-    textLines.push(`Monthly Budget Range: ${params.budget}`);
+  if (params.hearAboutUs) {
+    textLines.push(`Where They Heard About Us: ${params.hearAboutUs}`);
   }
   if (params.source_page) {
     textLines.push(`Source Page: ${params.source_page}`);
@@ -59,7 +59,7 @@ export async function sendContactNotificationEmail(params: {
       <p><strong>Email:</strong> ${escapeHtml(params.email)}</p>
       <p><strong>Timestamp:</strong> ${escapeHtml(params.timestampIso)}</p>
       ${params.website ? `<p><strong>Website:</strong> ${escapeHtml(params.website)}</p>` : ""}
-      ${params.budget ? `<p><strong>Monthly Budget Range:</strong> ${escapeHtml(params.budget)}</p>` : ""}
+      ${params.hearAboutUs ? `<p><strong>Where They Heard About Us:</strong> ${escapeHtml(params.hearAboutUs)}</p>` : ""}
       ${params.source_page ? `<p><strong>Source Page:</strong> ${escapeHtml(params.source_page)}</p>` : ""}
       <p><strong>Message:</strong></p>
       <pre style="white-space:pre-wrap;background:#f5f5f5;padding:12px;border-radius:8px;">${escapeHtml(

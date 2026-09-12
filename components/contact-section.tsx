@@ -8,11 +8,13 @@ import { InvisibleTurnstile } from "@/components/ui/turnstile";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const BUDGET_OPTIONS = [
-  "Under £2,000/mo",
-  "£2,000 to £5,000/mo",
-  "£5,000 to £10,000/mo",
-  "£10,000+/mo",
+const HEAR_ABOUT_US_OPTIONS = [
+  "Google Search",
+  "LinkedIn",
+  "Instagram or Facebook",
+  "Referral",
+  "Blog or Content",
+  "Other",
 ];
 
 const NEXT_STEPS = [
@@ -25,7 +27,7 @@ type FormState = {
   name: string;
   email: string;
   website: string;
-  budget: string;
+  hearAboutUs: string;
   message: string;
   honey: string;
 };
@@ -42,7 +44,7 @@ export function ContactSection() {
     name: "",
     email: "",
     website: "",
-    budget: "",
+    hearAboutUs: "",
     message: "",
     honey: "",
   });
@@ -74,7 +76,7 @@ export function ContactSection() {
       name: form.name,
       email: form.email,
       website: form.website,
-      budget: form.budget,
+      hearAboutUs: form.hearAboutUs,
       message: form.message,
       honey: form.honey,
       source_page: "home",
@@ -307,24 +309,24 @@ export function ContactSection() {
                     />
                   </div>
 
-                  {/* Budget range */}
+                  {/* Where did you hear about us */}
                   <div>
                     <label
-                      htmlFor="contact-budget"
+                      htmlFor="contact-hear-about-us"
                       className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
                     >
-                      Monthly budget
+                      Where do you hear about us?
                     </label>
                     <select
-                      id="contact-budget"
-                      name="budget"
-                      value={form.budget}
-                      onChange={set("budget")}
-                      aria-label="Monthly budget range"
+                      id="contact-hear-about-us"
+                      name="hearAboutUs"
+                      value={form.hearAboutUs}
+                      onChange={set("hearAboutUs")}
+                      aria-label="Where do you hear about us?"
                       className={`${inputClass} cursor-pointer appearance-none`}
                     >
-                      <option value="" className="bg-[#0B1F3A]">Select a range</option>
-                      {BUDGET_OPTIONS.map((o) => (
+                      <option value="" className="bg-[#0B1F3A]">Select an option</option>
+                      {HEAR_ABOUT_US_OPTIONS.map((o) => (
                         <option key={o} value={o} className="bg-[#0B1F3A]">{o}</option>
                       ))}
                     </select>
@@ -337,7 +339,7 @@ export function ContactSection() {
                     htmlFor="contact-message"
                     className="mb-1.5 block font-heading text-xs font-semibold text-white/60 uppercase tracking-[0.1em]"
                   >
-                    Your biggest challenge right now <span className="text-[#79ABFF]" aria-label="required">*</span>
+                    Share your requirement <span className="text-[#79ABFF]" aria-label="required">*</span>
                   </label>
                   <textarea
                     id="contact-message"

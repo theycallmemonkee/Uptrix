@@ -6,7 +6,7 @@ export const contactSubmissionSchema = z.object({
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(4000, "Message is too long"),
   honey: z.string().optional().default(""),
   website: z.string().trim().optional(),
-  budget: z.string().trim().optional(),
+  hearAboutUs: z.string().trim().optional(),
   source_page: z.string().trim().optional(),
   turnstileToken: z.string().optional().default(""),
   phone: z.string().trim().optional(),

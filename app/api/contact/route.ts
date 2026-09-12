@@ -178,7 +178,7 @@ export async function POST(request: Request) {
     const sanitizedName = sanitizeInput(input.name);
     const sanitizedMessage = sanitizeInput(input.message);
     const sanitizedWebsite = input.website ? sanitizeInput(input.website) : undefined;
-    const sanitizedBudget = input.budget ? sanitizeInput(input.budget) : undefined;
+    const sanitizedHearAboutUs = input.hearAboutUs ? sanitizeInput(input.hearAboutUs) : undefined;
     const sanitizedSourcePage = input.source_page ? sanitizeInput(input.source_page) : undefined;
     const sanitizedPhone = input.phone ? sanitizeInput(input.phone) : undefined;
 
@@ -248,10 +248,10 @@ export async function POST(request: Request) {
       try {
         const supabase = createSupabaseAdminClient();
         let formattedMessage = finalMessage;
-        if (sanitizedWebsite || sanitizedBudget || sanitizedSourcePage) {
+        if (sanitizedWebsite || sanitizedHearAboutUs || sanitizedSourcePage) {
           formattedMessage += "\n";
           if (sanitizedWebsite) formattedMessage += `\nWebsite: ${sanitizedWebsite}`;
-          if (sanitizedBudget) formattedMessage += `\nBudget: ${sanitizedBudget}`;
+          if (sanitizedHearAboutUs) formattedMessage += `\nHeard About Us Via: ${sanitizedHearAboutUs}`;
           if (sanitizedSourcePage) formattedMessage += `\nSource Page: ${sanitizedSourcePage}`;
         }
 
@@ -318,7 +318,7 @@ export async function POST(request: Request) {
           message: finalMessage,
           timestampIso,
           website: sanitizedWebsite,
-          budget: sanitizedBudget,
+          hearAboutUs: sanitizedHearAboutUs,
           source_page: sanitizedSourcePage,
         });
 
