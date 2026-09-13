@@ -96,7 +96,7 @@ export function BlogPostHero({ post }: { post: BlogPostHeroData }) {
             hidden: { opacity: 0, y: 18 },
             show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
           }}
-          className="mt-6 font-heading text-4xl sm:text-5xl lg:text-[64px] leading-[1.1] font-extrabold tracking-tight text-[#111827]"
+          className="mt-6 font-heading text-[36px] md:text-[48px] lg:text-[58px] leading-[1.08] font-extrabold tracking-tight text-[#111827]"
         >
           {post.title}
         </motion.h1>
