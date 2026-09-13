@@ -50,6 +50,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/more-leads", destination: "/solutions/demand-generation-system", permanent: true },
+      // Legacy single-file sitemap replaced by the sitemap index structure.
+      { source: "/sitemap.xml", destination: "/sitemap_index.xml", permanent: true },
     ];
   },
 };

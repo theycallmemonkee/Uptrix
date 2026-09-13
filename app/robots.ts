@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://uptrixtechnologies.com/sitemap.xml",
+    sitemap: "https://uptrixtechnologies.com/sitemap_index.xml",
   };
 }
