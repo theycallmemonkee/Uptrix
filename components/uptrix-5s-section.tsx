@@ -133,6 +133,20 @@ export function Uptrix5SSection() {
           >
             Expert led at every stage. Your fractional CMO owns the plan, our growth experts run it. The same five stages whether you are a startup, a scaleup or an SME. We pick up wherever you are today.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.22, ease: EASE }}
+          >
+            <Link
+              href="/uptrix-5s-framework"
+              className="mt-4 inline-flex items-center gap-1.5 font-heading text-sm font-semibold text-[#79ABFF] transition-colors duration-200 hover:text-white"
+            >
+              Explore Uptrix 5S
+              <ArrowUpRight size={14} />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Stage cards — horizontal flow with arrows on desktop */}
