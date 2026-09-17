@@ -320,6 +320,7 @@ export async function POST(request: Request) {
           website: sanitizedWebsite,
           hearAboutUs: sanitizedHearAboutUs,
           source_page: sanitizedSourcePage,
+          phone: sanitizedPhone,
         });
 
         if (!emailResult.ok) {

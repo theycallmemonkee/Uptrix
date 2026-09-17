@@ -1,9 +1,8 @@
 import { isEnvSet, SERVER_ENV_KEYS } from "@/lib/env/server-env";
 import { Resend } from "resend";
 
-const CONTACT_FROM = "Uptrix <onboarding@resend.dev>";
-/** Temporary: all submissions go here until production domain is verified in Resend. */
-const CONTACT_TO = "mehtay393@gmail.com";
+const CONTACT_FROM = "onboarding@resend.dev";
+const CONTACT_TO = ["mehtay393@gmail.com", "meenakshimehta07303@gmail.com"];
 
 let resendClient: Resend | null = null;
 
@@ -25,10 +24,11 @@ export async function sendContactNotificationEmail(params: {
   website?: string;
   hearAboutUs?: string;
   source_page?: string;
+  phone?: string;
 }) {
   const resend = getResendClient();
   const from = CONTACT_FROM;
-  const to = [CONTACT_TO];
+  const to = CONTACT_TO;
 
   console.info("[contact/email] Resend send attempt", { from, to });
 
@@ -40,6 +40,9 @@ export async function sendContactNotificationEmail(params: {
     `Timestamp: ${params.timestampIso}`,
   ];
 
+  if (params.phone) {
+    textLines.push(`Phone: ${params.phone}`);
+  }
   if (params.website) {
     textLines.push(`Website: ${params.website}`);
   }
@@ -58,6 +61,7 @@ export async function sendContactNotificationEmail(params: {
       <p><strong>Name:</strong> ${escapeHtml(params.name)}</p>
       <p><strong>Email:</strong> ${escapeHtml(params.email)}</p>
       <p><strong>Timestamp:</strong> ${escapeHtml(params.timestampIso)}</p>
+      ${params.phone ? `<p><strong>Phone:</strong> ${escapeHtml(params.phone)}</p>` : ""}
       ${params.website ? `<p><strong>Website:</strong> ${escapeHtml(params.website)}</p>` : ""}
       ${params.hearAboutUs ? `<p><strong>Where They Heard About Us:</strong> ${escapeHtml(params.hearAboutUs)}</p>` : ""}
       ${params.source_page ? `<p><strong>Source Page:</strong> ${escapeHtml(params.source_page)}</p>` : ""}
