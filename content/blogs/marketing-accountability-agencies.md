@@ -77,7 +77,7 @@ insight: A CEO usually does not need another 40-row channel report. They need a 
 
 Consider a paid media agency. Its responsibilities might include campaign structure, audience targeting, bidding, creative testing, budget optimization and channel reporting. Those are legitimate channel responsibilities.
 
-But whether the company should increase paid acquisition investment depends on much more than the paid account. It depends on demand, conversion, sales capacity, customer economics, positioning and the wider growth plan.
+But whether the company should increase paid acquisition investment depends on much more than the paid account. It depends on demand, conversion, sales capacity, customer economics, positioning and the wider growth plan. [Four conditions decide whether that spend will compound](https://uptrixtechnologies.com/blog/startup-marketing-audit-before-spend), and they sit above the paid account entirely.
 
 The same principle applies to every specialist. An SEO partner can recommend more content, but the overall growth owner should decide whether more content is a higher-priority investment than improving conversion or reallocating budget elsewhere.
 
@@ -90,6 +90,8 @@ Businesses do not necessarily need fewer agencies. They need a clearer operating
 framework:One Business Objective — define the commercial outcome the marketing function is expected to influence|One Strategic Direction — align the target customer, positioning, offer, priority channels, conversion path and measurement approach|Clear Channel Roles — give each partner a role inside the strategy rather than a standalone list of deliverables|Shared Measurement — connect channel performance to the customer journey from investment to qualified demand, conversion, pipeline and revenue|One Decision Process — clarify who reviews performance, who recommends a response, who approves it, who executes it and who checks whether it worked
 
 This makes the agency ecosystem easier to manage because the company is no longer asking every partner to own the whole growth problem. It is asking each partner to own a defined part of the system and to make that part work with the others.
+
+Five principles are the operating model. What carries them day to day is a small set of shared documents every vendor can read without asking you: [the four documents that keep one strategy intact across several agencies](https://uptrixtechnologies.com/blog/managing-multiple-marketing-agencies).
 
 ## What Large Companies Can Teach Growing Businesses
 

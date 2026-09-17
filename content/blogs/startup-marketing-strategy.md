@@ -192,6 +192,8 @@ The better sequence is to understand where conversion is breaking down first, fi
 
 > Do not scale the top of the funnel until you understand what is happening through the rest of it.
 
+Before that next increase, it is worth running a shorter check than a full strategy reset: [four conditions decide whether acquisition spend will actually compound](https://uptrixtechnologies.com/blog/startup-marketing-audit-before-spend), and the conversion path above is only one of them.
+
 That makes acquisition, conversion and measurement part of the same growth decision rather than separate marketing projects.
 
 ## Why Channel Priorities Change as a Business Grows
