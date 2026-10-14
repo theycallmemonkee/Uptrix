@@ -34,6 +34,8 @@ export interface CaseStudy {
   location: string;
   services: string[];
   description: string;
+  /** Meta description override when `description` is over ~160 chars */
+  seoDescription?: string;
   /** Path to the hero / featured image */
   heroImage: string;
   /** All gallery images */
@@ -768,6 +770,8 @@ const apexFitness: CaseStudy = {
 
 const jazzo: CaseStudy = {
   slug: "jazzo",
+  seoDescription:
+    "Designer streetwear store with custom product matrices, dynamic category filters, CDN image pipelines and a mobile first build scoring 99+ on Lighthouse.",
   title: "Jazzo Store — High-Performance Streetwear Commerce",
   client: "Jazzo Store",
   category: "Website Development",
@@ -906,6 +910,8 @@ const vastra: CaseStudy = {
 
 const vodaiq: CaseStudy = {
   slug: "vodaiq",
+  seoDescription:
+    "Data analytics SaaS landing page with dark mode dashboards, interactive pricing and automated sales funnels that drove 60% more trial signups.",
   title: "Vodaiq — SaaS Landing Page with 60% More Trial Signups",
   client: "Vodaiq",
   category: "Website Development",
@@ -952,6 +958,8 @@ const vodaiq: CaseStudy = {
 
 const klevrax: CaseStudy = {
   slug: "klevrax",
+  seoDescription:
+    "Design studio website with immersive scroll layouts, custom WebGL graphics and fluid grid navigation that improved session dwell time 5×.",
   title: "Klevrax — Award-Winning Studio Site with WebGL",
   client: "Klevrax",
   category: "Website Development",
@@ -998,6 +1006,8 @@ const klevrax: CaseStudy = {
 
 const uptrixSite: CaseStudy = {
   slug: "uptrix-site",
+  seoDescription:
+    "Growth marketing agency site built with Next.js, Framer Motion and edge rendering, with automated intake paths that lifted lead conversion 4×.",
   title: "Uptrix Technologies — Enterprise Agency Website",
   client: "Uptrix Technologies",
   category: "Website Development",
@@ -1044,6 +1054,8 @@ const uptrixSite: CaseStudy = {
 
 const ecofitz: CaseStudy = {
   slug: "ecofitz",
+  seoDescription:
+    "Eco friendly consumer store with green first storytelling, fast search and a 99/100 Lighthouse score that drove 70% more organic traffic.",
   title: "Ecofitz — 99/100 Lighthouse Eco-Commerce Store",
   client: "Ecofitz",
   category: "Website Development",
@@ -1090,6 +1102,8 @@ const ecofitz: CaseStudy = {
 
 const lebodee: CaseStudy = {
   slug: "lebodee",
+  seoDescription:
+    "Luxury apparel storefront with HD media displays, modular catalog cards and a frictionless checkout that achieved 55% cart conversion.",
   title: "Lebodee — Luxury Apparel with 55% Cart Conversion",
   client: "Lebodee",
   category: "Website Development",
@@ -1136,6 +1150,8 @@ const lebodee: CaseStudy = {
 
 const tAdda: CaseStudy = {
   slug: "t-adda",
+  seoDescription:
+    "Print on demand store with a real time design canvas, automated fulfilment and bulk ordering, launched with 500+ products live.",
   title: "T-Adda — Real-Time Print-on-Demand Design Engine",
   client: "T-Adda",
   category: "Website Development",
@@ -1186,6 +1202,8 @@ const tAdda: CaseStudy = {
 
 const myGlobalSteps: CaseStudy = {
   slug: "my-global-steps",
+  seoDescription:
+    "Immigration and travel consulting portal with multi step visa applications, appointment booking and document management that cut intake time 60%.",
   title: "My Global Steps — Travel & Immigration Portal",
   client: "My Global Steps",
   category: "Website Development",
@@ -1278,6 +1296,8 @@ const calgaryFlorist: CaseStudy = {
 
 const aagmanIndia: CaseStudy = {
   slug: "aagman-india",
+  seoDescription:
+    "Hospitality booking platform for heritage hotels across India with real time availability, multi property listings and 55% more direct bookings.",
   title: "Aagman India — Hospitality Booking Platform",
   client: "Aagman India",
   category: "Website Development",
@@ -1324,6 +1344,8 @@ const aagmanIndia: CaseStudy = {
 
 const affluxDentistry: CaseStudy = {
   slug: "afflux-dentistry",
+  seoDescription:
+    "Patient acquisition platform for a multi location dental practice, combining online booking, local SEO and Google Ads for 210% more new patient inquiries.",
   title: "Afflux Dentistry — Patient Acquisition System",
   client: "Afflux Dentistry",
   category: "Website Development",

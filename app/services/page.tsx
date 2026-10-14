@@ -4,7 +4,7 @@ import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { ServicesClient } from "@/components/services/ServicesClient";
 
 export const metadata: Metadata = {
-  title: "Services | Uptrix Technologies",
+  title: "Services",
   description:
     "Explore Uptrix premium services in AI UGC video ads, business automation, AI SEO, social media, PPC, and branding for enterprise growth.",
   alternates: { canonical: "/services" },

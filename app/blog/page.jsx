@@ -8,7 +8,7 @@ import BlogListHero from "@/components/blog/blog-list-hero";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://uptrixtechnologies.com";
 
 export const metadata = {
-  title: "Blog | Uptrix Technologies",
+  title: "Blog",
   description: "AI growth insights, case studies, and tactical editorial playbooks from Uptrix.",
   alternates: { canonical: "/blog" },
   openGraph: {

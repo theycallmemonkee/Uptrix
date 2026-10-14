@@ -39,6 +39,7 @@ const STATIC_PAGES: Array<{ path: string; priority: number }> = [
   { path: "/services/ai-ugc-video-ads", priority: 0.7 },
   { path: "/services/business-automation", priority: 0.7 },
   { path: "/blog", priority: 0.7 },
+  { path: "/uptrix-5s-framework", priority: 0.8 },
 ];
 
 /**

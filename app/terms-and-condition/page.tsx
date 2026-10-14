@@ -3,7 +3,8 @@ import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Uptrix Technologies",
+  title: "Terms & Conditions",
+  alternates: { canonical: "/terms-and-condition" },
   description: "Read the Terms & Conditions of Uptrix Technologies digital marketing and AI automation services.",
 };
 

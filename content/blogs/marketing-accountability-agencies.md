@@ -1,5 +1,6 @@
 ---
 title: "Marketing Accountability in 2026: Who Owns Growth When Execution Is Split Across Agencies?"
+seoTitle: "Marketing Accountability When Agencies Split Execution"
 date: "2026-09-14"
 excerpt: "A founder-focused guide to creating clear ownership, connected execution and measurable accountability when marketing is split across agencies."
 cover: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"

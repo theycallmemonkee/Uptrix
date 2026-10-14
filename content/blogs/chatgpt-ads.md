@@ -1,5 +1,6 @@
 ---
 title: "ChatGPT Ads: How They Work and Whether Your Business Should Try Them"
+seoTitle: "ChatGPT Ads: How They Work and Who Should Try Them"
 date: "2026-09-17"
 excerpt: "Learn how ChatGPT ads work, who sees them, how to buy them, what they cost and how to track results, plus a clear test to decide if they suit your business."
 cover: "/blogs/chatgpt-ads/chatgpt-ads-how-they-work.webp"

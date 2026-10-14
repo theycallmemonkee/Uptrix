@@ -25,14 +25,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!solution) {
     return {
-      title: "Solutions | Uptrix Technologies",
+      title: "Solutions",
       description: "Explore enterprise-grade growth solutions built by Uptrix Technologies.",
     };
   }
 
   return {
-    title: `${solution.title} | Uptrix Technologies`,
-    description: `${solution.description} Engineered by Uptrix Technologies to optimize operations and scale customer acquisition.`,
+    title: solution.title,
+    alternates: { canonical: `/solutions/${solution.slug}` },
+    description: solution.description,
     openGraph: {
       title: `${solution.title} | Uptrix Technologies`,
       description: solution.description,

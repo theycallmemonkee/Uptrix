@@ -3,7 +3,8 @@ import { ServicePageTemplate } from "@/components/services/service-page-template
 import { SERVICES_BY_SLUG } from "@/data/services";
 
 export const metadata: Metadata = {
-  title: "PPC Services | Uptrix Technologies",
+  title: "PPC Services",
+  alternates: { canonical: "/services/ppc" },
   description: "Performance media systems that maximize ROAS and reduce ad waste across top channels.",
 };
 

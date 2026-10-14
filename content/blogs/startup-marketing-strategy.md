@@ -1,5 +1,6 @@
 ---
 title: "Startup Marketing Strategy: How to Build One Growth Plan Before Adding More Channels"
+seoTitle: "Startup Marketing Strategy: One Growth Plan First"
 date: "2026-09-13"
 excerpt: "Most startups do not lack marketing channels. They lack clarity about which one should come next. Here is how to diagnose, prioritize and build a growth plan."
 cover: "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=1200&q=80"

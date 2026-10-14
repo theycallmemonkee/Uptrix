@@ -1,5 +1,6 @@
 ---
 title: "Managing Multiple Marketing Agencies: The Four Documents That Keep One Strategy Intact"
+seoTitle: "Managing Multiple Marketing Agencies: 4 Key Documents"
 date: "2026-09-17"
 excerpt: "Four documents keep several marketing agencies working to one strategy: a shared brief, a single scorecard, a gap map, and scope that names an owner."
 cover: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80"

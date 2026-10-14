@@ -6,7 +6,8 @@ import { FloatingOrbs, AnimatedGrid } from "@/components/ui/visual-effects";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Website Development Portfolio — Uptrix Technologies",
+  title: "Website Development Portfolio",
+  alternates: { canonical: "/portfolio/websites" },
   description:
     "Explore our premium website development portfolio. We engineer enterprise-grade storefronts, SaaS landing pages, and creative portals that grow businesses.",
 };

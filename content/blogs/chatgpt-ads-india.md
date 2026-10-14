@@ -1,5 +1,6 @@
 ---
 title: "Are ChatGPT Ads Available in India? What Indian Businesses Need to Know"
+seoTitle: "ChatGPT Ads in India: What Businesses Need to Know"
 date: "2026-09-17"
 excerpt: "Yes, ChatGPT ads are live in India. See who sees them, how Indian businesses sign up, the ₹725 minimum daily budget, and which categories are allowed."
 cover: "/blogs/chatgpt-ads/chatgpt-ads-india.webp"

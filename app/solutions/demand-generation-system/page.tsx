@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { MoreLeadsClient } from "@/components/more-leads/more-leads-client";
+import { seoTitle } from "@/lib/seo/title";
 
 export const metadata: Metadata = {
-  title: "Not Getting Leads? Lead Generation Agency That Delivers",
+  title: seoTitle("Not Getting Leads? Lead Generation Agency That Delivers"),
   description:
     "Tired of an empty pipeline? We build demand generation systems that bring consistent leads every month through SEO, paid ads and AI search.",
   alternates: {

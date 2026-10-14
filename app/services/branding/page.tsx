@@ -3,7 +3,8 @@ import { ServicePageTemplate } from "@/components/services/service-page-template
 import { SERVICES_BY_SLUG } from "@/data/services";
 
 export const metadata: Metadata = {
-  title: "Branding Services | Uptrix Technologies",
+  title: "Branding Services",
+  alternates: { canonical: "/services/branding" },
   description: "Strategic branding systems that improve trust, recall, and long-term growth momentum.",
 };
 

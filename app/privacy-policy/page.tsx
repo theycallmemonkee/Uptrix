@@ -3,7 +3,8 @@ import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Uptrix Technologies",
+  title: "Privacy Policy",
+  alternates: { canonical: "/privacy-policy" },
   description: "Learn how Uptrix Technologies collects, uses, and protects your information.",
 };
 

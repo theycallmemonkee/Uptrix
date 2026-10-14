@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Uptrix5SFrameworkPage } from "@/components/uptrix-5s-framework/uptrix-5s-framework-page";
+import { seoTitle } from "@/lib/seo/title";
 
 export const metadata: Metadata = {
-  title: "What Is Uptrix 5S™? The Growth Marketing Framework",
+  title: seoTitle("What Is Uptrix 5S™? The Growth Marketing Framework"),
   description:
     "Uptrix 5S is a five stage growth marketing framework: Scan, Strategy, Sequence, Ship, Scale. See what each stage does and who it is for.",
   alternates: { canonical: "/uptrix-5s-framework" },

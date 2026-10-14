@@ -3,7 +3,8 @@ import { ServicePageTemplate } from "@/components/services/service-page-template
 import { SERVICES_BY_SLUG } from "@/data/services";
 
 export const metadata: Metadata = {
-  title: "Business Automation Solutions | Uptrix Technologies",
+  title: "Business Automation Solutions",
+  alternates: { canonical: "/services/business-automation" },
   description: "Build intelligent workflows that automate CRM, lead qualification, support, reporting, and operational systems.",
 };
 

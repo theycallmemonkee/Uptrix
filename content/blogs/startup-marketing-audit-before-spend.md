@@ -1,5 +1,6 @@
 ---
 title: "Startup Marketing Audit Before Spend: What Founders Should Diagnose Before Increasing Acquisition Budget"
+seoTitle: "Startup Marketing Audit Before Increasing Ad Budget"
 date: "2026-09-17"
 excerpt: "Four conditions decide whether acquisition spend compounds or just costs more. A readiness check for founders before increasing the marketing budget."
 cover: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80"

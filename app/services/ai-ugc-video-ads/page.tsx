@@ -3,7 +3,8 @@ import { ServicePageTemplate } from "@/components/services/service-page-template
 import { SERVICES_BY_SLUG } from "@/data/services";
 
 export const metadata: Metadata = {
-  title: "AI UGC Video Ads | Uptrix Technologies",
+  title: "AI UGC Video Ads",
+  alternates: { canonical: "/services/ai-ugc-video-ads" },
   description: "Scale creative production with AI-powered UGC video ads, voice cloning, and performance-tested social video systems.",
 };
 

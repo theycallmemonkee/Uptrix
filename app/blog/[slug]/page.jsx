@@ -9,6 +9,7 @@ import { BlogTakeawaysAccordion } from "@/components/blog/blog-takeaways-accordi
 import { BlogRightForm } from "@/components/blog/blog-right-form";
 import { RelatedArticles } from "@/components/blog/related-articles";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/posts";
+import { seoTitle } from "@/lib/seo/title";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://uptrixtechnologies.com";
 
@@ -24,8 +25,8 @@ export async function generateMetadata({ params }) {
   const canonical = `/blog/${post.slug}`;
   const coverUrl = post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`;
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: seoTitle(post.seoTitle || post.title),
+    description: post.seoDescription || post.excerpt,
     alternates: { canonical },
     openGraph: {
       title: post.title,

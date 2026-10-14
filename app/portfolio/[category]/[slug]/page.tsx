@@ -4,6 +4,7 @@ import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { CaseStudyPageClient } from "@/components/portfolio/case-study-client";
 import { PORTFOLIO_ITEMS } from "@/data/portfolio-data";
+import { seoTitle } from "@/lib/seo/title";
 
 const categoryToItemIdMap: Record<string, string> = {
   "ai-seo": "ai-seo",
@@ -37,22 +38,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!project || slug !== "case-study-1") {
     return {
-      title: "Case Study — Uptrix Technologies",
+      title: "Case Study",
       description: "Explore premium marketing performance, AI-driven architectures, and scalable analytics case studies.",
     };
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://uptrixtechnologies.com";
   const canonicalUrl = `${siteUrl}/portfolio/${category}/${slug}`;
+  const title = `${project.client} ${project.category} Case Study`;
 
   return {
-    title: `${project.client} Case Study — ${project.category} Portfolio`,
+    title: seoTitle(title),
     description: project.subtitle,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${project.client} Case Study — ${project.category} Portfolio`,
+      title,
       description: project.subtitle,
       url: canonicalUrl,
       images: [

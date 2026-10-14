@@ -11,13 +11,13 @@ import { PremiumFaqSection } from "@/components/premium-faq-section";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Case Studies & Portfolio — Uptrix Technologies",
+  title: "Case Studies & Portfolio",
   description:
-    "Explore how Uptrix Technologies drives enterprise growth through technical AI SEO, high-efficiency Google Ads, scalable Meta creative campaigns, and automated marketing pipelines.",
+    "Real results from Uptrix Technologies across AI SEO, Google Ads, Meta Ads, social media and website builds. See the case studies behind the numbers.",
   alternates: { canonical: "/portfolio" },
   openGraph: {
-    title: "Case Studies & Portfolio — Uptrix Technologies",
-    description: "Explore how Uptrix Technologies drives enterprise growth through technical AI SEO, high-efficiency Google Ads, scalable Meta creative campaigns, and automated marketing pipelines.",
+    title: "Case Studies & Portfolio | Uptrix Technologies",
+    description: "Real results from Uptrix Technologies across AI SEO, Google Ads, Meta Ads, social media and website builds. See the case studies behind the numbers.",
     url: "https://uptrixtechnologies.com/portfolio",
   },
 };

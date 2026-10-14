@@ -37,7 +37,6 @@ export const metadata: Metadata = {
   description:
     "Uptrix Technologies builds AI powered growth systems that bring you leads, convert customers and scale revenue. Your growth partner, not another agency.",
   metadataBase: new URL("https://uptrixtechnologies.com"),
-  alternates: { canonical: "https://uptrixtechnologies.com" },
   openGraph: {
     siteName: "Uptrix Technologies",
     type: "website",
@@ -76,12 +75,20 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://uptrixtechnologies.com/#organization",
   name: "Uptrix Technologies",
   url: "https://uptrixtechnologies.com",
-  logo: "https://uptrixtechnologies.com/Uptrix.png",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://uptrixtechnologies.com/Uptrix.png",
+  },
+  image: "https://uptrixtechnologies.com/og-image.png",
   description:
     "Uptrix Technologies is a growth marketing company. One team owns your brand, marketing and performance from first strategy call to scale.",
+  foundingDate: "2024",
+  telephone: "+91 9266 893 997",
   sameAs: [
+    "https://www.linkedin.com/company/uptrix-technologies",
     "https://www.facebook.com/uptrixtechnologies",
     "https://www.instagram.com/uptrixtechnologies",
   ],

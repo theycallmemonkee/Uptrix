@@ -25,12 +25,12 @@ const ContactSection       = dynamic(() => import("@/components/contact-section"
 const EnterpriseFooter     = dynamic(() => import("@/components/enterprise-footer").then((m) => m.EnterpriseFooter));
 
 export const metadata: Metadata = {
-  title: "Uptrix Technologies | Growth Marketing Partner for Startups, Scaleups & SMEs",
+  title: { absolute: "Uptrix Technologies | Growth Marketing for Startups & SMEs" },
   description:
     "Uptrix is a growth marketing company. One team owns your brand, marketing and performance from first strategy call to scale. No juggling five vendors.",
   alternates: { canonical: "https://uptrixtechnologies.com" },
   openGraph: {
-    title: "Uptrix Technologies | Growth Marketing Partner for Startups, Scaleups & SMEs",
+    title: "Uptrix Technologies | Growth Marketing for Startups & SMEs",
     description:
       "Uptrix is a growth marketing company. One team owns your brand, marketing and performance from first strategy call to scale. No juggling five vendors.",
     type: "website",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uptrix Technologies | Growth Marketing Partner for Startups, Scaleups & SMEs",
+    title: "Uptrix Technologies | Growth Marketing for Startups & SMEs",
     description:
       "Uptrix is a growth marketing company. One team owns your brand, marketing and performance from first strategy call to scale. No juggling five vendors.",
     images: ["/og-image.png"],

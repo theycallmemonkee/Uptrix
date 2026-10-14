@@ -4,6 +4,7 @@ import { PremiumNavbar } from "@/components/shared/premium-navbar";
 import { EnterpriseFooter } from "@/components/enterprise-footer";
 import { CaseStudyTemplate } from "@/components/case-studies/case-study-template";
 import { ALL_CASE_STUDIES, getCaseStudyBySlug } from "@/data/case-studies-data";
+import { seoTitle } from "@/lib/seo/title";
 
 // ── Static params — one route per case study ─────────────────────────────────
 export function generateStaticParams() {
@@ -23,20 +24,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!study) {
     return {
-      title: "Case Study — Uptrix Technologies",
+      title: "Case Study",
       description: "Explore premium marketing results, AI-driven architectures, and scalable growth case studies from Uptrix Technologies.",
     };
   }
 
   const canonicalUrl = `${siteUrl}/case-studies/${slug}`;
+  const title = `${study.client} ${study.category} Case Study`;
+  const description = study.seoDescription ?? study.description;
 
   return {
-    title: `${study.client} Case Study — ${study.category} | Uptrix Technologies`,
-    description: study.description,
+    title: seoTitle(title),
+    description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${study.client} Case Study — ${study.category}`,
-      description: study.description,
+      title,
+      description,
       url: canonicalUrl,
       type: "article",
       images: [
@@ -50,8 +53,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${study.client} Case Study — ${study.category}`,
-      description: study.description,
+      title,
+      description,
       images: [`${siteUrl}${study.heroImage}`],
     },
   };

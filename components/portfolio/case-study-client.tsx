@@ -16,6 +16,7 @@ const categorySlugMap: Record<string, string> = {
   "google-ads": "google-ads",
   "meta-ads": "meta-ads",
   "social-media": "social",
+  "website-development": "websites",
 };
 
 interface CaseStudyClientProps {

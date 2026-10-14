@@ -1,5 +1,6 @@
 ---
 title: "Paid Media Audit for Startups: What to Diagnose Before Increasing Ad Spend"
+seoTitle: "Paid Media Audit for Startups Before You Scale Ad Spend"
 date: "2026-09-15"
 excerpt: "Before you increase ad spend, diagnose what the current spend is telling you. Nine areas to audit, in order, and how to know when scaling is the right move."
 cover: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"

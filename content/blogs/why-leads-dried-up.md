@@ -1,5 +1,7 @@
 ---
 title: "Why Your Leads Dried Up in 2026 — the AI Search Shift Explained"
+seoTitle: "Why Your Leads Dried Up in 2026: The AI Search Shift"
+seoDescription: "Buyers now find businesses through ChatGPT and Perplexity, not only Google. See how that shift hit your leads and how to adapt your demand generation."
 date: "2026-06-01"
 excerpt: "The shift from traditional search engines to AI tools like ChatGPT and Perplexity has changed how buyers find businesses. Here is how to adapt your demand generation."
 cover: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1200&q=80"

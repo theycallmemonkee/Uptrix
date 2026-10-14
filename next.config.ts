@@ -12,7 +12,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com https://challenges.cloudflare.com https://www.clarity.ms https://*.clarity.ms",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://images.unsplash.com https://*.doubleclick.net https://www.google.com https://cdn.sanity.io https://www.clarity.ms https://*.clarity.ms",
+      "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://images.unsplash.com https://*.doubleclick.net https://www.google.com https://cdn.sanity.io https://www.clarity.ms https://*.clarity.ms https://c.bing.com",
       "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://challenges.cloudflare.com https://*.api.sanity.io wss://*.api.sanity.io https://*.apicdn.sanity.io https://www.clarity.ms https://*.clarity.ms",
       "frame-src https://www.googletagmanager.com https://challenges.cloudflare.com https://www.sanity.io",
     ].join("; "),
@@ -49,6 +49,13 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // Single canonical host: www would otherwise serve a duplicate copy of the site.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.uptrixtechnologies.com" }],
+        destination: "https://uptrixtechnologies.com/:path*",
+        permanent: true,
+      },
       { source: "/more-leads", destination: "/solutions/demand-generation-system", permanent: true },
       // Legacy single-file sitemap replaced by the sitemap index structure.
       { source: "/sitemap.xml", destination: "/sitemap_index.xml", permanent: true },
