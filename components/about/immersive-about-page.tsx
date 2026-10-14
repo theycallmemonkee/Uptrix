@@ -24,19 +24,10 @@ function resolveIcon(name?: string): React.ElementType {
 
 // Default hardcoded data
 const DEFAULT_STATS = [
-  { label: "Returning Clients",    value: 99,  suffix: "%", icon: Users },
-  { label: "Successful Projects",  value: 150, suffix: "+", icon: Rocket },
-  { label: "Work Transparency",    value: 100, suffix: "%", icon: Shield },
-  { label: "Years of Expertise",   value: 15,  suffix: "+", icon: Brain },
+  { label: "Returning Clients",             value: 99,  suffix: "%", icon: Users },
+  { label: "Successful Projects",           value: 150, suffix: "+", icon: Rocket },
+  { label: "Years of Combined Team Expertise", value: 15, suffix: "+", icon: Brain },
 ] as const;
-
-const DEFAULT_TIMELINE = [
-  { year: "2009", title: "Founded", desc: "Uptrix was born with a mission to bridge technology and marketing." },
-  { year: "2014", title: "Going Digital", desc: "Expanded into AI SEO & PPC as digital channels exploded globally." },
-  { year: "2018", title: "AI Integration", desc: "First-mover on AI-powered campaign optimization infrastructure." },
-  { year: "2022", title: "Enterprise Scale", desc: "Serving 100+ enterprise brands across 12+ industries worldwide." },
-  { year: "2026", title: "Growth OS", desc: "Launched full-stack AI Growth OS for ambitious brands." },
-];
 
 const DEFAULT_VALUES = [
   { icon: Target,    title: "Precision",    desc: "Every decision backed by data, not guesswork." },
@@ -94,43 +85,6 @@ function CountCard({ value, suffix, label, icon: Icon }: { value: number; suffix
   );
 }
 
-function TimelineItem({ year, title, desc, index }: { year: string; title: string; desc: string; index: number }) {
-  const isEven = index % 2 === 0;
-  return (
-    <motion.div
-      className={`relative flex items-start gap-6 ${isEven ? "flex-row" : "flex-row-reverse"} lg:items-center`}
-      initial={{ opacity: 0, x: isEven ? -30 : 30, scale: 1 }}
-      whileInView={{ opacity: 1, x: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.7, delay: index * 0.06, ease: EASE }}
-    >
-      {/* Card */}
-      <motion.div
-        className="group relative flex-1 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl hover:border-[#79ABFF]/28 transition-colors duration-300"
-        whileHover={{ y: -4, scale: 1.01 }}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_25%_20%,rgba(0,102,255,0.18),transparent_55%)]" />
-        <p className="text-xs font-medium tracking-[0.2em] text-[#A8C9FF]/70 uppercase">{year}</p>
-        <h3 className="mt-2 font-heading text-xl font-semibold text-white">{title}</h3>
-        <p className="mt-2 text-sm leading-6 text-white/68">{desc}</p>
-      </motion.div>
-
-      {/* Center dot */}
-      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
-        <motion.div
-          className="h-3 w-3 rounded-full bg-[#0066FF] shadow-[0_0_20px_rgba(0,102,255,0.6)]"
-          animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: EASE, delay: index * 0.3 }}
-        />
-        <div className="absolute h-full w-px bg-gradient-to-b from-white/5 via-[#0066FF]/40 to-white/5" />
-      </div>
-
-      {/* Spacer for alternating */}
-      <div className="flex-1 lg:block hidden" />
-    </motion.div>
-  );
-}
-
 export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
   // Derive active data from Sanity or fall back to hardcoded defaults
   const STATS: Array<{ label: string; value: number; suffix: string; icon: React.ElementType }> =
@@ -147,11 +101,6 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
     data?.values?.length
       ? data.values.map((v) => ({ icon: resolveIcon(v.iconName), title: v.title, desc: v.description }))
       : [...DEFAULT_VALUES];
-
-  const TIMELINE: Array<{ year: string; title: string; desc: string }> =
-    data?.timeline?.length
-      ? data.timeline.map((t) => ({ year: t.year, title: t.title, desc: t.description }))
-      : [...DEFAULT_TIMELINE];
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const mouseX = useMotionValue(0.5);
@@ -218,7 +167,7 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.72, delay: 0.18, ease: EASE }}
               >
-                Real growth begins when innovation meets purpose. We are India&apos;s most advanced AI marketing infrastructure company.
+                Real growth begins when innovation meets purpose. Uptrix Technologies is a growth marketing company. One team owns strategy, execution and performance, from the first call to scale.
               </motion.p>
 
               <motion.div
@@ -248,7 +197,7 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
         </section>
 
         {/* ── LOGOS ─────────────────────────────────────────────── */}
-        <MarqueeLogos title="Collaborated with 100+ internationally renowned companies" className="px-6 md:px-10" />
+        <MarqueeLogos title="Trusted by growth-focused teams worldwide" className="px-6 md:px-10" />
 
         {/* ── MISSION / VISION ─────────────────────────────────── */}
         <section className="px-6 py-16 md:px-10">
@@ -260,14 +209,14 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
                 Maximize Your Growth With AI-Powered Marketing
               </h2>
               <p className="mt-4 text-[0.9375rem] text-white/68 leading-[1.8]">
-                To empower businesses through smart development and result-driven marketing — creating growth that compounds over time.
+                To empower businesses through smart development and result-driven marketing, creating growth that compounds over time.
               </p>
               <motion.div
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="mt-7 inline-flex items-center gap-2 rounded-2xl border border-[#8FB9FF]/40 bg-[#77A9FF]/12 px-5 py-3 font-heading text-lg text-[#E8F2FF]"
               >
                 <Zap size={18} className="text-[#79ABFF]" />
-                15+ Years Of Experience
+                15+ Years Of Combined Team Expertise
               </motion.div>
             </ScrollReveal>
 
@@ -275,7 +224,7 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
               <p className="text-xs font-medium tracking-[0.2em] text-[#A8C9FF]/70 uppercase mb-4">Your Success, Our Priority</p>
               <p className="text-[0.9375rem] text-white/68 leading-[1.8]">
-                At Uptrix, we turn ideas into impact. We&apos;re a passionate development and marketing firm dedicated to helping brands grow, scale, and stand out in the digital world.
+                At Uptrix Technologies, we turn ideas into impact. We are a growth marketing team dedicated to helping brands grow, scale and stand out in the digital world.
               </p>
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {VALUES.map(({ icon: Icon, title, desc }) => (
@@ -293,7 +242,7 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
         {/* ── STATS ─────────────────────────────────────────────── */}
         <section className="px-6 py-12 md:px-10">
           <div className="mx-auto w-full max-w-7xl">
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {STATS.map((item) => (
                 <CountCard key={item.label} label={item.label} value={item.value} suffix={item.suffix} icon={item.icon} />
               ))}
@@ -301,23 +250,22 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
           </div>
         </section>
 
-        {/* ── TIMELINE ──────────────────────────────────────────── */}
+        {/* ── COMBINED EXPERTISE ────────────────────────────────── */}
         <section className="px-6 py-16 md:px-10">
           <div className="mx-auto w-full max-w-4xl">
-            <ScrollReveal className="mb-12 text-center">
-              <p className="text-xs font-medium tracking-[0.22em] text-[#A8C9FF]/70 uppercase mb-4">Our Journey</p>
-              <h2 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-semibold tracking-[-0.02em] text-white">
-                Built Over{" "}
-                <span className="inline-flex items-center rounded-2xl border border-[#8DB8FF]/36 bg-[#7BABFF]/14 px-4 py-1.5 text-[#DDEBFF] shadow-[0_8px_24px_rgba(0,102,255,0.2)]">
-                  15 Years
-                </span>
+            <ScrollReveal className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-7 backdrop-blur-xl md:p-10">
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-400 hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(0,102,255,0.16),transparent_55%)]" />
+              <p className="text-xs font-medium tracking-[0.2em] text-[#A8C9FF]/70 uppercase">Our Approach</p>
+              <h2 className="mt-4 font-heading text-[clamp(1.75rem,3.5vw,3rem)] leading-tight font-semibold tracking-[-0.02em] text-white">
+                Built on 15+ Years of Combined Expertise
               </h2>
+              <p className="mt-5 text-[0.9375rem] text-white/68 leading-[1.8]">
+                Uptrix Technologies was founded in 2024. The team behind it has spent more than fifteen combined years across SEO, paid media, performance marketing and growth systems, working with startups, scaleups and SMEs.
+              </p>
+              <p className="mt-4 text-[0.9375rem] text-white/68 leading-[1.8]">
+                That experience is why we work in a fixed order rather than starting with execution. Diagnose what is actually limiting growth, decide what matters, sequence the work, ship it, and scale what the evidence supports.
+              </p>
             </ScrollReveal>
-            <div className="space-y-6">
-              {TIMELINE.map((item, index) => (
-                <TimelineItem key={item.year} {...item} index={index} />
-              ))}
-            </div>
           </div>
         </section>
 
@@ -339,7 +287,7 @@ export function ImmersiveAboutPage({ data }: ImmersiveAboutPageProps = {}) {
                       Proven Strategies And Business Growth
                     </h2>
                     <p className="mt-4 max-w-xl text-[0.9375rem] text-white/68 leading-[1.8]">
-                      We combine creativity, technology, and strategy to deliver the one thing that matters most — your measurable success.
+                      We combine creativity, technology and strategy to deliver the one thing that matters most: your measurable success.
                     </p>
                   </div>
                   <Link

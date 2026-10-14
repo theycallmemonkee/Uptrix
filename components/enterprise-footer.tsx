@@ -67,7 +67,7 @@ function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
 export function EnterpriseFooter({ settings }: EnterpriseFooterProps = {}) {
   const navLinks = settings?.footerNavLinks?.length ? settings.footerNavLinks : DEFAULT_NAV_LINKS;
   const systems = settings?.footerSystems?.length ? settings.footerSystems : DEFAULT_SYSTEMS;
-  const footerTagline = settings?.footerTagline ?? "AI Powered Growth Systems Partner for businesses worldwide";
+  const footerTagline = settings?.footerTagline ?? "Growth marketing partner for businesses worldwide";
   const ctaHeadline = settings?.footerCtaHeadline ?? "Let's Talk About Your Business With Us";
   const ctaButtonLabel = settings?.footerCtaButtonLabel ?? "Let's Get Started";
   const copyrightText = settings?.copyrightText ?? "Copyright © 2026 Uptrix Technologies";
