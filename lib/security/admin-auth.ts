@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 import { logSecurityEvent } from "./logger";
 
@@ -12,8 +13,8 @@ export interface AdminAuthResult {
  * Validates whether the incoming request is authorized for admin actions.
  * Checks for:
  * 1. Authorization header: "Bearer <token>"
- * 2. If token matches Vercel/process.env ADMIN_API_SECRET key (development bypass).
- * 3. Real Supabase user session check and app_metadata/user_metadata role check ("admin").
+ * 2. If token matches ADMIN_API_SECRET (only when set, 32+ chars).
+ * 3. Real Supabase user session check and app_metadata role check ("admin").
  */
 export async function verifyAdminRequest(request: Request): Promise<AdminAuthResult> {
   const authHeader = request.headers.get("authorization");
@@ -33,10 +34,11 @@ export async function verifyAdminRequest(request: Request): Promise<AdminAuthRes
   }
 
   const token = authHeader.substring(7).trim();
-  const adminSecret = process.env.ADMIN_API_SECRET || "uptrix_admin_dev_secret_key_2026";
+  // No fallback: the repo is public, so any hardcoded default would be a working password.
+  const adminSecret = process.env.ADMIN_API_SECRET;
 
-  // Check Developer/Bypass secret key
-  if (token === adminSecret) {
+  // Check shared secret key (only when one is explicitly configured)
+  if (adminSecret && adminSecret.length >= 32 && safeEqual(token, adminSecret)) {
     return { authorized: true, role: "admin" };
   }
 
@@ -58,8 +60,8 @@ export async function verifyAdminRequest(request: Request): Promise<AdminAuthRes
       };
     }
 
-    // Retrieve role from user metadata
-    const role = user.app_metadata?.role || user.user_metadata?.role || "user";
+    // app_metadata only — user_metadata is writable by the user themselves.
+    const role = user.app_metadata?.role || "user";
     if (role !== "admin") {
       logSecurityEvent({
         type: "UNAUTHORIZED_ACCESS",
@@ -86,4 +88,10 @@ export async function verifyAdminRequest(request: Request): Promise<AdminAuthRes
       status: 500,
     };
   }
+}
+
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  return bufA.length === bufB.length && timingSafeEqual(bufA, bufB);
 }

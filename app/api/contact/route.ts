@@ -6,6 +6,7 @@ import { verifyCsrf, sanitizeInput, isGibberish, validatePhone } from "@/lib/sec
 import { checkRateLimit } from "@/lib/security/limiter";
 import { isDisposableEmail } from "@/lib/security/disposable-emails";
 import { logSecurityEvent } from "@/lib/security/logger";
+import { verifyAdminRequest } from "@/lib/security/admin-auth";
 import { NextResponse } from "next/server";
 
 const API_ROUTE = "app/api/contact/route.ts";
@@ -15,9 +16,14 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 /**
- * GET diagnostics endpoint.
+ * GET diagnostics endpoint (admin only — env details shouldn't be public).
  */
-export async function GET() {
+export async function GET(request: Request) {
+  const auth = await verifyAdminRequest(request);
+  if (!auth.authorized) {
+    return NextResponse.json({ ok: false, error: auth.error }, { status: auth.status });
+  }
+
   const audit = getServerEnvAudit();
 
   return NextResponse.json({
@@ -71,9 +77,10 @@ export async function POST(request: Request) {
     let body: unknown;
     try {
       body = await request.json();
+      // Don't log the body itself — it's visitor PII (name, email, phone, message).
       console.info("[contact/api] Request body parsed", {
         requestId,
-        body,
+        fields: body && typeof body === "object" ? Object.keys(body) : [],
       });
     } catch {
       console.error("[contact/api] Invalid JSON body parsed", { requestId });
@@ -348,21 +355,19 @@ export async function POST(request: Request) {
       console.warn("[contact/api] Email notification skipped: RESEND_API_KEY environment variable not configured.");
     }
 
-    const responseBody = {
-      ok: true,
-      emailId,
-      ...(isSuspicious ? { suspicious: true, reasons: suspiciousReasons } : {}),
-      dbStatus,
-      emailStatus,
-      ...(dbWarning ? { dbError: dbWarning } : {}),
-      ...(emailWarning ? { emailError: emailWarning } : {}),
-      ...(dbWarning || emailWarning ? { warning: `Message handled with warnings. Database: ${dbStatus}, Email: ${emailStatus}` } : {}),
-    };
-
+    // Internal details (DB/email errors, spam-filter reasons) go to logs only —
+    // returning them would show attackers how to tune around the filters.
     console.info("[contact/api] Request processing finished", {
       requestId,
-      responseBody,
+      emailId,
+      dbStatus,
+      emailStatus,
+      ...(isSuspicious ? { suspicious: true, reasons: suspiciousReasons } : {}),
+      ...(dbWarning ? { dbError: dbWarning } : {}),
+      ...(emailWarning ? { emailError: emailWarning } : {}),
     });
+
+    const responseBody = { ok: true };
 
     return NextResponse.json(responseBody, { status: 200 });
   } catch (error) {
@@ -370,7 +375,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: error instanceof Error ? error.message : "Unexpected server error. Please try again.",
+        error: "Unexpected server error. Please try again.",
         code: "UNEXPECTED_SERVER_ERROR",
       },
       { status: 500 },
@@ -391,11 +396,11 @@ function getClientIp(request: Request): string {
  * Validates Turnstile captcha token.
  */
 async function verifyTurnstileToken(token: string, ip: string): Promise<boolean> {
-  // Check if token matches standard Cloudflare Turnstile local testing key (always passes)
-  if (token === "1x00000000000000000000AA" || token === "1x0000000000000000000000000000000AA") {
-    return true;
+  // Without a real secret we fall back to Cloudflare's always-pass test secret,
+  // which means the captcha is effectively off.
+  if (!process.env.TURNSTILE_SECRET_KEY && process.env.NODE_ENV === "production") {
+    console.warn("[contact/api] TURNSTILE_SECRET_KEY is not set — captcha is not enforced");
   }
-
   const secretKey = process.env.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
 
   try {

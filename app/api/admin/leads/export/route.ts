@@ -55,9 +55,9 @@ export async function GET(request: Request) {
       });
     }
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
+    console.error("[admin/leads/export] Failed to export leads", err);
     return NextResponse.json(
-      { ok: false, error: `Failed to export leads: ${message}` },
+      { ok: false, error: "Failed to export leads." },
       { status: 500 }
     );
   }
